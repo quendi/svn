@@ -1,4 +1,4 @@
-
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * User: Joe
@@ -7,5 +7,4 @@
  */
 public class Testing {
 
-    Integer i = 0;
 }
