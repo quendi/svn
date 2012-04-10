@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.ArrayList;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Joe
@@ -8,4 +10,11 @@ package domain;
  * To change this template use File | Settings | File Templates.
  */
 public class Board {
+    //TODO: create board by numplayers
+    public Board(int numPlayers) {
+
+    }
+
+    public void placeTile(ArrayList<Tile> tiles) {
+    }
 }

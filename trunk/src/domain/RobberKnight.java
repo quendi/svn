@@ -1,6 +1,10 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+
+import domain.enums.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,7 +19,9 @@ public class RobberKnight {
     private ArrayList<Player> players;
     private Board board;
 
-    public RobberKnight(){}
+    public RobberKnight(int numPlayers, ArrayList<Color> colors, ArrayList<Date> dates){
+        initialize(numPlayers, colors, dates);
+    }
 
 
     /**
@@ -23,15 +29,27 @@ public class RobberKnight {
      * @param numPlayers - used in determining size of board.
      */
     //TODO: how to handle player color?
-    public void initialize(int numPlayers){
+    private void initialize(int numPlayers, ArrayList<Color> colors, ArrayList<Date> birthDates){
          numPlayers = numPlayers;
          for(int i = 0; i < numPlayers; i++){
-             players.add(new Player());
+             players.add(new Player(colors.get(i), birthDates.get(i)));
          }
+        board = new Board(numPlayers);
+    }
+
+    /**
+     * Place playesr chosen tile on turn.
+     */
+    private void startGame(ArrayList<Tile> tiles){
+        board.placeTile(tiles);
+        takeTurn();
 
     }
-    
 
-    
-    
+    private void takeTurn() {
+    }
+
+
+
+
 }
