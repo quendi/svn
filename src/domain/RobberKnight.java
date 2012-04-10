@@ -55,11 +55,18 @@ public class RobberKnight {
 
     }
 
+
+    /**
+     * Checks if all players still have tiles remaining.
+     * @return
+     */
     private boolean playersHaveTiles(){
          for(Player p : players){
-             
+             if(p.getDeck().getSize() == 0){
+                 p.setInGame(false);
+             }
          }
-        return false;
+        return true;
     }
 
 
