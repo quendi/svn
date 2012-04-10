@@ -1,5 +1,4 @@
 package ui;
-
 import java.awt.Point;
 import javax.swing.*;
 import java.awt.event.*;
@@ -72,7 +71,7 @@ public class GUI extends JFrame {
 
         PlayerSelection.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         PlayerSelection.setMinimumSize(new Dimension(1100, 500));
-        PlayerSelection.setResizable(false);
+        PlayerSelection.setResizable(true);
 
         kindPlayer.setModel(new DefaultComboBoxModel(new String[] { "Player", "AI", "No Player" }));
         kindPlayer.addActionListener(new ActionListener() {
@@ -432,7 +431,7 @@ public class GUI extends JFrame {
 
         errorNotEnoughPlayers.setIconImage(null);
         errorNotEnoughPlayers.setMinimumSize(new Dimension(400, 300));
-        errorNotEnoughPlayers.setResizable(false);
+        errorNotEnoughPlayers.setResizable(true);
 
         errorNotEnoughPlayersMsg.setText("                               Error: Must have at least two players");
 
@@ -469,7 +468,7 @@ public class GUI extends JFrame {
         );
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
+        setResizable(true);
         //upload picture to package
         jLabel1.setIcon(new ImageIcon("C:\\Users\\Aaron\\Pictures\\RobberKnights.jpg")); 
 
