@@ -1,3 +1,5 @@
+package ui;
+
 import java.awt.Point;
 import javax.swing.*;
 import java.awt.event.*;
