@@ -16,6 +16,7 @@ public class Player {
     private int id; // TODO make this random.  create in contructor
     private Date birthDate;
     private Deck deck;
+    private boolean inGame;
     public Player(Color color, Date birthdate) {
         //To change body of created methods use File | Settings | File Templates.
     }
@@ -50,5 +51,13 @@ public class Player {
 
     public void setDeck(Deck deck) {
         this.deck = deck;
+    }
+
+    public boolean isInGame() {
+        return inGame;
+    }
+
+    public void setInGame(boolean inGame) {
+        this.inGame = inGame;
     }
 }
