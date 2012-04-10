@@ -1,6 +1,6 @@
 package domain;
 
-import domain.enums.Color;
+import domain.enums.*;
 
 public class Tile {
 	private int 	Terrain;
