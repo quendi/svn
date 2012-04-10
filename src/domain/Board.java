@@ -15,6 +15,6 @@ public class Board {
 
     }
 
-    public void placeTile(ArrayList<Tile> tiles) {
+    public void placeTile(Tile t) {
     }
 }

@@ -38,18 +38,29 @@ public class RobberKnight {
     }
 
     /**
-     * Place playesr chosen tile on turn.
+     * Place players chosen tile on turn.
      */
     private void startGame(ArrayList<Tile> tiles){
-        board.placeTile(tiles);
-        takeTurn();
+        for(Tile t : tiles){
+            board.placeTile(t);
+        }
+        beginTurns();
 
     }
 
-    private void takeTurn() {
+    private void beginTurns() {
+        while(playersHaveTiles()){
+
+        }
+
     }
 
-
+    private boolean playersHaveTiles(){
+         for(Player p : players){
+             
+         }
+        return false;
+    }
 
 
 }
