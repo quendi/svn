@@ -60,4 +60,11 @@ public class Player {
     public void setInGame(boolean inGame) {
         this.inGame = inGame;
     }
+
+    /**
+     * Exucute player turn
+     */
+    //TODO: How to handle this?  Prompt ui to let them know current player is taking their turn?
+    public void takeTurn() {
+    }
 }
