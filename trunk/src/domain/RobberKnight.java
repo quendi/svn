@@ -20,6 +20,7 @@ public class RobberKnight {
     private Board board;
 
     public RobberKnight(int numPlayers, ArrayList<Color> colors, ArrayList<Date> dates){
+        players = new ArrayList<Player>();
         initialize(numPlayers, colors, dates);
     }
 
@@ -50,7 +51,7 @@ public class RobberKnight {
 
     private void beginTurns() {
         while(playersHaveTiles()){
-
+            players.
         }
 
     }
