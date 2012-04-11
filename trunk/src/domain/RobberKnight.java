@@ -31,10 +31,10 @@ public class RobberKnight {
      */
     //TODO: how to handle player color?
     private void initialize(int numPlayers, ArrayList<Color> colors, ArrayList<Date> birthDates){
-         numPlayers = numPlayers;
-         for(int i = 0; i < numPlayers; i++){
-             players.add(new Player(colors.get(i), birthDates.get(i)));
-         }
+        numPlayers = numPlayers;
+        for(int i = 0; i < numPlayers; i++){
+            players.add(new Player(colors.get(i), birthDates.get(i)));
+        }
         board = new Board(numPlayers);
     }
 
@@ -49,14 +49,19 @@ public class RobberKnight {
 
     }
 
+    /**
+     * Main loop that keeps game running until all tiles have been exhausted.
+     */
     private void beginTurns() {
         while(playersHaveTiles()){
             for(Player p : players){
-                p.takeTurn();
+                if(p.isInGame()){
+                    p.takeTurn();
+                }
             }
         }
-
     }
+
 
 
     /**
@@ -65,15 +70,15 @@ public class RobberKnight {
      * @return - status of game
      */
     private boolean playersHaveTiles(){
-         boolean continueGame = false;
-         for(Player p : players){
-             if(p.getDeck().getSize() <= 0){
-                 p.setInGame(false);
-             }
-             else{
-                 continueGame = true;
-             }
-         }
+        boolean continueGame = false;
+        for(Player p : players){
+            if(p.getDeck().getSize() <= 0){
+                p.setInGame(false);
+            }
+            else{
+                continueGame = true;
+            }
+        }
         return continueGame;
     }
 
