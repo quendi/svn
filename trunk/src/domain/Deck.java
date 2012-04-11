@@ -70,4 +70,8 @@ public class Deck {
     public Tile getTile2(){
     	return tiles.get(1);
     }
+
+    public Integer getSize(){
+        return tiles.size();
+    }
 }

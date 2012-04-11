@@ -46,7 +46,6 @@ public class RobberKnight {
             board.placeTile(t);
         }
         beginTurns();
-
     }
 
     /**
@@ -60,8 +59,15 @@ public class RobberKnight {
                 }
             }
         }
+        endGame();
     }
 
+    /**
+     * Totals points and ends game.
+     */
+    private void endGame() {
+
+    }
 
 
     /**
@@ -82,5 +88,34 @@ public class RobberKnight {
         return continueGame;
     }
 
+    /**
+     * Takes given player out of game.
+     * @param playerId
+     */
+    private void surrender(int playerId){
+        try{
+            Player p = lookUpPlayerById(playerId);
+            p.setInGame(false);
+        }
+        catch(Exception e){
 
+        }
+
+    }
+
+    /**
+     * Looks up current player in game by id.
+     * @param id
+     * @return
+     * @throws NoSuchPlayerException
+     */
+    private Player lookUpPlayerById(int id) throws NoSuchPlayerException{
+        for(Player p : players){
+            if(p.getId().equals(id)){
+                return p;
+            }
+        }
+
+        throw new NoSuchPlayerException("No player with given id current in game.");
+    }
 }
