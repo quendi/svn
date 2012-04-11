@@ -51,7 +51,9 @@ public class RobberKnight {
 
     private void beginTurns() {
         while(playersHaveTiles()){
-            
+            for(Player p : players){
+                p.takeTurn();
+            }
         }
 
     }
