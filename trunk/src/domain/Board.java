@@ -23,9 +23,10 @@ public class Board {
     		size=10;
     }
 
-    public void placeTile(Tile t, Point p) {
-    	t.setLocation(p);
+    public void placeTile(Tile t) {
+    	
     }
+    
     
     
 }

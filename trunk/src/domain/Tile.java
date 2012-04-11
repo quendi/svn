@@ -3,11 +3,16 @@ package domain;
 import domain.enums.*;
 
 public class Tile {
-	private int 	Terrain;
-	private int 	Building;
-	private char 	Letter;
-	private int 	NumKnights=0;
-	public  Color 	TopKnight;
+	private Terrain  terrain;
+	private Building building;
+	private char 	 Letter;
+	private int 	 NumKnights=0;
+	public  Color 	 TopKnight;
+	
+	public Tile(Terrain t, Building b){
+		terrain=t;
+		building=b;
+	}
 	
 	void AddKnight(){
 		NumKnights++;
@@ -17,20 +22,20 @@ public class Tile {
 		NumKnights--;
 	}
 
-    public int getTerrain() {
-        return Terrain;
+    public Terrain getTerrain() {
+        return terrain;
     }
 
-    public void setTerrain(int terrain) {
-        Terrain = terrain;
+    public void setTerrain(Terrain t) {
+        terrain = t;
     }
 
-    public int getBuilding() {
-        return Building;
+    public Building getBuilding() {
+        return building;
     }
 
-    public void setBuilding(int building) {
-        Building = building;
+    public void setBuilding(Building b) {
+        building = b;
     }
 
     public char getLetter() {
