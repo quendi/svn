@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Player {
     private Color color;
-    private int id; // TODO make this random.  create in contructor
+    private Integer id; // TODO make this random.  create in contructor
     private Date birthDate;
     private Deck deck;
     private boolean inGame;
@@ -29,11 +29,11 @@ public class Player {
         this.color = color;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
