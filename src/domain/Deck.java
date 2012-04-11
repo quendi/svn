@@ -57,4 +57,17 @@ public class Deck {
     		Collections.swap(tiles, one, two);
     	}  	
     }
+    
+    public Tile drawTile(){
+    	Tile drawn = tiles.get(0);
+    	tiles.remove(0);
+    }
+    
+    public Tile getTile1(){
+    	return tiles.get(0);
+    }
+    
+    public Tile getTile2(){
+    	return tiles.get(1);
+    }
 }
