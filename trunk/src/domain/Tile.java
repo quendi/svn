@@ -1,17 +1,21 @@
 package domain;
 
+import java.awt.Point;
+
 import domain.enums.*;
 
 public class Tile {
 	private Terrain  terrain;
 	private Building building;
-	private char 	 Letter;
+	private char 	 letter;
 	private int 	 NumKnights=0;
+	private Point	 location;
 	public  Color 	 TopKnight;
 	
-	public Tile(Terrain t, Building b){
-		terrain=t;
-		building=b;
+	public Tile(Terrain t, Building b, char l){
+		terrain = t;
+		building = b;
+		letter = l;
 	}
 	
 	void AddKnight(){
@@ -39,11 +43,11 @@ public class Tile {
     }
 
     public char getLetter() {
-        return Letter;
+        return letter;
     }
 
     public void setLetter(char letter) {
-        Letter = letter;
+        letter = letter;
     }
 
     public int getNumKnights() {
@@ -60,5 +64,9 @@ public class Tile {
 
     public void setTopKnight(Color topKnight) {
         TopKnight = topKnight;
+    }
+    
+    public void setLocation(Point p){
+    	location=p;
     }
 }
