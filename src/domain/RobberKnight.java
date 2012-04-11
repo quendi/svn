@@ -57,16 +57,21 @@ public class RobberKnight {
 
 
     /**
-     * Checks if all players still have tiles remaining.
-     * @return
+     * Checks if all players still have tiles remaining. Sets players without tiles to inactive.  Returns false if all player's
+     * decks are empty.
+     * @return - status of game
      */
     private boolean playersHaveTiles(){
+         boolean continueGame = false;
          for(Player p : players){
-             if(p.getDeck().getSize() == 0){
+             if(p.getDeck().getSize() <= 0){
                  p.setInGame(false);
              }
+             else{
+                 continueGame = true;
+             }
          }
-        return true;
+        return continueGame;
     }
 
 
