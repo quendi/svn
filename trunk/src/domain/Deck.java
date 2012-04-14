@@ -7,7 +7,13 @@ import domain.enums.Terrain;
 
 public class Deck {
 	private ArrayList<Tile> tiles = new ArrayList<Tile>();
+    private ArrayList<Tile> hand = new ArrayList<Tile>(2); // tiles player can choose to place
 	private Random generator = new Random(System.currentTimeMillis());
+
+    public Deck(){
+        populateDeck();
+        initialize();       
+    }
 	/**
      * Initializes a player's deck.
      */

@@ -17,8 +17,12 @@ public class Player {
     private Date birthDate;
     private Deck deck;
     private boolean inGame;
-    public Player(Color color, Date birthdate) {
+    private PlayerListener playerListener;
+    public Player(Color color, Date birthdate, int id) {
         //To change body of created methods use File | Settings | File Templates.
+        this.color = color;
+        this.birthDate = birthdate;
+        this.deck = new Deck();
     }
 
     public Color getColor() {
@@ -59,6 +63,15 @@ public class Player {
 
     public void setInGame(boolean inGame) {
         this.inGame = inGame;
+    }
+
+    public void addInventoryListener(PlayerListener il){
+        this.playerListener = il;
+    }
+
+    public void placeTile(){
+        
+        
     }
 
     /**

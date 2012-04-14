@@ -1,8 +1,14 @@
 package domain.enums;
 
 public enum Building {
-	Village,
-	Castle,
-	Town,
-	Nothing
+	Village(2),
+	Castle(1),
+	Town(3),
+	Nothing(0);
+
+    int points;
+
+    Building(int points){
+        this.points = this.points;
+    }
 }

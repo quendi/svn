@@ -16,6 +16,7 @@ import domain.enums.Color;
 public class Board {
 	private int size;
 	private ArrayList<Tile> tiles;
+    private BoardListener boardListener;
 	
     //TODO: create board by numplayers
     public Board(int numPlayers) {
@@ -29,11 +30,15 @@ public class Board {
     	tiles=new ArrayList<Tile>(size*size);
     }
 
+    //todo check if tile is placed in a valid location
+    // also this is just adding to a 1d array.  I thought we had discussed this as a 2d array.
     public void placeTile(Tile t, Point p) {
     	t.setLocation(p);
     	tiles.add(((p.y-1)*size+p.x-1), t);    	
     }
-    
+
+    //todo this is not the purple of calculate points.  you have to add up each players point for the game.  the tile will already know the points by the
+    // building on it.
     public int calculatePoints( Color c ){
     	int point = 0;
     	for( Tile t : tiles){
@@ -49,5 +54,13 @@ public class Board {
     		}
     	}
     	return point;
+    }
+
+    public void addBoardListener(BoardListener bl){
+        this.boardListener = bl;
+    }
+
+    public void notifyPlaced(Tile t){
+        boardListener.placeTile(t);
     }
 }
