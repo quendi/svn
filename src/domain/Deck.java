@@ -2,6 +2,9 @@ package domain;
 
 import java.util.*;
 
+import domain.enums.Building;
+import domain.enums.Terrain;
+
 public class Deck {
 	private ArrayList<Tile> tiles = new ArrayList<Tile>();
 	private Random generator = new Random(System.currentTimeMillis());
@@ -21,30 +24,30 @@ public class Deck {
     
     private void populateDeck(){
     	// create a stack of tiles
-    	tiles.add(new Tile()); //a 
-    	tiles.add(new Tile()); //a 
-    	tiles.add(new Tile()); //a 
-    	tiles.add(new Tile()); //a 
-    	tiles.add(new Tile()); //b 
-    	tiles.add(new Tile()); //b 
-    	tiles.add(new Tile()); //b 
-    	tiles.add(new Tile()); //b 
-    	tiles.add(new Tile()); //b 
-    	tiles.add(new Tile()); //c 
-    	tiles.add(new Tile()); //c 
-    	tiles.add(new Tile()); //c 
-    	tiles.add(new Tile()); //c 
-    	tiles.add(new Tile()); //c 
-    	tiles.add(new Tile()); //d 
-    	tiles.add(new Tile()); //d 
-    	tiles.add(new Tile()); //d 
-    	tiles.add(new Tile()); //d 
-    	tiles.add(new Tile()); //d 
-    	tiles.add(new Tile()); //e 
-    	tiles.add(new Tile()); //e 
-    	tiles.add(new Tile()); //e 
-    	tiles.add(new Tile()); //e 
-    	tiles.add(new Tile()); //e
+    	tiles.add(new Tile(Terrain.Plain, Building.Nothing, 'A')); 
+    	tiles.add(new Tile(Terrain.Plain, Building.Village, 'A'));
+    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'A')); 
+    	tiles.add(new Tile(Terrain.Mountain, Building.Nothing, 'A')); 
+    	tiles.add(new Tile(Terrain.Plain, Building.Village, 'B')); 
+    	tiles.add(new Tile(Terrain.Forest, Building.Village, 'B')); 
+    	tiles.add(new Tile(Terrain.Plain, Building.Town, 'B')); 
+    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'B')); 
+    	tiles.add(new Tile(Terrain.Lake, Building.Nothing, 'B')); 
+    	tiles.add(new Tile(Terrain.Plain, Building.Nothing, 'C')); 
+    	tiles.add(new Tile(Terrain.Plain, Building.Nothing, 'C')); 
+    	tiles.add(new Tile(Terrain.Forest, Building.Town, 'C')); 
+    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'C')); 
+    	tiles.add(new Tile(Terrain.Forest, Building.Castle, 'C')); 
+    	tiles.add(new Tile(Terrain.Forest, Building.Village, 'D')); 
+    	tiles.add(new Tile(Terrain.Plain, Building.Town, 'D')); 
+    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'D')); 
+    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'D')); 
+    	tiles.add(new Tile(Terrain.Mountain, Building.Nothing, 'D')); 
+    	tiles.add(new Tile(Terrain.Plain, Building.Nothing, 'E')); 
+    	tiles.add(new Tile(Terrain.Forest, Building.Village, 'E')); 
+    	tiles.add(new Tile(Terrain.Plain, Building.Town, 'E')); 
+    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'E')); 
+    	tiles.add(new Tile(Terrain.Forest, Building.Castle, 'E'));
     }
     
     private void shuffleTiles(int start, int end, int repeat){
@@ -58,9 +61,16 @@ public class Deck {
     	}  	
     }
     
-    public Tile drawTile(){
-    	Tile drawn = tiles.get(0);
-    	tiles.remove(0);
+    // PlayTile takes the tile number that is played (1 or 2) and removes it from the deck
+    // upon success, it returns true, else it return false
+    public boolean PlayTile(int n){
+    	if(n == 1 || n == 2)
+    	{
+    		tiles.remove(n - 1);
+    		return true;
+    	}
+    	else return false;
+    	
     }
     
     public Tile getTile1(){
