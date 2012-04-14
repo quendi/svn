@@ -1,10 +1,12 @@
 package domain;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
 import domain.enums.*;
+import domain.enums.Color;
 
 /**
  * Created by IntelliJ IDEA.
@@ -24,7 +26,6 @@ public class RobberKnight {
         initialize(numPlayers, colors, dates);
     }
 
-
     /**
      * Initializes current game board and players.
      * @param numPlayers - used in determining size of board.
@@ -32,35 +33,57 @@ public class RobberKnight {
     //TODO: how to handle player color?
     private void initialize(int numPlayers, ArrayList<Color> colors, ArrayList<Date> birthDates){
         numPlayers = numPlayers;
+        int id = 0;
         for(int i = 0; i < numPlayers; i++){
-            players.add(new Player(colors.get(i), birthDates.get(i)));
+            players.add(new Player(colors.get(i), birthDates.get(i), id));
+            id++;
         }
         board = new Board(numPlayers);
     }
 
     /**
-     * Place players chosen tile on turn.
+     * Find the player to begin game by birthdate
+     * @return id of player to begin game
      */
-    private void startGame(ArrayList<Tile> tiles){
-        for(Tile t : tiles){
-            board.placeTile(t);
-        }
-        beginTurns();
-    }
-
-    /**
-     * Main loop that keeps game running until all tiles have been exhausted.
-     */
-    private void beginTurns() {
-        while(playersHaveTiles()){
-            for(Player p : players){
-                if(p.isInGame()){
-                    p.takeTurn();
-                }
+    private int getFirstPlayer(){
+        Date firstDate = new Date();
+        int firstPlayer = 0;
+        for(Player p : players){
+            if(p.getBirthDate().before(firstDate)){
+                firstPlayer = p.getId();
             }
         }
-        endGame();
+
+        return firstPlayer;
     }
+
+//    /**
+//     * Place players chosen tile on turn.
+//     */
+//    private void startGame(ArrayList<Tile> tiles){
+//        for(Tile t : tiles){
+//            board.placeTile(t);
+//        }
+//        beginTurns();
+//    }
+
+    public void placeTile(Tile t, Point location){
+        board.placeTile(t, location);
+    }
+
+//    /**
+//     * Main loop that keeps game running until all tiles have been exhausted.
+//     */
+//    private void beginTurns() {
+//        while(playersHaveTiles()){
+//            for(Player p : players){
+//                if(p.isInGame()){
+//                    p.takeTurn();
+//                }
+//            }
+//        }
+//        endGame();
+//    }
 
     /**
      * Totals points and ends game.

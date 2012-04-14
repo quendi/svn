@@ -1,4 +1,7 @@
 package ui;
+import domain.RobberKnight;
+import domain.Tile;
+
 import java.awt.Point;
 import javax.swing.*;
 import java.awt.event.*;
@@ -9,6 +12,7 @@ import java.awt.*;
  */
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
+    private RobberKnight game;
     public GUI() {
         initComponents();
     }
@@ -715,4 +719,13 @@ public class GUI extends JFrame {
     private JComboBox year2;
     private JComboBox year3;
     private JComboBox year4;
+
+    /**
+     * Tell game to play tile for given playerId
+     * @param tile - tile to be placed
+     * @param location - coordinates of where to place
+     */
+    public void placeTile(Tile tile, Point location) {
+        game.placeTile(tile, location);
+    }
 }
