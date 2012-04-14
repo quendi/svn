@@ -22,8 +22,16 @@ public class Tile {
 		NumKnights++;
 	}
 	
+	void AddKnights(int n){
+		NumKnights += n;
+	}
+	
 	void RemoveKnight(){
 		NumKnights--;
+	}
+	
+	void RemoveKnights(int n){
+		NumKnights -= n;
 	}
 
     public Terrain getTerrain() {
@@ -46,8 +54,8 @@ public class Tile {
         return letter;
     }
 
-    public void setLetter(char letter) {
-        letter = letter;
+    public void setLetter(char l) {
+        letter = l;
     }
 
     public int getNumKnights() {
