@@ -20,6 +20,7 @@ public class RobberKnight {
     private int numPlayers;
     private ArrayList<Player> players;
     private Board board;
+    private int currentPlayerId;
 
     public RobberKnight(int numPlayers, ArrayList<Color> colors, ArrayList<Date> dates){
         players = new ArrayList<Player>();
@@ -32,11 +33,9 @@ public class RobberKnight {
      */
     //TODO: how to handle player color?
     private void initialize(int numPlayers, ArrayList<Color> colors, ArrayList<Date> birthDates){
-        numPlayers = numPlayers;
-        int id = 0;
+        this.numPlayers = numPlayers;
         for(int i = 0; i < numPlayers; i++){
-            players.add(new Player(colors.get(i), birthDates.get(i), id));
-            id++;
+            players.add(new Player(colors.get(i), birthDates.get(i), i));
         }
         board = new Board(numPlayers);
     }
@@ -51,17 +50,22 @@ public class RobberKnight {
         int firstPlayer = 0;
         for(Player p : players){
             if(p.getBirthDate().before(firstDate)){
+                firstDate = p.getBirthDate();
                 firstPlayer = p.getId();
             }
         }
 
+        currentPlayerId = firstPlayer;
         return firstPlayer;
     }
-    
-    private int getNextPlayer(){
-    	//Might be helpful?
-    	int nextPlayer = 0;
-    	return nextPlayer;
+
+    /**
+     * Get next player to take turn.  Set current player to that id.
+     * @return id of next player
+     */
+    protected int getNextPlayer(){
+    	currentPlayerId = (currentPlayerId + 1) % numPlayers;
+        return currentPlayerId;
     }
 
 //    /**
@@ -139,7 +143,7 @@ public class RobberKnight {
      * @return
      * @throws NoSuchPlayerException
      */
-    private Player lookUpPlayerById(int id) throws NoSuchPlayerException{
+    protected Player lookUpPlayerById(int id) throws NoSuchPlayerException{
         for(Player p : players){
             if(p.getId().equals(id)){
                 return p;
