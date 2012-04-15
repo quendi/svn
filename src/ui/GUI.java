@@ -96,7 +96,8 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        color1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blue", "Red", "Green", "Yellow" }));
+        color1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blue" }));
+        color1.setEnabled(false);
 
         jLabel22.setText("Color");
 
@@ -154,7 +155,8 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        color2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blue", "Red", "Green", "Yellow" }));
+        color2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Green" }));
+        color2.setEnabled(false);
 
         jLabel24.setText("Color");
 
@@ -212,7 +214,8 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        color3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blue", "Red", "Green", "Yellow" }));
+        color3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Yellow" }));
+        color3.setEnabled(false);
 
         jLabel26.setText("Color");
 
@@ -270,7 +273,8 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        color4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blue", "Red", "Green", "Yellow" }));
+        color4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Red" }));
+        color4.setEnabled(false);
 
         jLabel28.setText("Color");
 
@@ -594,47 +598,50 @@ public class GUI extends javax.swing.JFrame {
     private void startGameActionPerformed(java.awt.event.ActionEvent evt) {                                          
         //Check to see if there is at least two players
         // TODO : need to add more checks
-        if (kindPlayer1.getSelectedIndex() == 1 && kindPlayer2.getSelectedIndex() == 1 && kindPlayer3.getSelectedIndex() == 1 && kindPlayer4.getSelectedIndex() == 1){
-            errorNotEnoughPlayers.setVisible(true);
-        }
-        else{
-            
-            ArrayList<Date> dates= new ArrayList<Date>();
-            dates.add(new Date(year1.getSelectedIndex() + 1900, month1.getSelectedIndex(), day1.getSelectedIndex()));
-            dates.add(new Date(year2.getSelectedIndex() + 1900, month2.getSelectedIndex(), day2.getSelectedIndex()));
-            dates.add(new Date(year3.getSelectedIndex() + 1900, month3.getSelectedIndex(), day3.getSelectedIndex()));
-            dates.add(new Date(year4.getSelectedIndex() + 1900, month4.getSelectedIndex(), day4.getSelectedIndex()));
-            int numOfPlayers = 2;
-            ArrayList<Color> colors= new ArrayList<Color>();
-            colors.add(Color.BLUE);
-            colors.add(Color.GREEN);
-            colors.add(Color.RED);
-            colors.add(Color.YELLOW);
-            
-            if(kindPlayer3.getSelectedIndex() == 0){numOfPlayers++;}
-            if(kindPlayer4.getSelectedIndex() == 0){numOfPlayers++;}
-            
-            game = new RobberKnight(numOfPlayers, colors, dates);
-            InGame.setVisible(true);
-            PlayerSelection.setVisible(false);
-            
-            if(numOfPlayers == 2){
-                grid.setLayout(new java.awt.GridLayout(7, 7));
-                for(int i = 0; i < 7 * 7; i++)
-                 grid.add(new javax.swing.JButton(Integer.toString(game.getFirstPlayer())));
-            }
-            else if(numOfPlayers == 3){
-                grid.setLayout(new java.awt.GridLayout(9, 9));
-                for(int i = 0; i < 9 * 9; i++)
-                    grid.add(new javax.swing.JButton(Integer.toString(game.getFirstPlayer())));
-            }
-            else{
-                grid.setLayout(new java.awt.GridLayout(10, 10));
-                for(int i = 0; i < 10 * 10; i++)
-                    grid.add(new javax.swing.JButton(Integer.toString(game.getFirstPlayer())));
-            }
 
+        
+            
+        ArrayList<Date> dates = new ArrayList<Date>();
+        dates.add(new Date(year1.getSelectedIndex() + 1900, month1.getSelectedIndex(), day1.getSelectedIndex()));
+        dates.add(new Date(year2.getSelectedIndex() + 1900, month2.getSelectedIndex(), day2.getSelectedIndex()));
+        dates.add(new Date(year3.getSelectedIndex() + 1900, month3.getSelectedIndex(), day3.getSelectedIndex()));
+        dates.add(new Date(year4.getSelectedIndex() + 1900, month4.getSelectedIndex(), day4.getSelectedIndex()));
+        int numOfPlayers = 2;
+        ArrayList<Color> colors = new ArrayList<Color>();
+        colors.add(Color.BLUE);
+        colors.add(Color.GREEN);
+        colors.add(Color.RED);
+        colors.add(Color.YELLOW);
+
+        if (kindPlayer3.getSelectedIndex() == 0) {
+            numOfPlayers++;
         }
+        if (kindPlayer4.getSelectedIndex() == 0) {
+            numOfPlayers++;
+        }
+
+        game = new RobberKnight(numOfPlayers, colors, dates);
+        InGame.setVisible(true);
+        PlayerSelection.setVisible(false);
+
+        if (numOfPlayers == 2) {
+            grid.setLayout(new java.awt.GridLayout(7, 7));
+            for (int i = 0; i < 7 * 7; i++) {
+                grid.add(new javax.swing.JButton());
+            }
+        } else if (numOfPlayers == 3) {
+            grid.setLayout(new java.awt.GridLayout(9, 9));
+            for (int i = 0; i < 9 * 9; i++) {
+                grid.add(new javax.swing.JButton());
+            }
+        } else {
+            grid.setLayout(new java.awt.GridLayout(10, 10));
+            for (int i = 0; i < 10 * 10; i++) {
+                grid.add(new javax.swing.JButton());
+            }
+        }
+
+        
     }                                         
 
     private void kindPlayer1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
