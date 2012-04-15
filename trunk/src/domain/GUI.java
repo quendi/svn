@@ -1,6 +1,7 @@
 package domain;
 
 
+import domain.enums.Building;
 import domain.enums.Color;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -375,13 +376,15 @@ public class GUI extends javax.swing.JFrame {
         InGame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         InGame.setMinimumSize(new java.awt.Dimension(900, 600));
 
-        card1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trunk/resources/Castle.jpg"))); 
-        card1.setText("Card 1");
-        card1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                card1MouseDragged(evt);
-            }
-        });
+        try{
+            if(game.lookUpPlayerById(currentPlayer).getDeck().getTile1().getBuilding() == Building.Castle)
+            card1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/domain/Castle.jpg")));
+            if(game.lookUpPlayerById(currentPlayer).getDeck().getTile1().getBuilding() == Building.Village)
+            card1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/domain/Village.jpg")));
+            if(game.lookUpPlayerById(currentPlayer).getDeck().getTile1().getBuilding() == Building.Town)
+            card1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/domain/Town.jpg")));
+            card1.setText("Card 1");
+        }catch(Exception e){}
 
         card2.setText("Card 2");
         card2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -397,8 +400,13 @@ public class GUI extends javax.swing.JFrame {
         jLabel2.setText("Knights");
 
         endTurn.setText("End Turn");
+        endTurn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                endTurnActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setText(Integer.toString(game.getFirstPlayer()));
+        jLabel3.setText(Integer.toString(currentPlayer));
 
         javax.swing.GroupLayout PlayerPanelLayout = new javax.swing.GroupLayout(PlayerPanel);
         PlayerPanel.setLayout(PlayerPanelLayout);
@@ -624,6 +632,7 @@ public class GUI extends javax.swing.JFrame {
         }
 
         game = new RobberKnight(numOfPlayers, colors, dates);
+        currentPlayer = game.getFirstPlayer();
         InGame.setVisible(true);
         PlayerSelection.setVisible(false);
 
@@ -709,14 +718,6 @@ public class GUI extends javax.swing.JFrame {
         }
     }                                           
 
-    private void card1MouseDragged(java.awt.event.MouseEvent evt) {                                   
-        
-        Point p = evt.getLocationOnScreen();
-        p.x = p.x - 50;
-        p.y = p.y - 70;
-        card1.setLocation(p);
-    }                                  
-
     private void card2MouseDragged(java.awt.event.MouseEvent evt) {                                   
         Point p = evt.getLocationOnScreen();
         p.x = p.x - 50;
@@ -737,6 +738,11 @@ public class GUI extends javax.swing.JFrame {
         System.exit(0);
     }                                     
 
+    private void endTurnActionPerformed(java.awt.event.ActionEvent evt) {
+        currentPlayer = game.getNextPlayer();
+        InGame.repaint();
+    }
+
     public static void main(String args[]) {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -747,6 +753,7 @@ public class GUI extends javax.swing.JFrame {
         });
     }
     private RobberKnight game = new RobberKnight(0, null, null);
+    private int currentPlayer = 0;
     // Variables declaration - do not modify
     private javax.swing.JMenu Edit;
     private javax.swing.JMenu File;
