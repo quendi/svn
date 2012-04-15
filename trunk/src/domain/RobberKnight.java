@@ -45,7 +45,8 @@ public class RobberKnight {
      * Find the player to begin game by birthdate
      * @return id of player to begin game
      */
-    private int getFirstPlayer(){
+    //Changed to public so gui could use
+    public int getFirstPlayer(){
         Date firstDate = new Date();
         int firstPlayer = 0;
         for(Player p : players){
@@ -55,6 +56,12 @@ public class RobberKnight {
         }
 
         return firstPlayer;
+    }
+    
+    private int getNextPlayer(){
+    	//Might be helpful?
+    	int nextPlayer = 0;
+    	return nextPlayer;
     }
 
 //    /**
