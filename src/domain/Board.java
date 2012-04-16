@@ -35,6 +35,7 @@ public class Board {
     public void placeTile(Tile t, Point p) {
     	t.setLocation(p);
     	tiles.add(((p.y-1)*size+p.x-1), t);    	
+    	notifyPlaced(t);
     }
 
     //todo this is not the purple of calculate points.  you have to add up each players point for the game.  the tile will already know the points by the
