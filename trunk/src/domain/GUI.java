@@ -661,15 +661,25 @@ public class GUI extends javax.swing.JFrame {
         //Display Color
         if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.BLUE)) {
             currentColor.setText("Blue");
+            InGame.getContentPane().setBackground(new java.awt.Color(0,102,255));
+            PlayerPanel.setBackground(new java.awt.Color(0,102,255));
         }
         else if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.GREEN)) {
             currentColor.setText("Green");
+            InGame.getContentPane().setBackground(new java.awt.Color(0,153,0));
+            PlayerPanel.setBackground(new java.awt.Color(0,153,0));
         }
         else if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.YELLOW)) {
             currentColor.setText("Yellow");
+            InGame.getContentPane().setBackground(new java.awt.Color(255,255,0));
+            PlayerPanel.setBackground(new java.awt.Color(255,255,0));
         } else {
             currentColor.setText("Red");
+            InGame.getContentPane().setBackground(new java.awt.Color(255,0,0));
+            PlayerPanel.setBackground(new java.awt.Color(255,0,0));
         }
+
+        
 
         if (numOfPlayers == 2) {
             grid.setLayout(new java.awt.GridLayout(7, 7));
@@ -800,14 +810,22 @@ public class GUI extends javax.swing.JFrame {
         //Change color
         if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.BLUE)) {
             currentColor.setText("Blue");
+            InGame.getContentPane().setBackground(new java.awt.Color(0,102,255));
+            PlayerPanel.setBackground(new java.awt.Color(0,102,255));
         }
         else if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.GREEN)) {
             currentColor.setText("Green");
+            InGame.getContentPane().setBackground(new java.awt.Color(0,153,0));
+            PlayerPanel.setBackground(new java.awt.Color(0,153,0));
         }
         else if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.YELLOW)) {
             currentColor.setText("Yellow");
+            InGame.getContentPane().setBackground(new java.awt.Color(255,255,0));
+            PlayerPanel.setBackground(new java.awt.Color(255,255,0));
         } else {
             currentColor.setText("Red");
+            InGame.getContentPane().setBackground(new java.awt.Color(255,0,0));
+            PlayerPanel.setBackground(new java.awt.Color(255,0,0));
         }
     }
 
