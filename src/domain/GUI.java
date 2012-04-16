@@ -715,7 +715,7 @@ public class GUI extends javax.swing.JFrame {
 
                     @Override
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        //button.setIcon(selectedCard.getIcon());
+                        button.setIcon(selectedCard.getIcon());
                         button.setText(selectedCard.getText());
                         //TODO check to see if it's a valid move
                         //draw a new card
@@ -732,7 +732,7 @@ public class GUI extends javax.swing.JFrame {
 
                     @Override
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        //button.setIcon(selectedCard.getIcon());
+                        button.setIcon(selectedCard.getIcon());
                     	button.setText(selectedCard.getText());
                     }
                 });
@@ -746,7 +746,7 @@ public class GUI extends javax.swing.JFrame {
 
                     @Override
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        //button.setIcon(selectedCard.getIcon());
+                        button.setIcon(selectedCard.getIcon());
                     	button.setText(selectedCard.getText());
                     }
                 });
