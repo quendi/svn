@@ -397,14 +397,14 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        card1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/domain/Resources/Castle.jpg"))); // NOI18N
+        //card1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RobberKnights/resources/Castle.jpg"))); // NOI18N
         card1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 card1ActionPerformed(evt);
             }
         });
 
-        card2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/domain/Resources/Village.jpg"))); // NOI18N
+        //card2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RobberKnights/resources/Village.jpg"))); // NOI18N
         card2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 card2ActionPerformed(evt);
@@ -549,7 +549,7 @@ public class GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/domain/Resources/RobberKnights.jpg"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Robber Knights/resources/RobberKnights.jpg"))); // NOI18N
 
         File.setText("File");
 
