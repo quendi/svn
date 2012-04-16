@@ -3,7 +3,11 @@ package domain;
 
 import domain.enums.Building;
 import domain.enums.Color;
+import domain.utils.GameUtils;
+
 import java.awt.Point;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.UIManager;
@@ -636,14 +640,30 @@ public class GUI extends javax.swing.JFrame {
     private void startGameActionPerformed(java.awt.event.ActionEvent evt) {                                          
         //Check to see if there is at least two players
         // TODO : need to add more checks
-
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/YYYY");
         
             
         ArrayList<Date> dates = new ArrayList<Date>();
-        dates.add(new Date(year1.getSelectedIndex() + 1900, month1.getSelectedIndex(), day1.getSelectedIndex()));
-        dates.add(new Date(year2.getSelectedIndex() + 1900, month2.getSelectedIndex(), day2.getSelectedIndex()));
-        dates.add(new Date(year3.getSelectedIndex() + 1900, month3.getSelectedIndex(), day3.getSelectedIndex()));
-        dates.add(new Date(year4.getSelectedIndex() + 1900, month4.getSelectedIndex(), day4.getSelectedIndex()));
+//        String dateStr = new String(month1.getSelectedIndex() + "/" + day1.getSelectedIndex() + "/" + year1.getSelectedIndex());
+
+        try {
+            Date d1 = GameUtils.parseDate((String) month1.getSelectedItem(), (String) day1.getSelectedItem(), (String) year1.getSelectedItem());
+            Date d2 = GameUtils.parseDate((String) month2.getSelectedItem(), (String) day2.getSelectedItem(), (String) year2.getSelectedItem());
+            Date d3 = GameUtils.parseDate((String) month3.getSelectedItem(), (String) day3.getSelectedItem(), (String) year3.getSelectedItem());
+            Date d4 = GameUtils.parseDate((String) month4.getSelectedItem(), (String) day4.getSelectedItem(), (String) year4.getSelectedItem());
+            dates.add(d1);
+            dates.add(d2);
+            dates.add(d3);
+            dates.add(d4);
+
+        } catch (ParseException e) {//TODO: add handling
+            e.printStackTrace();
+        }
+
+//        dates.add(new Date(year1.getSelectedIndex() + 1900, month1.getSelectedIndex(), day1.getSelectedIndex()));
+//        dates.add(new Date(year2.getSelectedIndex() + 1900, month2.getSelectedIndex(), day2.getSelectedIndex()));
+//        dates.add(new Date(year3.getSelectedIndex() + 1900, month3.getSelectedIndex(), day3.getSelectedIndex()));
+//        dates.add(new Date(year4.getSelectedIndex() + 1900, month4.getSelectedIndex(), day4.getSelectedIndex()));
         int numOfPlayers = 2;
         ArrayList<Color> colors = new ArrayList<Color>();
         colors.add(Color.BLUE);

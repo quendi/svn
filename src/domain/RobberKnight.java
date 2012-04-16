@@ -47,7 +47,7 @@ public class RobberKnight {
      */
     //Changed to public so gui could use
     public int getFirstPlayer(){
-        Date firstDate = new Date(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH);
+        Date firstDate = new Date();
         int firstPlayer = 0;
         for(Player p : players){
             if(p.getBirthDate().before(firstDate)){

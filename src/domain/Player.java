@@ -25,6 +25,7 @@ public class Player {
         this.birthDate = birthdate;
         this.deck = new Deck();
         this.numKnights = 30;
+        this.id = id;
     }
     
     public void reduceKnights(int n){
