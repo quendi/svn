@@ -1,3 +1,8 @@
+
+/**
+ * @author Samareh
+ */
+
 package domain;
 
 import java.util.*;
@@ -7,16 +12,12 @@ import domain.enums.Terrain;
 
 public class Deck {
 	private ArrayList<Tile> tiles = new ArrayList<Tile>();
-    private ArrayList<Tile> hand = new ArrayList<Tile>(2); // tiles player can choose to place
-	private Random generator = new Random(System.currentTimeMillis());
+    private Random generator = new Random(System.currentTimeMillis());
 
     public Deck(){
         populateDeck();
         initialize();       
     }
-	/**
-     * Initializes a player's deck.
-     */
     public void initialize(){ 
     	int rep;
     	rep = generator.nextInt()%10;
@@ -85,6 +86,10 @@ public class Deck {
     
     public Tile getTile2(){
     	return tiles.get(1);
+    }
+    
+    public char getTopLetter(){
+    	return tiles.get(2).getLetter();
     }
 
     public Integer getSize(){

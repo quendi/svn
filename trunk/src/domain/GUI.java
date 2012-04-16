@@ -16,10 +16,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class GUI extends javax.swing.JFrame {
 
 
-    public GUI() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public GUI() {
         initComponents();
     }
-
 
     private void placeTile(Tile tile, Point location){
         game.placeTile(tile, location);
