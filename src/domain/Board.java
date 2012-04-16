@@ -35,7 +35,7 @@ public class Board {
     public void placeTile(Tile t, Point p) {
     	t.setLocation(p);
     	tiles.add(((p.y-1)*size+p.x-1), t);    	
-    	notifyPlaced(t);
+    	notifyPlaced(t, p);
     }
 
     //todo this is not the purple of calculate points.  you have to add up each players point for the game.  the tile will already know the points by the
@@ -61,7 +61,7 @@ public class Board {
         this.boardListener = bl;
     }
 
-    public void notifyPlaced(Tile t){
-        boardListener.placeTile(t);
+    public void notifyPlaced(Tile t, Point p){
+        boardListener.placeTile(t, p);
     }
 }
