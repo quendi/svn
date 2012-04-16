@@ -10,8 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 
 /**
  *
@@ -404,7 +403,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        //card1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RobberKnights/resources/Castle.jpg"))); // NOI18N
+        card1.setIcon(new ImageIcon("resources/castle.jpg")); // NOI18N
         card1.setText("CASTLE"); // NOI18N
         card1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -413,6 +412,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         //card2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RobberKnights/resources/Village.jpg"))); // NOI18N
+        card2.setIcon(new ImageIcon("resources/village.jpg"));
         card2.setText("VILAGE"); // NOI18N
         card2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

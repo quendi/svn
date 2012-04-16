@@ -1,5 +1,7 @@
 package domain.enums;
 
+import javax.swing.*;
+
 public enum Building {
 	Village(2),
 	Castle(1),
