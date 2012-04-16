@@ -151,7 +151,7 @@ public class RobberKnight {
      */
     protected Player lookUpPlayerById(int id) throws NoSuchPlayerException{
         for(Player p : players){
-            if(p.getId().equals(id)){
+            if(p.getId() == id){
                 return p;
             }
         }

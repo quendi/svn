@@ -640,10 +640,10 @@ public class GUI extends javax.swing.JFrame {
     private void startGameActionPerformed(java.awt.event.ActionEvent evt) {                                          
         //Check to see if there is at least two players
         // TODO : need to add more checks
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/YYYY");
-        
-            
         ArrayList<Date> dates = new ArrayList<Date>();
+        
+        /*SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/YYYY");
+        
 //        String dateStr = new String(month1.getSelectedIndex() + "/" + day1.getSelectedIndex() + "/" + year1.getSelectedIndex());
 
         try {
@@ -658,12 +658,12 @@ public class GUI extends javax.swing.JFrame {
 
         } catch (ParseException e) {//TODO: add handling
             e.printStackTrace();
-        }
+        }*/
 
-//        dates.add(new Date(year1.getSelectedIndex() + 1900, month1.getSelectedIndex(), day1.getSelectedIndex()));
-//        dates.add(new Date(year2.getSelectedIndex() + 1900, month2.getSelectedIndex(), day2.getSelectedIndex()));
-//        dates.add(new Date(year3.getSelectedIndex() + 1900, month3.getSelectedIndex(), day3.getSelectedIndex()));
-//        dates.add(new Date(year4.getSelectedIndex() + 1900, month4.getSelectedIndex(), day4.getSelectedIndex()));
+        dates.add(new Date(Integer.parseInt(year1.getSelectedItem().toString()) - 1900, month1.getSelectedIndex(), day1.getSelectedIndex()+1));
+        dates.add(new Date(Integer.parseInt(year2.getSelectedItem().toString()) - 1900, month2.getSelectedIndex(), day2.getSelectedIndex()+1));
+        dates.add(new Date(Integer.parseInt(year3.getSelectedItem().toString()) - 1900, month3.getSelectedIndex(), day3.getSelectedIndex()+1));
+        dates.add(new Date(Integer.parseInt(year4.getSelectedItem().toString()) - 1900, month4.getSelectedIndex(), day4.getSelectedIndex()+1));
         int numOfPlayers = 2;
         ArrayList<Color> colors = new ArrayList<Color>();
         colors.add(Color.BLUE);
