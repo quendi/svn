@@ -2,6 +2,7 @@ package domain;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
@@ -46,7 +47,7 @@ public class RobberKnight {
      */
     //Changed to public so gui could use
     public int getFirstPlayer(){
-        Date firstDate = new Date();
+        Date firstDate = new Date(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH);
         int firstPlayer = 0;
         for(Player p : players){
             if(p.getBirthDate().before(firstDate)){
@@ -80,6 +81,11 @@ public class RobberKnight {
 
     public void placeTile(Tile t, Point location){
         board.placeTile(t, location);
+    }
+    
+    public Player getCurrentPlayer()
+    {
+    	return players.get(currentPlayerId);
     }
 
 //    /**
