@@ -398,6 +398,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         //card1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RobberKnights/resources/Castle.jpg"))); // NOI18N
+        card1.setText("CASTLE"); // NOI18N
         card1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 card1ActionPerformed(evt);
@@ -405,6 +406,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         //card2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RobberKnights/resources/Village.jpg"))); // NOI18N
+        card2.setText("VILAGE"); // NOI18N
         card2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 card2ActionPerformed(evt);
@@ -549,8 +551,9 @@ public class GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Robber Knights/resources/RobberKnights.jpg"))); // NOI18N
-
+        //jLabel4.setIcon(new javax.swing.ImageIcon("/trunk/resources/RobberKnights.jpg")); // NOI18N
+        
+        
         File.setText("File");
 
         newGame.setText("New Game");
@@ -689,7 +692,8 @@ public class GUI extends javax.swing.JFrame {
 
                     @Override
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        button.setIcon(selectedCard.getIcon());
+                        //button.setIcon(selectedCard.getIcon());
+                        button.setText(selectedCard.getText());
                         //TODO check to see if it's a valid move
                         //draw a new card
                         //after first play, set it = null
@@ -705,7 +709,8 @@ public class GUI extends javax.swing.JFrame {
 
                     @Override
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        button.setIcon(selectedCard.getIcon());
+                        //button.setIcon(selectedCard.getIcon());
+                    	button.setText(selectedCard.getText());
                     }
                 });
                 grid.add(button);
@@ -718,7 +723,8 @@ public class GUI extends javax.swing.JFrame {
 
                     @Override
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        button.setIcon(selectedCard.getIcon());
+                        //button.setIcon(selectedCard.getIcon());
+                    	button.setText(selectedCard.getText());
                     }
                 });
                 grid.add(button);
@@ -830,13 +836,15 @@ public class GUI extends javax.swing.JFrame {
     }
 
     private void card1ActionPerformed(java.awt.event.ActionEvent evt) {
-        selectedCard.setIcon(card1.getIcon());
-        //TODO add tile to game
+        //selectedCard.setIcon(card1.getIcon());
+    	selectedCard.setText(card1.getText());
+    	//TODO add tile to game
         //game.placeTile();
     }
 
     private void card2ActionPerformed(java.awt.event.ActionEvent evt) {
-        selectedCard.setIcon(card2.getIcon());
+        //selectedCard.setIcon(card2.getIcon());
+        selectedCard.setText(card2.getText());
         //TODO add tile to game
         //game.placeTile();
     }

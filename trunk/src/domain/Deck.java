@@ -61,8 +61,8 @@ public class Deck {
     	int two;
     	
     	for(int i = 0; i < repeat; i++){
-    		one = generator.nextInt()%(end-start)+start;
-    		two = generator.nextInt()%(end-start)+start;
+    		one = (generator.nextInt(100)%(end-start)) + start;
+    		two = (generator.nextInt(100)%(end-start)) + start;
     		Collections.swap(tiles, one, two);
     	}  	
     }
