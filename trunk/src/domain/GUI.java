@@ -24,6 +24,7 @@ public class GUI extends javax.swing.JFrame {
     private void placeTile(Tile tile, Point location){
         game.placeTile(tile, location);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
@@ -64,18 +65,20 @@ public class GUI extends javax.swing.JFrame {
         startGame = new javax.swing.JButton();
         InGame = new javax.swing.JFrame();
         PlayerPanel = new javax.swing.JPanel();
-        card1 = new javax.swing.JButton();
-        card2 = new javax.swing.JButton();
         jButton104 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         endTurn = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        card1 = new javax.swing.JButton();
+        card2 = new javax.swing.JButton();
+        numberOfNights = new javax.swing.JLabel();
+        playersTurn = new javax.swing.JLabel();
+        currentColor = new javax.swing.JLabel();
         grid = new javax.swing.JPanel();
         errorNotEnoughPlayers = new javax.swing.JDialog();
         errorNotEnoughPlayersMsg = new javax.swing.JLabel();
         errorOK = new javax.swing.JButton();
-        Picture = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         Menu = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
         newGame = new javax.swing.JMenuItem();
@@ -376,26 +379,14 @@ public class GUI extends javax.swing.JFrame {
         InGame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         InGame.setMinimumSize(new java.awt.Dimension(900, 600));
 
-        try{
-            if(game.lookUpPlayerById(currentPlayer).getDeck().getTile1().getBuilding() == Building.Castle)
-            card1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/domain/Castle.jpg")));
-            if(game.lookUpPlayerById(currentPlayer).getDeck().getTile1().getBuilding() == Building.Village)
-            card1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/domain/Village.jpg")));
-            if(game.lookUpPlayerById(currentPlayer).getDeck().getTile1().getBuilding() == Building.Town)
-            card1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/domain/Town.jpg")));
-            card1.setText("Card 1");
-        }catch(Exception e){}
-
-        card2.setText("Card 2");
-        card2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                card2MouseDragged(evt);
+        jButton104.setText("Deck");
+        jButton104.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton104ActionPerformed(evt);
             }
         });
 
-        jButton104.setText("Deck");
-
-        jLabel1.setText("Player");
+        jLabel1.setText("Player:");
 
         jLabel2.setText("Knights");
 
@@ -406,7 +397,25 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText(Integer.toString(currentPlayer));
+        card1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/domain/Resources/Castle.jpg"))); // NOI18N
+        card1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                card1ActionPerformed(evt);
+            }
+        });
+
+        card2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/domain/Resources/Village.jpg"))); // NOI18N
+        card2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                card2ActionPerformed(evt);
+            }
+        });
+
+        numberOfNights.setText("jLabel5");
+
+        playersTurn.setText("Number");
+
+        currentColor.setText("Color");
 
         javax.swing.GroupLayout PlayerPanelLayout = new javax.swing.GroupLayout(PlayerPanel);
         PlayerPanel.setLayout(PlayerPanelLayout);
@@ -415,42 +424,54 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(PlayerPanelLayout.createSequentialGroup()
                 .addGroup(PlayerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PlayerPanelLayout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addComponent(card1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(card2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(PlayerPanelLayout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabel1)
-                        .addGap(57, 57, 57)
-                        .addComponent(jLabel3))
-                    .addGroup(PlayerPanelLayout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(jButton104, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PlayerPanelLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(PlayerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(endTurn, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(PlayerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(PlayerPanelLayout.createSequentialGroup()
-                                .addComponent(card1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(card2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(24, 24, 24)
+                                .addComponent(endTurn, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PlayerPanelLayout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(51, 51, 51)
+                                .addComponent(numberOfNights))
+                            .addGroup(PlayerPanelLayout.createSequentialGroup()
+                                .addGap(62, 62, 62)
+                                .addGroup(PlayerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton104, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(PlayerPanelLayout.createSequentialGroup()
+                                        .addGap(29, 29, 29)
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(PlayerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(currentColor)
+                                            .addComponent(playersTurn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         PlayerPanelLayout.setVerticalGroup(
             PlayerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PlayerPanelLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addContainerGap()
                 .addGroup(PlayerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addComponent(jButton104, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                    .addComponent(playersTurn, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addComponent(currentColor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton104, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PlayerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(card1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(card2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
                 .addGroup(PlayerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(card2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(card1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(numberOfNights))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addComponent(endTurn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
         );
@@ -459,11 +480,11 @@ public class GUI extends javax.swing.JFrame {
         grid.setLayout(gridLayout);
         gridLayout.setHorizontalGroup(
             gridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 501, Short.MAX_VALUE)
+            .addGap(0, 574, Short.MAX_VALUE)
         );
         gridLayout.setVerticalGroup(
             gridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 443, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout InGameLayout = new javax.swing.GroupLayout(InGame.getContentPane());
@@ -471,20 +492,20 @@ public class GUI extends javax.swing.JFrame {
         InGameLayout.setHorizontalGroup(
             InGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InGameLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(grid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 352, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(grid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PlayerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         InGameLayout.setVerticalGroup(
             InGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InGameLayout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(grid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(InGameLayout.createSequentialGroup()
                 .addComponent(PlayerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 197, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(InGameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(grid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         errorNotEnoughPlayers.setIconImage(null);
@@ -528,7 +549,7 @@ public class GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        Picture.setIcon(new javax.swing.ImageIcon("C:\\Users\\Aaron\\Pictures\\RobberKnights.jpg")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/domain/Resources/RobberKnights.jpg"))); // NOI18N
 
         File.setText("File");
 
@@ -583,16 +604,16 @@ public class GUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(Picture)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addComponent(jLabel4)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(Picture)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addComponent(jLabel4)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
@@ -621,8 +642,8 @@ public class GUI extends javax.swing.JFrame {
         ArrayList<Color> colors = new ArrayList<Color>();
         colors.add(Color.BLUE);
         colors.add(Color.GREEN);
-        colors.add(Color.RED);
         colors.add(Color.YELLOW);
+        colors.add(Color.RED);
 
         if (kindPlayer3.getSelectedIndex() == 0) {
             numOfPlayers++;
@@ -635,21 +656,62 @@ public class GUI extends javax.swing.JFrame {
         currentPlayer = game.getFirstPlayer();
         InGame.setVisible(true);
         PlayerSelection.setVisible(false);
+        //Display current Player #
+        playersTurn.setText(Integer.toString(game.getFirstPlayer() + 1));
+        //Display Color
+        if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.BLUE)) {
+            currentColor.setText("Blue");
+        }
+        else if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.GREEN)) {
+            currentColor.setText("Green");
+        }
+        else if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.YELLOW)) {
+            currentColor.setText("Yellow");
+        } else {
+            currentColor.setText("Red");
+        }
 
         if (numOfPlayers == 2) {
             grid.setLayout(new java.awt.GridLayout(7, 7));
             for (int i = 0; i < 7 * 7; i++) {
-                grid.add(new javax.swing.JButton());
+                final javax.swing.JButton button = new javax.swing.JButton();
+                button.addActionListener(new java.awt.event.ActionListener() {
+
+                    @Override
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        button.setIcon(selectedCard.getIcon());
+                        //TODO check to see if it's a valid move
+                        //draw a new card
+                        //after first play, set it = null
+                    }
+                });
+                grid.add(button);
             }
         } else if (numOfPlayers == 3) {
             grid.setLayout(new java.awt.GridLayout(9, 9));
             for (int i = 0; i < 9 * 9; i++) {
-                grid.add(new javax.swing.JButton());
+                final javax.swing.JButton button = new javax.swing.JButton();
+                button.addActionListener(new java.awt.event.ActionListener() {
+
+                    @Override
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        button.setIcon(selectedCard.getIcon());
+                    }
+                });
+                grid.add(button);
             }
         } else {
             grid.setLayout(new java.awt.GridLayout(10, 10));
             for (int i = 0; i < 10 * 10; i++) {
-                grid.add(new javax.swing.JButton());
+                final javax.swing.JButton button = new javax.swing.JButton();
+                button.addActionListener(new java.awt.event.ActionListener() {
+
+                    @Override
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        button.setIcon(selectedCard.getIcon());
+                    }
+                });
+                grid.add(button);
             }
         }
 
@@ -718,13 +780,6 @@ public class GUI extends javax.swing.JFrame {
         }
     }                                           
 
-    private void card2MouseDragged(java.awt.event.MouseEvent evt) {                                   
-        Point p = evt.getLocationOnScreen();
-        p.x = p.x - 50;
-        p.y = p.y - 70;
-        card2.setLocation(p);
-    }                                  
-
     private void errorOKActionPerformed(java.awt.event.ActionEvent evt) {                                        
         errorNotEnoughPlayers.setVisible(false);
     }                                       
@@ -739,8 +794,37 @@ public class GUI extends javax.swing.JFrame {
     }                                     
 
     private void endTurnActionPerformed(java.awt.event.ActionEvent evt) {
+        //TODO
         currentPlayer = game.getNextPlayer();
-        InGame.repaint();
+        playersTurn.setText(Integer.toString(currentPlayer + 1));
+        //Change color
+        if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.BLUE)) {
+            currentColor.setText("Blue");
+        }
+        else if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.GREEN)) {
+            currentColor.setText("Green");
+        }
+        else if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.YELLOW)) {
+            currentColor.setText("Yellow");
+        } else {
+            currentColor.setText("Red");
+        }
+    }
+
+    private void card1ActionPerformed(java.awt.event.ActionEvent evt) {
+        selectedCard.setIcon(card1.getIcon());
+        //TODO add tile to game
+        //game.placeTile();
+    }
+
+    private void card2ActionPerformed(java.awt.event.ActionEvent evt) {
+        selectedCard.setIcon(card2.getIcon());
+        //TODO add tile to game
+        //game.placeTile();
+    }
+
+    private void jButton104ActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
     }
 
     public static void main(String args[]) {
@@ -752,6 +836,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
     }
+    private javax.swing.JButton selectedCard = new javax.swing.JButton("Null");
     private RobberKnight game = new RobberKnight(0, null, null);
     private int currentPlayer = 0;
     // Variables declaration - do not modify
@@ -760,7 +845,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenu Help;
     private javax.swing.JFrame InGame;
     private javax.swing.JMenuBar Menu;
-    private javax.swing.JLabel Picture;
     private javax.swing.JPanel PlayerPanel;
     private javax.swing.JFrame PlayerSelection;
     private javax.swing.JMenuItem about;
@@ -771,6 +855,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JComboBox color2;
     private javax.swing.JComboBox color3;
     private javax.swing.JComboBox color4;
+    private javax.swing.JLabel currentColor;
     private javax.swing.JComboBox day1;
     private javax.swing.JComboBox day2;
     private javax.swing.JComboBox day3;
@@ -794,7 +879,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JComboBox kindPlayer1;
     private javax.swing.JComboBox kindPlayer2;
     private javax.swing.JComboBox kindPlayer3;
@@ -805,6 +890,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JComboBox month3;
     private javax.swing.JComboBox month4;
     private javax.swing.JMenuItem newGame;
+    private javax.swing.JLabel numberOfNights;
+    private javax.swing.JLabel playersTurn;
     private javax.swing.JPanel secondPlayer;
     private javax.swing.JButton startGame;
     private javax.swing.JPanel thirdPlayer;
