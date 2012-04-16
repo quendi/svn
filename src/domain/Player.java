@@ -12,6 +12,7 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 public class Player {
+	public int numKnights;
     private Color color;
     private Integer id; // TODO make this random.  create in contructor
     private Date birthDate;
@@ -23,6 +24,11 @@ public class Player {
         this.color = color;
         this.birthDate = birthdate;
         this.deck = new Deck();
+        this.numKnights = 30;
+    }
+    
+    public void reduceKnights(int n){
+    	numKnights -= n;
     }
 
     public Color getColor() {
