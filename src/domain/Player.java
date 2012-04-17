@@ -11,7 +11,7 @@ import java.util.Date;
  * Time: 5:41:38 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Player implements PlayerListener {
+public class Player {
 	public int numKnights;
     private Color color;
     private int id;

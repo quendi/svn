@@ -8,6 +8,6 @@ package domain;
 public interface PlayerListener {
 
     //todo implement this methods in ui
-    public void updateDeck(Tile T);
-    public void updateKnights(int knights);
+    public void updateHand();
+    public void updateKnights();
 }
