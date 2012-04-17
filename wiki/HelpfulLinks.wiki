@@ -1,5 +1,8 @@
 #summary One- list of helpful links
 = List of Helpful Links =
 
-A tutorial on how to add texture to your button:
+The library for putting textures:
 http://www.andygibson.net/blog/2009/08/02/jtexgen-procedural-texture-library-released/
+
+The How-to of that library
+http://www.andygibson.net/articles/jtexgen_release/html/
