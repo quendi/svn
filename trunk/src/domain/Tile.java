@@ -1,6 +1,7 @@
 package domain;
 
 import java.awt.Point;
+import java.io.File;
 
 import domain.enums.*;
 
@@ -95,37 +96,38 @@ public class Tile {
     }
 
     private void setImage(Terrain t, Building b){
+        String separator = File.separator;
         if(Terrain.Lake.equals(t)){
-            this.image = new ImageIcon("resources/Lake.jpg");
+            this.image = new ImageIcon("resources" + separator + "Lake.jpg");
         }
         else if(Terrain.Plain.equals(t)){
             if(Building.Castle.equals(b)){
-                this.image = new ImageIcon("resources/Castle.jpg");
+                this.image = new ImageIcon("resources" + separator + "Castle.jpg");
             }
             else if(Building.Village.equals(b)){
-                this.image = new ImageIcon("resources/Village.jpg");
+                this.image = new ImageIcon("resources" + separator + "Village.jpg");
             }
             else if(Building.Town.equals(b)){
-                this.image = new ImageIcon("resources/Town.jpg");
+                this.image = new ImageIcon("resources" + separator + "Town.jpg");
             }
             else{
-                this.image = new ImageIcon("resources/Plains.jpg");
+                this.image = new ImageIcon("resources" + separator + "Plains.jpg");
             }
         }
         else if (Terrain.Forest.equals(t)){
             if(Building.Castle.equals(b)){
-                this.image = new ImageIcon("resources/ForestCastle.jpg");
+                this.image = new ImageIcon("resources" + separator + "ForestCastle.jpg");
             }
             else if(Building.Village.equals(b)){
-                this.image = new ImageIcon("resources/ForestVillage.jpg");
+                this.image = new ImageIcon("resources" + separator + "ForestVillage.jpg");
             }
             else{
-                this.image = new ImageIcon("resources/ForestTown.jpg");
+                this.image = new ImageIcon("resources" + separator + "ForestTown.jpg");
             }
 
         }
         else{
-            this.image = new ImageIcon("resources/Mountain.jpg");
+            this.image = new ImageIcon("resources" + separator + "Mountain.jpg");
         }
 
     }
