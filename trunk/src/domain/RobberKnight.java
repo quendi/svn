@@ -52,6 +52,7 @@ public class RobberKnight {
                 firstPlayer = p;
             }
         }
+        currentPlayerId = firstPlayer.getId();
         return firstPlayer;
     }
 
