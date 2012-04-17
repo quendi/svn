@@ -16,6 +16,7 @@ import domain.enums.Color;
 public class Board {
 	private int size;
 	private Tile[][] tiles;
+	private int[][] havetile;
     private BoardListener boardListener;
 	
     //TODO: create board by numplayers
@@ -28,13 +29,21 @@ public class Board {
     		size=10;
     	
     	tiles=new Tile[size][size];
+    	havetile=new int[size][size];
     }
 
     //todo check if tile is placed in a valid location
-    public void placeTile(Tile t, Point p) {
-    	t.setLocation(p);
-    	tiles[(int) t.getLocation().getX()][(int) t.getLocation().getY()] = t;
+    public int placeTile(Tile t, Point p) {
+    	// if there has an exist tile, new tile can't be put
+    	if ( havetile[(int) p.x][(int) p.y] == 0 ){
+    		havetile[(int) p.x][(int) p.y] = 1;
+    		t.setLocation(p);
+    		tiles[(int) t.getLocation().getX()][(int) t.getLocation().getY()] = t;
+    	}
+    	else
+    		return -1;
 //    	notifyPlaced(t, p);
+    	return 0;
     }
 
 //    //todo this is not the purpose of calculate points.  you have to add up each players point for the game.  the tile will already know the points by the

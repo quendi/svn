@@ -61,8 +61,12 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
         initComponents();
     }
 
-    private void placeTile(Tile tile, Point location){
-        game.placeTile(tile, location);
+    private int placeTile(Tile tile, Point location){
+        if ( game.placeTile(tile, location) == -1){
+        	return -1;
+        }
+        else
+        	return 0;
     }
 
     @SuppressWarnings("unchecked")
@@ -492,17 +496,20 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
             // Click event for when play clicks on space in board.
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (tileInPlay != null && selectedCard != null) {
-                    moves++;
-                    button.setIcon(selectedCard.getIcon());
-                    button.setText(selectedCard.getText());
-                    tileInPlay.setLocation(location);
-                    game.placeTile(tileInPlay, location);
-                    currentPlayer.getDeck().playTile(tileInPlay);
-                    tileInPlay = null;
-                    updateHand();
-                    if(moves > 2){
-                        endTurnActionPerformed(evt);
-                    }
+                	// if there has an exist tile, new tile can't be put
+                	if( game.placeTile(tileInPlay, location) == 0 ){
+                		moves++;
+                		button.setIcon(selectedCard.getIcon());
+                		button.setText(selectedCard.getText());
+                		tileInPlay.setLocation(location);
+                		game.placeTile(tileInPlay, location);
+                		currentPlayer.getDeck().playTile(tileInPlay);
+                		tileInPlay = null;
+                		updateHand();
+                		if(moves > 2){
+                			endTurnActionPerformed(evt);
+                		}
+                	}
                 }
                 //TODO check to see if it's a valid move
                 //draw a new card
