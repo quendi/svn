@@ -79,6 +79,10 @@ public class Deck {
     	else return false;
     	
     }
+
+    public void playTile(Tile t){
+        tiles.remove(t);
+    }
     
     public Tile getTile1(){
     	return tiles.get(0);

@@ -15,7 +15,7 @@ import domain.enums.Color;
  */
 public class Board {
 	private int size;
-	private ArrayList<Tile> tiles;
+	private Tile[][] tiles;
     private BoardListener boardListener;
 	
     //TODO: create board by numplayers
@@ -27,35 +27,34 @@ public class Board {
     	else
     		size=10;
     	
-    	tiles=new ArrayList<Tile>(size*size);
+    	tiles=new Tile[size][size];
     }
 
     //todo check if tile is placed in a valid location
-    // also this is just adding to a 1d array.  I thought we had discussed this as a 2d array.
     public void placeTile(Tile t, Point p) {
     	t.setLocation(p);
-    	tiles.add(((p.y-1)*size+p.x-1), t);    	
-    	notifyPlaced(t, p);
+    	tiles[(int) t.getLocation().getX()][(int) t.getLocation().getY()] = t;
+//    	notifyPlaced(t, p);
     }
 
-    //todo this is not the purple of calculate points.  you have to add up each players point for the game.  the tile will already know the points by the
-    // building on it.
-    public int calculatePoints( Color c ){
-    	int point = 0;
-    	for( Tile t : tiles){
-    		if( t.TopKnight == c ){
-    			if( t.getBuilding() == Building.Castle )
-    				point+=1;
-    			else if( t.getBuilding() == Building.Village )
-    				point+=2;
-    			else if( t.getBuilding() == Building.Town )
-    				point+=3;
-    				
-    			
-    		}
-    	}
-    	return point;
-    }
+//    //todo this is not the purpose of calculate points.  you have to add up each players point for the game.  the tile will already know the points by the
+//    // building on it.
+//    public int calculatePoints( Color c ){
+//    	int point = 0;
+//    	for( Tile t : tiles){
+//    		if( t.TopKnight == c ){
+//    			if( t.getBuilding() == Building.Castle )
+//    				point+=1;
+//    			else if( t.getBuilding() == Building.Village )
+//    				point+=2;
+//    			else if( t.getBuilding() == Building.Town )
+//    				point+=3;
+//
+//
+//    		}
+//    	}
+//    	return point;
+//    }
 
     public void addBoardListener(BoardListener bl){
         this.boardListener = bl;
