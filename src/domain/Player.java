@@ -11,16 +11,18 @@ import java.util.Date;
  * Time: 5:41:38 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Player {
+public class Player implements PlayerListener {
 	public int numKnights;
     private Color color;
-    private int id; // TODO make this random.  create in contructor
+    private int id;
     private Date birthDate;
     private Deck deck;
     private boolean inGame;
     private PlayerListener playerListener;
+
+    public Player(){}
+
     public Player(Color color, Date birthdate, int id) {
-        //To change body of created methods use File | Settings | File Templates.
         this.color = color;
         this.birthDate = birthdate;
         this.deck = new Deck();
@@ -76,9 +78,19 @@ public class Player {
         this.playerListener = il;
     }
 
+
+
     public void placeTile(){
         
         
+    }
+
+    public int getNumKnights() {
+        return numKnights;
+    }
+
+    public void setNumKnights(int numKnights) {
+        this.numKnights = numKnights;
     }
 
     /**
@@ -86,5 +98,13 @@ public class Player {
      */
     //TODO: How to handle this?  Prompt ui to let them know current player is taking their turn?
     public void takeTurn() {
+    }
+
+    public void updateDeck(Tile t) {
+        this.getDeck().playTile(t);
+    }
+
+    public void updateKnights(int knights) {
+        this.reduceKnights(knights);
     }
 }

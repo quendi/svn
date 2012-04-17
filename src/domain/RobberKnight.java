@@ -45,18 +45,15 @@ public class RobberKnight {
      * Find the player to begin game by birthdate
      * @return id of player to begin game
      */
-    //Changed to public so gui could use
-    public int getFirstPlayer(){
+    public Player getFirstPlayer(){
         Date firstDate = new Date();
-        int firstPlayer = 0;
+        Player firstPlayer = new Player();
         for(Player p : players){
             if(p.getBirthDate().before(firstDate)){
                 firstDate = p.getBirthDate();
-                firstPlayer = p.getId();
+                firstPlayer = p;
             }
         }
-
-        currentPlayerId = firstPlayer;
         return firstPlayer;
     }
 
@@ -64,20 +61,15 @@ public class RobberKnight {
      * Get next player to take turn.  Set current player to that id.
      * @return id of next player
      */
-    protected int getNextPlayer(){
+    protected Player getNextPlayer() throws NoSuchPlayerException {
     	currentPlayerId = (currentPlayerId + 1) % numPlayers;
-        return currentPlayerId;
-    }
 
-//    /**
-//     * Place players chosen tile on turn.
-//     */
-//    private void startGame(ArrayList<Tile> tiles){
-//        for(Tile t : tiles){
-//            board.placeTile(t);
-//        }
-//        beginTurns();
-//    }
+        try {
+            return lookUpPlayerById(currentPlayerId);
+        } catch (NoSuchPlayerException e) {
+            throw new NoSuchPlayerException("No player with id " + currentPlayerId + "found.");
+        }
+    }
 
     public void placeTile(Tile t, Point location){
         board.placeTile(t, location);
@@ -88,19 +80,6 @@ public class RobberKnight {
     	return players.get(currentPlayerId);
     }
 
-//    /**
-//     * Main loop that keeps game running until all tiles have been exhausted.
-//     */
-//    private void beginTurns() {
-//        while(playersHaveTiles()){
-//            for(Player p : players){
-//                if(p.isInGame()){
-//                    p.takeTurn();
-//                }
-//            }
-//        }
-//        endGame();
-//    }
 
     /**
      * Totals points and ends game.
@@ -149,13 +128,14 @@ public class RobberKnight {
      * @return
      * @throws NoSuchPlayerException
      */
-    protected Player lookUpPlayerById(int id) throws NoSuchPlayerException{
+    protected Player lookUpPlayerById(int id) throws NoSuchPlayerException {
         for(Player p : players){
             if(p.getId() == id){
                 return p;
             }
         }
 
-        throw new NoSuchPlayerException("No player with given id current in game.");
+        throw new NoSuchPlayerException("No player with id " + id + "found.");
+
     }
 }
