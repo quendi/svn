@@ -12,8 +12,9 @@ import javax.swing.*;
  *
  * @author Aaron
  */
-public class GUI extends javax.swing.JFrame {
+public class GUI extends javax.swing.JFrame implements PlayerListener {
     private javax.swing.JButton selectedCard = new javax.swing.JButton("Null");
+    private int moves = 0;
     private Tile tileInPlay;
     private RobberKnight game;
     private Player currentPlayer;
@@ -553,6 +554,7 @@ public class GUI extends javax.swing.JFrame {
 
         javax.swing.GroupLayout InGameLayout = new javax.swing.GroupLayout(InGame.getContentPane());
         InGame.getContentPane().setLayout(InGameLayout);
+        InGame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         InGameLayout.setHorizontalGroup(
                 InGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InGameLayout.createSequentialGroup()
@@ -826,34 +828,41 @@ public class GUI extends javax.swing.JFrame {
 
     private void endTurnActionPerformed(java.awt.event.ActionEvent evt) {
         //TODO
-        try {
-            currentPlayer = game.getNextPlayer();
-        } catch (NoSuchPlayerException e) {
-            e.printStackTrace();
+
+        if(moves < 1){
+            JOptionPane.showMessageDialog(InGame, "You must make at least one move.", "More moves are neccessary", JOptionPane.PLAIN_MESSAGE);
         }
-        playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
-        numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
-        card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
-        card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
-        //Change color
-        if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.BLUE)) {
-            currentColor.setText("Blue");
-            InGame.getContentPane().setBackground(new java.awt.Color(0,102,255));
-            PlayerPanel.setBackground(new java.awt.Color(0,102,255));
-        }
-        else if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.GREEN)) {
-            currentColor.setText("Green");
-            InGame.getContentPane().setBackground(new java.awt.Color(0,153,0));
-            PlayerPanel.setBackground(new java.awt.Color(0,153,0));
-        }
-        else if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.YELLOW)) {
-            currentColor.setText("Yellow");
-            InGame.getContentPane().setBackground(new java.awt.Color(255,255,0));
-            PlayerPanel.setBackground(new java.awt.Color(255,255,0));
-        } else {
-            currentColor.setText("Red");
-            InGame.getContentPane().setBackground(new java.awt.Color(255,0,0));
-            PlayerPanel.setBackground(new java.awt.Color(255,0,0));
+        else{
+            try {
+                currentPlayer = game.getNextPlayer();
+            } catch (NoSuchPlayerException e) {
+                e.printStackTrace();
+            }
+            moves = 0;
+            playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
+            numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
+            card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
+            card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
+            //Change color
+            if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.BLUE)) {
+                currentColor.setText("Blue");
+                InGame.getContentPane().setBackground(new java.awt.Color(0,102,255));
+                PlayerPanel.setBackground(new java.awt.Color(0,102,255));
+            }
+            else if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.GREEN)) {
+                currentColor.setText("Green");
+                InGame.getContentPane().setBackground(new java.awt.Color(0,153,0));
+                PlayerPanel.setBackground(new java.awt.Color(0,153,0));
+            }
+            else if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.YELLOW)) {
+                currentColor.setText("Yellow");
+                InGame.getContentPane().setBackground(new java.awt.Color(255,255,0));
+                PlayerPanel.setBackground(new java.awt.Color(255,255,0));
+            } else {
+                currentColor.setText("Red");
+                InGame.getContentPane().setBackground(new java.awt.Color(255,0,0));
+                PlayerPanel.setBackground(new java.awt.Color(255,0,0));
+            }
         }
     }
 
@@ -945,18 +954,32 @@ public class GUI extends javax.swing.JFrame {
             // Click event for when play clicks on space in board.
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (tileInPlay != null && selectedCard != null) {
+                    moves++;
                     button.setIcon(selectedCard.getIcon());
                     button.setText(selectedCard.getText());
                     tileInPlay.setLocation(location);
                     game.placeTile(tileInPlay, location);
                     currentPlayer.getDeck().playTile(tileInPlay);
                     tileInPlay = null;
+                    updateHand();
+                    if(moves > 2){
+                        endTurnActionPerformed(evt);
+                    }
                 }
                 //TODO check to see if it's a valid move
                 //draw a new card
                 //after first play, set it = null
             }
         });
+    }
+
+    public void updateHand(){
+        card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
+        card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
+    }
+
+    public void updateKnights(){
+
     }
 
 
