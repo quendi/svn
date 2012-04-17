@@ -2,12 +2,10 @@ package domain;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 
-import domain.enums.*;
 import domain.enums.Color;
+import exceptions.NoSuchPlayerException;
 
 /**
  * Created by IntelliJ IDEA.

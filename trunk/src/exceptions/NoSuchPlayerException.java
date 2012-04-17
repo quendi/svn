@@ -1,4 +1,4 @@
-package domain;
+package exceptions;
 
 /**
  * Created by IntelliJ IDEA.
@@ -9,7 +9,7 @@ package domain;
  */
 public class NoSuchPlayerException extends Exception {
 
-    NoSuchPlayerException(String message){
+    public NoSuchPlayerException(String message){
         super(message);
     }
 
