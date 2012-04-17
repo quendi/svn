@@ -2,4 +2,4 @@
 = List of Helpful Links =
 
 A tutorial on how to add texture to your button:
-http://www.andygibson.net/blog/tutorial/glass-button-tutorial-in-java/
+http://www.andygibson.net/blog/2009/08/02/jtexgen-procedural-texture-library-released/
