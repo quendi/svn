@@ -1,6 +1,5 @@
 package ui;
 
-import domain.NoSuchPlayerException;
 import domain.Player;
 
 import javax.swing.*;

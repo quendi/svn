@@ -2,11 +2,13 @@ package domain;
 
 
 import domain.enums.Color;
+import exceptions.NoSuchPlayerException;
 
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.*;
+
 
 /**
  *
@@ -18,6 +20,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
     private Tile tileInPlay;
     private RobberKnight game;
     private Player currentPlayer;
+    
     // Variables declaration - do not modify
     private javax.swing.JMenu Edit;
     private javax.swing.JMenu File;
@@ -826,9 +829,12 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
         System.exit(0);
     }
 
+    /**
+     * Moves current turn to next player.
+     * @param evt
+     */
     private void endTurnActionPerformed(java.awt.event.ActionEvent evt) {
         //TODO
-
         if(moves < 1){
             JOptionPane.showMessageDialog(InGame, "You must make at least one move.", "More moves are neccessary", JOptionPane.PLAIN_MESSAGE);
         }
@@ -893,15 +899,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
         // TODO add your handling code here:
     }
 
-    public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new GUI().setVisible(true);
-            }
-        });
-    }
 
     /**
      * Creates appropriate grid for player size.
@@ -982,6 +980,15 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
 
     }
 
+    public static void main(String args[]) {
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            public void run() {
+                new GUI().setVisible(true);
+            }
+        });
+    }
 
 
 
