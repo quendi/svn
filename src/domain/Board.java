@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import domain.enums.Building;
 import domain.enums.Color;
-import org.apache.commons.lang3.ArrayUtils;
+//import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * Created by IntelliJ IDEA.
