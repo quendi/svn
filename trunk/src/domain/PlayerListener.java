@@ -9,5 +9,6 @@ public interface PlayerListener {
 
     //todo implement this methods in ui
     public void updateHand();
+    public void updateHand(Player p);
     public void updateKnights();
 }

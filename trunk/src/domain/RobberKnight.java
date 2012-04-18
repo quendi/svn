@@ -66,7 +66,9 @@ public class RobberKnight {
     	currentPlayerId = (currentPlayerId + 1) % numPlayers;
 
         try {
-            return lookUpPlayerById(currentPlayerId);
+            Player next = lookUpPlayerById(currentPlayerId);
+            next.notifyHand();
+            return next;
         } catch (NoSuchPlayerException e) {
             throw new NoSuchPlayerException("No player with id " + currentPlayerId + "found.");
         }
