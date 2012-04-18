@@ -60,7 +60,7 @@ public class RobberKnight {
      * Get next player to take turn.  Set current player to that id.
      * @return id of next player
      */
-    protected Player getNextPlayer() throws NoSuchPlayerException {
+    public Player getNextPlayer() throws NoSuchPlayerException {
     	currentPlayerId = (currentPlayerId + 1) % numPlayers;
 
         try {

@@ -15,11 +15,13 @@ public class Tile {
     private Point	 location;
     public  Color 	 TopKnight;
     private ImageIcon image;
+    private int minimumKnights;
 
     public Tile(Terrain t, Building b, char l){
         terrain = t;
         building = b;
         letter = l;
+        minimumKnights = t.getKnightRestriction();
         setImage(t,b);
     }
 
@@ -95,6 +97,14 @@ public class Tile {
         this.image = image;
     }
 
+    public int getMinimumKnights() {
+        return minimumKnights;
+    }
+
+    public void setMinimumKnights(int minimumKnights) {
+        this.minimumKnights = minimumKnights;
+    }
+
     private void setImage(Terrain t, Building b){
         String separator = File.separator;
         if(Terrain.Lake.equals(t)){
@@ -128,6 +138,7 @@ public class Tile {
         }
         else{
             this.image = new ImageIcon("resources" + separator + "Mountain.jpg");
+            System.out.println("WIDTH: " + this.image.getIconWidth() + " HEIGHT: " + this.image.getIconHeight());
         }
 
     }
