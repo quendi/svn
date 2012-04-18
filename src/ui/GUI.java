@@ -67,6 +67,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener,
 	private int tilesPlaced = 0;
 	private int selectedTile = 0;
 	private int first = 0;
+	public int size = 117 * 7;
 
 	// End of variables declaration
 
@@ -321,7 +322,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener,
 																card1,
 																117,
 																117,
-																117))
+																117)
 														.addComponent(
 																card2,
 																117,
@@ -347,21 +348,22 @@ public class GUI extends javax.swing.JFrame implements PlayerListener,
 												javax.swing.GroupLayout.PREFERRED_SIZE,
 												63,
 												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addGap(52, 52, 52));
+										.addGap(52, 52, 52)));
 
 		javax.swing.GroupLayout gridLayout = new javax.swing.GroupLayout(grid);
 		grid.setLayout(gridLayout);
-		gridLayout.setHorizontalGroup(gridLayout.createParallelGroup(
+		/*gridLayout.setHorizontalGroup(gridLayout.createParallelGroup(
 				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 574,
 				Short.MAX_VALUE));
 		gridLayout.setVerticalGroup(gridLayout.createParallelGroup(
 				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 0,
-				Short.MAX_VALUE));
+				Short.MAX_VALUE));*/
 
 		javax.swing.GroupLayout InGameLayout = new javax.swing.GroupLayout(
 				InGame.getContentPane());
 		InGame.getContentPane().setLayout(InGameLayout);
 		InGame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
 		InGameLayout
 				.setHorizontalGroup(InGameLayout
 						.createParallelGroup(
@@ -375,15 +377,11 @@ public class GUI extends javax.swing.JFrame implements PlayerListener,
 										// javax.swing.GroupLayout.DEFAULT_SIZE,
 										// javax.swing.GroupLayout.DEFAULT_SIZE,
 										// Short.MAX_VALUE)
-										.addComponent(grid/*
-														 * ,
-														 * javax.swing.GroupLayout
-														 * .DEFAULT_SIZE,
-														 * javax.swing
-														 * .GroupLayout
-														 * .DEFAULT_SIZE,
-														 * Short.MAX_VALUE
-														 */)
+										.addComponent(grid,
+														  size,
+														  size,
+														  size
+														 )
 										.addPreferredGap(
 												javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 										.addComponent(
@@ -403,10 +401,10 @@ public class GUI extends javax.swing.JFrame implements PlayerListener,
 								.addGap(0, 0, Short.MAX_VALUE))
 				.addGroup(
 						InGameLayout.createSequentialGroup().addContainerGap()
-						// .addComponent(grid,
-						// javax.swing.GroupLayout.DEFAULT_SIZE,
-						// javax.swing.GroupLayout.DEFAULT_SIZE,
-						// Short.MAX_VALUE)
+						 .addComponent(grid,
+						 size,
+						 size,
+						 size)
 								.addComponent(grid/*
 												 * , javax.swing.GroupLayout.
 												 * DEFAULT_SIZE,
@@ -754,6 +752,8 @@ public class GUI extends javax.swing.JFrame implements PlayerListener,
 	}
 
 	public void initializeTiles() {
+		
+		
 		initialTile.setVisible(true);
 		initialTile.setBounds(0, 0, 1200, 1200);
 		initialTile.setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -769,6 +769,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener,
 				selectedCard = tile1;
 				selectedTile = 0;
 				first = 2;
+
 			}
 		});
 		final JButton tile2 = new JButton();
@@ -783,6 +784,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener,
 				} else {
 					first = 1;
 				}
+
 			}
 		});
 
@@ -795,9 +797,8 @@ public class GUI extends javax.swing.JFrame implements PlayerListener,
 				selectedTile = 3;
 				if (first == 1 || first == 2) {
 					selectedTile = 2;
-				} else {
-					selectedTile = 3;
-				}
+				} 
+
 			}
 		});
 		final JButton select = new JButton("Next Player");
@@ -877,6 +878,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener,
 												.getTile4());
 								updateHand();
 								selectedCard = null;
+
 							}
 							tilesPlaced++;
 						} else if (selectedCard == null) {

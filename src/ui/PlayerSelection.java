@@ -358,6 +358,7 @@ public class PlayerSelection extends GUI{
             numOfPlayers++;
         }
 
+
         game = new RobberKnight(numOfPlayers, colors, dates, mainWindow);
         currentPlayer = game.getFirstPlayer();
         card1.setIcon(currentPlayer.getDeck().getTile1().getImage()); // NOI18N
