@@ -20,6 +20,7 @@ public class TileButton extends JButton {
     public TileButton(){
         super();
         this.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+        this.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
     }
 
     public void paintComponent(Graphics g) {

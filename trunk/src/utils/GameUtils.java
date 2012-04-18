@@ -1,4 +1,6 @@
-package domain.utils;
+package utils;
+
+import domain.Tile;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,5 +27,18 @@ public class GameUtils {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         Date date = sdf.parse(month + "/" + day + "/" + year);
         return date;
+    }
+
+    /**
+     * Get tile's location in GUI grid.
+     * @param t
+     * @param boardSize
+     * @return
+     */
+    public static int getGridLocation(Tile t, int boardSize){
+        return (int) t.getLocation().getY()
+                * boardSize
+                + ((int) t.getLocation().getX());
+
     }
 }
