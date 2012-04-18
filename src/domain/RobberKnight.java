@@ -151,4 +151,8 @@ public class RobberKnight {
     public void setNumPlayers(int numPlayers) {
         this.numPlayers = numPlayers;
     }
+
+    public Board getBoard() {
+        return board;
+    }
 }
