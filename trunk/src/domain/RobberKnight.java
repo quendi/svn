@@ -64,7 +64,7 @@ public class RobberKnight {
      */
     public Player getNextPlayer() throws NoSuchPlayerException {
     	currentPlayerId = (currentPlayerId + 1) % numPlayers;
-
+    	System.out.println("New player " + currentPlayerId + "of total " + numPlayers);
         try {
             Player next = lookUpPlayerById(currentPlayerId);
             next.notifyHand();
@@ -72,6 +72,10 @@ public class RobberKnight {
         } catch (NoSuchPlayerException e) {
             throw new NoSuchPlayerException("No player with id " + currentPlayerId + "found.");
         }
+    }
+    
+    public Player NextPlayer() throws NoSuchPlayerException {
+        return lookUpPlayerById((currentPlayerId + 1) % numPlayers);
     }
 
     public int placeTile(Tile t, Point location){
