@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * User: 048661
  * Date: 4/16/12
  */
 public class GameUtils {

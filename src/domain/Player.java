@@ -109,4 +109,8 @@ public class Player {
         deck.playTile(t);
         playerListener.updateHand();
     }
+    
+    public void notifyHand(){
+        playerListener.updateHand(this);
+    }
 }
