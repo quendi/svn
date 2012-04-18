@@ -49,6 +49,7 @@ public class Board {
             t.setLocation(p);
             tiles[(int) t.getLocation().getX()][(int) t.getLocation().getY()] = t;
             System.out.println("X: " + t.getLocation().getX() + " Y: " + t.getLocation().getY());
+            notifyPlaced(t);
         }
         else
             return -1;

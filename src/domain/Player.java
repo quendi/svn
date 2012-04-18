@@ -34,8 +34,8 @@ public class Player {
     	numKnights -= n;
     }
 
-    public java.awt.Color getColor() {
-        return java.awt.Color.getColor(this.color.toString());
+    public Color getColor() {
+        return this.color;
     }
 
     public void setColor(Color color) {
