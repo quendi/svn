@@ -707,9 +707,8 @@ public class GUI extends JFrame implements PlayerListener,
                         }
                         tileInPlay.setLocation(location);
                         game.placeTile(tileInPlay, location);
-                        currentPlayer.getDeck().playTile(tileInPlay);
+                        currentPlayer.playTile(tileInPlay);
                         tileInPlay = null;
-                        updateHand();
                         // End turn once player has made 3 turns
                         if (moves > 2) {
                             endTurnActionPerformed(evt);
@@ -814,7 +813,6 @@ public class GUI extends JFrame implements PlayerListener,
 								currentPlayer.getDeck().playTile(
 										game.getCurrentPlayer().getDeck()
 												.getTile1());
-								updateHand();
 								selectedCard = null;
 							}
 							if (selectedTile == 1) {
@@ -830,7 +828,6 @@ public class GUI extends JFrame implements PlayerListener,
 								currentPlayer.getDeck().playTile(
 										game.getCurrentPlayer().getDeck()
 												.getTile2());
-								updateHand();
 								selectedCard = null;
 							}
 							if (selectedTile == 2) {
@@ -846,7 +843,6 @@ public class GUI extends JFrame implements PlayerListener,
 								currentPlayer.getDeck().playTile(
 										game.getCurrentPlayer().getDeck()
 												.getTile3());
-								updateHand();
 								selectedCard = null;
 							}
 							if (selectedTile == 3) {
@@ -862,7 +858,6 @@ public class GUI extends JFrame implements PlayerListener,
 								currentPlayer.getDeck().playTile(
 										game.getCurrentPlayer().getDeck()
 												.getTile4());
-								updateHand();
 								selectedCard = null;
 							}
 							tilesPlaced++;

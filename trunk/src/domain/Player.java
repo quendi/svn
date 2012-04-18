@@ -24,12 +24,13 @@ public class Player {
 
     public Player(){}
 
-    public Player(Color color, Date birthdate, int id) {
+    public Player(Color color, Date birthdate, int id, PlayerListener pl) {
         this.color = color;
         this.birthDate = birthdate;
         this.deck = new Deck();
         this.numKnights = 30;
         this.id = id;
+        this.playerListener = pl;
     }
     
     public void reduceKnights(int n){
@@ -104,11 +105,8 @@ public class Player {
     public void takeTurn() {
     }
 
-    public void updateDeck(Tile t) {
-        this.getDeck().playTile(t);
-    }
-
-    public void updateKnights(int knights) {
-        this.reduceKnights(knights);
+    public void playTile(Tile t){
+        deck.playTile(t);
+        playerListener.updateHand();
     }
 }
