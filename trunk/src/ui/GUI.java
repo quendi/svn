@@ -1,11 +1,8 @@
 package ui;
 
 
-import domain.Player;
-import domain.PlayerListener;
+import domain.*;
 //import domain.PlayerSelection;
-import domain.RobberKnight;
-import domain.Tile;
 import domain.enums.Building;
 import domain.enums.Color;
 import exceptions.NoSuchPlayerException;
@@ -25,14 +22,15 @@ import javax.swing.*;
  *
  * @author Aaron
  */
-public class GUI extends javax.swing.JFrame implements PlayerListener {
+public class GUI extends javax.swing.JFrame implements PlayerListener, BoardListener {
     private javax.swing.JButton selectedCard = new javax.swing.JButton("Null");
     private int moves = 0;
     private Tile tileInPlay;
     protected Player currentPlayer;
-    
+
     public RobberKnight game;
-    
+    PlayerSelection playerSelection;
+
     // Variables declaration - do not modify
     private javax.swing.JMenu Edit;
     private javax.swing.JMenu File;
@@ -64,7 +62,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
     protected javax.swing.JPanel PlayerPanel;
     private javax.swing.JFrame pickKnightNum;
     private int NumKnightPlace = 0;
-    private JComboBox knightPick; 
+    private JComboBox knightPick;
     private JFrame initialTile;
     private int turn = 0;
 
@@ -399,14 +397,14 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
 
     //startgame removed here
 
-    
+
 
     private void errorOKActionPerformed(java.awt.event.ActionEvent evt) {
         errorNotEnoughPlayers.setVisible(false);
     }
 
     private void newGameActionPerformed(java.awt.event.ActionEvent evt) {
-        PlayerSelection playerSelection = new PlayerSelection(true);//true
+        playerSelection = new PlayerSelection(true, this);//true
         this.setVisible(false);
     }
 
@@ -435,25 +433,9 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
             card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
             card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
             //Change color
-            if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.BLUE)) {
-                currentColor.setText("Blue");
-                InGame.getContentPane().setBackground(new java.awt.Color(0,102,255));
-                PlayerPanel.setBackground(new java.awt.Color(0,102,255));
-            }
-            else if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.GREEN)) {
-                currentColor.setText("Green");
-                InGame.getContentPane().setBackground(new java.awt.Color(0,153,0));
-                PlayerPanel.setBackground(new java.awt.Color(0,153,0));
-            }
-            else if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.YELLOW)) {
-                currentColor.setText("Yellow");
-                InGame.getContentPane().setBackground(new java.awt.Color(255,255,0));
-                PlayerPanel.setBackground(new java.awt.Color(255,255,0));
-            } else {
-                currentColor.setText("Red");
-                InGame.getContentPane().setBackground(new java.awt.Color(255,0,0));
-                PlayerPanel.setBackground(new java.awt.Color(255,0,0));
-            }
+//            currentColor.setText(currentPlayer.getColor().toString());
+//            InGame.getContentPane().setBackground(currentPlayer.getColor());
+//            PlayerPanel.setBackground(currentPlayer.getColor());
         }
     }
 
@@ -491,7 +473,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
      * @param grid - Jpanel representation of game board
      * @param numPlayers
      */
-    
+
     public void setUpGrid(JPanel grid, int numPlayers){
         if (numPlayers == 2) {
             grid.setLayout(new java.awt.GridLayout(7, 7));
@@ -500,9 +482,11 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
                     final TileButton button = new TileButton();
                     final Point location = new Point(j, i);
                     addGridListener(button, location);
+
                     grid.add(button);
                 }
             }
+
         } else if (numPlayers == 3) {
             grid.setLayout(new java.awt.GridLayout(9, 9));
             for(int i = 0; i < 9; i++){
@@ -524,6 +508,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
                 }
             }
         }
+        System.out.println(grid.getComponent(0).toString());
     }
 
     /**
@@ -541,12 +526,10 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
                 	// if there has an exist tile, new tile can't be put
                 	if( game.placeTile(tileInPlay, location) == 0 ){
                 		moves++;
-                		button.setIcon(selectedCard.getIcon());
-                		button.setText(selectedCard.getText());
                 		if( tileInPlay.getBuilding() == Building.Castle ){
-							
 							pickKnightNum.setVisible(true);
                 		}
+                        button.setIcon(tileInPlay.getImage());
                 		tileInPlay.setLocation(location);
                 		game.placeTile(tileInPlay, location);
                 		currentPlayer.getDeck().playTile(tileInPlay);
@@ -573,12 +556,14 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
 
     }
 
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new GUI().setVisible(true);
+                GUI gui = new GUI();
+                gui.setVisible(true);
             }
         });
     }
@@ -672,5 +657,13 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
         
     }
 
+    public void placedTile(Tile t) {
+//        TileButton button = (TileButton) playerSelection.grid.getComponent();
+//        button.setIcon(t.getImage());
+    }
 
+    public void placedKnight(Tile t) {
+
+
+    }
 }

@@ -7,8 +7,8 @@ import javax.swing.*;
 import domain.RobberKnight;
 import domain.enums.Color;
 
-public class PlayerSelection extends GUI {
-	private JFrame PlayerSelection = new javax.swing.JFrame();
+public class PlayerSelection extends GUI{
+    private JFrame PlayerSelection = new javax.swing.JFrame();
     private javax.swing.JComboBox kindPlayer1 = new javax.swing.JComboBox();
     private javax.swing.JComboBox kindPlayer2 = new javax.swing.JComboBox();
     private javax.swing.JComboBox kindPlayer3 = new javax.swing.JComboBox();
@@ -42,14 +42,16 @@ public class PlayerSelection extends GUI {
     private javax.swing.JLabel jLabel27 = new javax.swing.JLabel();
     private javax.swing.JLabel jLabel28 = new javax.swing.JLabel();
     private javax.swing.JLabel jLabel29 = new javax.swing.JLabel();
-   
-    
-	public PlayerSelection(boolean visible){
-		PlayerSelection.setVisible(visible);
-		PlayerSelection.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-	    PlayerSelection.setMinimumSize(new java.awt.Dimension(1100, 500));
-	    PlayerSelection.setResizable(false);
-	    kindPlayer1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Player" }));
+    private GUI mainWindow;
+
+
+    public PlayerSelection(boolean visible, GUI gui){
+        mainWindow = gui;
+        PlayerSelection.setVisible(visible);
+        PlayerSelection.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        PlayerSelection.setMinimumSize(new java.awt.Dimension(1100, 500));
+        PlayerSelection.setResizable(false);
+        kindPlayer1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Player" }));
         kindPlayer1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kindPlayer1ActionPerformed(evt);
@@ -331,10 +333,10 @@ public class PlayerSelection extends GUI {
         );
 
         PlayerSelection.getAccessibleContext().setAccessibleParent(newGame);
-		
-	}
-	
-	private void startGameActionPerformed(java.awt.event.ActionEvent evt) {
+
+    }
+
+    private void startGameActionPerformed(java.awt.event.ActionEvent evt) {
         //Check to see if there is at least two players
         // TODO : need to add more checks
         ArrayList<Date> dates = new ArrayList<Date>();
@@ -356,7 +358,7 @@ public class PlayerSelection extends GUI {
             numOfPlayers++;
         }
 
-        game = new RobberKnight(numOfPlayers, colors, dates);
+        game = new RobberKnight(numOfPlayers, colors, dates, mainWindow);
         currentPlayer = game.getFirstPlayer();
         card1.setIcon(currentPlayer.getDeck().getTile1().getImage()); // NOI18N
         card2.setIcon(currentPlayer.getDeck().getTile2().getImage()); // NOI18N
@@ -365,7 +367,10 @@ public class PlayerSelection extends GUI {
         //Display current Player #
         playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
         numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
-        //Display Color
+//        //Display Color
+//        currentColor.setText(currentPlayer.getColor().toString());
+//        InGame.getContentPane().setBackground(currentPlayer.getColor());
+//        PlayerPanel.setBackground(currentPlayer.getColor());
 /*        if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.BLUE)) {
             currentColor.setText("Blue");
             InGame.getContentPane().setBackground(new java.awt.Color(0,102,255));
@@ -391,9 +396,10 @@ public class PlayerSelection extends GUI {
         initializeTiles();
 
 
+
     }
-	
-	private void kindPlayer1ActionPerformed(java.awt.event.ActionEvent evt) {
+
+    private void kindPlayer1ActionPerformed(java.awt.event.ActionEvent evt) {
         if (kindPlayer1.getSelectedIndex() == 1){
             month1.setEnabled(false);
             day1.setEnabled(false);

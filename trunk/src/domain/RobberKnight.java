@@ -21,9 +21,9 @@ public class RobberKnight {
     private Board board;
     private int currentPlayerId;
 
-    public RobberKnight(int numPlayers, ArrayList<Color> colors, ArrayList<Date> dates){
+    public RobberKnight(int numPlayers, ArrayList<Color> colors, ArrayList<Date> dates, BoardListener bl){
         players = new ArrayList<Player>();
-        initialize(numPlayers, colors, dates);
+        initialize(numPlayers, colors, dates, bl);
     }
 
     /**
@@ -31,21 +31,19 @@ public class RobberKnight {
      * @param numPlayers - used in determining size of board.
      */
     //TODO: how to handle player color?
-    private void initialize(int numPlayers, ArrayList<Color> colors, ArrayList<Date> birthDates){
+    private void initialize(int numPlayers, ArrayList<Color> colors, ArrayList<Date> birthDates, BoardListener bl){
         this.numPlayers = numPlayers;
         for(int i = 0; i < numPlayers; i++){
             players.add(new Player(colors.get(i), birthDates.get(i), i));
         }
         board = new Board(numPlayers);
+        board.addBoardListener(bl);
     }
 
     /**
      * Find the player to begin game by birthdate
      * @return id of player to begin game
      */
-    public int getNumPlayers(){
-    	return numPlayers;
-    }
     public Player getFirstPlayer(){
         Date firstDate = new Date();
         Player firstPlayer = new Player();
@@ -144,5 +142,13 @@ public class RobberKnight {
 
         throw new NoSuchPlayerException("No player with id " + id + "found.");
 
+    }
+
+    public int getNumPlayers() {
+        return numPlayers;
+    }
+
+    public void setNumPlayers(int numPlayers) {
+        this.numPlayers = numPlayers;
     }
 }
