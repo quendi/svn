@@ -92,6 +92,14 @@ public class Deck {
     	return tiles.get(1);
     }
     
+    public Tile getTile3(){
+    	return tiles.get(2);
+    }
+    
+    public Tile getTile4(){
+    	return tiles.get(3);
+    }
+    
     public char getTopLetter(){
     	return tiles.get(2).getLetter();
     }
