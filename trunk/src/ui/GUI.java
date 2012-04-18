@@ -779,21 +779,6 @@ public class GUI extends JFrame implements PlayerListener,
             }
         });
 
-        final TileButton tile3 = new TileButton();
-        tile3.setIcon(currentPlayer.getDeck().getTile3().getImage());
-        tile3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectedCard = tile3;
-                selectedTile = 2;
-                if (first == 2) {
-                    selectedTile = 0;
-                } else {
-                    first = 1;
-                }
-
-            }
-        });
-
 
         final TileButton tile4 = new TileButton();
         tile4.setIcon(currentPlayer.getDeck().getTile4().getImage());
@@ -833,7 +818,9 @@ public class GUI extends JFrame implements PlayerListener,
                                 currentPlayer.getDeck().playTile(
                                         game.getCurrentPlayer().getDeck()
                                                 .getTile1());
-                                selectedCard = null;
+                                updateHand();
+                                if(tilesPlaced < 1)
+                                	selectedCard = null;
                             }
                             if (selectedTile == 1) {
                                 placeTile(
@@ -848,7 +835,9 @@ public class GUI extends JFrame implements PlayerListener,
                                 currentPlayer.getDeck().playTile(
                                         game.getCurrentPlayer().getDeck()
                                                 .getTile2());
-                                selectedCard = null;
+                                updateHand();
+                                if(tilesPlaced < 1)
+                                	selectedCard = null;
                             }
                             if (selectedTile == 2) {
                                 placeTile(
@@ -863,7 +852,9 @@ public class GUI extends JFrame implements PlayerListener,
                                 currentPlayer.getDeck().playTile(
                                         game.getCurrentPlayer().getDeck()
                                                 .getTile3());
-                                selectedCard = null;
+                                updateHand();
+                                if(tilesPlaced < 1)
+                                	selectedCard = null;
                             }
                             if (selectedTile == 3) {
                                 placeTile(
@@ -878,7 +869,9 @@ public class GUI extends JFrame implements PlayerListener,
                                 currentPlayer.getDeck().playTile(
                                         game.getCurrentPlayer().getDeck()
                                                 .getTile4());
-                                selectedCard = null;
+                                updateHand();
+                                if(tilesPlaced < 1)
+                                	selectedCard = null;
                             }
                             tilesPlaced++;
                         } else if (selectedCard == null) {
@@ -904,7 +897,6 @@ public class GUI extends JFrame implements PlayerListener,
         tilePanel.add(playername);
         tilePanel.add(tile1);
         tilePanel.add(tile2);
-        tilePanel.add(tile3);
         tilePanel.add(tile4);
         tilePanel.add(gridHolder);
         tilePanel.add(select);
@@ -921,17 +913,13 @@ public class GUI extends JFrame implements PlayerListener,
                                     .getImage());
                             tile2.setIcon(currentPlayer.getDeck().getTile2()
                                     .getImage());
-                            tile3.setIcon(currentPlayer.getDeck().getTile3()
-                                    .getImage());
                             tile4.setIcon(currentPlayer.getDeck().getTile4()
                                     .getImage());
                             if (turn >= game.getNumPlayers() - 1) {
                                 select.setText("Start Game");
-                                currentPlayer = game.getNextPlayer();
                             }
                             tile1.setEnabled(true);
                             tile2.setEnabled(true);
-                            tile3.setEnabled(true);
                             tile4.setEnabled(true);
                             tilesPlaced = 0;
                             first = 0;
@@ -942,6 +930,7 @@ public class GUI extends JFrame implements PlayerListener,
                         }
                     } else {
                         initialTile.setVisible(false);
+                        currentPlayer = game.getNextPlayer();
                         InGame.setVisible(true);
                         selectedCard = new JButton();
                     }
