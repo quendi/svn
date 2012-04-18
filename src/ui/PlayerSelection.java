@@ -6,7 +6,6 @@ import javax.swing.*;
 
 import domain.RobberKnight;
 import domain.enums.Color;
-import ui.GUI;
 
 public class PlayerSelection extends GUI {
 	private JFrame PlayerSelection = new javax.swing.JFrame();
@@ -361,13 +360,13 @@ public class PlayerSelection extends GUI {
         currentPlayer = game.getFirstPlayer();
         card1.setIcon(currentPlayer.getDeck().getTile1().getImage()); // NOI18N
         card2.setIcon(currentPlayer.getDeck().getTile2().getImage()); // NOI18N
-        InGame.setVisible(true);
+
         PlayerSelection.setVisible(false);
         //Display current Player #
         playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
         numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
         //Display Color
-        if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.BLUE)) {
+/*        if (game.getCurrentPlayer().getColor().equals(domain.enums.Color.BLUE)) {
             currentColor.setText("Blue");
             InGame.getContentPane().setBackground(new java.awt.Color(0,102,255));
             PlayerPanel.setBackground(new java.awt.Color(0,102,255));
@@ -386,8 +385,10 @@ public class PlayerSelection extends GUI {
             InGame.getContentPane().setBackground(new java.awt.Color(255,0,0));
             PlayerPanel.setBackground(new java.awt.Color(255,0,0));
         }
-
+*/
         setUpGrid(grid, numOfPlayers);
+        
+        initializeTiles();
 
 
     }
