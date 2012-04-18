@@ -82,8 +82,8 @@ public class Deck {
     	
     }
 
-    public void playTile(Tile t){
-        tiles.remove(t);
+    public boolean playTile(Tile t){
+        return tiles.remove(t);
     }
     
     public Tile getTile1(){
