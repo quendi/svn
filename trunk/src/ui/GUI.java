@@ -1,13 +1,24 @@
 package ui;
 
 
-import domain.*;
+import domain.Player;
+import domain.PlayerListener;
+//import domain.PlayerSelection;
+import domain.RobberKnight;
+import domain.Tile;
 import domain.enums.Building;
+import domain.enums.Color;
 import exceptions.NoSuchPlayerException;
 
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Point;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
-import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.*; 
+
 
 
 /**
@@ -54,6 +65,9 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
     private javax.swing.JFrame pickKnightNum;
     private int NumKnightPlace = 0;
     private JComboBox knightPick; 
+    private JFrame initialTile;
+    private int turn = 0;
+
     // End of variables declaration
 
     /**
@@ -76,7 +90,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-
+    	initialTile = new JFrame();
     	pickKnightNum = new javax.swing.JFrame();
         InGame = new javax.swing.JFrame();
         jButton104 = new javax.swing.JButton();
@@ -103,6 +117,10 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
         about = new javax.swing.JMenuItem();
         help = new javax.swing.JMenuItem();
         PlayerPanel = new javax.swing.JPanel();
+        
+        
+
+        
 
 
         pickKnightNum.setBounds(500, 500, 200, 100);
@@ -516,6 +534,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
     private void addGridListener(final TileButton button,final Point location){
         button.addActionListener(new java.awt.event.ActionListener() {
 
+            @Override
             // Click event for when play clicks on space in board.
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (tileInPlay != null && selectedCard != null) {
@@ -564,6 +583,94 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
         });
     }
 
+    public void initializeTiles(){
+    	initialTile.setVisible(true);
+    	initialTile.setBounds(0, 0, 1200, 1200);
+    	initialTile.setDefaultCloseOperation(HIDE_ON_CLOSE);
+    	JPanel TilePanel = new JPanel();
+        JLabel display = new JLabel("Player");
+        final JLabel playername = new JLabel(Integer.toString(currentPlayer.getId()+1));        
+        final JButton tile1 = new JButton();
+        tile1.setIcon(currentPlayer.getDeck().getTile1().getImage());
+        tile1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectedCard = tile1;
+                
+            }
+        });
+        final JButton tile2 = new JButton();
+        tile2.setIcon(currentPlayer.getDeck().getTile2().getImage());
+        tile2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	selectedCard = tile2;
+            }
+        });
+        final JButton tile3 = new JButton();
+        tile3.setIcon(currentPlayer.getDeck().getTile3().getImage());
+        tile3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	selectedCard = tile3;
+            }
+        });
+        final JButton tile4 = new JButton();
+        tile4.setIcon(currentPlayer.getDeck().getTile4().getImage());
+       tile4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	selectedCard = tile4;
+            }
+        });
+        final JButton select = new JButton("Next Player");
+        JPanel gridHolder = new JPanel();
+        gridHolder.setLayout(new GridLayout(game.getNumPlayers(), 2));
+
+        for(int i=0; i < game.getNumPlayers()*2; i++){
+        	final JButton gridButton = new JButton();
+        	gridButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    gridButton.setIcon(selectedCard.getIcon());
+                }
+            });
+        	gridHolder.add(gridButton);
+        }
+  
+        TilePanel.add(display);
+        TilePanel.add(playername);
+        TilePanel.add(tile1);
+        TilePanel.add(tile2);
+        TilePanel.add(tile3);
+        TilePanel.add(tile4);
+        TilePanel.add(gridHolder);
+        TilePanel.add(select);
+        select.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                	if(turn < 3){
+                		turn++;
+						currentPlayer = game.getNextPlayer();
+						playername.setText(Integer.toString(currentPlayer.getId()+1));
+						tile1.setIcon(currentPlayer.getDeck().getTile1().getImage());
+						tile2.setIcon(currentPlayer.getDeck().getTile2().getImage());
+						tile3.setIcon(currentPlayer.getDeck().getTile3().getImage());
+						tile4.setIcon(currentPlayer.getDeck().getTile4().getImage());
+						if(turn>2)
+							select.setText("Start Game");
+                	}
+                	else{
+                		initialTile.setVisible(false);
+                		InGame.setVisible(true);
+                	}
+				} catch (NoSuchPlayerException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+                
+            }
+        });
+        
+        
+        initialTile.add(TilePanel);
+        
+    }
 
 
 }
