@@ -33,8 +33,9 @@ public class RobberKnight {
     //TODO: how to handle player color?
     private void initialize(int numPlayers, ArrayList<Color> colors, ArrayList<Date> birthDates, BoardListener bl){
         this.numPlayers = numPlayers;
+        PlayerListener pl = (PlayerListener) bl;
         for(int i = 0; i < numPlayers; i++){
-            players.add(new Player(colors.get(i), birthDates.get(i), i));
+            players.add(new Player(colors.get(i), birthDates.get(i), i, pl));
         }
         board = new Board(numPlayers);
         board.addBoardListener(bl);
