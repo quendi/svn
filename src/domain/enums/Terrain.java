@@ -11,4 +11,12 @@ public enum Terrain {
     Terrain(int knightRestriction){
         this.knightRestriction = knightRestriction;
     }
+
+    public int getKnightRestriction() {
+        return knightRestriction;
+    }
+
+    public void setKnightRestriction(int knightRestriction) {
+        this.knightRestriction = knightRestriction;
+    }
 }
