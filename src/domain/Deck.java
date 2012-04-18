@@ -15,7 +15,6 @@ public class Deck {
     private Random generator = new Random(System.currentTimeMillis());
 
     public Deck(){
-        populateDeck();
         initialize();       
     }
     public void initialize(){ 

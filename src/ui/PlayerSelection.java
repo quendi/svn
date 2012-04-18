@@ -1,12 +1,14 @@
-package domain;
+package ui;
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.*;
 
+import domain.RobberKnight;
 import domain.enums.Color;
+import ui.GUI;
 
-public class PlayerSelection extends GUI{
+public class PlayerSelection extends GUI {
 	private JFrame PlayerSelection = new javax.swing.JFrame();
     private javax.swing.JComboBox kindPlayer1 = new javax.swing.JComboBox();
     private javax.swing.JComboBox kindPlayer2 = new javax.swing.JComboBox();
