@@ -1,7 +1,9 @@
 package domain;
 
 import domain.enums.*;
+import domain.enums.Color;
 
+import java.awt.*;
 import java.util.Date;
 
 /**
@@ -37,6 +39,8 @@ public class Player {
     public Color getColor() {
         return this.color;
     }
+    
+
 
     public void setColor(Color color) {
         this.color = color;
