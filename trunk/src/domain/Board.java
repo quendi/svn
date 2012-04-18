@@ -116,8 +116,13 @@ public class Board {
 
     }
 
-    
 
+    /**
+     * Return valid locations a player can move to from current tile with current number of knights
+     * @param t
+     * @param numKnights
+     * @return
+     */
     public ArrayList<Point> getValidMoves(Tile t, int numKnights){
         int x = (int) t.getLocation().getX();
         int y = (int) t.getLocation().getY();

@@ -1,17 +1,12 @@
-package domain;
+package ui;
 
 
+import domain.*;
 import domain.enums.Building;
-import domain.enums.Color;
 import exceptions.NoSuchPlayerException;
-import ui.TileButton;
 
-import java.awt.Image;
 import java.awt.Point;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.*;
 
 
@@ -521,7 +516,6 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
     private void addGridListener(final TileButton button,final Point location){
         button.addActionListener(new java.awt.event.ActionListener() {
 
-            @Override
             // Click event for when play clicks on space in board.
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (tileInPlay != null && selectedCard != null) {
