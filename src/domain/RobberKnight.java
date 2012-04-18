@@ -73,11 +73,13 @@ public class RobberKnight {
 
     public int placeTile(Tile t, Point location){
     	// if there has an exist tile, new tile can't be put
-    	if ( board.placeTile(t, location) == -1 ){
+    	if ( board.placeTile(t, location) == -1){
     		return -1;
     	}
-    	else
+    	else{
+    		
     		return 0;
+    	}
     }
     
     public Player getCurrentPlayer()

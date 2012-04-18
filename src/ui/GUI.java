@@ -621,13 +621,25 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
     	                	gridButton.setIcon(selectedCard.getIcon());
     	                    selectedCard.setEnabled(false);
     	                    if(selectedTile == 0){
-    	                    	placeTile(game.getCurrentPlayer().getDeck().getTile1(), new Point(gridButton.getLocation().x/gridButton.getWidth()+3, gridButton.getLocation().y/gridButton.getHeight()+3));
+    	                    	placeTile(game.getCurrentPlayer().getDeck().getTile1(), 
+    	                    			new Point(gridButton.getLocation().x/gridButton.getWidth()+3, 
+    	                    					gridButton.getLocation().y/gridButton.getHeight()+3));
+    	                        currentPlayer.getDeck().playTile(game.getCurrentPlayer().getDeck().getTile1());
+    	                    	updateHand();
     	                    }
     	                    if(selectedTile == 1){
-    	                    	placeTile(game.getCurrentPlayer().getDeck().getTile2(), new Point(gridButton.getLocation().x/gridButton.getWidth()+3, gridButton.getLocation().y/gridButton.getHeight()+3));
+    	                    	placeTile(game.getCurrentPlayer().getDeck().getTile2(), 
+    	                    			new Point(gridButton.getLocation().x/gridButton.getWidth()+3, 
+    	                    					gridButton.getLocation().y/gridButton.getHeight()+3));
+    	                        currentPlayer.getDeck().playTile(game.getCurrentPlayer().getDeck().getTile2());
+    	                    	updateHand();
     	                    }
     	                    if(selectedTile == 2){
-    	                    	placeTile(game.getCurrentPlayer().getDeck().getTile4(), new Point(gridButton.getLocation().x/gridButton.getWidth()+3, gridButton.getLocation().y/gridButton.getHeight()+3));
+    	                    	placeTile(game.getCurrentPlayer().getDeck().getTile4(), 
+    	                    			new Point(gridButton.getLocation().x/gridButton.getWidth()+3, 
+    	                    					gridButton.getLocation().y/gridButton.getHeight()+3));
+    	                        currentPlayer.getDeck().playTile(game.getCurrentPlayer().getDeck().getTile4());
+    	                    	updateHand();
     	                    }
     	                    tilesPlaced++;
                     	}else{
