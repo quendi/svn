@@ -11,7 +11,7 @@ import domain.enums.Building;
 import domain.enums.Terrain;
 
 public class Deck {
-	private ArrayList<Tile> tiles = new ArrayList<Tile>();
+	public ArrayList<Tile> tiles = new ArrayList<Tile>();
     private Random generator = new Random(System.currentTimeMillis());
 
     public Deck(){
@@ -21,7 +21,7 @@ public class Deck {
     	int rep;
     	populateDeck();
     	rep = generator.nextInt(10)+10;
-    	shuffleTiles(4, 8, rep);	//b
+    	//shuffleTiles(4, 8, rep);	//b
     	rep = generator.nextInt(10)+10;
     	shuffleTiles(9, 13, rep);	//c
     	rep = generator.nextInt(10)+10;
@@ -65,7 +65,6 @@ public class Deck {
     	for(int i = 0; i < repeat; i++){
     		one = (generator.nextInt(end-start+1)) + start;
     		two = (generator.nextInt(end-start+1)) + start;
-    		System.out.println("swapping " + one + "and" + two);
     		Collections.swap(tiles, one, two);
     	}  	
     }
