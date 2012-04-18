@@ -43,6 +43,9 @@ public class RobberKnight {
      * Find the player to begin game by birthdate
      * @return id of player to begin game
      */
+    public int getNumPlayers(){
+    	return numPlayers;
+    }
     public Player getFirstPlayer(){
         Date firstDate = new Date();
         Player firstPlayer = new Player();
