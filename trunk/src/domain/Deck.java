@@ -19,12 +19,14 @@ public class Deck {
     }
     public void initialize(){ 
     	int rep;
-    	rep = generator.nextInt()%10;
     	populateDeck();
-    	shuffleTiles(0, 3, rep);  	//a
+    	rep = generator.nextInt(10)+10;
     	shuffleTiles(4, 8, rep);	//b
+    	rep = generator.nextInt(10)+10;
     	shuffleTiles(9, 13, rep);	//c
+    	rep = generator.nextInt(10)+10;
     	shuffleTiles(14, 18, rep);	//e
+    	rep = generator.nextInt(10)+10;
     	shuffleTiles(19, 23, rep);	//f
          }
     
@@ -61,8 +63,9 @@ public class Deck {
     	int two;
     	
     	for(int i = 0; i < repeat; i++){
-    		one = (generator.nextInt(100)%(end-start)) + start;
-    		two = (generator.nextInt(100)%(end-start)) + start;
+    		one = (generator.nextInt(end-start+1)) + start;
+    		two = (generator.nextInt(end-start+1)) + start;
+    		System.out.println("swapping " + one + "and" + two);
     		Collections.swap(tiles, one, two);
     	}  	
     }

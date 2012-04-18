@@ -11,6 +11,6 @@ public enum Building {
     int points;
 
     Building(int points){
-        this.points = this.points;
+        this.points = points;
     }
 }

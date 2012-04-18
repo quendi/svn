@@ -7,6 +7,7 @@ import domain.enums.Building;
 import domain.enums.Color;
 import exceptions.NoSuchPlayerException;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
@@ -65,6 +66,8 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
     private JComboBox knightPick;
     private JFrame initialTile;
     private int turn = 0;
+    private int tilesPlaced = 0;
+    private int selectedTile = 0;
 
     // End of variables declaration
 
@@ -254,7 +257,8 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
                 InGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InGameLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(grid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        //.addComponent(grid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(grid/*, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE*/)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(PlayerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -265,7 +269,8 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
                                 .addGap(0, 0, Short.MAX_VALUE))
                         .addGroup(InGameLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(grid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        //.addComponent(grid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(grid/*, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE*/)
                         .addContainerGap())
         );
 
@@ -430,6 +435,8 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
             moves = 0;
             playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
             numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
+            card1.setPreferredSize(new Dimension(117,117));
+            card2.setPreferredSize(new Dimension(117,117));
             card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
             card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
             //Change color
@@ -482,7 +489,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
                     final TileButton button = new TileButton();
                     final Point location = new Point(j, i);
                     addGridListener(button, location);
-
+                    button.setPreferredSize(new Dimension(117, 117));
                     grid.add(button);
                 }
             }
@@ -494,6 +501,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
                     final TileButton button = new TileButton();
                     final Point location = new Point(j, i);
                     addGridListener(button, location);
+                    button.setPreferredSize(new Dimension(117, 117));
                     grid.add(button);
                 }
             }
@@ -504,6 +512,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
                     final TileButton button = new TileButton();
                     final Point location = new Point(j, i);
                     addGridListener(button, location);
+                    button.setPreferredSize(new Dimension(117, 117));
                     grid.add(button);
                 }
             }
@@ -579,7 +588,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
         tile1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectedCard = tile1;
-
+                selectedTile = 0;
             }
         });
         final JButton tile2 = new JButton();
@@ -587,13 +596,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
         tile2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectedCard = tile2;
-            }
-        });
-        final JButton tile3 = new JButton();
-        tile3.setIcon(currentPlayer.getDeck().getTile3().getImage());
-        tile3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectedCard = tile3;
+                selectedTile = 1;
             }
         });
         final JButton tile4 = new JButton();
@@ -601,17 +604,39 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
         tile4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectedCard = tile4;
+                selectedTile = 2;
             }
         });
         final JButton select = new JButton("Next Player");
-        JPanel gridHolder = new JPanel();
-        gridHolder.setLayout(new GridLayout(game.getNumPlayers(), 2));
+        final JPanel gridHolder = new JPanel();
+        gridHolder.setLayout(new GridLayout(2, game.getNumPlayers()));
 
         for(int i=0; i < game.getNumPlayers()*2; i++){
             final JButton gridButton = new JButton();
+            gridButton.setPreferredSize(new Dimension(117, 117));
             gridButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    gridButton.setIcon(selectedCard.getIcon());
+                    if(tilesPlaced < 2){
+                    	if(gridButton.getIcon() == null){
+    	                	gridButton.setIcon(selectedCard.getIcon());
+    	                    selectedCard.setEnabled(false);
+    	                    if(selectedTile == 0){
+    	                    	placeTile(game.getCurrentPlayer().getDeck().getTile1(), new Point(gridButton.getLocation().x/gridButton.getWidth()+3, gridButton.getLocation().y/gridButton.getHeight()+3));
+    	                    }
+    	                    if(selectedTile == 1){
+    	                    	placeTile(game.getCurrentPlayer().getDeck().getTile2(), new Point(gridButton.getLocation().x/gridButton.getWidth()+3, gridButton.getLocation().y/gridButton.getHeight()+3));
+    	                    }
+    	                    if(selectedTile == 2){
+    	                    	placeTile(game.getCurrentPlayer().getDeck().getTile4(), new Point(gridButton.getLocation().x/gridButton.getWidth()+3, gridButton.getLocation().y/gridButton.getHeight()+3));
+    	                    }
+    	                    tilesPlaced++;
+                    	}else{
+                    		JOptionPane.showMessageDialog(initialTile, "You cannot place over other tiles.", "Error", JOptionPane.PLAIN_MESSAGE);
+                    	}
+                    }
+                    else{
+                    	 JOptionPane.showMessageDialog(initialTile, "You cannot place more than two tiles.", "Error", JOptionPane.PLAIN_MESSAGE);
+                    }
                 }
             });
             gridHolder.add(gridButton);
@@ -621,23 +646,30 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
         TilePanel.add(playername);
         TilePanel.add(tile1);
         TilePanel.add(tile2);
-        TilePanel.add(tile3);
         TilePanel.add(tile4);
         TilePanel.add(gridHolder);
         TilePanel.add(select);
         select.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
-                    if(turn < 3){
-                        turn++;
-                        currentPlayer = game.getNextPlayer();
-                        playername.setText(Integer.toString(currentPlayer.getId()+1));
-                        tile1.setIcon(currentPlayer.getDeck().getTile1().getImage());
-                        tile2.setIcon(currentPlayer.getDeck().getTile2().getImage());
-                        tile3.setIcon(currentPlayer.getDeck().getTile3().getImage());
-                        tile4.setIcon(currentPlayer.getDeck().getTile4().getImage());
-                        if(turn>2)
-                            select.setText("Start Game");
+                    if(turn < game.getNumPlayers()-1){
+                    	if(tilesPlaced >= 2){
+	                        turn++;
+	                        currentPlayer = game.getNextPlayer();
+	                        playername.setText(Integer.toString(currentPlayer.getId()+1));
+	                        tile1.setIcon(currentPlayer.getDeck().getTile1().getImage());
+	                        tile2.setIcon(currentPlayer.getDeck().getTile2().getImage());
+	                        tile4.setIcon(currentPlayer.getDeck().getTile4().getImage());
+	                        if(turn >= game.getNumPlayers()-1)
+	                            select.setText("Start Game");
+	                        tile1.setEnabled(true);
+	                        tile2.setEnabled(true);
+	                        tile4.setEnabled(true);
+	                        tilesPlaced = 0;
+                    	}
+                    	else{
+                    		JOptionPane.showMessageDialog(initialTile, "You must place two tiles.", "Error", JOptionPane.PLAIN_MESSAGE);
+                        }
                     }
                     else{
                         initialTile.setVisible(false);
