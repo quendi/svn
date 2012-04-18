@@ -1,10 +1,14 @@
 package domain;
 
 
+import domain.enums.Building;
 import domain.enums.Color;
 import exceptions.NoSuchPlayerException;
 
+import java.awt.Image;
 import java.awt.Point;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.*;
@@ -51,6 +55,9 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
     protected javax.swing.JLabel numberOfKnights;
     protected javax.swing.JLabel playersTurn;
     protected javax.swing.JPanel PlayerPanel;
+    private javax.swing.JFrame pickKnightNum;
+    private int NumKnightPlace = 0;
+    private JComboBox knightPick; 
     // End of variables declaration
 
     /**
@@ -74,7 +81,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
     private void initComponents() {
 
 
-
+    	pickKnightNum = new javax.swing.JFrame();
         InGame = new javax.swing.JFrame();
         jButton104 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -102,7 +109,22 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
         PlayerPanel = new javax.swing.JPanel();
 
 
-        //large chunk of code went here
+        pickKnightNum.setBounds(500, 500, 200, 100);
+        pickKnightNum.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        JPanel knightPanel = new JPanel();
+        JLabel message = new JLabel( "Number of Knight to Place" );
+        knightPick = new JComboBox( new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
+        JButton ok = new JButton( "OK" );
+        ok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okActionPerformed(evt);
+            }
+        });
+        knightPanel.add(message);
+        knightPanel.add(knightPick);
+        knightPanel.add(ok);
+        pickKnightNum.add(knightPanel);
+
 
         InGame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         InGame.setMinimumSize(new java.awt.Dimension(900, 600));
@@ -347,7 +369,13 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
         pack();
     }// </editor-fold>
 
-    private void aboutActionPerformed(java.awt.event.ActionEvent evt) {
+    protected void okActionPerformed(ActionEvent evt) {
+		pickKnightNum.setVisible(false);
+		NumKnightPlace = knightPick.getSelectedIndex()+1;
+		//System.out.println("#ofknights" + NumKnightPlace);
+	}
+
+	private void aboutActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
@@ -501,6 +529,10 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
                 		moves++;
                 		button.setIcon(selectedCard.getIcon());
                 		button.setText(selectedCard.getText());
+                		if( tileInPlay.getBuilding() == Building.Castle ){
+							
+							pickKnightNum.setVisible(true);
+                		}
                 		tileInPlay.setLocation(location);
                 		game.placeTile(tileInPlay, location);
                 		currentPlayer.getDeck().playTile(tileInPlay);
