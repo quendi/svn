@@ -4,6 +4,7 @@ package domain;
 import domain.enums.Building;
 import domain.enums.Color;
 import exceptions.NoSuchPlayerException;
+import ui.TileButton;
 
 import java.awt.Image;
 import java.awt.Point;
@@ -483,7 +484,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
             grid.setLayout(new java.awt.GridLayout(7, 7));
             for(int i = 0; i < 7; i++){
                 for(int j = 0; j < 7; j++){
-                    final javax.swing.JButton button = new javax.swing.JButton();
+                    final TileButton button = new TileButton();
                     final Point location = new Point(j, i);
                     addGridListener(button, location);
                     grid.add(button);
@@ -493,7 +494,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
             grid.setLayout(new java.awt.GridLayout(9, 9));
             for(int i = 0; i < 9; i++){
                 for(int j = 0; j < 9; j++){
-                    final javax.swing.JButton button = new javax.swing.JButton();
+                    final TileButton button = new TileButton();
                     final Point location = new Point(j, i);
                     addGridListener(button, location);
                     grid.add(button);
@@ -503,7 +504,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
             grid.setLayout(new java.awt.GridLayout(10, 10));
             for(int i = 0; i < 10; i++){
                 for(int j = 0; j < 10; j++){
-                    final javax.swing.JButton button = new javax.swing.JButton();
+                    final TileButton button = new TileButton();
                     final Point location = new Point(j, i);
                     addGridListener(button, location);
                     grid.add(button);
@@ -517,7 +518,7 @@ public class GUI extends javax.swing.JFrame implements PlayerListener {
      * @param button
      * @param location
      */
-    private void addGridListener(final JButton button,final Point location){
+    private void addGridListener(final TileButton button,final Point location){
         button.addActionListener(new java.awt.event.ActionListener() {
 
             @Override
