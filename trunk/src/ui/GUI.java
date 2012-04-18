@@ -14,7 +14,7 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.*; 
+import javax.swing.*;
 
 
 
@@ -78,18 +78,18 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
 
     private int placeTile(Tile tile, Point location){
         if ( game.placeTile(tile, location) == -1){
-        	return -1;
+            return -1;
         }
         else
-        	return 0;
+            return 0;
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-    	initialTile = new JFrame();
-    	pickKnightNum = new javax.swing.JFrame();
+        initialTile = new JFrame();
+        pickKnightNum = new javax.swing.JFrame();
         InGame = new javax.swing.JFrame();
         jButton104 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -115,10 +115,10 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
         about = new javax.swing.JMenuItem();
         help = new javax.swing.JMenuItem();
         PlayerPanel = new javax.swing.JPanel();
-        
-        
 
-        
+
+
+
 
 
         pickKnightNum.setBounds(500, 500, 200, 100);
@@ -382,12 +382,12 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
     }// </editor-fold>
 
     protected void okActionPerformed(ActionEvent evt) {
-		pickKnightNum.setVisible(false);
-		NumKnightPlace = knightPick.getSelectedIndex()+1;
-		//System.out.println("#ofknights" + NumKnightPlace);
-	}
+        pickKnightNum.setVisible(false);
+        NumKnightPlace = knightPick.getSelectedIndex()+1;
+        //System.out.println("#ofknights" + NumKnightPlace);
+    }
 
-	private void aboutActionPerformed(java.awt.event.ActionEvent evt) {
+    private void aboutActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
@@ -523,22 +523,21 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
             // Click event for when play clicks on space in board.
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (tileInPlay != null && selectedCard != null) {
-                	// if there has an exist tile, new tile can't be put
-                	if( game.placeTile(tileInPlay, location) == 0 ){
-                		moves++;
-                		if( tileInPlay.getBuilding() == Building.Castle ){
-							pickKnightNum.setVisible(true);
-                		}
-                        button.setIcon(tileInPlay.getImage());
-                		tileInPlay.setLocation(location);
-                		game.placeTile(tileInPlay, location);
-                		currentPlayer.getDeck().playTile(tileInPlay);
-                		tileInPlay = null;
-                		updateHand();
-                		if(moves > 2){
-                			endTurnActionPerformed(evt);
-                		}
-                	}
+                    // if there has an exist tile, new tile can't be put
+                    if( game.placeTile(tileInPlay, location) == 0 ){
+                        moves++;
+                        if( tileInPlay.getBuilding() == Building.Castle ){
+                            pickKnightNum.setVisible(true);
+                        }
+                        tileInPlay.setLocation(location);
+                        game.placeTile(tileInPlay, location);
+                        currentPlayer.getDeck().playTile(tileInPlay);
+                        tileInPlay = null;
+                        updateHand();
+                        if(moves > 2){
+                            endTurnActionPerformed(evt);
+                        }
+                    }
                 }
                 //TODO check to see if it's a valid move
                 //draw a new card
@@ -569,39 +568,39 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
     }
 
     public void initializeTiles(){
-    	initialTile.setVisible(true);
-    	initialTile.setBounds(0, 0, 1200, 1200);
-    	initialTile.setDefaultCloseOperation(HIDE_ON_CLOSE);
-    	JPanel TilePanel = new JPanel();
+        initialTile.setVisible(true);
+        initialTile.setBounds(0, 0, 1200, 1200);
+        initialTile.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        JPanel TilePanel = new JPanel();
         JLabel display = new JLabel("Player");
-        final JLabel playername = new JLabel(Integer.toString(currentPlayer.getId()+1));        
+        final JLabel playername = new JLabel(Integer.toString(currentPlayer.getId()+1));
         final JButton tile1 = new JButton();
         tile1.setIcon(currentPlayer.getDeck().getTile1().getImage());
         tile1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectedCard = tile1;
-                
+
             }
         });
         final JButton tile2 = new JButton();
         tile2.setIcon(currentPlayer.getDeck().getTile2().getImage());
         tile2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	selectedCard = tile2;
+                selectedCard = tile2;
             }
         });
         final JButton tile3 = new JButton();
         tile3.setIcon(currentPlayer.getDeck().getTile3().getImage());
         tile3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	selectedCard = tile3;
+                selectedCard = tile3;
             }
         });
         final JButton tile4 = new JButton();
         tile4.setIcon(currentPlayer.getDeck().getTile4().getImage());
-       tile4.addActionListener(new java.awt.event.ActionListener() {
+        tile4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	selectedCard = tile4;
+                selectedCard = tile4;
             }
         });
         final JButton select = new JButton("Next Player");
@@ -609,15 +608,15 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
         gridHolder.setLayout(new GridLayout(game.getNumPlayers(), 2));
 
         for(int i=0; i < game.getNumPlayers()*2; i++){
-        	final JButton gridButton = new JButton();
-        	gridButton.addActionListener(new java.awt.event.ActionListener() {
+            final JButton gridButton = new JButton();
+            gridButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     gridButton.setIcon(selectedCard.getIcon());
                 }
             });
-        	gridHolder.add(gridButton);
+            gridHolder.add(gridButton);
         }
-  
+
         TilePanel.add(display);
         TilePanel.add(playername);
         TilePanel.add(tile1);
@@ -629,41 +628,41 @@ public class GUI extends javax.swing.JFrame implements PlayerListener, BoardList
         select.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
-                	if(turn < 3){
-                		turn++;
-						currentPlayer = game.getNextPlayer();
-						playername.setText(Integer.toString(currentPlayer.getId()+1));
-						tile1.setIcon(currentPlayer.getDeck().getTile1().getImage());
-						tile2.setIcon(currentPlayer.getDeck().getTile2().getImage());
-						tile3.setIcon(currentPlayer.getDeck().getTile3().getImage());
-						tile4.setIcon(currentPlayer.getDeck().getTile4().getImage());
-						if(turn>2)
-							select.setText("Start Game");
-                	}
-                	else{
-                		initialTile.setVisible(false);
-                		InGame.setVisible(true);
-                	}
-				} catch (NoSuchPlayerException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-                
+                    if(turn < 3){
+                        turn++;
+                        currentPlayer = game.getNextPlayer();
+                        playername.setText(Integer.toString(currentPlayer.getId()+1));
+                        tile1.setIcon(currentPlayer.getDeck().getTile1().getImage());
+                        tile2.setIcon(currentPlayer.getDeck().getTile2().getImage());
+                        tile3.setIcon(currentPlayer.getDeck().getTile3().getImage());
+                        tile4.setIcon(currentPlayer.getDeck().getTile4().getImage());
+                        if(turn>2)
+                            select.setText("Start Game");
+                    }
+                    else{
+                        initialTile.setVisible(false);
+                        InGame.setVisible(true);
+                    }
+                } catch (NoSuchPlayerException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
             }
         });
-        
-        
+
+
         initialTile.add(TilePanel);
-        
+
     }
 
     public void placedTile(Tile t) {
-//        TileButton button = (TileButton) playerSelection.grid.getComponent();
-//        button.setIcon(t.getImage());
+        int gridLocation = (int) t.getLocation().getY() * playerSelection.game.getBoard().getSize() + ((int) t.getLocation().getX());
+        TileButton button = (TileButton) playerSelection.grid.getComponent(gridLocation);
+        button.setIcon(t.getImage());
     }
 
     public void placedKnight(Tile t) {
-
 
     }
 }

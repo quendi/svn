@@ -151,4 +151,12 @@ public class Board {
     public void notifyKnightPlaced(Tile t){
         boardListener.placedKnight(t);
     }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 }
