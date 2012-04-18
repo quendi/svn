@@ -138,7 +138,7 @@ public class Tile {
         }
         else{
             this.image = new ImageIcon("resources" + separator + "Mountain.jpg");
-            System.out.println("WIDTH: " + this.image.getIconWidth() + " HEIGHT: " + this.image.getIconHeight());
+            //System.out.println("WIDTH: " + this.image.getIconWidth() + " HEIGHT: " + this.image.getIconHeight());
         }
 
     }
