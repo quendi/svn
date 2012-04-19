@@ -52,8 +52,8 @@ public class Board {
                 System.out.println("X: " + t.getLocation().getX() + " Y: " + t.getLocation().getY());
                 if( t.getLocation().getX() == 0 || 
                     t.getLocation().getY() == 0 || 
-                    t.getLocation().getY() == size -1 ||
-                	t.getLocation().getX() == size-1 ){
+                    t.getLocation().getY() == size - 1 ||
+                	t.getLocation().getX() == size - 1 ){
                 	OutofBound(t);
                 }
                 notifyPlaced(t);        		
@@ -67,7 +67,22 @@ public class Board {
     }
     
     private void OutofBound(Tile t){
-    	System.out.println("Shift now");
+        if( t.getLocation().getX() == 0 ){
+//        	if(  )
+            	
+        } 
+        if( t.getLocation().getY() == 0 ){
+
+
+        }
+        if( t.getLocation().getY() == size - 1 ){
+
+
+        }
+        if( t.getLocation().getX() == size - 1 ){
+
+
+        }
     }
 
 //    //todo this is not the purpose of calculate points.  you have to add up each players point for the game.  the tile will already know the points by the
