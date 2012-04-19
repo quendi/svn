@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import domain.enums.Building;
 import domain.enums.Color;
+import utils.GameUtils;
 //import org.apache.commons.lang3.ArrayUtils;
 
 /**
@@ -115,6 +116,7 @@ public class Board {
         if(numKnights >= castle.getMinimumKnights()){
             castle.setNumKnights(numKnights);
             castle.setTopKnight(currentPlayerColor);
+            boardListener.placedKnight(castle, numKnights, GameUtils.getColor(currentPlayerColor));
             return true;
         }
         return false;
@@ -198,8 +200,8 @@ public class Board {
         boardListener.placedTile(t);
     }
 
-    public void notifyKnightPlaced(Tile t){
-        boardListener.placedKnight(t);
+    public void notifyKnightPlaced(Tile t, int numKnights, java.awt.Color playerColor){
+        boardListener.placedKnight(t, numKnights, playerColor);
     }
 
     public int getSize() {
@@ -209,4 +211,6 @@ public class Board {
     public void setSize(int size) {
         this.size = size;
     }
+
+
 }
