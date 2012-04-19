@@ -20,6 +20,7 @@ public class RobberKnight {
     private ArrayList<Player> players;
     private Board board;
     private int currentPlayerId;
+    private TurnListener turnListener;
 
     public RobberKnight(int numPlayers, ArrayList<Color> colors, ArrayList<Date> dates, BoardListener bl){
         players = new ArrayList<Player>();
@@ -39,6 +40,7 @@ public class RobberKnight {
         }
         board = new Board(numPlayers);
         board.addBoardListener(bl);
+        this.turnListener = (TurnListener) bl;
     }
 
     /**
@@ -55,6 +57,7 @@ public class RobberKnight {
             }
         }
         currentPlayerId = firstPlayer.getId();
+        notifyTurn(firstPlayer);
         return firstPlayer;
     }
 
@@ -63,36 +66,37 @@ public class RobberKnight {
      * @return id of next player
      */
     public Player getNextPlayer() throws NoSuchPlayerException {
-    	currentPlayerId = (currentPlayerId + 1) % numPlayers;
-    	System.out.println("New player " + currentPlayerId + "of total " + numPlayers);
+        currentPlayerId = (currentPlayerId + 1) % numPlayers;
+        System.out.println("New player " + currentPlayerId + "of total " + numPlayers);
         try {
             Player next = lookUpPlayerById(currentPlayerId);
+            notifyTurn(next);
             next.notifyHand();
             return next;
         } catch (NoSuchPlayerException e) {
             throw new NoSuchPlayerException("No player with id " + currentPlayerId + "found.");
         }
     }
-    
+
     public Player NextPlayer() throws NoSuchPlayerException {
         return lookUpPlayerById((currentPlayerId + 1) % numPlayers);
     }
 
     // use init to check if this placement is the initial placement
     public int placeTile(Tile t, Point location, int init){
-    	// if there has an exist tile, new tile can't be put
-    	if ( board.placeTile(t, location, init) == -1){
-    		return -1;
-    	}
-    	else{
-    		
-    		return 0;
-    	}
+        // if there has an exist tile, new tile can't be put
+        if ( board.placeTile(t, location, init) == -1){
+            return -1;
+        }
+        else{
+
+            return 0;
+        }
     }
-    
+
     public Player getCurrentPlayer()
     {
-    	return players.get(currentPlayerId);
+        return players.get(currentPlayerId);
     }
 
 
@@ -164,5 +168,9 @@ public class RobberKnight {
 
     public Board getBoard() {
         return board;
+    }
+
+    public void notifyTurn(Player currentPlayer){
+        turnListener.playerTurn(currentPlayer);
     }
 }

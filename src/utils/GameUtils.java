@@ -1,7 +1,11 @@
 package utils;
 
 import domain.Tile;
+import domain.enums.*;
 
+import java.awt.*;
+import java.awt.Color;
+import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +18,17 @@ public class GameUtils {
     public GameUtils(){}
 
 
+    public static java.awt.Color getColor(domain.enums.Color c){
+        Color color;
+        try {
+            Field field = Color.class.getField(c.toString());
+            color = (Color)field.get(null);
+        } catch (Exception e) {
+            color = null; // Not defined
+        }
+        return color;
+
+    }
     /**
      * Parse string into date.
      * @param month
