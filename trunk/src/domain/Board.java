@@ -44,12 +44,13 @@ public class Board {
      * @return
      */
     //todo check if tile is placed in a valid location
-    public int placeTile(Tile t, Point p, int init) {
+    public boolean placeTile(Tile t, Point p, boolean init) {
         // if there has an exist tile, new tile can't be put
         if ( tiles[(int) p.x][(int) p.y] == null ){
-        	if (isValidMove(p) == 0 || init == 1){
+        	if ( isValidMove(p) == true || init == true ){
                 t.setLocation(p);
                 tiles[(int) t.getLocation().getX()][(int) t.getLocation().getY()] = t;
+                notifyPlaced(t); 
                 System.out.println("X: " + t.getLocation().getX() + " Y: " + t.getLocation().getY());
                 if( t.getLocation().getX() == 0 || 
                     t.getLocation().getY() == 0 || 
@@ -57,32 +58,67 @@ public class Board {
                 	t.getLocation().getX() == size - 1 ){
                 	OutofBound(t);
                 }
-                notifyPlaced(t);        		
+       		
         	}
         	else
-        		return -1;
+        		return false;
         }
         else
-            return -1;
-        return 0;
+            return false;
+        return true;
     }
     
     private void OutofBound(Tile t){
+    	int i, j;
+    	
         if( t.getLocation().getX() == 0 ){
-//        	if(  )
-            	
+        	// check if it already reach the maximum board size
+        	for( i = 0; i < size; i++ ){
+        		if( tiles[size-1][i] != null ){
+        			System.out.println("can't shift");
+        			return;
+        		}
+        	}
+        	System.out.println("shift x=x+1");
+        	// shift the board
+        	for( i = size-2;  i >= 0; i--){
+        		for( j = 0;  j < size; j++){
+        			if( tiles[i][j] != null ){
+        				tiles[i][j].setLocation(new Point(i+1,j));
+        				tiles[i+1][j] = tiles[i][j];
+        				notifyRemoved(tiles[i][j]);
+        				tiles[i][j] = null;
+        				notifyPlaced(tiles[i+1][j]);
+        			}
+            	}
+        	}
         } 
         if( t.getLocation().getY() == 0 ){
-
-
+        	for( i = 0; i < size; i++ ){
+        		if( tiles[i][size-1] != null ){
+        			System.out.println("can't shift");
+        			return;
+        		}
+        	}
+        	System.out.println("shift y=y+1");
         }
         if( t.getLocation().getY() == size - 1 ){
-
-
+        	for( i = 0; i < size; i++ ){
+        		if( tiles[i][0] != null ){
+        			System.out.println("can't shift");
+        			return;
+        		}
+        	}
+        	System.out.println("shift y=y-1");
         }
         if( t.getLocation().getX() == size - 1 ){
-
-
+        	for( i = 0; i < size; i++ ){
+        		if( tiles[0][i] != null ){
+        			System.out.println("can't shift");
+        			return;
+        		}
+        	}
+        	System.out.println("shift x=x-1");
         }
     }
 
@@ -172,24 +208,24 @@ public class Board {
     }
     
     // check if this placement is next to an existed tile
-    public int isValidMove(Point p) {
+    public boolean isValidMove(Point p) {
     	if( (int) p.x != 0 ){
         	if( tiles[(int) p.x-1][(int) p.y] != null )
-        		return 0;    		
+        		return true;    		
     	}
     	if( (int) p.y != 0 ){
     		if( tiles[(int) p.x][(int) p.y-1] != null )
-        		return 0;
+        		return true;
     	}
     	if( (int) p.x != size-1 ){
     		if( tiles[(int) p.x+1][(int) p.y] != null )
-    			return 0;
+    			return true;
     	}
     	if( (int) p.y != size-1 ){
     		if( tiles[(int) p.x][(int) p.y+1] != null )
-    			return 0;
+    			return true;
     	}
-		return -1;
+		return false;
     }
 
     public void addBoardListener(BoardListener bl){
@@ -198,6 +234,11 @@ public class Board {
 
     public void notifyPlaced(Tile t){
         boardListener.placedTile(t);
+    }
+    
+    // while shift, remove the icon of the tile which has been set to null
+    public void notifyRemoved(Tile t){
+        boardListener.removedTile(t);
     }
 
     public void notifyKnightPlaced(Tile t, int numKnights, java.awt.Color playerColor){
