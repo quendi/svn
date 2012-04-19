@@ -83,15 +83,12 @@ public class RobberKnight {
     }
 
     // use init to check if this placement is the initial placement
-    public int placeTile(Tile t, Point location, int init){
-        // if there has an exist tile, new tile can't be put
-        if ( board.placeTile(t, location, init) == -1){
-            return -1;
-        }
-        else{
-
-            return 0;
-        }
+    public boolean placeTile(Tile t, Point location, boolean init){
+    	// if there has an exist tile, new tile can't be put
+    	if ( board.placeTile(t, location, init) == false)
+    		return false;
+    	else
+    		return true;
     }
 
     public Player getCurrentPlayer()
