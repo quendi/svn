@@ -118,7 +118,7 @@ public class GUI extends JFrame implements PlayerListener,
         JPanel knightPanel = new JPanel();
         JLabel message = new JLabel("Number of Knight to Place");
         knightPick = new JComboBox(new DefaultComboBoxModel(
-                new String[] { "1", "2", "3", "4", "5" }));
+                new String[] { "0", "1", "2", "3", "4", "5" }));
         JButton ok = new JButton("OK");
         ok.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,7 +227,7 @@ public class GUI extends JFrame implements PlayerListener,
                                                                                                         .addComponent(
                                                                                                                 jLabel2,
                                                                                                                 GroupLayout.PREFERRED_SIZE,
-                                                                                                                44,
+                                                                                                                55,//TODO
                                                                                                                 GroupLayout.PREFERRED_SIZE)
                                                                                                         .addGap(51,
                                                                                                                 51,
@@ -555,7 +555,17 @@ public class GUI extends JFrame implements PlayerListener,
 
     protected void okActionPerformed(ActionEvent evt) {
         pickKnightNum.setVisible(false);
-        NumKnightPlace = knightPick.getSelectedIndex() + 1;
+        NumKnightPlace = knightPick.getSelectedIndex();
+        selectedCard.setHorizontalTextPosition(SwingConstants.CENTER);
+        selectedCard.setText(Integer.toString(NumKnightPlace));
+        selectedCard.setOpaque(true);
+        selectedCard.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30)); 
+        selectedCard.setForeground(new java.awt.Color(250, 250, 0));
+        
+        if(NumKnightPlace > 0){
+	        card1.setEnabled(false);
+	        card2.setEnabled(false);
+        }
         // System.out.println("#ofknights" + NumKnightPlace);
     }
 
@@ -704,6 +714,7 @@ public class GUI extends JFrame implements PlayerListener,
                         // if a castle is placed, place knights
                         if (tileInPlay.getBuilding() == Building.Castle) {
                             pickKnightNum.setVisible(true);
+                            selectedCard = button;
                         }
                         tileInPlay.setLocation(location);
                         game.placeTile(tileInPlay, location, 0);
