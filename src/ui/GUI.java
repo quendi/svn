@@ -61,6 +61,7 @@ public class GUI extends JFrame implements PlayerListener,
     private int selectedTile = 0;
     private int first = 0;
     private static final int SIZE = 117 * 7;
+    private JButton castleTile = new JButton();
 
     // End of variables declaration
 
@@ -554,15 +555,15 @@ public class GUI extends JFrame implements PlayerListener,
     }// </editor-fold>
 
     protected void okActionPerformed(ActionEvent evt) {
-        pickKnightNum.setVisible(false);
-        NumKnightPlace = knightPick.getSelectedIndex();
-        selectedCard.setHorizontalTextPosition(SwingConstants.CENTER);
-        selectedCard.setText(Integer.toString(NumKnightPlace));
-        selectedCard.setOpaque(true);
-        selectedCard.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30)); 
-        selectedCard.setForeground(new java.awt.Color(250, 250, 0));
-        
         if(NumKnightPlace > 0){
+	        pickKnightNum.setVisible(false);
+	        NumKnightPlace = knightPick.getSelectedIndex();
+	        castleTile.setHorizontalTextPosition(SwingConstants.CENTER);
+	        castleTile.setText(Integer.toString(NumKnightPlace));
+	        castleTile.setOpaque(true);
+	        castleTile.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30)); 
+	        castleTile.setForeground(new java.awt.Color(250, 250, 0));
+        
 	        card1.setEnabled(false);
 	        card2.setEnabled(false);
         }
@@ -714,7 +715,7 @@ public class GUI extends JFrame implements PlayerListener,
                         // if a castle is placed, place knights
                         if (tileInPlay.getBuilding() == Building.Castle) {
                             pickKnightNum.setVisible(true);
-                            selectedCard = button;
+                            castleTile = button;
                         }
                         tileInPlay.setLocation(location);
                         game.placeTile(tileInPlay, location, 0);
