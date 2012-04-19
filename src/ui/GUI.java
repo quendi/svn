@@ -73,8 +73,9 @@ public class GUI extends JFrame implements PlayerListener,
         initComponents();
     }
 
-    private int placeTile(Tile tile, Point location) {
-        if (game.placeTile(tile, location) == -1) {
+    // use init to check is this is an initial placement
+    private int placeTile(Tile tile, Point location, int init ) {
+        if (game.placeTile(tile, location, init) == -1) {
             return -1;
         } else
             return 0;
@@ -698,14 +699,14 @@ public class GUI extends JFrame implements PlayerListener,
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (tileInPlay != null && selectedCard != null) {
                     // check if tile have already been placed in location
-                    if (game.placeTile(tileInPlay, location) == 0) {
+                    if (game.placeTile(tileInPlay, location, 0) == 0) {
                         moves++;
                         // if a castle is placed, place knights
                         if (tileInPlay.getBuilding() == Building.Castle) {
                             pickKnightNum.setVisible(true);
                         }
                         tileInPlay.setLocation(location);
-                        game.placeTile(tileInPlay, location);
+                        game.placeTile(tileInPlay, location, 0);
                         currentPlayer.playTile(tileInPlay);
                         tileInPlay = null;
                         // End turn once player has made 3 turns
@@ -814,7 +815,7 @@ public class GUI extends JFrame implements PlayerListener,
                                                 gridButton.getLocation().y
                                                         / gridButton
                                                         .getHeight()
-                                                        + 3));
+                                                        + 3), 1);
                                 currentPlayer.getDeck().playTile(
                                         game.getCurrentPlayer().getDeck()
                                                 .getTile1());
@@ -831,7 +832,7 @@ public class GUI extends JFrame implements PlayerListener,
                                                 gridButton.getLocation().y
                                                         / gridButton
                                                         .getHeight()
-                                                        + 3));
+                                                        + 3), 1);
                                 currentPlayer.getDeck().playTile(
                                         game.getCurrentPlayer().getDeck()
                                                 .getTile2());
@@ -848,7 +849,7 @@ public class GUI extends JFrame implements PlayerListener,
                                                 gridButton.getLocation().y
                                                         / gridButton
                                                         .getHeight()
-                                                        + 3));
+                                                        + 3), 1);
                                 currentPlayer.getDeck().playTile(
                                         game.getCurrentPlayer().getDeck()
                                                 .getTile3());
@@ -865,7 +866,7 @@ public class GUI extends JFrame implements PlayerListener,
                                                 gridButton.getLocation().y
                                                         / gridButton
                                                         .getHeight()
-                                                        + 3));
+                                                        + 3), 1);
                                 currentPlayer.getDeck().playTile(
                                         game.getCurrentPlayer().getDeck()
                                                 .getTile4());

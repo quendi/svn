@@ -43,17 +43,31 @@ public class Board {
      * @return
      */
     //todo check if tile is placed in a valid location
-    public int placeTile(Tile t, Point p) {
+    public int placeTile(Tile t, Point p, int init) {
         // if there has an exist tile, new tile can't be put
         if ( tiles[(int) p.x][(int) p.y] == null ){
-            t.setLocation(p);
-            tiles[(int) t.getLocation().getX()][(int) t.getLocation().getY()] = t;
-            System.out.println("X: " + t.getLocation().getX() + " Y: " + t.getLocation().getY());
-            notifyPlaced(t);
+        	if (isValidMove(p) == 0 || init == 1){
+                t.setLocation(p);
+                tiles[(int) t.getLocation().getX()][(int) t.getLocation().getY()] = t;
+                System.out.println("X: " + t.getLocation().getX() + " Y: " + t.getLocation().getY());
+                if( t.getLocation().getX() == 0 || 
+                    t.getLocation().getY() == 0 || 
+                    t.getLocation().getY() == size -1 ||
+                	t.getLocation().getX() == size-1 ){
+                	OutofBound(t);
+                }
+                notifyPlaced(t);        		
+        	}
+        	else
+        		return -1;
         }
         else
             return -1;
         return 0;
+    }
+    
+    private void OutofBound(Tile t){
+    	System.out.println("Shift now");
     }
 
 //    //todo this is not the purpose of calculate points.  you have to add up each players point for the game.  the tile will already know the points by the
@@ -138,6 +152,27 @@ public class Board {
 
 
     return null;
+    }
+    
+    // check if this placement is next to an existed tile
+    public int isValidMove(Point p) {
+    	if( (int) p.x != 0 ){
+        	if( tiles[(int) p.x-1][(int) p.y] != null )
+        		return 0;    		
+    	}
+    	if( (int) p.y != 0 ){
+    		if( tiles[(int) p.x][(int) p.y-1] != null )
+        		return 0;
+    	}
+    	if( (int) p.x != size-1 ){
+    		if( tiles[(int) p.x+1][(int) p.y] != null )
+    			return 0;
+    	}
+    	if( (int) p.y != size-1 ){
+    		if( tiles[(int) p.x][(int) p.y+1] != null )
+    			return 0;
+    	}
+		return -1;
     }
 
     public void addBoardListener(BoardListener bl){
