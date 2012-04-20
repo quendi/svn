@@ -25,7 +25,6 @@ public class Board {
 
     private static int MAX_KNIGHTS = 4;
 
-    //TODO: create board by numplayers
     public Board(int numPlayers) {
         if ( numPlayers == 2 )
             size=7;
@@ -38,7 +37,7 @@ public class Board {
     }
 
     /**
-     * Places tile in location.  Returns 0 if successfull, -1 if failed.
+     * Places tile in location.
      * @param t
      * @param p
      * @return
@@ -244,8 +243,12 @@ public class Board {
 
     return null;
     }
-    
-    // check if this placement is next to an existed tile
+
+    /**
+     * Check is if tile is adjacent to a already placed tile.
+     * @param p - location of tile to be placed
+     * @return
+     */
     public boolean isValidMove(Point p) {
     	if( (int) p.x != 0 ){
         	if( tiles[(int) p.x-1][(int) p.y] != null )

@@ -82,13 +82,27 @@ public class RobberKnight {
         return lookUpPlayerById((currentPlayerId + 1) % numPlayers);
     }
 
-    // use init to check if this placement is the initial placement
+    /**
+     * Places tile on given location.  Return true on success, false on failure.
+     * @param t -tile to be placed
+     * @param location - location of tile
+     * @param init - check to see if placement is part of intitial tile placement
+     * @return
+     */
     public boolean placeTile(Tile t, Point location, boolean init){
     	// if there has an exist tile, new tile can't be put
-    	if ( board.placeTile(t, location, init) == false)
-    		return false;
-    	else
-    		return true;
+    	if(board.placeTile(t, location, init)){
+            try {
+                Player p = lookUpPlayerById(currentPlayerId);
+                p.playTile(t);
+            } catch (NoSuchPlayerException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public Player getCurrentPlayer()
