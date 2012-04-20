@@ -6,7 +6,7 @@ import exceptions.NoSuchPlayerException;
 import utils.GameUtils;
 
 import java.awt.*;
-import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
@@ -648,6 +648,40 @@ public class GUI extends JFrame implements PlayerListener,
      * @param numPlayers
      */
 
+    // I put two boolean value x_end, y_end
+    // while x_end or y_end is true means tiles are reach the x or y bound of the board
+    // Original code is comment below the new code
+    // I add 1 more line for chose the tile location, 
+    // for example, while 4 players have place 9 tiles in a dimension
+    // they still have right side and left side to choose where to put the tile
+    // when they reach the bound of each dimension I will disable the extra line
+    
+    public void setUpGrid(JPanel grid, int numPlayers, boolean x_end, boolean y_end) {
+    	int size = 0;
+        if (numPlayers == 2)
+        	size=7+1;
+        else if (numPlayers == 3)
+        	size=9+1;
+        else if (numPlayers == 4)
+        	size=10+1;
+        
+        grid.setLayout(new java.awt.GridLayout(size, size));
+        for (int i = 0; i < size; i++) {
+        	for (int j = 0; j < size; j++) {
+        		final TileButton button = new TileButton();
+                final Point location = new Point(j, i);
+                addGridListener(button, location);
+                grid.add(button);
+                if(j==size-1 && x_end == true)
+                	button.setEnabled(false);
+                if(i==size-1 && y_end == true)
+                	button.setEnabled(false);
+            }
+        }
+    }
+    
+    
+    /*
     public void setUpGrid(JPanel grid, int numPlayers) {
         if (numPlayers == 2) {
             grid.setLayout(new java.awt.GridLayout(7, 7));
@@ -682,6 +716,7 @@ public class GUI extends JFrame implements PlayerListener,
             }
         }
     }
+     */
 
     /**
      * Add listen to button that will place tile in corresponding location when
@@ -922,7 +957,7 @@ public class GUI extends JFrame implements PlayerListener,
         card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
         playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
         numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
-        setUpGrid(grid, this.game.getNumPlayers());
+        setUpGrid(grid, this.game.getNumPlayers(), false, false);
         initializeTiles();
     }
 
@@ -956,7 +991,9 @@ public class GUI extends JFrame implements PlayerListener,
         int gridLocation = GameUtils.getGridLocation(t, game.getBoard().getSize());
         TileButton button = (TileButton) grid
                 .getComponent(gridLocation);
-        button.setIcon(t.getImage());
+        // button.setIcon(t.getImage());
+        // use scale function to resize the imageIcon
+        button.setIcon(scale(t.getImage().getImage(), this.game.getNumPlayers()));
         // If a castle has been placed, prompt user for knight placement.
         if (Building.Castle.equals(t.getBuilding())) {
             pickKnightNum.setVisible(true);
@@ -965,9 +1002,9 @@ public class GUI extends JFrame implements PlayerListener,
     }
 
     // while shift, remove the icon of the tile which has been set to null
-    public void removedTile() {
+    public void removedTile(boolean x_end, boolean y_end) {
         grid.removeAll();
-        setUpGrid(grid, this.game.getNumPlayers());
+        setUpGrid(grid, this.game.getNumPlayers(), x_end, y_end);
     }
 
     /**
@@ -1001,6 +1038,25 @@ public class GUI extends JFrame implements PlayerListener,
         catch(LineUnavailableException lua) {
             System.out.println(lua);
         }
+    }
+    
+    // resize the ImageIcon to fit the button in the grid
+    private ImageIcon scale(Image img, int NumPlayers) {
+    	double scale = 1;
+    	if( NumPlayers == 2 )
+    		scale = 0.875;
+    	else if( NumPlayers == 3 )
+    		scale = 0.7;
+    	else if( NumPlayers == 4 )
+    		scale = 0.636;
+    	
+        int width = (int)(scale*img.getWidth(this));
+        int height = (int)(scale*img.getHeight(this));
+        BufferedImage out_img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics graph = out_img.createGraphics();
+        graph.drawImage(img, 0, 0, width, height, null);
+        graph.dispose();
+        return new ImageIcon(out_img);
     }
 
     /**

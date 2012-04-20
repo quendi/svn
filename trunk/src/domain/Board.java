@@ -22,16 +22,19 @@ public class Board {
     private int size;
     private Tile[][] tiles;
     private BoardListener boardListener;
+    
+	private boolean x_end=false;
+	private boolean y_end=false;
 
     private static int MAX_KNIGHTS = 4;
 
     public Board(int numPlayers) {
         if ( numPlayers == 2 )
-            size=7;
+            size=7+1;
         else if ( numPlayers == 3 )
-            size=9;
+            size=9+1;
         else
-            size=10;
+            size=10+1;
 
         tiles=new Tile[size][size];
     }
@@ -72,9 +75,20 @@ public class Board {
     	
         if( t.getLocation().getX() == 0 ){
         	// check if it already reach the maximum board size
-        	for( i = 0; i < size; i++ ){
-        		if( tiles[size-1][i] != null ){
-        			// System.out.println("can't shift");
+        	for( i = 0; i < size-1; i++ ){
+        		if( tiles[size-2][i] != null ){
+        			// System.out.println("x can't shift");
+        			x_end = true;
+        	    	// Remove current grid layout
+        			notifyRemoved(x_end, y_end);
+        			//Rebuild new Grid layout
+        	    	for( i = 0;  i < size-1; i++){
+        	    		for( j = 0;  j < size; j++){
+        	    			if( tiles[i][j] != null ){
+        	                    notifyPlaced(tiles[i][j]); 
+        	    			}
+        	        	}
+        	    	}
         			return;
         		}
         	}
@@ -91,9 +105,20 @@ public class Board {
         	}
         } 
         if( t.getLocation().getY() == 0 ){
-        	for( i = 0; i < size; i++ ){
-        		if( tiles[i][size-1] != null ){
+        	for( i = 0; i < size-1; i++ ){
+        		if( tiles[i][size-2] != null ){
         			// System.out.println("can't shift");
+        			y_end = true;
+        	    	// Remove current grid layout
+        			notifyRemoved(x_end, y_end);
+        			//Rebuild new Grid layout
+        	    	for( i = 0;  i < size; i++){
+        	    		for( j = 0;  j < size; j++){
+        	    			if( tiles[i][j] != null ){
+        	                    notifyPlaced(tiles[i][j]); 
+        	    			}
+        	        	}
+        	    	}
         			return;
         		}
         	}
@@ -111,9 +136,10 @@ public class Board {
         }
         if( t.getLocation().getY() == size - 1 ){
         	for( i = 0; i < size; i++ ){
-        		if( tiles[i][0] != null ){
+        		if( tiles[i][1] != null ){
         			// System.out.println("can't shift");
-        			return;
+        			y_end = true;
+        			// return;
         		}
         	}
         	// System.out.println("shift y=y-1");
@@ -130,9 +156,10 @@ public class Board {
         }
         if( t.getLocation().getX() == size - 1 ){
         	for( i = 0; i < size; i++ ){
-        		if( tiles[0][i] != null ){
+        		if( tiles[1][i] != null ){
         			// System.out.println("can't shift");
-        			return;
+        			x_end = true;
+        			// return;
         		}
         	}
         	// System.out.println("shift x=x-1");
@@ -148,7 +175,7 @@ public class Board {
         	}
         }
     	// Remove current grid layout
-		notifyRemoved();
+		notifyRemoved(x_end, y_end);
 		//Rebuild new Grid layout
     	for( i = 0;  i < size; i++){
     		for( j = 0;  j < size; j++){
@@ -278,8 +305,8 @@ public class Board {
     }
     
     // while shift, remove the icon of the tile which has been set to null
-    public void notifyRemoved(){
-        boardListener.removedTile();
+    public void notifyRemoved(boolean x_end, boolean y_end){
+        boardListener.removedTile(x_end, y_end);
     }
 
     public void notifyKnightPlaced(Tile t, int numKnights, java.awt.Color playerColor){
