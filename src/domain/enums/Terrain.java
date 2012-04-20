@@ -1,9 +1,9 @@
 package domain.enums;
 
 public enum Terrain {
-    Mountain(1),
+    Mountain(3),
     Forest(2),
-    Plain(3),
+    Plain(1),
     Lake(0);
 
     int knightRestriction;

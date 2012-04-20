@@ -6,6 +6,7 @@ import java.util.Date;
 
 import domain.enums.Color;
 import exceptions.NoSuchPlayerException;
+import utils.GameUtils;
 
 /**
  * Created by IntelliJ IDEA.
@@ -96,13 +97,31 @@ public class RobberKnight {
                 Player p = lookUpPlayerById(currentPlayerId);
                 p.playTile(t);
             } catch (NoSuchPlayerException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
             return true;
         }
         else{
             return false;
         }
+    }
+
+    /**
+     * Places knight of game board.  Returns true on success, false on failure
+     * @param t - tile on which to place knights
+     * @param numberOfKnights - knights to be placed
+     * @return
+     */
+    public boolean placeKnight(Tile t, int numberOfKnights){
+        try {
+            Player p = lookUpPlayerById(currentPlayerId);
+            if(board.placeKnight(t, numberOfKnights, p.getColor())){
+                p.reduceKnights(numberOfKnights);
+                return true;
+            }
+        } catch (NoSuchPlayerException e) {
+            e.printStackTrace();         }
+        return false;
     }
 
     public Player getCurrentPlayer()

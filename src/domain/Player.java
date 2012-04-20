@@ -35,6 +35,7 @@ public class Player {
     
     public void reduceKnights(int n){
     	numKnights -= n;
+        playerListener.updateKnights(numKnights);
     }
 
     public Color getColor() {
