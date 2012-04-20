@@ -8,6 +8,7 @@ import utils.GameUtils;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -22,6 +23,7 @@ public class GUI extends JFrame implements PlayerListener,
     private int moves = 0;
     private Tile tileInPlay;
     protected Player currentPlayer;
+    private boolean knightMode = false;
 
     public RobberKnight game;
     PlayerSelection playerSelection;
@@ -557,14 +559,19 @@ public class GUI extends JFrame implements PlayerListener,
     }
 
     /**
-     * User indicates the number of knights he wishes to place on castle.
+     * User indicates the number of knights he wishes to place on a tile.
      * @param evt
      */
     protected void okActionPerformed(ActionEvent evt) {
         NumKnightPlace = knightPick.getSelectedIndex();
         if(NumKnightPlace > 0){
             pickKnightNum.setVisible(false);
-            game.placeKnight(castleTile, NumKnightPlace);
+            if(knightMode){
+               game.getBoard().moveKnight()
+            }
+            else{
+                game.placeKnight(castleTile, NumKnightPlace);
+            }
         }
     }
 
@@ -727,8 +734,13 @@ public class GUI extends JFrame implements PlayerListener,
     private void addGridListener(final TileButton button, final Point location) {
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if(knightMode){
+                    selectedCard = button;
+                    pickKnightNum.setVisible(true);
+                }
                 if (tileInPlay != null && selectedCard != null) {
                     // check if tile have already been placed in location
+
                     if (game.placeTile(tileInPlay, location, false)) {
                         moves++;
                         tileInPlay = null;
@@ -983,6 +995,13 @@ public class GUI extends JFrame implements PlayerListener,
     }
 
     /**
+     * Signal to ui to end the game.  Show end screen with point totals.
+     */
+    public void endGame() {
+
+    }
+
+    /**
      * Triggers when a piece is placed on the game board.  Updates UI board accordingly.
      * @param t
      */
@@ -1017,8 +1036,16 @@ public class GUI extends JFrame implements PlayerListener,
         button.setOpaque(true);
         button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
         button.setForeground(playerColor);
-        card1.setEnabled(false);
-        card2.setEnabled(false);
+        // joe - testing valid knight moves
+        ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(t, numKnights);
+        if(!gridLocations.isEmpty()){
+            card1.setEnabled(false);
+            card2.setEnabled(false);
+            disableAllExcept(gridLocations);
+            knightMode = true;
+        }
+//        card1.setEnabled(false);
+//        card2.setEnabled(false);
 
         // joe - testing out audio
         try {
@@ -1036,6 +1063,20 @@ public class GUI extends JFrame implements PlayerListener,
         }
         catch(LineUnavailableException lua) {
             System.out.println(lua);
+        }
+    }
+
+    /**
+     * Helper method that disables all buttons on grid except for locations given in array.
+     * TODO: maybe disable isn't the right thing to do.  this way the player cannot tell what color knights are on each tile.
+     * TODO: when they are placing them     *
+     * @param gridLocations - location of buttons to be left enabled
+     */
+    private void disableAllExcept(ArrayList<Integer> gridLocations) {
+        for(int i = 0; i < grid.getComponentCount(); i++){
+            if(!gridLocations.contains(i)){
+                grid.getComponent(i).setEnabled(false);
+            }
         }
     }
 
