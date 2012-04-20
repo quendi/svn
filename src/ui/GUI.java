@@ -8,7 +8,6 @@ import utils.GameUtils;
 import java.awt.*;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
-import java.io.File;
 
 import javax.swing.*;
 
@@ -25,8 +24,8 @@ public class GUI extends JFrame implements PlayerListener,
 
     public RobberKnight game;
     PlayerSelection playerSelection;
-    
-   // private JMenu Edit;
+
+    // private JMenu Edit;
     private JMenu File;
     private JMenu Help;
     protected JFrame InGame;
@@ -46,8 +45,8 @@ public class GUI extends JFrame implements PlayerListener,
     protected JPanel grid;
     private JMenuItem help;
     private JButton jButton104;
-    private JLabel jLabel1;
-    private JLabel jLabel2;
+    private JLabel playerLabel;
+    private JLabel knightLabel;
     private JLabel titleScreen;
     private JMenuItem loadGame;
     protected JMenuItem newGame;
@@ -92,8 +91,8 @@ public class GUI extends JFrame implements PlayerListener,
         pickKnightNum = new JFrame();
         InGame = new JFrame();
         jButton104 = new JButton();
-        jLabel1 = new JLabel();
-        jLabel2 = new JLabel();
+        playerLabel = new JLabel();
+        knightLabel = new JLabel();
         endTurn = new JButton();
         card1 = new TileButton();
         card2 = new TileButton();
@@ -136,16 +135,16 @@ public class GUI extends JFrame implements PlayerListener,
         InGame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         InGame.setMinimumSize(new java.awt.Dimension(900, 600));
 
-        jButton104.setText("Deck");
-        jButton104.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton104ActionPerformed(evt);
-            }
-        });
+//        jButton104.setText("Deck");
+//        jButton104.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jButton104ActionPerformed(evt);
+//            }
+//        });
 
-        jLabel1.setText("Player:");
+        playerLabel.setText("Player:");
 
-        jLabel2.setText("Knights");
+        knightLabel.setText("Knights");
 
         endTurn.setText("End Turn");
         endTurn.addActionListener(new java.awt.event.ActionListener() {
@@ -228,7 +227,7 @@ public class GUI extends JFrame implements PlayerListener,
                                                                                                 33,
                                                                                                 33)
                                                                                         .addComponent(
-                                                                                                jLabel2,
+                                                                                                knightLabel,
                                                                                                 GroupLayout.PREFERRED_SIZE,
                                                                                                 55,//TODO
                                                                                                 GroupLayout.PREFERRED_SIZE)
@@ -259,7 +258,7 @@ public class GUI extends JFrame implements PlayerListener,
                                                                                                         29,
                                                                                                         29)
                                                                                                 .addComponent(
-                                                                                                        jLabel1)
+                                                                                                        playerLabel)
                                                                                                 .addPreferredGap(
                                                                                                         LayoutStyle.ComponentPlacement.RELATED)
                                                                                                 .addGroup(
@@ -290,7 +289,7 @@ public class GUI extends JFrame implements PlayerListener,
                                                 .createParallelGroup(
                                                         GroupLayout.Alignment.BASELINE)
                                                 .addComponent(
-                                                        jLabel1,
+                                                        playerLabel,
                                                         GroupLayout.PREFERRED_SIZE,
                                                         24,
                                                         GroupLayout.PREFERRED_SIZE)
@@ -331,7 +330,7 @@ public class GUI extends JFrame implements PlayerListener,
                                                 .createParallelGroup(
                                                         GroupLayout.Alignment.BASELINE)
                                                 .addComponent(
-                                                        jLabel2,
+                                                        knightLabel,
                                                         GroupLayout.PREFERRED_SIZE,
                                                         28,
                                                         GroupLayout.PREFERRED_SIZE)
@@ -515,7 +514,7 @@ public class GUI extends JFrame implements PlayerListener,
         Menu.add(File);
 
         //Edit.setText("Edit");
-       // Menu.add(Edit);
+        // Menu.add(Edit);
 
         Help.setText("Help");
 
@@ -557,15 +556,14 @@ public class GUI extends JFrame implements PlayerListener,
     }
 
     protected void okActionPerformed(ActionEvent evt) {
+        NumKnightPlace = knightPick.getSelectedIndex();
         if(NumKnightPlace > 0){
             pickKnightNum.setVisible(false);
-            NumKnightPlace = knightPick.getSelectedIndex();
             castleTile.setHorizontalTextPosition(SwingConstants.CENTER);
             castleTile.setText(Integer.toString(NumKnightPlace));
             castleTile.setOpaque(true);
             castleTile.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
-            castleTile.setForeground(new java.awt.Color(250, 250, 0));
-
+            castleTile.setForeground(GameUtils.getColor(currentPlayer.getColor()));
             card1.setEnabled(false);
             card2.setEnabled(false);
         }
@@ -612,19 +610,7 @@ public class GUI extends JFrame implements PlayerListener,
             } catch (NoSuchPlayerException e) {
                 e.printStackTrace();
             }
-            /**
-             * Reset move counter and update ui to reflect current player.
-             */
-//            moves = 0;
-//            playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
-//            numberOfKnights.setText(Integer.toString(currentPlayer
-//                    .getNumKnights()));
-            card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
-            card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
-            // Change color
-//            currentColor.setText(currentPlayer.getColor().toString());
-//            InGame.getContentPane().setBackground(Color.getColor(currentPlayer.getColor().toString()));
-//            PlayerPanel.setBackground(Color.getColor(currentPlayer.getColor().toString()));
+
         }
     }
 
@@ -651,9 +637,9 @@ public class GUI extends JFrame implements PlayerListener,
         tileInPlay = currentPlayer.getDeck().getTile2();
     }
 
-    private void jButton104ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
+//    private void jButton104ActionPerformed(java.awt.event.ActionEvent evt) {
+//        // TODO add your handling code here:
+//    }
 
     /**
      * Creates appropriate grid for player SIZE.
@@ -707,21 +693,11 @@ public class GUI extends JFrame implements PlayerListener,
      */
     private void addGridListener(final TileButton button, final Point location) {
         button.addActionListener(new java.awt.event.ActionListener() {
-
-            // Click event for when play clicks on space in board.
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (tileInPlay != null && selectedCard != null) {
                     // check if tile have already been placed in location
-                    if (game.placeTile(tileInPlay, location, false) == true) {
+                    if (game.placeTile(tileInPlay, location, false)) {
                         moves++;
-                        // if a castle is placed, place knights
-                        //joe - would be cleaner to trigger this part in the placedTile method.
-                        if (tileInPlay.getBuilding() == Building.Castle) {
-                            pickKnightNum.setVisible(true);
-                            castleTile = button;
-                        }
-                        tileInPlay.setLocation(location);
-                        currentPlayer.playTile(tileInPlay);
                         tileInPlay = null;
                         // End turn once player has made 3 turns
                         if (moves > 2) {
@@ -729,14 +705,9 @@ public class GUI extends JFrame implements PlayerListener,
                         }
                     }
                 }
-                // TODO check to see if it's a valid move
-                // draw a new card
-                // after first play, set it = null
             }
         });
     }
-
-
 
 
 
@@ -999,12 +970,17 @@ public class GUI extends JFrame implements PlayerListener,
         TileButton button = (TileButton) grid
                 .getComponent(gridLocation);
         button.setIcon(t.getImage());
+        // If a castle has been placed, prompt user for knight placement.
+        if (Building.Castle.equals(t.getBuilding())) {
+            pickKnightNum.setVisible(true);
+            castleTile = button;
+        }
     }
-    
+
     // while shift, remove the icon of the tile which has been set to null
     public void removedTile() {
-    	grid.removeAll();
-    	setUpGrid(grid, this.game.getNumPlayers());
+        grid.removeAll();
+        setUpGrid(grid, this.game.getNumPlayers());
     }
 
     /**
@@ -1015,8 +991,6 @@ public class GUI extends JFrame implements PlayerListener,
     public void placedKnight(Tile t, int numKnights, Color playerColor) {
         int gridLocation = GameUtils.getGridLocation(t, game.getBoard().getSize());
         TileButton button = (TileButton) grid.getComponent(gridLocation);
-
-
     }
 
     /**
@@ -1027,7 +1001,7 @@ public class GUI extends JFrame implements PlayerListener,
         card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
     }
 
-     /**
+    /**
      * Updates hand in ui to curent player. Triggered when it is a new player's turn.h.
      */
     public void updateHand(Player p){
