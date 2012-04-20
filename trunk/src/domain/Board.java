@@ -187,7 +187,7 @@ public class Board {
      */
     public boolean placeKnight(Tile castle, int numKnights, Color currentPlayerColor){
         if(numKnights >= castle.getMinimumKnights()){
-            castle.setNumKnights(numKnights);
+            castle.setNumKnights(numKnights + castle.getNumKnights());
             castle.setTopKnight(currentPlayerColor);
             boardListener.placedKnight(castle, numKnights, GameUtils.getColor(currentPlayerColor));
             return true;

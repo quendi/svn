@@ -62,7 +62,7 @@ public class GUI extends JFrame implements PlayerListener,
     private int selectedTile = 0;
     private int first = 0;
     private static final int SIZE = 117 * 7;
-    private JButton castleTile = new JButton();
+    private Tile castleTile;
 
     // End of variables declaration
 
@@ -135,7 +135,7 @@ public class GUI extends JFrame implements PlayerListener,
         InGame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         InGame.setMinimumSize(new java.awt.Dimension(900, 600));
 
-//        jButton104.setText("Deck");
+//        jButton104.setText("End Knight Placement");
 //        jButton104.addActionListener(new java.awt.event.ActionListener() {
 //            public void actionPerformed(java.awt.event.ActionEvent evt) {
 //                jButton104ActionPerformed(evt);
@@ -555,19 +555,16 @@ public class GUI extends JFrame implements PlayerListener,
         pack();
     }
 
+    /**
+     * User indicates the number of knights he wishes to place on castle.
+     * @param evt
+     */
     protected void okActionPerformed(ActionEvent evt) {
         NumKnightPlace = knightPick.getSelectedIndex();
         if(NumKnightPlace > 0){
             pickKnightNum.setVisible(false);
-            castleTile.setHorizontalTextPosition(SwingConstants.CENTER);
-            castleTile.setText(Integer.toString(NumKnightPlace));
-            castleTile.setOpaque(true);
-            castleTile.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
-            castleTile.setForeground(GameUtils.getColor(currentPlayer.getColor()));
-            card1.setEnabled(false);
-            card2.setEnabled(false);
+            game.placeKnight(castleTile, NumKnightPlace);
         }
-        // System.out.println("#ofknights" + NumKnightPlace);
     }
 
     private void aboutActionPerformed(java.awt.event.ActionEvent evt) {
@@ -796,9 +793,6 @@ public class GUI extends JFrame implements PlayerListener,
                                                         / gridButton
                                                         .getHeight()
                                                         + 3), true);
-                                currentPlayer.getDeck().playTile(
-                                        game.getCurrentPlayer().getDeck()
-                                                .getTile1());
                                 if(tilesPlaced < 1)
                                     selectedCard = null;
                             }
@@ -812,9 +806,6 @@ public class GUI extends JFrame implements PlayerListener,
                                                         / gridButton
                                                         .getHeight()
                                                         + 3), true);
-                                currentPlayer.getDeck().playTile(
-                                        game.getCurrentPlayer().getDeck()
-                                                .getTile2());
                                 if(tilesPlaced < 1)
                                     selectedCard = null;
                             }
@@ -828,9 +819,6 @@ public class GUI extends JFrame implements PlayerListener,
                                                         / gridButton
                                                         .getHeight()
                                                         + 3), true);
-                                currentPlayer.getDeck().playTile(
-                                        game.getCurrentPlayer().getDeck()
-                                                .getTile3());
                                 if(tilesPlaced < 1)
                                     selectedCard = null;
                             }
@@ -844,9 +832,6 @@ public class GUI extends JFrame implements PlayerListener,
                                                         / gridButton
                                                         .getHeight()
                                                         + 3), true);
-                                currentPlayer.getDeck().playTile(
-                                        game.getCurrentPlayer().getDeck()
-                                                .getTile4());
                                 if(tilesPlaced < 1)
                                     selectedCard = null;
                             }
@@ -973,7 +958,7 @@ public class GUI extends JFrame implements PlayerListener,
         // If a castle has been placed, prompt user for knight placement.
         if (Building.Castle.equals(t.getBuilding())) {
             pickKnightNum.setVisible(true);
-            castleTile = button;
+            castleTile = t;
         }
     }
 
@@ -991,6 +976,13 @@ public class GUI extends JFrame implements PlayerListener,
     public void placedKnight(Tile t, int numKnights, Color playerColor) {
         int gridLocation = GameUtils.getGridLocation(t, game.getBoard().getSize());
         TileButton button = (TileButton) grid.getComponent(gridLocation);
+        button.setHorizontalTextPosition(SwingConstants.CENTER);
+        button.setText(Integer.toString(NumKnightPlace));
+        button.setOpaque(true);
+        button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
+        button.setForeground(playerColor);
+        card1.setEnabled(false);
+        card2.setEnabled(false);
     }
 
     /**
@@ -1009,9 +1001,13 @@ public class GUI extends JFrame implements PlayerListener,
         card2.setIcon(p.getDeck().getTile2().getImage());
     }
 
-    public void updateKnights() {
-
-    }
+    /**
+     * Updates knight count after a player sucessfully places a knight on a tile.
+     * @param numberOfKnights
+     */
+    public void updateKnights(int numberOfKnights) {
+         this.numberOfKnights.setText(Integer.toString(numberOfKnights));
+     }
 
     // END LISTENER IMPLEMENTATION
 }
