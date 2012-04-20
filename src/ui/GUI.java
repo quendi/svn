@@ -25,9 +25,8 @@ public class GUI extends JFrame implements PlayerListener,
 
     public RobberKnight game;
     PlayerSelection playerSelection;
-
-    // Variables declaration - do not modify
-    private JMenu Edit;
+    
+   // private JMenu Edit;
     private JMenu File;
     private JMenu Help;
     protected JFrame InGame;
@@ -86,7 +85,7 @@ public class GUI extends JFrame implements PlayerListener,
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+
     private void initComponents() {
 
         initialTile = new JFrame();
@@ -111,7 +110,7 @@ public class GUI extends JFrame implements PlayerListener,
         newGame = new JMenuItem();
         loadGame = new JMenuItem();
         close = new JMenuItem();
-        Edit = new JMenu();
+        //Edit = new JMenu();
         Help = new JMenu();
         about = new JMenuItem();
         help = new JMenuItem();
@@ -515,8 +514,8 @@ public class GUI extends JFrame implements PlayerListener,
 
         Menu.add(File);
 
-        Edit.setText("Edit");
-        Menu.add(Edit);
+        //Edit.setText("Edit");
+       // Menu.add(Edit);
 
         Help.setText("Help");
 
@@ -555,7 +554,7 @@ public class GUI extends JFrame implements PlayerListener,
                         .addContainerGap(33, Short.MAX_VALUE)));
 
         pack();
-    }// </editor-fold>
+    }
 
     protected void okActionPerformed(ActionEvent evt) {
         if(NumKnightPlace > 0){
@@ -581,7 +580,7 @@ public class GUI extends JFrame implements PlayerListener,
         // TODO add your handling code here:
     }
 
-    // startgame removed here
+
 
     private void errorOKActionPerformed(java.awt.event.ActionEvent evt) {
         errorNotEnoughPlayers.setVisible(false);
