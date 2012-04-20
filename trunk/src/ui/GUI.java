@@ -1002,10 +1002,9 @@ public class GUI extends JFrame implements PlayerListener,
     }
     
     // while shift, remove the icon of the tile which has been set to null
-    public void removedTile(Tile t) {
-        int gridLocation = GameUtils.getGridLocation(t, game.getBoard().getSize());
-        TileButton button = (TileButton) grid
-                .getComponent(gridLocation);
+    public void removedTile() {
+    	grid.removeAll();
+    	setUpGrid(grid, this.game.getNumPlayers());
     }
 
     /**

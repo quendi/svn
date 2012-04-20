@@ -75,20 +75,18 @@ public class Board {
         	// check if it already reach the maximum board size
         	for( i = 0; i < size; i++ ){
         		if( tiles[size-1][i] != null ){
-        			System.out.println("can't shift");
+        			// System.out.println("can't shift");
         			return;
         		}
         	}
-        	System.out.println("shift x=x+1");
+        	// System.out.println("shift x=x+1");
         	// shift the board
         	for( i = size-2;  i >= 0; i--){
         		for( j = 0;  j < size; j++){
         			if( tiles[i][j] != null ){
         				tiles[i][j].setLocation(new Point(i+1,j));
         				tiles[i+1][j] = tiles[i][j];
-        				notifyRemoved(tiles[i][j]);
         				tiles[i][j] = null;
-        				notifyPlaced(tiles[i+1][j]);
         			}
             	}
         	}
@@ -96,30 +94,70 @@ public class Board {
         if( t.getLocation().getY() == 0 ){
         	for( i = 0; i < size; i++ ){
         		if( tiles[i][size-1] != null ){
-        			System.out.println("can't shift");
+        			// System.out.println("can't shift");
         			return;
         		}
         	}
-        	System.out.println("shift y=y+1");
+        	// System.out.println("shift y=y+1");
+        	// shift the board
+        	for( i = size-2;  i >= 0; i--){
+        		for( j = 0;  j < size; j++){
+        			if( tiles[j][i] != null ){
+        				tiles[j][i].setLocation(new Point(j,i+1));
+        				tiles[j][i+1] = tiles[j][i];
+        				tiles[j][i] = null;
+        			}
+            	}
+        	}
         }
         if( t.getLocation().getY() == size - 1 ){
         	for( i = 0; i < size; i++ ){
         		if( tiles[i][0] != null ){
-        			System.out.println("can't shift");
+        			// System.out.println("can't shift");
         			return;
         		}
         	}
-        	System.out.println("shift y=y-1");
+        	// System.out.println("shift y=y-1");
+        	// shift the board
+        	for( i = 1;  i < size; i++){
+        		for( j = 0;  j < size; j++){
+        			if( tiles[j][i] != null ){
+        				tiles[j][i].setLocation(new Point(j,i-1));
+        				tiles[j][i-1] = tiles[j][i];
+        				tiles[j][i] = null;
+        			}
+            	}
+        	}
         }
         if( t.getLocation().getX() == size - 1 ){
         	for( i = 0; i < size; i++ ){
         		if( tiles[0][i] != null ){
-        			System.out.println("can't shift");
+        			// System.out.println("can't shift");
         			return;
         		}
         	}
-        	System.out.println("shift x=x-1");
+        	// System.out.println("shift x=x-1");
+        	// shift the board
+        	for( i = 1;  i < size; i++){
+        		for( j = 0;  j < size; j++){
+        			if( tiles[i][j] != null ){
+        				tiles[i][j].setLocation(new Point(i-1,j));
+        				tiles[i-1][j] = tiles[i][j];
+        				tiles[i][j] = null;
+        			}
+            	}
+        	}
         }
+    	// Remove current grid layout
+		notifyRemoved();
+		//Rebuild new Grid layout
+    	for( i = 0;  i < size; i++){
+    		for( j = 0;  j < size; j++){
+    			if( tiles[i][j] != null ){
+                    notifyPlaced(tiles[i][j]); 
+    			}
+        	}
+    	}
     }
 
 //    //todo this is not the purpose of calculate points.  you have to add up each players point for the game.  the tile will already know the points by the
@@ -237,8 +275,8 @@ public class Board {
     }
     
     // while shift, remove the icon of the tile which has been set to null
-    public void notifyRemoved(Tile t){
-        boardListener.removedTile(t);
+    public void notifyRemoved(){
+        boardListener.removedTile();
     }
 
     public void notifyKnightPlaced(Tile t, int numKnights, java.awt.Color playerColor){
