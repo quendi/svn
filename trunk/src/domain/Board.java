@@ -189,7 +189,7 @@ public class Board {
         if(numKnights >= castle.getMinimumKnights()){
             castle.setNumKnights(numKnights + castle.getNumKnights());
             castle.setTopKnight(currentPlayerColor);
-            boardListener.placedKnight(castle, numKnights, GameUtils.getColor(currentPlayerColor));
+            boardListener.placedKnight(castle, numKnights + castle.getNumKnights(), GameUtils.getColor(currentPlayerColor));
             return true;
         }
         return false;

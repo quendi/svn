@@ -8,7 +8,9 @@ import utils.GameUtils;
 import java.awt.*;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 
 /**
@@ -983,6 +985,22 @@ public class GUI extends JFrame implements PlayerListener,
         button.setForeground(playerColor);
         card1.setEnabled(false);
         card2.setEnabled(false);
+        try {
+            AudioInputStream audio = AudioSystem.getAudioInputStream(new java.io.File("resources/GallopingHorse.wav"));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audio);
+            clip.start();
+        }
+
+        catch(UnsupportedAudioFileException uae) {
+            System.out.println(uae);
+        }
+        catch(IOException ioe) {
+            System.out.println(ioe);
+        }
+        catch(LineUnavailableException lua) {
+            System.out.println(lua);
+        }
     }
 
     /**
