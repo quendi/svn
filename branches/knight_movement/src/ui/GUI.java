@@ -1,0 +1,1108 @@
+package ui;
+
+import domain.*;
+import domain.enums.Building;
+import exceptions.NoSuchPlayerException;
+import utils.GameUtils;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.sound.sampled.*;
+import javax.swing.*;
+
+/**
+ *
+ * @author Aaron
+ */
+public class GUI extends JFrame implements PlayerListener,
+        BoardListener, TurnListener {
+    private JButton selectedCard = new JButton("Null");
+    private int moves = 0;
+    private Tile tileInPlay;
+    protected Player currentPlayer;
+    private boolean knightMode = false;
+
+    public RobberKnight game;
+    PlayerSelection playerSelection;
+
+    // private JMenu Edit;
+    private JMenu File;
+    private JMenu Help;
+    protected JFrame InGame;
+    private JMenuBar Menu;
+
+    private JMenuItem about;
+    protected TileButton card1;
+    protected TileButton card2;
+    private JMenuItem close;
+    protected JLabel currentColor;
+
+    private JButton endTurn;
+    private JDialog errorNotEnoughPlayers;
+    private JLabel errorNotEnoughPlayersMsg;
+    private JButton errorOK;
+
+    protected JPanel grid;
+    private JMenuItem help;
+    private JButton jButton104;
+    private JLabel playerLabel;
+    private JLabel knightLabel;
+    private JLabel titleScreen;
+    private JMenuItem loadGame;
+    protected JMenuItem newGame;
+    protected JLabel numberOfKnights;
+    protected JLabel playersTurn;
+    protected JPanel PlayerPanel;
+    private JFrame pickKnightNum;
+    private int NumKnightPlace = 0;
+    private JComboBox knightPick;
+    private JFrame initialTile;
+    private int turn = 0;
+    private int tilesPlaced = 0;
+    private int selectedTile = 0;
+    private int first = 0;
+    private static final int SIZE = 117 * 7;
+    private Tile castleTile;
+
+    // End of variables declaration
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
+    public GUI() {
+        initComponents();
+    }
+
+    // use init to check is this is an initial placement
+    private boolean placeTile(Tile tile, Point location, boolean init ) {
+        if (game.placeTile(tile, location, init) == false) {
+            return false;
+        } else
+            return true;
+    }
+
+    @SuppressWarnings("unchecked")
+
+    private void initComponents() {
+
+        initialTile = new JFrame();
+        pickKnightNum = new JFrame();
+        InGame = new JFrame();
+        jButton104 = new JButton();
+        playerLabel = new JLabel();
+        knightLabel = new JLabel();
+        endTurn = new JButton();
+        card1 = new TileButton();
+        card2 = new TileButton();
+        numberOfKnights = new JLabel();
+        playersTurn = new JLabel();
+        currentColor = new JLabel();
+        grid = new JPanel();
+        errorNotEnoughPlayers = new JDialog();
+        errorNotEnoughPlayersMsg = new JLabel();
+        errorOK = new JButton();
+        titleScreen = new JLabel();
+        Menu = new JMenuBar();
+        File = new JMenu();
+        newGame = new JMenuItem();
+        loadGame = new JMenuItem();
+        close = new JMenuItem();
+        //Edit = new JMenu();
+        Help = new JMenu();
+        about = new JMenuItem();
+        help = new JMenuItem();
+        PlayerPanel = new JPanel();
+
+        pickKnightNum.setBounds(500, 500, 200, 100);
+        pickKnightNum.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        JPanel knightPanel = new JPanel();
+        JLabel message = new JLabel("Number of Knight to Place");
+        knightPick = new JComboBox(new DefaultComboBoxModel(
+                new String[] { "0", "1", "2", "3", "4", "5" }));
+        JButton ok = new JButton("OK");
+        ok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okActionPerformed(evt);
+            }
+        });
+        knightPanel.add(message);
+        knightPanel.add(knightPick);
+        knightPanel.add(ok);
+        pickKnightNum.add(knightPanel);
+
+        InGame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        InGame.setMinimumSize(new java.awt.Dimension(900, 600));
+
+//        jButton104.setText("End Knight Placement");
+//        jButton104.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jButton104ActionPerformed(evt);
+//            }
+//        });
+
+        playerLabel.setText("Player:");
+
+        knightLabel.setText("Knights");
+
+        endTurn.setText("End Turn");
+        endTurn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                endTurnActionPerformed(evt);
+            }
+        });
+
+        card1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                card1ActionPerformed(evt);
+            }
+        });
+
+        card2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                card2ActionPerformed(evt);
+            }
+        });
+
+        numberOfKnights.setText("BLANK");
+
+        playersTurn.setText("Number");
+
+        currentColor.setText("Color");
+
+        GroupLayout PlayerPanelLayout = new GroupLayout(
+                PlayerPanel);
+        PlayerPanel.setLayout(PlayerPanelLayout);
+        PlayerPanelLayout
+                .setHorizontalGroup(PlayerPanelLayout
+                        .createParallelGroup(
+                                GroupLayout.Alignment.LEADING)
+                        .addGroup(
+                                PlayerPanelLayout
+                                        .createSequentialGroup()
+                                        .addGroup(
+                                                PlayerPanelLayout
+                                                        .createParallelGroup(
+                                                                GroupLayout.Alignment.LEADING)
+                                                        .addGroup(
+                                                                PlayerPanelLayout
+                                                                        .createSequentialGroup()
+                                                                        .addContainerGap()
+                                                                        .addComponent(
+                                                                                card1,
+                                                                                117,
+                                                                                117,
+                                                                                117)
+                                                                        .addPreferredGap(
+                                                                                LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(
+                                                                                card2,
+                                                                                117,
+                                                                                117,
+                                                                                117))
+                                                        .addGroup(
+                                                                PlayerPanelLayout
+                                                                        .createSequentialGroup()
+                                                                        .addGroup(
+                                                                                PlayerPanelLayout
+                                                                                        .createParallelGroup(
+                                                                                                GroupLayout.Alignment.LEADING,
+                                                                                                false)
+                                                                                        .addGroup(
+                                                                                                PlayerPanelLayout
+                                                                                                        .createSequentialGroup()
+                                                                                                        .addGap(24,
+                                                                                                                24,
+                                                                                                                24)
+                                                                                                        .addComponent(
+                                                                                                                endTurn,
+                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                233,
+                                                                                                                GroupLayout.PREFERRED_SIZE))
+                                                                                        .addGroup(
+                                                                                                PlayerPanelLayout
+                                                                                                        .createSequentialGroup()
+                                                                                                        .addGap(33,
+                                                                                                                33,
+                                                                                                                33)
+                                                                                                        .addComponent(
+                                                                                                                knightLabel,
+                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                55,//TODO
+                                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                                        .addGap(51,
+                                                                                                                51,
+                                                                                                                51)
+                                                                                                        .addComponent(
+                                                                                                                numberOfKnights))
+                                                                                        .addGroup(
+                                                                                                PlayerPanelLayout
+                                                                                                        .createSequentialGroup()
+                                                                                                        .addGap(62,
+                                                                                                                62,
+                                                                                                                62)
+                                                                                                        .addGroup(
+                                                                                                                PlayerPanelLayout
+                                                                                                                        .createParallelGroup(
+                                                                                                                                GroupLayout.Alignment.LEADING)
+                                                                                                                        .addComponent(
+                                                                                                                                jButton104,
+                                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                                144,
+                                                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                                                        .addGroup(
+                                                                                                                                PlayerPanelLayout
+                                                                                                                                        .createSequentialGroup()
+                                                                                                                                        .addGap(29,
+                                                                                                                                                29,
+                                                                                                                                                29)
+                                                                                                                                        .addComponent(
+                                                                                                                                                playerLabel)
+                                                                                                                                        .addPreferredGap(
+                                                                                                                                                LayoutStyle.ComponentPlacement.RELATED)
+                                                                                                                                        .addGroup(
+                                                                                                                                                PlayerPanelLayout
+                                                                                                                                                        .createParallelGroup(
+                                                                                                                                                                GroupLayout.Alignment.LEADING)
+                                                                                                                                                        .addComponent(
+                                                                                                                                                                currentColor)
+                                                                                                                                                        .addComponent(
+                                                                                                                                                                playersTurn,
+                                                                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                                                                45,
+                                                                                                                                                                GroupLayout.PREFERRED_SIZE))))))
+                                                                        .addGap(0,
+                                                                                0,
+                                                                                Short.MAX_VALUE)))
+                                        .addContainerGap()));
+        PlayerPanelLayout
+                .setVerticalGroup(PlayerPanelLayout
+                        .createParallelGroup(
+                                GroupLayout.Alignment.LEADING)
+                        .addGroup(
+                                PlayerPanelLayout
+                                        .createSequentialGroup()
+                                        .addContainerGap()
+                                        .addGroup(
+                                                PlayerPanelLayout
+                                                        .createParallelGroup(
+                                                                GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(
+                                                                playerLabel,
+                                                                GroupLayout.PREFERRED_SIZE,
+                                                                24,
+                                                                GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(
+                                                                playersTurn,
+                                                                GroupLayout.PREFERRED_SIZE,
+                                                                24,
+                                                                GroupLayout.PREFERRED_SIZE))
+                                        .addGap(3, 3, 3)
+                                        .addComponent(currentColor)
+                                        .addPreferredGap(
+                                                LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(
+                                                jButton104,
+                                                GroupLayout.PREFERRED_SIZE,
+                                                122,
+                                                GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(
+                                                LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(
+                                                PlayerPanelLayout
+                                                        .createParallelGroup(
+                                                                GroupLayout.Alignment.LEADING,
+                                                                false)
+                                                        .addComponent(
+                                                                card1,
+                                                                117,
+                                                                117,
+                                                                117)
+                                                        .addComponent(
+                                                                card2,
+                                                                117,
+                                                                117,
+                                                                117))
+                                        .addGap(28, 28, 28)
+                                        .addGroup(
+                                                PlayerPanelLayout
+                                                        .createParallelGroup(
+                                                                GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(
+                                                                knightLabel,
+                                                                GroupLayout.PREFERRED_SIZE,
+                                                                28,
+                                                                GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(
+                                                                numberOfKnights))
+                                        .addPreferredGap(
+                                                LayoutStyle.ComponentPlacement.RELATED,
+                                                119, Short.MAX_VALUE)
+                                        .addComponent(
+                                                endTurn,
+                                                GroupLayout.PREFERRED_SIZE,
+                                                63,
+                                                GroupLayout.PREFERRED_SIZE)
+                                        .addGap(52, 52, 52)));
+
+        GroupLayout gridLayout = new GroupLayout(grid);
+        grid.setLayout(gridLayout);
+        /*gridLayout.setHorizontalGroup(gridLayout.createParallelGroup(
+                  GroupLayout.Alignment.LEADING).addGap(0, 574,
+                  Short.MAX_VALUE));
+          gridLayout.setVerticalGroup(gridLayout.createParallelGroup(
+                  GroupLayout.Alignment.LEADING).addGap(0, 0,
+                  Short.MAX_VALUE));*/
+
+        GroupLayout InGameLayout = new GroupLayout(
+                InGame.getContentPane());
+        InGame.getContentPane().setLayout(InGameLayout);
+        InGame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        InGameLayout
+                .setHorizontalGroup(InGameLayout
+                        .createParallelGroup(
+                                GroupLayout.Alignment.LEADING)
+                        .addGroup(
+                                GroupLayout.Alignment.TRAILING,
+                                InGameLayout
+                                        .createSequentialGroup()
+                                        .addContainerGap()
+                                                // .addComponent(grid,
+                                                // GroupLayout.DEFAULT_SIZE,
+                                                // GroupLayout.DEFAULT_SIZE,
+                                                // Short.MAX_VALUE)
+                                        .addComponent(grid,
+                                                SIZE,
+                                                SIZE,
+                                                SIZE
+                                        )
+                                        .addPreferredGap(
+                                                LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(
+                                                PlayerPanel,
+                                                GroupLayout.PREFERRED_SIZE,
+                                                GroupLayout.DEFAULT_SIZE,
+                                                GroupLayout.PREFERRED_SIZE)));
+        InGameLayout.setVerticalGroup(InGameLayout
+                .createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(
+                        InGameLayout
+                                .createSequentialGroup()
+                                .addComponent(PlayerPanel,
+                                        GroupLayout.PREFERRED_SIZE,
+                                        GroupLayout.DEFAULT_SIZE,
+                                        GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(
+                        InGameLayout.createSequentialGroup().addContainerGap()
+                                .addComponent(grid,
+                                        SIZE,
+                                        SIZE,
+                                        SIZE)
+                                .addComponent(grid/*
+												 * , GroupLayout.
+												 * DEFAULT_SIZE,
+												 * GroupLayout
+												 * .DEFAULT_SIZE,
+												 * Short.MAX_VALUE
+												 */).addContainerGap()));
+
+        errorNotEnoughPlayers.setIconImage(null);
+        errorNotEnoughPlayers.setMinimumSize(new java.awt.Dimension(400, 300));
+        errorNotEnoughPlayers.setResizable(false);
+
+        errorNotEnoughPlayersMsg
+                .setText("                               Error: Must have at least two players");
+
+        errorOK.setText("OK");
+        errorOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                errorOKActionPerformed(evt);
+            }
+        });
+
+        GroupLayout errorNotEnoughPlayersLayout = new GroupLayout(
+                errorNotEnoughPlayers.getContentPane());
+        errorNotEnoughPlayers.getContentPane().setLayout(
+                errorNotEnoughPlayersLayout);
+        errorNotEnoughPlayersLayout
+                .setHorizontalGroup(errorNotEnoughPlayersLayout
+                        .createParallelGroup(
+                                GroupLayout.Alignment.LEADING)
+                        .addGroup(
+                                errorNotEnoughPlayersLayout
+                                        .createSequentialGroup()
+                                        .addGroup(
+                                                errorNotEnoughPlayersLayout
+                                                        .createParallelGroup(
+                                                                GroupLayout.Alignment.LEADING)
+                                                        .addGroup(
+                                                                errorNotEnoughPlayersLayout
+                                                                        .createSequentialGroup()
+                                                                        .addContainerGap()
+                                                                        .addComponent(
+                                                                                errorNotEnoughPlayersMsg,
+                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                380,
+                                                                                Short.MAX_VALUE))
+                                                        .addGroup(
+                                                                errorNotEnoughPlayersLayout
+                                                                        .createSequentialGroup()
+                                                                        .addGap(146,
+                                                                                146,
+                                                                                146)
+                                                                        .addComponent(
+                                                                                errorOK,
+                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                93,
+                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                        .addGap(0,
+                                                                                0,
+                                                                                Short.MAX_VALUE)))
+                                        .addContainerGap()));
+        errorNotEnoughPlayersLayout
+                .setVerticalGroup(errorNotEnoughPlayersLayout
+                        .createParallelGroup(
+                                GroupLayout.Alignment.LEADING)
+                        .addGroup(
+                                errorNotEnoughPlayersLayout
+                                        .createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(
+                                                errorNotEnoughPlayersMsg,
+                                                GroupLayout.PREFERRED_SIZE,
+                                                191,
+                                                GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(
+                                                LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(
+                                                errorOK,
+                                                GroupLayout.PREFERRED_SIZE,
+                                                40,
+                                                GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap(52, Short.MAX_VALUE)));
+
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+
+        titleScreen.setIcon(new ImageIcon(
+                "resources/RobberKnights.jpg")); // NOI18N
+
+        File.setText("File");
+
+        newGame.setText("New Game");
+        newGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newGameActionPerformed(evt);
+            }
+        });
+        File.add(newGame);
+
+        loadGame.setText("Load Game");
+        File.add(loadGame);
+
+        close.setText("Close");
+        close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeActionPerformed(evt);
+            }
+        });
+        File.add(close);
+
+        Menu.add(File);
+
+        //Edit.setText("Edit");
+        // Menu.add(Edit);
+
+        Help.setText("Help");
+
+        about.setText("About");
+        about.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutActionPerformed(evt);
+            }
+        });
+        Help.add(about);
+
+        help.setText("Help");
+        help.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpActionPerformed(evt);
+            }
+        });
+        Help.add(help);
+
+        Menu.add(Help);
+
+        setJMenuBar(Menu);
+
+        GroupLayout layout = new GroupLayout(
+                getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(layout.createParallelGroup(
+                GroupLayout.Alignment.LEADING).addGroup(
+                layout.createSequentialGroup().addGap(25, 25, 25)
+                        .addComponent(titleScreen)
+                        .addContainerGap(30, Short.MAX_VALUE)));
+        layout.setVerticalGroup(layout.createParallelGroup(
+                GroupLayout.Alignment.LEADING).addGroup(
+                layout.createSequentialGroup().addGap(24, 24, 24)
+                        .addComponent(titleScreen)
+                        .addContainerGap(33, Short.MAX_VALUE)));
+
+        pack();
+    }
+
+    /**
+     * User indicates the number of knights he wishes to place on a tile.
+     * @param evt
+     */
+    protected void okActionPerformed(ActionEvent evt) {
+        NumKnightPlace = knightPick.getSelectedIndex();
+        if(NumKnightPlace > 0){
+            pickKnightNum.setVisible(false);
+            if(knightMode){
+               game.getBoard().moveKnight()
+            }
+            else{
+                game.placeKnight(castleTile, NumKnightPlace);
+            }
+        }
+    }
+
+    private void aboutActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void helpActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+
+
+    private void errorOKActionPerformed(java.awt.event.ActionEvent evt) {
+        errorNotEnoughPlayers.setVisible(false);
+    }
+
+    private void newGameActionPerformed(java.awt.event.ActionEvent evt) {
+        playerSelection = new PlayerSelection(true, this, game);// true
+        this.setVisible(false);
+    }
+
+    private void closeActionPerformed(java.awt.event.ActionEvent evt) {
+        System.exit(0);
+    }
+
+    /**
+     * Moves current turn to next player.
+     *
+     * @param evt
+     */
+    private void endTurnActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO
+        if (moves < 1) {
+            JOptionPane.showMessageDialog(InGame,
+                    "You must make at least one move.",
+                    "More moves are neccessary", JOptionPane.PLAIN_MESSAGE);
+        } else {
+            try {
+                currentPlayer = game.getNextPlayer();
+            } catch (NoSuchPlayerException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    /**
+     * Click event when play clicks on his first card in hand
+     *
+     * @param evt
+     */
+    private void card1ActionPerformed(java.awt.event.ActionEvent evt) {
+        selectedCard.setIcon(card1.getIcon());
+        selectedCard.setText(card1.getText());
+        tileInPlay = currentPlayer.getDeck().getTile1();
+
+    }
+
+    /**
+     * Click event when play clicks on his second card in hand
+     *
+     * @param evt
+     */
+    private void card2ActionPerformed(java.awt.event.ActionEvent evt) {
+        selectedCard.setIcon(card2.getIcon());
+        selectedCard.setText(card2.getText());
+        tileInPlay = currentPlayer.getDeck().getTile2();
+    }
+
+//    private void jButton104ActionPerformed(java.awt.event.ActionEvent evt) {
+//        // TODO add your handling code here:
+//    }
+
+    /**
+     * Creates appropriate grid for player SIZE.
+     *
+     * @param grid
+     *            - Jpanel representation of game board
+     * @param numPlayers
+     */
+
+    // I put two boolean value x_end, y_end
+    // while x_end or y_end is true means tiles are reach the x or y bound of the board
+    // Original code is comment below the new code
+    // I add 1 more line for chose the tile location, 
+    // for example, while 4 players have place 9 tiles in a dimension
+    // they still have right side and left side to choose where to put the tile
+    // when they reach the bound of each dimension I will disable the extra line
+
+    public void setUpGrid(JPanel grid, int numPlayers, boolean x_end, boolean y_end) {
+        int size = 0;
+        if (numPlayers == 2)
+            size=7+1;
+        else if (numPlayers == 3)
+            size=9+1;
+        else if (numPlayers == 4)
+            size=10+1;
+
+        grid.setLayout(new java.awt.GridLayout(size, size));
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                final TileButton button = new TileButton();
+                final Point location = new Point(j, i);
+                addGridListener(button, location);
+                grid.add(button);
+                if(j==size-1 && x_end == true)
+                    button.setEnabled(false);
+                if(i==size-1 && y_end == true)
+                    button.setEnabled(false);
+            }
+        }
+    }
+
+
+    /*
+   public void setUpGrid(JPanel grid, int numPlayers) {
+       if (numPlayers == 2) {
+           grid.setLayout(new java.awt.GridLayout(7, 7));
+           for (int i = 0; i < 7; i++) {
+               for (int j = 0; j < 7; j++) {
+                   final TileButton button = new TileButton();
+                   final Point location = new Point(j, i);
+                   addGridListener(button, location);
+                   grid.add(button);
+               }
+           }
+
+       } else if (numPlayers == 3) {
+           grid.setLayout(new java.awt.GridLayout(9, 9));
+           for (int i = 0; i < 9; i++) {
+               for (int j = 0; j < 9; j++) {
+                   final TileButton button = new TileButton();
+                   final Point location = new Point(j, i);
+                   addGridListener(button, location);
+                   grid.add(button);
+               }
+           }
+       } else {
+           grid.setLayout(new java.awt.GridLayout(10, 10));
+           for (int i = 0; i < 10; i++) {
+               for (int j = 0; j < 10; j++) {
+                   final TileButton button = new TileButton();
+                   final Point location = new Point(j, i);
+                   addGridListener(button, location);
+                   grid.add(button);
+               }
+           }
+       }
+   }
+    */
+
+    /**
+     * Add listen to button that will place tile in corresponding location when
+     * clicked.
+     *
+     * @param button
+     * @param location
+     */
+    private void addGridListener(final TileButton button, final Point location) {
+        button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if(knightMode){
+                    selectedCard = button;
+                    pickKnightNum.setVisible(true);
+                }
+                if (tileInPlay != null && selectedCard != null) {
+                    // check if tile have already been placed in location
+
+                    if (game.placeTile(tileInPlay, location, false)) {
+                        moves++;
+                        tileInPlay = null;
+                        // End turn once player has made 3 turns
+                        if (moves > 2) {
+                            endTurnActionPerformed(evt);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+
+
+    public static void main(String args[]) {
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            public void run() {
+                GUI gui = new GUI();
+                gui.setVisible(true);
+            }
+        });
+    }
+
+    /**
+     * Get starting layout of tiles from players.
+     * Castle placement is not allowed in this phase.
+     */
+
+    public void initializeTiles() {
+        initialTile.setVisible(true);
+        initialTile.setBounds(0, 0, 1200, 1200);
+        initialTile.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        JPanel tilePanel = new JPanel();
+        JLabel display = new JLabel("Player");
+        final JLabel playername = new JLabel(Integer.toString(currentPlayer
+                .getId() + 1));
+        final TileButton tile1 = new TileButton();
+        tile1.setIcon(currentPlayer.getDeck().getTile1().getImage());
+        tile1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectedCard = tile1;
+                selectedTile = 0;
+                first = 2;
+
+            }
+        });
+        final TileButton tile2 = new TileButton();
+        tile2.setIcon(currentPlayer.getDeck().getTile2().getImage());
+        tile2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectedCard = tile2;
+                selectedTile = 1;
+                if (first == 2) {
+                    selectedTile = 0;
+                } else {
+                    first = 1;
+                }
+
+            }
+        });
+
+
+        final TileButton tile4 = new TileButton();
+        tile4.setIcon(currentPlayer.getDeck().getTile4().getImage());
+        tile4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectedCard = tile4;
+                selectedTile = 3;
+                if (first == 1 || first == 2) {
+                    selectedTile = 2;
+                } else {
+                    selectedTile = 3;
+                }
+            }
+        });
+        final JButton select = new JButton("Next Player");
+        final JPanel gridHolder = new JPanel();
+        gridHolder.setLayout(new GridLayout(2, game.getNumPlayers()));
+        for (int i = 0; i < game.getNumPlayers() * 2; i++) {
+            final TileButton gridButton = new TileButton();
+            gridButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    if (tilesPlaced < 2) {
+                        if (gridButton.getIcon() == null
+                                && selectedCard != null) {
+                            gridButton.setIcon(selectedCard.getIcon());
+                            selectedCard.setEnabled(false);
+                            if (selectedTile == 0) {
+                                placeTile(
+                                        game.getCurrentPlayer().getDeck()
+                                                .getTile1(),
+                                        new Point(gridButton.getLocation().x
+                                                / gridButton.getWidth() + 3,
+                                                gridButton.getLocation().y
+                                                        / gridButton
+                                                        .getHeight()
+                                                        + 3), true);
+                                if(tilesPlaced < 1)
+                                    selectedCard = null;
+                            }
+                            if (selectedTile == 1) {
+                                placeTile(
+                                        game.getCurrentPlayer().getDeck()
+                                                .getTile2(),
+                                        new Point(gridButton.getLocation().x
+                                                / gridButton.getWidth() + 3,
+                                                gridButton.getLocation().y
+                                                        / gridButton
+                                                        .getHeight()
+                                                        + 3), true);
+                                if(tilesPlaced < 1)
+                                    selectedCard = null;
+                            }
+                            if (selectedTile == 2) {
+                                placeTile(
+                                        game.getCurrentPlayer().getDeck()
+                                                .getTile3(),
+                                        new Point(gridButton.getLocation().x
+                                                / gridButton.getWidth() + 3,
+                                                gridButton.getLocation().y
+                                                        / gridButton
+                                                        .getHeight()
+                                                        + 3), true);
+                                if(tilesPlaced < 1)
+                                    selectedCard = null;
+                            }
+                            if (selectedTile == 3) {
+                                placeTile(
+                                        game.getCurrentPlayer().getDeck()
+                                                .getTile4(),
+                                        new Point(gridButton.getLocation().x
+                                                / gridButton.getWidth() + 3,
+                                                gridButton.getLocation().y
+                                                        / gridButton
+                                                        .getHeight()
+                                                        + 3), true);
+                                if(tilesPlaced < 1)
+                                    selectedCard = null;
+                            }
+                            tilesPlaced++;
+                        } else if (selectedCard == null) {
+                            JOptionPane.showMessageDialog(initialTile,
+                                    "You cannot place the same tile twice.",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(initialTile,
+                                    "You cannot place over other tiles.",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(initialTile,
+                                "You cannot place more than two tiles.",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            });
+            gridHolder.add(gridButton);
+        }
+
+        tilePanel.add(display);
+        tilePanel.add(playername);
+        tilePanel.add(tile1);
+        tilePanel.add(tile2);
+        tilePanel.add(tile4);
+        tilePanel.add(gridHolder);
+        tilePanel.add(select);
+        select.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    if (turn < game.getNumPlayers() - 1) {
+                        if (tilesPlaced >= 2) {
+                            turn++;
+                            currentPlayer = game.getNextPlayer();
+                            playername.setText(Integer.toString(currentPlayer
+                                    .getId() + 1));
+                            tile1.setIcon(currentPlayer.getDeck().getTile1()
+                                    .getImage());
+                            tile2.setIcon(currentPlayer.getDeck().getTile2()
+                                    .getImage());
+                            tile4.setIcon(currentPlayer.getDeck().getTile4()
+                                    .getImage());
+                            if (turn >= game.getNumPlayers() - 1) {
+                                select.setText("Start Game");
+                            }
+                            tile1.setEnabled(true);
+                            tile2.setEnabled(true);
+                            tile4.setEnabled(true);
+                            tilesPlaced = 0;
+                            first = 0;
+                        } else {
+                            JOptionPane.showMessageDialog(initialTile,
+                                    "You must place two tiles.", "Error",
+                                    JOptionPane.PLAIN_MESSAGE);
+                        }
+                    } else {
+                        initialTile.setVisible(false);
+                        currentPlayer = game.getNextPlayer();
+                        InGame.setVisible(true);
+                        selectedCard = new JButton();
+                    }
+                } catch (NoSuchPlayerException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        initialTile.add(tilePanel);
+
+    }
+
+    /**
+     * Sets up ui according to current game.
+     * @param game
+     */
+
+    public void startGame(RobberKnight game){
+        this.game = game;
+        currentPlayer = this.game.getFirstPlayer();
+        card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
+        card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
+        playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
+        numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
+        setUpGrid(grid, this.game.getNumPlayers(), false, false);
+        initializeTiles();
+    }
+
+
+
+    // LISTENER IMPLEMENTATION
+
+    /**
+     * Triggers when it is the next players turn. Updates UI accordingly.
+     * @param currentPlayer
+     */
+    public void playerTurn(Player currentPlayer) {
+        // Reset move count, update ui to reflect current player.
+        moves = 0;
+        playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
+        numberOfKnights.setText(Integer.toString(currentPlayer
+                .getNumKnights()));
+        // Change color
+        currentColor.setText(currentPlayer.getColor().toString());
+        InGame.getContentPane().setBackground(GameUtils.getColor(currentPlayer.getColor()));
+        PlayerPanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+
+
+    }
+
+    /**
+     * Signal to ui to end the game.  Show end screen with point totals.
+     */
+    public void endGame() {
+
+    }
+
+    /**
+     * Triggers when a piece is placed on the game board.  Updates UI board accordingly.
+     * @param t
+     */
+    public void placedTile(Tile t) {
+        int gridLocation = GameUtils.getGridLocation(t, game.getBoard().getSize());
+        TileButton button = (TileButton) grid
+                .getComponent(gridLocation);
+        button.setIcon(t.getImage(), game.getNumPlayers());
+        // If a castle has been placed, prompt user for knight placement.
+        if (Building.Castle.equals(t.getBuilding())) {
+            pickKnightNum.setVisible(true);
+            castleTile = t;
+        }
+    }
+
+    // while shift, remove the icon of the tile which has been set to null
+    public void removedTile(boolean x_end, boolean y_end) {
+        grid.removeAll();
+        setUpGrid(grid, this.game.getNumPlayers(), x_end, y_end);
+    }
+
+    /**
+     * Draws knight on tile.
+     * @param t
+     * @param numKnights
+     */
+    public void placedKnight(Tile t, int numKnights, Color playerColor) {
+        int gridLocation = GameUtils.getGridLocation(t, game.getBoard().getSize());
+        TileButton button = (TileButton) grid.getComponent(gridLocation);
+        button.setHorizontalTextPosition(SwingConstants.CENTER);
+        button.setText(Integer.toString(NumKnightPlace));
+        button.setOpaque(true);
+        button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
+        button.setForeground(playerColor);
+        // joe - testing valid knight moves
+        ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(t, numKnights);
+        if(!gridLocations.isEmpty()){
+            card1.setEnabled(false);
+            card2.setEnabled(false);
+            disableAllExcept(gridLocations);
+            knightMode = true;
+        }
+//        card1.setEnabled(false);
+//        card2.setEnabled(false);
+
+        // joe - testing out audio
+        try {
+            AudioInputStream audio = AudioSystem.getAudioInputStream(new java.io.File("resources/GallopingHorse.wav"));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audio);
+            clip.start();
+        }
+
+        catch(UnsupportedAudioFileException uae) {
+            System.out.println(uae);
+        }
+        catch(IOException ioe) {
+            System.out.println(ioe);
+        }
+        catch(LineUnavailableException lua) {
+            System.out.println(lua);
+        }
+    }
+
+    /**
+     * Helper method that disables all buttons on grid except for locations given in array.
+     * TODO: maybe disable isn't the right thing to do.  this way the player cannot tell what color knights are on each tile.
+     * TODO: when they are placing them     *
+     * @param gridLocations - location of buttons to be left enabled
+     */
+    private void disableAllExcept(ArrayList<Integer> gridLocations) {
+        for(int i = 0; i < grid.getComponentCount(); i++){
+            if(!gridLocations.contains(i)){
+                grid.getComponent(i).setEnabled(false);
+            }
+        }
+    }
+
+    /**
+     * Updates hand in ui to curent player. Triggered when player places a tile.
+     */
+    public void updateHand() {
+        card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
+        card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
+    }
+
+    /**
+     * Updates hand in ui to curent player. Triggered when it is a new player's turn.
+     */
+    public void updateHand(Player p){
+        card1.setIcon(p.getDeck().getTile1().getImage());
+        card2.setIcon(p.getDeck().getTile2().getImage());
+    }
+
+    /**
+     * Updates knight count after a player sucessfully places a knight on a tile.
+     * @param numberOfKnights
+     */
+    public void updateKnights(int numberOfKnights) {
+        this.numberOfKnights.setText(Integer.toString(numberOfKnights));
+    }
+
+    // END LISTENER IMPLEMENTATION
+}
