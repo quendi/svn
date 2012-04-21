@@ -32,7 +32,6 @@ public class RobberKnight {
      * Initializes current game board and players.
      * @param numPlayers - used in determining size of board.
      */
-    //TODO: how to handle player color?
     private void initialize(int numPlayers, ArrayList<Color> colors, ArrayList<Date> birthDates, BoardListener bl){
         this.numPlayers = numPlayers;
         PlayerListener pl = (PlayerListener) bl;
@@ -115,6 +114,7 @@ public class RobberKnight {
     public boolean placeKnight(Tile t, int numberOfKnights){
         try {
             Player p = lookUpPlayerById(currentPlayerId);
+            // If knights are successfully replaced decrement player's knight count.
             if(board.placeKnight(t, numberOfKnights, p.getColor())){
                 p.reduceKnights(numberOfKnights);
                 return true;
@@ -123,6 +123,7 @@ public class RobberKnight {
             e.printStackTrace();         }
         return false;
     }
+
 
     public Player getCurrentPlayer()
     {
@@ -202,5 +203,18 @@ public class RobberKnight {
 
     public void notifyTurn(Player currentPlayer){
         turnListener.playerTurn(currentPlayer);
+    }
+
+    //TODO Get direction of travel to limit knights movement.
+    public void moveKnight(Tile placedOn, Point moveTo, int numberOfKnights) {
+        try {
+            Player current = lookUpPlayerById(currentPlayerId);
+            Tile goTo = board.getTile(moveTo);
+            if (!board.moveKnight(placedOn, goTo, numberOfKnights, current.getColor())){
+                //TODO indicate that enough knights have not been moved to tile.
+            }
+        } catch (NoSuchPlayerException e) {
+            e.printStackTrace();
+        }
     }
 }
