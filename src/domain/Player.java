@@ -32,7 +32,7 @@ public class Player {
         this.id = id;
         this.playerListener = pl;
     }
-    
+
     public void reduceKnights(int n){
     	numKnights -= n;
         playerListener.updateKnights(numKnights);
@@ -41,7 +41,7 @@ public class Player {
     public Color getColor() {
         return this.color;
     }
-    
+
 
 
     public void setColor(Color color) {
@@ -87,8 +87,8 @@ public class Player {
 
 
     public void placeTile(){
-        
-        
+
+
     }
 
     public int getNumKnights() {
@@ -99,18 +99,11 @@ public class Player {
         this.numKnights = numKnights;
     }
 
-    /**
-     * Execute player turn
-     */
-    //TODO: How to handle this?  Prompt ui to let them know current player is taking their turn?
-    public void takeTurn() {
-    }
-
     public void playTile(Tile t){
         deck.playTile(t);
         playerListener.updateHand();
     }
-    
+
     public void notifyHand(){
         playerListener.updateHand(this);
     }

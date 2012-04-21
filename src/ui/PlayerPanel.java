@@ -146,7 +146,6 @@ public class PlayerPanel extends JPanel{
     }
 
 //    private void endTurnActionPerformed(java.awt.event.ActionEvent evt) {
-//        //TODO
 //
 //        if(moves < 1){
 //            JOptionPane.showMessageDialog(this, "You must make at least one move.", "More moves are neccessary", JOptionPane.PLAIN_MESSAGE);
