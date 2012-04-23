@@ -22,10 +22,22 @@ public class RobberKnight {
     private Board board;
     private int currentPlayerId;
     private TurnListener turnListener;
+    private int[] playerTotals;
+
 
     public RobberKnight(int numPlayers, ArrayList<Color> colors, ArrayList<Date> dates, BoardListener bl){
         players = new ArrayList<Player>();
         initialize(numPlayers, colors, dates, bl);
+    }
+    
+    public int[] getTotals(){
+    	board.calculatePoints();
+    	playerTotals[0] = board.getPlayer1();
+    	playerTotals[1] = board.getPlayer2();
+    	playerTotals[2] = board.getPlayer3();
+    	playerTotals[3] = board.getPlayer4();
+		return playerTotals;
+    	
     }
 
     /**
