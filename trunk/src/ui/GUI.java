@@ -1044,7 +1044,7 @@ public class GUI extends JFrame implements PlayerListener,
         button.setOpaque(true);
         button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
         button.setForeground(playerColor);
-        //new WinScreen(game);//TODO does not work
+        new WinScreen(game);//TODO does not work
         // joe - testing valid knight moves
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(t, numKnights);
         if(!gridLocations.isEmpty()){

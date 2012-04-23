@@ -22,7 +22,7 @@ public class RobberKnight {
     private Board board;
     private int currentPlayerId;
     private TurnListener turnListener;
-    private int[] playerTotals;
+    private int[] playerTotals = new int[4];
 
 
     public RobberKnight(int numPlayers, ArrayList<Color> colors, ArrayList<Date> dates, BoardListener bl){

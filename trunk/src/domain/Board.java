@@ -31,7 +31,7 @@ public class Board {
     private static int MAX_KNIGHTS = 4;
     
     
-    private int[] playerTotals;
+    private int[] playerTotals = new int[4];
     
 
     /**
@@ -59,39 +59,43 @@ public class Board {
     public void calculatePoints(){
     	for(int i = 0; i < size; i++){
     		for(int j = 0; j < size; j++){
-    			if(tiles[i][j].getTopKnight().equals(Color.BLUE)){
-    				if(tiles[i][j].getBuilding().equals(Building.Castle))
-    					playerTotals[0]++;
-    				else if(tiles[i][j].getBuilding().equals(Building.Village))
-    					playerTotals[0]+=2;
-    				else if(tiles[i][j].getBuilding().equals(Building.Town))
-    					playerTotals[0]+=3;
-    			}
-    			else if(tiles[i][j].getTopKnight().equals(Color.GREEN)){
-    				if(tiles[i][j].getBuilding().equals(Building.Castle))
-    					playerTotals[1]++;
-    				else if(tiles[i][j].getBuilding().equals(Building.Village))
-    					playerTotals[1]+=2;
-    				else if(tiles[i][j].getBuilding().equals(Building.Town))
-    					playerTotals[1]+=3;
-    			}
-    			else if(tiles[i][j].getTopKnight().equals(Color.YELLOW)){
-    				if(tiles[i][j].getBuilding().equals(Building.Castle))
-    					playerTotals[2]++;
-    				else if(tiles[i][j].getBuilding().equals(Building.Village))
-    					playerTotals[2]+=2;
-    				else if(tiles[i][j].getBuilding().equals(Building.Town))
-    					playerTotals[2]+=3;
+    			if(tiles[i][j] != null && tiles[i][j].getTopKnight() != null){
+        			if(tiles[i][j].getTopKnight().equals(Color.BLUE)){
+        				if(tiles[i][j].getBuilding().equals(Building.Castle))
+        					playerTotals[0]++;
+        				else if(tiles[i][j].getBuilding().equals(Building.Village))
+        					playerTotals[0]+=2;
+        				else if(tiles[i][j].getBuilding().equals(Building.Town))
+        					playerTotals[0]+=3;
+        			}
+        			else if(tiles[i][j].getTopKnight().equals(Color.GREEN)){
+        				if(tiles[i][j].getBuilding().equals(Building.Castle))
+        					playerTotals[1]++;
+        				else if(tiles[i][j].getBuilding().equals(Building.Village))
+        					playerTotals[1]+=2;
+        				else if(tiles[i][j].getBuilding().equals(Building.Town))
+        					playerTotals[1]+=3;
+        			}
+        			else if(tiles[i][j].getTopKnight().equals(Color.YELLOW)){
+        				if(tiles[i][j].getBuilding().equals(Building.Castle))
+        					playerTotals[2]++;
+        				else if(tiles[i][j].getBuilding().equals(Building.Village))
+        					playerTotals[2]+=2;
+        				else if(tiles[i][j].getBuilding().equals(Building.Town))
+        					playerTotals[2]+=3;
+        			}
+        			else{
+        				if(tiles[i][j].getBuilding().equals(Building.Castle))
+        					playerTotals[3]++;
+        				else if(tiles[i][j].getBuilding().equals(Building.Village))
+        					playerTotals[3]+=2;
+        				else if(tiles[i][j].getBuilding().equals(Building.Town))
+        					playerTotals[3]+=3;
+        			}
     			}
     			else{
-    				if(tiles[i][j].getBuilding().equals(Building.Castle))
-    					playerTotals[3]++;
-    				else if(tiles[i][j].getBuilding().equals(Building.Village))
-    					playerTotals[3]+=2;
-    				else if(tiles[i][j].getBuilding().equals(Building.Town))
-    					playerTotals[3]+=3;
-    			}
-    				
+
+    			}	
     		}
     	}
     }
