@@ -1,5 +1,6 @@
 package domain;
 
+import domain.enums.Building;
 import domain.enums.Color;
 import org.apache.commons.lang3.ArrayUtils;
 import utils.GameUtils;
@@ -27,6 +28,10 @@ public class Board {
     private boolean y_end=false;
 
     private static int MAX_KNIGHTS = 4;
+    
+    
+    private int[] playerTotals;
+    
 
     /**
      * Creates board according to number of players
@@ -49,6 +54,59 @@ public class Board {
      * @param p
      * @return
      */
+    
+    public void calculatePoints(){
+    	for(int i = 0; i < size; i++){
+    		for(int j = 0; j < size; j++){
+    			if(tiles[i][j].getTopKnight().equals(Color.BLUE)){
+    				if(tiles[i][j].getBuilding().equals(Building.Castle))
+    					playerTotals[0]++;
+    				else if(tiles[i][j].getBuilding().equals(Building.Village))
+    					playerTotals[0]+=2;
+    				else if(tiles[i][j].getBuilding().equals(Building.Town))
+    					playerTotals[0]+=3;
+    			}
+    			else if(tiles[i][j].getTopKnight().equals(Color.GREEN)){
+    				if(tiles[i][j].getBuilding().equals(Building.Castle))
+    					playerTotals[1]++;
+    				else if(tiles[i][j].getBuilding().equals(Building.Village))
+    					playerTotals[1]+=2;
+    				else if(tiles[i][j].getBuilding().equals(Building.Town))
+    					playerTotals[1]+=3;
+    			}
+    			else if(tiles[i][j].getTopKnight().equals(Color.YELLOW)){
+    				if(tiles[i][j].getBuilding().equals(Building.Castle))
+    					playerTotals[2]++;
+    				else if(tiles[i][j].getBuilding().equals(Building.Village))
+    					playerTotals[2]+=2;
+    				else if(tiles[i][j].getBuilding().equals(Building.Town))
+    					playerTotals[2]+=3;
+    			}
+    			else{
+    				if(tiles[i][j].getBuilding().equals(Building.Castle))
+    					playerTotals[3]++;
+    				else if(tiles[i][j].getBuilding().equals(Building.Village))
+    					playerTotals[3]+=2;
+    				else if(tiles[i][j].getBuilding().equals(Building.Town))
+    					playerTotals[3]+=3;
+    			}
+    				
+    		}
+    	}
+    }
+    public int getPlayer1(){
+    	return playerTotals[0];
+    }
+    public int getPlayer2(){
+    	return playerTotals[1];
+    }
+    public int getPlayer3(){
+    	return playerTotals[2];
+    }
+    public int getPlayer4(){
+    	return playerTotals[3];
+    }
+    
     public boolean placeTile(Tile t, Point p, boolean init) {
         // if there has an exist tile, new tile can't be put
         if ( tiles[(int) p.x][(int) p.y] == null ){

@@ -47,6 +47,7 @@ public class GUI extends JFrame implements PlayerListener,
     private JLabel errorNotEnoughPlayersMsg;
     private JButton errorOK;
 
+    private JButton endGame = new JButton("End Game");
     protected JPanel grid;
     private JMenuItem help;
     private JButton jButton104;
@@ -224,6 +225,8 @@ public class GUI extends JFrame implements PlayerListener,
                                                                                         GroupLayout.PREFERRED_SIZE,
                                                                                         233,
                                                                                         GroupLayout.PREFERRED_SIZE))
+
+        
                                                                         .addGroup(
                                                                                 PlayerPanelLayout
                                                                                         .createSequentialGroup()
@@ -1039,6 +1042,7 @@ public class GUI extends JFrame implements PlayerListener,
         button.setOpaque(true);
         button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
         button.setForeground(playerColor);
+        //new WinScreen(game);
         // joe - testing valid knight moves
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(t, numKnights);
         if(!gridLocations.isEmpty()){
