@@ -336,6 +336,7 @@ public class Board {
     public ArrayList<Integer> getValidMoves(Tile castle, Tile lastPlaced, int numKnights){
         //TODO FIX LOGIC IN THIS METHOD
         int diffX = (int) ( lastPlaced.getLocation().getX() - castle.getLocation().getX());
+
         int diffY = (int) (lastPlaced.getLocation().getY() - castle.getLocation().getY());
         Point p = lastPlaced.getLocation();
         // Tile that can possible by moved to next
@@ -365,21 +366,21 @@ public class Board {
 
         // Knights are being moved vertically.
         else{
+            // Knight are being moved down.
+            if((int) p.y != size-1){
+                // Check next tile below the tile where movement last occured.
+                if ((int) p.y != 0) {
+                    if(tiles[(int) p.x][(int) p.y+1] != null){
+                        nextMovement = tiles[(int) p.x][(int) p.y+1];
+                    }
+                }
+            }
             // Knight are being moved up.
-            if(diffY > 0){
+            else{
                 // Check next tile above the tile where movement last occured.
                 if ((int) p.y != 0) {
                     if(tiles[(int) p.x][(int) p.y-1] != null){
                         nextMovement = tiles[(int) p.x][(int) p.y-1];
-                    }
-                }
-            }
-            // Knight are being moved down.
-            else{
-                // Check next tile above the tile where movement last occured.
-                if ((int) p.y != size-1) {
-                    if(tiles[(int) p.x][(int) p.y+1] != null){
-                        nextMovement = tiles[(int) p.x][(int) p.y+1];
                     }
                 }
             }
