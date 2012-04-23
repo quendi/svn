@@ -14,7 +14,8 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 public class Player {
-	public int numKnights;
+	private int numKnights;
+    private String name;
     private Color color;
     private int id;
     private Date birthDate;
@@ -80,15 +81,12 @@ public class Player {
         this.inGame = inGame;
     }
 
-    public void addInventoryListener(PlayerListener il){
-        this.playerListener = il;
+    public String getName() {
+        return name;
     }
 
-
-
-    public void placeTile(){
-
-
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getNumKnights() {

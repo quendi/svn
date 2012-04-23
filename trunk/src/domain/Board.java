@@ -3,6 +3,7 @@ package domain;
 import domain.enums.Building;
 import domain.enums.Color;
 import org.apache.commons.lang3.ArrayUtils;
+import ui.KnightPicker;
 import utils.GameUtils;
 
 import java.awt.*;
@@ -114,6 +115,9 @@ public class Board {
                 t.setLocation(p);
                 tiles[(int) t.getLocation().getX()][(int) t.getLocation().getY()] = t;
                 notifyPlaced(t);
+                if (Building.Castle.equals(t.getBuilding())) {
+                    notifyCastlePlacement(t);
+                }
                 System.out.println("X: " + t.getLocation().getX() + " Y: " + t.getLocation().getY());
                 if( t.getLocation().getX() == 0 ||
                         t.getLocation().getY() == 0 ||
@@ -131,10 +135,13 @@ public class Board {
         return true;
     }
 
-    //TODO modify this method or the listener method.  notifying a castle has been replaced on the board is trigger knight movement.
+    private void notifyCastlePlacement(Tile t) {
+        boardListener.placedCastle(t);
+    }
+
     private void OutofBound(Tile t){
         int i, j;
-
+        // TODO shifting board resets all images drawn of tiles.
         if( t.getLocation().getX() == 0 ){
             // check if it already reach the maximum board size
             for( i = 0; i < size-1; i++ ){
@@ -315,15 +322,91 @@ public class Board {
 
     }
 
+    /**
+     * Get valid moves after player has made a move.  Called after knights have been moved.
+     * @param castle  - castle knight movement originated from.
+     * @param lastPlaced  - the last tile the player moved kngihts to.
+     * @param numKnights  - number of knnight player wishes to move
+     * @return
+     */
+    public ArrayList<Integer> getValidMoves(Tile castle, Tile lastPlaced, int numKnights){
+        //TODO FIX LOGIC IN THIS METHOD
+        int diffX = (int) ( lastPlaced.getLocation().getX() - castle.getLocation().getX());
+        int diffY = (int) (lastPlaced.getLocation().getY() - castle.getLocation().getY());
+        Point p = lastPlaced.getLocation();
+        // Tile that can possible by moved to next
+        Tile nextMovement = null;
+
+        // Knights are being moved horizontally
+        if(diffX != 0){
+            // Knights are being moved to the right.
+            if(diffX > 0){
+                // Check next tile to the right of tile where movement last occured.
+                if ((int) p.x != 0) {
+                    if(tiles[(int) p.x-1][(int) p.y] != null){
+                        nextMovement = tiles[(int) p.x-1][(int) p.y];
+                    }
+                }
+            }
+            // Knight are being moved to the left.
+            else{
+                // Check next tile to the left of tile where movement last occured.
+                if ((int) p.x != size-1) {
+                    if (tiles[(int) p.x+1][(int) p.y] != null ){
+                        nextMovement = tiles[(int) p.x+1][(int) p.y];
+                    }
+                }
+            }
+        }
+
+        // Knights are being moved vertically.
+        else{
+            // Knight are being moved up.
+            if(diffY > 0){
+                // Check next tile above the tile where movement last occured.
+                if ((int) p.y != 0) {
+                    if(tiles[(int) p.x][(int) p.y-1] != null){
+                        nextMovement = tiles[(int) p.x][(int) p.y-1];
+                    }
+                }
+            }
+            // Knight are being moved down.
+            else{
+                // Check next tile above the tile where movement last occured.
+                if ((int) p.y != size-1) {
+                    if(tiles[(int) p.x][(int) p.y+1] != null){
+                        nextMovement = tiles[(int) p.x][(int) p.y+1];
+                    }
+                }
+            }
+        }
+
+        ArrayList<Integer> boardLocations = new ArrayList<Integer>();
+        if(nextMovement != null){
+            int moveableKnights = numKnights - castle.getMinimumKnights();
+            if (moveableKnights > 0) {
+                ArrayList<Integer> knightsAvailble = new ArrayList<Integer>();
+                for(int i = 0; i <= moveableKnights; i++){
+                    knightsAvailble.add(moveableKnights);
+                }
+                // Check which adjacent tiles can be moves with the amount of knights the player can move.
+                for (Integer knights : knightsAvailble) {
+                    if(knights + nextMovement.getNumKnights() >= nextMovement.getMinimumKnights() && knights + nextMovement.getNumKnights() <= MAX_KNIGHTS)
+                        boardLocations.add(GameUtils.getGridLocation(nextMovement, size));
+                }
+            }
+        }
+        return boardLocations;
+    }
 
     /**
-     * Return grid locations of valid moves.
-     * @param t - tile player is moving knights from
+     * Return grid locations of valid moves. Called when player is intially placing tiles on castle
+     * @param castle - castle tile player is moving knights from
      * @param numKnights - number of knights available for the player to move
      * @return
      */
-    public ArrayList<Integer> getValidMoves(Tile t, int numKnights){
-        Point p = t.getLocation();
+    public ArrayList<Integer> getValidMoves(Tile castle, int numKnights){
+        Point p = castle.getLocation();
         // get adjacent tiles
         ArrayList<Tile> adjacentTiles = new ArrayList<Tile>();
         ArrayList<Integer> boardLocations = new ArrayList<Integer>();
@@ -344,15 +427,23 @@ public class Board {
                 adjacentTiles.add(tiles[(int) p.x][(int) p.y+1]);
         }
         // Number of knights available for movement is obtained by the minimum knights the must be left behind
-        int moveableKnights = numKnights - t.getMinimumKnights();
-        // Check which adjacent tiles can be moves with the amount of knights the player can move.
-        //TODO Verify logic to work when player may not want to place all of their moveable knights, since this increases the number of kngihts beyond the max knights allow on a tile.
-        for(Tile tile : adjacentTiles){
-            if(moveableKnights + tile.getNumKnights() >= tile.getMinimumKnights() && moveableKnights + tile.getNumKnights() <= MAX_KNIGHTS)
-                boardLocations.add(GameUtils.getGridLocation(tile, size));
+        int moveableKnights = numKnights - castle.getMinimumKnights();
+        if (moveableKnights > 0) {
+            ArrayList<Integer> knightsAvailble = new ArrayList<Integer>();
+            for(int i = 0; i <= moveableKnights; i++){
+                knightsAvailble.add(i);
+            }
+            // Check which adjacent tiles can be moves with the amount of knights the player can move.
+            for(Tile tile : adjacentTiles){
+                for (Integer knights : knightsAvailble) {
+                    if(knights + tile.getNumKnights() >= tile.getMinimumKnights() && knights + tile.getNumKnights() <= MAX_KNIGHTS)
+                        //TODO allows duplicates, not a big deal ( doesn't break anything i think?)
+                        boardLocations.add(GameUtils.getGridLocation(tile, size));
+                }
+            }
         }
         return boardLocations;
-}
+    }
 
     /**
      * Check is if tile is adjacent to a already placed tile.

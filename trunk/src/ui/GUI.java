@@ -68,7 +68,7 @@ public class GUI extends JFrame implements PlayerListener,
     private int selectedTile = 0;
     private int first = 0;
     private static final int SIZE = 117 * 7;
-    private Tile placedOn;
+    private Tile castleTile;
 
     // End of variables declaration
 
@@ -83,10 +83,11 @@ public class GUI extends JFrame implements PlayerListener,
 
     // use init to check is this is an initial placement
     private boolean placeTile(Tile tile, Point location, boolean init ) {
-        if (game.placeTile(tile, location, init) == false) {
-            return false;
-        } else
-            return true;
+//        if (game.placeTile(tile, location, init) == false) {
+//            return false;
+//        } else
+//            return true;
+        return game.placeTile(tile, location, init);
     }
 
     @SuppressWarnings("unchecked")
@@ -575,7 +576,7 @@ public class GUI extends JFrame implements PlayerListener,
 
             }
             else{
-                game.placeKnight(placedOn, NumKnightPlace);
+                game.placeKnight(castleTile, NumKnightPlace);
             }
         }
     }
@@ -1016,11 +1017,12 @@ public class GUI extends JFrame implements PlayerListener,
                 .getComponent(gridLocation);
         button.setIcon(t.getImage(), game.getNumPlayers());
         // If a castle has been placed, prompt user for knight placement.
-        if (Building.Castle.equals(t.getBuilding())) {
-            knightPicker = new KnightPicker(this);
-            knightPicker.setVisible(true);
-            placedOn = t;
-        }
+    }
+
+    public void placedCastle(Tile castle) {
+        knightPicker = new KnightPicker(this);
+        knightPicker.setVisible(true);
+        castleTile = castle;
     }
 
     // while shift, remove the icon of the tile which has been set to null
@@ -1050,7 +1052,7 @@ public class GUI extends JFrame implements PlayerListener,
             disableAllExcept(gridLocations);
             knightPicker.setKnightPicker(t.getNumKnights() - t.getMinimumKnights());
             knightMode = true;
-            placedOn = t;
+            castleTile = t;
         }
         else{
             reenableAll();
@@ -1079,18 +1081,18 @@ public class GUI extends JFrame implements PlayerListener,
 
     /**
      * Triggers when knights have been moved sucessfully.
-     * @param start
+     * @param castle
      * @param numKnights
      * @param destination
      * @param knights
      * @param color
      */
-    public void movedKnight(Tile start, int numKnights, Tile destination, int knights, Color playerColor) {
+    public void movedKnight(Tile castle, int numKnights, Tile destination, int knights, Color playerColor) {
         //To change body of implemented methods use File | Settings | File Templates.
-        TileButton startButton = (TileButton) grid.getComponent(GameUtils.getGridLocation(start, game.getBoard().getSize()));
+        TileButton startButton = (TileButton) grid.getComponent(GameUtils.getGridLocation(castle, game.getBoard().getSize()));
         TileButton destinationButton = (TileButton) grid.getComponent(GameUtils.getGridLocation(destination, game.getBoard().getSize()));
         startButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        startButton.setText(Integer.toString(start.getNumKnights()));
+        startButton.setText(Integer.toString(castle.getNumKnights()));
         startButton.setOpaque(true);
         startButton.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
         startButton.setForeground(playerColor); startButton.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -1099,13 +1101,12 @@ public class GUI extends JFrame implements PlayerListener,
         destinationButton.setOpaque(true);
         destinationButton.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
         destinationButton.setForeground(playerColor);
-        ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(destination, destination.getNumKnights());
+        ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castleTile, destination, destination.getNumKnights());
         if(!gridLocations.isEmpty()){
             reenableAll();
             disableAllExcept(gridLocations);
-            knightPicker.setKnightPicker(destination.getNumKnights() - destination.getMinimumKnights());
+            knightPicker.setKnightPicker(castleTile.getNumKnights() - castleTile.getMinimumKnights());
             knightMode = true;
-            placedOn = destination;
         }
         else{
             reenableAll();
@@ -1170,14 +1171,14 @@ public class GUI extends JFrame implements PlayerListener,
      * @param numberOfKnights
      */
     public void placeKnight(int numberOfKnights) {
-        game.placeKnight(placedOn, numberOfKnights);
+        game.placeKnight(castleTile, numberOfKnights);
     }
 
     /**
      * Informs game knights have moved.
      */
     public void moveKnight(int numberOfKnights) {
-        game.moveKnight(placedOn, moveTo, numberOfKnights);
+        game.moveKnight(castleTile, moveTo, numberOfKnights);
 
     }
 

@@ -107,6 +107,7 @@ public class RobberKnight {
             try {
                 Player p = lookUpPlayerById(currentPlayerId);
                 p.playTile(t);
+
             } catch (NoSuchPlayerException e) {
                 e.printStackTrace();
             }
@@ -218,11 +219,12 @@ public class RobberKnight {
     }
 
     //TODO Get direction of travel to limit knights movement.
-    public void moveKnight(Tile placedOn, Point moveTo, int numberOfKnights) {
+    public void moveKnight(Tile castle, Point moveTo, int numberOfKnights) {
         try {
             Player current = lookUpPlayerById(currentPlayerId);
             Tile goTo = board.getTile(moveTo);
-            if (!board.moveKnight(placedOn, goTo, numberOfKnights, current.getColor())){
+            if (!board.moveKnight(castle, goTo, numberOfKnights, current.getColor())){
+
                 //TODO indicate that enough knights have not been moved to tile.
             }
         } catch (NoSuchPlayerException e) {
