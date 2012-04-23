@@ -20,14 +20,27 @@ public class GameUtils {
 
 
     public static java.awt.Color getColor(domain.enums.Color c){
-        Color color;
+       /** Color color;
         try {
             Field field = Color.class.getField(c.toString());
             color = (Color)field.get(null);
         } catch (Exception e) {
             color = null; // Not defined
         }
-        return color;
+        return color;*/
+    	if(c == domain.enums.Color.RED){
+    		return new java.awt.Color(255, 163, 163);
+    	}
+    	if(c == domain.enums.Color.GREEN){
+    		return new java.awt.Color(163, 255, 163);
+    	}
+    	if(c == domain.enums.Color.BLUE){
+    		return new java.awt.Color(163, 209, 255);
+    	}
+    	if(c == domain.enums.Color.YELLOW){
+    		return new java.awt.Color(255, 255, 163);
+    	}
+    	return new java.awt.Color(0, 0, 255);
 
     }
     /**
