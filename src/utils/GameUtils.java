@@ -20,27 +20,35 @@ public class GameUtils {
 
 
     public static java.awt.Color getColor(domain.enums.Color c){
-       /** Color color;
-        try {
-            Field field = Color.class.getField(c.toString());
-            color = (Color)field.get(null);
-        } catch (Exception e) {
-            color = null; // Not defined
-        }
-        return color;*/
+    	// This is for PASTEL Colors, good for BLACK writing
     	if(c == domain.enums.Color.RED){
-    		return new java.awt.Color(255, 163, 163);
+    		return new java.awt.Color(255, 31, 31);
     	}
     	if(c == domain.enums.Color.GREEN){
-    		return new java.awt.Color(163, 255, 163);
+    		return new java.awt.Color(31, 255, 31);
     	}
     	if(c == domain.enums.Color.BLUE){
-    		return new java.awt.Color(163, 209, 255);
+    		return new java.awt.Color(31, 31, 255);
     	}
     	if(c == domain.enums.Color.YELLOW){
-    		return new java.awt.Color(255, 255, 163);
+    		return new java.awt.Color(255, 255, 31);
     	}
-    	return new java.awt.Color(0, 0, 255);
+    	return new java.awt.Color(0, 0, 0);
+    	
+    	// This is for DARKER Colors, good for WHITE writing (watch out for yellow)
+    	/*if(c == domain.enums.Color.RED){
+    		return new java.awt.Color(102, 0, 0);
+    	}
+    	if(c == domain.enums.Color.GREEN){
+    		return new java.awt.Color(0, 102, 0);
+    	}
+    	if(c == domain.enums.Color.BLUE){
+    		return new java.awt.Color(0, 0, 102);
+    	}
+    	if(c == domain.enums.Color.YELLOW){
+    		return new java.awt.Color(224, 224, 0);
+    	}
+    	return new java.awt.Color(0, 0, 0);*/
 
     }
     /**
