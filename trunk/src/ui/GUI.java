@@ -7,6 +7,7 @@ import utils.GameUtils;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -1135,7 +1136,7 @@ public class GUI extends JFrame implements PlayerListener,
     }
 
     /**
-     * Updates hand in ui to curent player. Triggered when player places a tile.
+     * Updates hand in ui to current player. Triggered when player places a tile.
      */
     public void updateHand() {
         card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
@@ -1143,7 +1144,7 @@ public class GUI extends JFrame implements PlayerListener,
     }
 
     /**
-     * Updates hand in ui to curent player. Triggered when it is a new player's turn.
+     * Updates hand in ui to current player. Triggered when it is a new player's turn.
      */
     public void updateHand(Player p){
         card1.setIcon(p.getDeck().getTile1().getImage());
