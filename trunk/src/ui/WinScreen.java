@@ -14,7 +14,7 @@ public class WinScreen {
 	
 	public WinScreen(RobberKnight game){
 
-		//playerTotals = game.getTotals();
+		playerTotals = game.getTotals();
 		
 		frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
