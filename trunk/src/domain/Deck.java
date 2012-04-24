@@ -11,7 +11,7 @@ import domain.enums.Building;
 import domain.enums.Terrain;
 
 public class Deck {
-	public ArrayList<Tile> tiles = new ArrayList<Tile>();
+	private ArrayList<Tile> tiles = new ArrayList<Tile>();
     private Random generator = new Random(System.currentTimeMillis());
 
     public Deck(){
@@ -20,14 +20,14 @@ public class Deck {
     public void initialize(){ 
     	int rep;
     	populateDeck();
-    	rep = generator.nextInt(10)+10;
+    	/*rep = generator.nextInt(10)+10;
     	//shuffleTiles(4, 8, rep);	//b
     	rep = generator.nextInt(10)+10;
     	shuffleTiles(9, 13, rep);	//c
     	rep = generator.nextInt(10)+10;
     	shuffleTiles(14, 18, rep);	//e
     	rep = generator.nextInt(10)+10;
-    	shuffleTiles(19, 23, rep);	//f
+    	shuffleTiles(19, 23, rep);	//f*/
          }
     
     private void populateDeck(){
@@ -36,7 +36,7 @@ public class Deck {
     	tiles.add(new Tile(Terrain.Plain, Building.Village, 'A'));
     	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'A')); 
     	tiles.add(new Tile(Terrain.Mountain, Building.Nothing, 'A')); 
-    	tiles.add(new Tile(Terrain.Plain, Building.Village, 'B')); 
+    	/*tiles.add(new Tile(Terrain.Plain, Building.Village, 'B')); 
     	tiles.add(new Tile(Terrain.Forest, Building.Village, 'B')); 
     	tiles.add(new Tile(Terrain.Plain, Building.Town, 'B')); 
     	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'B')); 
@@ -55,7 +55,7 @@ public class Deck {
     	tiles.add(new Tile(Terrain.Forest, Building.Village, 'E')); 
     	tiles.add(new Tile(Terrain.Plain, Building.Town, 'E')); 
     	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'E')); 
-    	tiles.add(new Tile(Terrain.Forest, Building.Castle, 'E'));
+    	tiles.add(new Tile(Terrain.Forest, Building.Castle, 'E'));*/
     }
     
     private void shuffleTiles(int start, int end, int repeat){
@@ -105,7 +105,10 @@ public class Deck {
     	return tiles.get(2).getLetter();
     }
 
-    public Integer getSize(){
+    public int getSize(){
         return tiles.size();
     }
+	public static void main(String[] args) {
+		card2.setEnabled(true);
+	}
 }
