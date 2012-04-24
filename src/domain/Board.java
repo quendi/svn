@@ -331,6 +331,7 @@ public class Board {
     public ArrayList<Integer> getValidMoves(Tile castle, Tile lastPlaced, int numKnights){
         //TODO FIX LOGIC IN THIS METHOD
         int diffX = (int) ( lastPlaced.getLocation().getX() - castle.getLocation().getX());
+        int diffY = (int) (lastPlaced.getLocation().getY() - castle.getLocation().getY());
         Point p = lastPlaced.getLocation();
         // Tile that can possible by moved to next
         Tile nextMovement = null;
@@ -360,9 +361,9 @@ public class Board {
         // Knights are being moved vertically.
         else{
             // Knight are being moved down.
-            if(p.y != size-1){
+            if(diffY > 0){
                 // Check next tile below the tile where movement last occured.
-                if (p.y != 0) {
+                if (p.y != size-1) {
                     if(tiles[p.x][p.y +1] != null){
                         nextMovement = tiles[p.x][p.y +1];
                     }
@@ -384,7 +385,7 @@ public class Board {
             int moveableKnights = numKnights - castle.getMinimumKnights();
             if (moveableKnights > 0) {
                 ArrayList<Integer> knightsAvailble = new ArrayList<Integer>();
-                for(int i = 0; i <= moveableKnights; i++){
+                for(int i = 1; i <= moveableKnights; i++){
                     knightsAvailble.add(moveableKnights);
                 }
                 // Check which adjacent tiles can be moves with the amount of knights the player can move.
@@ -433,7 +434,7 @@ public class Board {
         int moveableKnights = numKnights - castle.getMinimumKnights();
         if (moveableKnights > 0) {
             ArrayList<Integer> knightsAvailble = new ArrayList<Integer>();
-            for(int i = 0; i <= moveableKnights; i++){
+            for(int i = 1; i <= moveableKnights; i++){
                 knightsAvailble.add(i);
             }
             // Check which adjacent tiles can be moves with the amount of knights the player can move.
