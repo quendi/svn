@@ -108,7 +108,4 @@ public class Deck {
     public int getSize(){
         return tiles.size();
     }
-	public static void main(String[] args) {
-		card2.setEnabled(true);
-	}
 }
