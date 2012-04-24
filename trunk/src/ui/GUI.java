@@ -68,6 +68,7 @@ public class GUI extends JFrame implements PlayerListener,
     private int first = 0;
     private static final int SIZE = 117 * 7;
     private Tile castleTile;
+	private Font font = new Font("Serif", Font.BOLD, 34);
 
     // End of variables declaration
 
@@ -91,7 +92,7 @@ public class GUI extends JFrame implements PlayerListener,
 
     private void initComponents() {
 
-        initialTile = new JFrame();
+        initialTile = new JFrame("Choose initial tiles");
         InGame = new JFrame();
         jButton104 = new JButton();
         playerLabel = new JLabel();
@@ -780,12 +781,19 @@ public class GUI extends JFrame implements PlayerListener,
      */
 
     public void initializeTiles() {
+    	/**
+    	 * Initialization
+    	 */
         initialTile.setVisible(true);
-        initialTile.setBounds(0, 0, 1200, 1200);
+        initialTile.setBounds(100, 100, 850, 450);
         initialTile.setDefaultCloseOperation(HIDE_ON_CLOSE);
+
         JPanel tilePanel = new JPanel();
+        tilePanel.setLayout(new BorderLayout());
         JLabel display = new JLabel("Player");
-        final JLabel playername = new JLabel(Integer.toString(currentPlayer
+        
+        
+        final JLabel playerNumber = new JLabel(Integer.toString(currentPlayer
                 .getId() + 1));
         final TileButton tile1 = new TileButton();
         tile1.setIcon(currentPlayer.getDeck().getTile1().getImage());
@@ -811,7 +819,6 @@ public class GUI extends JFrame implements PlayerListener,
 
             }
         });
-
 
         final TileButton tile4 = new TileButton();
         tile4.setIcon(currentPlayer.getDeck().getTile4().getImage());
@@ -909,14 +916,39 @@ public class GUI extends JFrame implements PlayerListener,
             });
             gridHolder.add(gridButton);
         }
+        /**
+         * Display
+         */
+        display.setFont(font);
+        playerNumber.setFont(font);
+        select.setPreferredSize(new Dimension(300, 100));
+        tilePanel.setForeground(new java.awt.Color(0,0,255));
+        initialTile.setForeground(GameUtils.getColor(game.getCurrentPlayer().getColor()));
 
-        tilePanel.add(display);
-        tilePanel.add(playername);
-        tilePanel.add(tile1);
-        tilePanel.add(tile2);
-        tilePanel.add(tile4);
-        tilePanel.add(gridHolder);
-        tilePanel.add(select);
+        
+        /**
+         * Add contents to frame
+         */
+        JPanel northHolder = new JPanel();
+        northHolder.add(display);
+        northHolder.add(playerNumber);
+        tilePanel.add(northHolder, BorderLayout.NORTH);
+        
+        JPanel westHolder = new JPanel();
+        westHolder.add(tile1);
+        westHolder.add(tile2);
+        westHolder.add(tile4);
+        tilePanel.add(westHolder, BorderLayout.WEST);
+        
+        JPanel centerHolder = new JPanel();
+        centerHolder.add(gridHolder);
+        tilePanel.add(centerHolder, BorderLayout.CENTER);
+        
+        JPanel southHolder = new JPanel();
+        southHolder.add(select);
+        tilePanel.add(southHolder, BorderLayout.SOUTH);
+        
+        
         select.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
@@ -924,7 +956,7 @@ public class GUI extends JFrame implements PlayerListener,
                         if (tilesPlaced >= 2) {
                             turn++;
                             currentPlayer = game.getNextPlayer();
-                            playername.setText(Integer.toString(currentPlayer
+                            playerNumber.setText(Integer.toString(currentPlayer
                                     .getId() + 1));
                             tile1.setIcon(currentPlayer.getDeck().getTile1()
                                     .getImage());
