@@ -2,6 +2,7 @@ package ui;
 
 import domain.*;
 import domain.enums.Building;
+import domain.enums.Terrain;
 import exceptions.NoSuchPlayerException;
 import utils.GameUtils;
 
@@ -496,7 +497,7 @@ public class GUI extends JFrame implements PlayerListener,
         setResizable(false);
 
         titleScreen.setIcon(new ImageIcon(
-                "resources/RobberKnights1.jpg")); // NOI18N
+                "resources/RobberKnights.jpg")); // NOI18N
 
         File.setText("File");
 
@@ -747,6 +748,10 @@ public class GUI extends JFrame implements PlayerListener,
                 if (tileInPlay != null && selectedCard != null) {
                     // check if tile have already been placed in location
                     if (game.placeTile(tileInPlay, location, false)) {
+                    	if(tileInPlay.getTerrain() == Terrain.Lake)
+                    		playSound("resources/LakePlacement.wav");
+                    	if(tileInPlay.getBuilding() == Building.Town)
+                    		playSound("resources/TownPlacement.wav");
                         moves++;
                         tileInPlay = null;
                         // End turn once player has made 3 turns
@@ -1057,6 +1062,7 @@ public class GUI extends JFrame implements PlayerListener,
             endKnightMovement();
         }
 
+        playSound("resources/KnightMovement.wav");
 
         // joe - testing out audio
         try {
@@ -1187,5 +1193,25 @@ public class GUI extends JFrame implements PlayerListener,
         castleTile = null;
         reenableAll();
         knightMode = false;
+    }
+    
+    public static void playSound(String filename){
+    	try {
+            AudioInputStream audio = AudioSystem.getAudioInputStream(new java.io.File(filename)); //e.g. "resources/GallopingHorse.wav"
+            DataLine.Info info = new DataLine.Info(Clip.class, audio.getFormat());
+            Clip clip = (Clip) AudioSystem.getLine(info);
+            clip.open(audio);
+            clip.start();
+        }
+
+        catch(UnsupportedAudioFileException uae) {
+            System.out.println(uae);
+        }
+        catch(IOException ioe) {
+            System.out.println(ioe);
+        }
+        catch(LineUnavailableException lua) {
+            System.out.println(lua);
+        }
     }
 }
