@@ -31,20 +31,17 @@ public class Tile {
 
     void AddKnights(int n, Color c){
        	for(int i = 0; i < n; i++){
-    		if(knights.size() > 0)
-            	knights.add(c);
+        	knights.add(c);
     	}
     }
 
     void RemoveKnight(){
-        if(knights.size() > 0)
-        	knights.remove(knights.size()-1);
+    	knights.remove(knights.size()-1);
     }
 
     void RemoveKnights(int n){
     	for(int i = 0; i < n; i++){
-    		if(knights.size() > 0)
-            	knights.remove(knights.size()-1);
+    		knights.remove(knights.size()-1);
     	}
     }
 

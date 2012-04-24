@@ -178,111 +178,109 @@ public class GUI extends JFrame implements PlayerListener,
 
         GroupLayout PlayerPanelLayout = new GroupLayout(
                 PlayerPanel);
-        PlayerPanel.setLayout(PlayerPanelLayout);
-        PlayerPanelLayout
-                .setHorizontalGroup(PlayerPanelLayout
-                        .createParallelGroup(
-                                GroupLayout.Alignment.LEADING)
-                        .addGroup(
-                        PlayerPanelLayout
-                                .createSequentialGroup()
-                                .addGroup(
-                                        PlayerPanelLayout
-                                                .createParallelGroup(
-                                                        GroupLayout.Alignment.LEADING)
-                                                .addGroup(
-                                                        PlayerPanelLayout
-                                                                .createSequentialGroup()
-                                                                .addContainerGap()
-                                                                .addComponent(
-                                                                        card1,
-                                                                        117,
-                                                                        117,
-                                                                        117)
-                                                                .addPreferredGap(
-                                                                        LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(
-                                                                card2,
-                                                                117,
-                                                                117,
-                                                                117))
-                                                .addGroup(
-                                                PlayerPanelLayout
-                                                        .createSequentialGroup()
-                                                        .addGroup(
-                                                                PlayerPanelLayout
-                                                                        .createParallelGroup(
-                                                                                GroupLayout.Alignment.LEADING,
-                                                                                false)
-                                                                        .addGroup(
-                                                                                PlayerPanelLayout
-                                                                                        .createSequentialGroup()
-                                                                                        .addGap(24,
-                                                                                                24,
-                                                                                                24)
-                                                                                        .addComponent(
-                                                                                        endTurn,
-                                                                                        GroupLayout.PREFERRED_SIZE,
-                                                                                        233,
-                                                                                        GroupLayout.PREFERRED_SIZE))
+		PlayerPanel.setLayout(PlayerPanelLayout);
+		PlayerPanelLayout
+			.setHorizontalGroup(PlayerPanelLayout
+			.createParallelGroup(GroupLayout.Alignment.LEADING)
+						.addGroup(
+								PlayerPanelLayout
+										.createSequentialGroup()
+										.addGroup(
+												PlayerPanelLayout
+														.createParallelGroup(
+																GroupLayout.Alignment.LEADING)
+														.addGroup(
+																PlayerPanelLayout
+																		.createSequentialGroup()
+																		.addContainerGap()
+																		.addComponent(
+																				card1,
+																				117,
+																				117,
+																				117)
+																		.addPreferredGap(
+																				LayoutStyle.ComponentPlacement.RELATED)
+																		.addComponent(
+																				card2,
+																				117,
+																				117,
+																				117))
+														.addGroup(
+																PlayerPanelLayout
+																		.createSequentialGroup()
+																		.addGroup(
+																				PlayerPanelLayout
+																						.createParallelGroup(
+																								GroupLayout.Alignment.LEADING,
+																								false)
+																						.addGroup(
+																								PlayerPanelLayout
+																										.createSequentialGroup()
+																										.addGap(24,
+																												24,
+																												24)
+																										.addComponent(
+																												endTurn,
+																												GroupLayout.PREFERRED_SIZE,
+																												233,
+																												GroupLayout.PREFERRED_SIZE))
 
-
-                                                                        .addGroup(
-                                                                                PlayerPanelLayout
-                                                                                        .createSequentialGroup()
-                                                                                        .addGap(33,
-                                                                                                33,
-                                                                                                33)
-                                                                                        .addComponent(
-                                                                                                knightLabel,
-                                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                                55,//TODO
-                                                                                                GroupLayout.PREFERRED_SIZE)
-                                                                                        .addGap(51,
-                                                                                                51,
-                                                                                                51)
-                                                                                        .addComponent(
-                                                                                        numberOfKnights))
-                                                                        .addGroup(
-                                                                        PlayerPanelLayout
-                                                                                .createSequentialGroup()
-                                                                                .addGap(62,
-                                                                                        62,
-                                                                                        62)
-                                                                                .addGroup(
-                                                                                PlayerPanelLayout
-                                                                                        .createParallelGroup(
-                                                                                                GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(
-                                                                                                jButton104,
-                                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                                144,
-                                                                                                GroupLayout.PREFERRED_SIZE)
-                                                                                        .addGroup(
-                                                                                        PlayerPanelLayout
-                                                                                                .createSequentialGroup()
-                                                                                                .addGap(29,
-                                                                                                        29,
-                                                                                                        29)
-                                                                                                .addComponent(
-                                                                                                        playerLabel)
-                                                                                                .addPreferredGap(
-                                                                                                        LayoutStyle.ComponentPlacement.RELATED)
-                                                                                                .addGroup(
-                                                                                                PlayerPanelLayout
-                                                                                                        .createParallelGroup(
-                                                                                                                GroupLayout.Alignment.LEADING)
-                                                                                                        .addComponent(
-                                                                                                                currentColor)
-                                                                                                        .addComponent(
-                                                                                                        playersTurn,
-                                                                                                        GroupLayout.PREFERRED_SIZE,
-                                                                                                        45,
-                                                                                                        GroupLayout.PREFERRED_SIZE))))))
-                                                        .addGap(0,
-                                                        0,
-                                                        Short.MAX_VALUE)))
-                                .addContainerGap()));
+																						.addGroup(
+																								PlayerPanelLayout
+																										.createSequentialGroup()
+																										.addGap(33,
+																												33,
+																												33)
+																										.addComponent(
+																												knightLabel,
+																												GroupLayout.PREFERRED_SIZE,
+																												55,// TODO
+																												GroupLayout.PREFERRED_SIZE)
+																										.addGap(51,
+																												51,
+																												51)
+																										.addComponent(
+																												numberOfKnights))
+																						.addGroup(
+																								PlayerPanelLayout
+																										.createSequentialGroup()
+																										.addGap(62,
+																												62,
+																												62)
+																										.addGroup(
+																												PlayerPanelLayout
+																														.createParallelGroup(
+																																GroupLayout.Alignment.LEADING)
+																														.addComponent(
+																																jButton104,
+																																GroupLayout.PREFERRED_SIZE,
+																																144,
+																																GroupLayout.PREFERRED_SIZE)
+																														.addGroup(
+																																PlayerPanelLayout
+																																		.createSequentialGroup()
+																																		.addGap(29,
+																																				29,
+																																				29)
+																																		.addComponent(
+																																				playerLabel)
+																																		.addPreferredGap(
+																																				LayoutStyle.ComponentPlacement.RELATED)
+																																		.addGroup(
+																																				PlayerPanelLayout
+																																						.createParallelGroup(
+																																								GroupLayout.Alignment.LEADING)
+																																						.addComponent(
+																																								currentColor)
+																																						.addComponent(
+																																								playersTurn,
+																																								GroupLayout.PREFERRED_SIZE,
+																																								45,
+																																								GroupLayout.PREFERRED_SIZE))))))
+																		.addGap(0,
+																				0,
+																				Short.MAX_VALUE)))
+										.addContainerGap()));
         PlayerPanelLayout
                 .setVerticalGroup(PlayerPanelLayout
                         .createParallelGroup(
@@ -1042,7 +1040,8 @@ public class GUI extends JFrame implements PlayerListener,
         int j = 80;
         for(int i = 0; i < t.getNumKnights(); i++){
         	g.setColor(GameUtils.getColor(t.knights.get(i)));
-        	g.fillOval(25, j, 50, 25);
+        	g.fillOval(25, j, 20, 10);
+        	j = j - 10;
         }
         g.dispose();
         button.setIcon(new ImageIcon(bi));
@@ -1108,7 +1107,7 @@ public class GUI extends JFrame implements PlayerListener,
         button.setOpaque(true);
         //button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
 
-       // drawKnights(button, castle);
+        drawKnights(button, castle);
         
         // joe - testing valid knight moves
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castle, numKnights);
@@ -1155,8 +1154,8 @@ public class GUI extends JFrame implements PlayerListener,
 
         System.out.println("numknights-1" + (numKnights-1));
         System.out.println("destination.getnumknights..." + destination.getNumKnights());
-       // drawKnights(destinationButton, castle);
-       // removeKnights(castle, startButton);
+        drawKnights(destinationButton, castle);
+        removeKnights(castle, startButton);
         
         
         if(!gridLocations.isEmpty()){
