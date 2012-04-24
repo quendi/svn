@@ -1022,6 +1022,15 @@ public class GUI extends JFrame implements PlayerListener,
                 .getComponent(gridLocation);
         button.setIcon(t.getImage(), game.getNumPlayers());
         // If a castle has been placed, prompt user for knight placement.
+        
+        // Detect the Knights on this tile
+        if( t.getNumKnights() != 0){
+        	button.setHorizontalTextPosition(SwingConstants.CENTER);
+        	button.setText(Integer.toString(t.getNumKnights()));
+        	button.setOpaque(true);
+        	button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
+        	button.setForeground( GameUtils.getColor(t.getTopKnight()) ); 
+        }
     }
 
     public void placedCastle(Tile castle) {
