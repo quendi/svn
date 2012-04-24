@@ -14,7 +14,8 @@ import javax.swing.*;
 
 import domain.RobberKnight;
 
-public class WinScreen {
+@SuppressWarnings("unused")
+public class WinScreen{
 
 	private int winner = 0;
 	private int total = 0;

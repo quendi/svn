@@ -19,7 +19,8 @@ public class KnightPicker extends JFrame {
     public KnightPicker(GUI gui){
         this.gui = gui;
         this.setBounds(500, 500, 200, 100);
-        this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setTitle("Pick knights");
         JLabel message = new JLabel("Number of Knight to Place");
         knightPick = new JComboBox(new DefaultComboBoxModel(
                 new String[] { "0", "1", "2", "3", "4", "5" }));
