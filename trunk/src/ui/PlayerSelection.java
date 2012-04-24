@@ -21,7 +21,6 @@ public class PlayerSelection {
     private JComboBox day2 = new JComboBox();
     private JComboBox day3 = new JComboBox();
     private JComboBox day4 = new JComboBox();
-    private JPanel firstPlayer = new JPanel();
     private JPanel fourthPlayer = new JPanel();
     private JPanel secondPlayer = new JPanel();
     private JButton startGame = new JButton();
@@ -72,6 +71,7 @@ public class PlayerSelection {
 
         year1.setModel(new DefaultComboBoxModel(new String[] { "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012" }));
 
+        JPanel firstPlayer = new JPanel();
         GroupLayout firstPlayerLayout = new GroupLayout(firstPlayer);
         firstPlayer.setLayout(firstPlayerLayout);
         firstPlayerLayout.setHorizontalGroup(

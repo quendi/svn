@@ -562,24 +562,6 @@ public class GUI extends JFrame implements PlayerListener,
         pack();
     }
 
-    /**
-     * User indicates the number of knights he wishes to place on a tile.
-     * @param evt
-     */
-    protected void okActionPerformed(ActionEvent evt) {
-        NumKnightPlace = knightPick.getSelectedIndex();
-        if(NumKnightPlace > 0){
-            knightPicker.setVisible(false);
-            if(knightMode){
-                //TODO: tell game to move knights, how to get start/destination from ui?
-
-            }
-            else{
-                game.placeKnight(castleTile, NumKnightPlace);
-            }
-        }
-    }
-
     private void aboutActionPerformed(java.awt.event.ActionEvent evt) {
         new About();
     }
@@ -683,9 +665,9 @@ public class GUI extends JFrame implements PlayerListener,
                 final Point location = new Point(j, i);
                 addGridListener(button, location);
                 grid.add(button);
-                if(j==size-1 && x_end == true)
+                if(j==size-1 && x_end)
                     button.setEnabled(false);
-                if(i==size-1 && y_end == true)
+                if(i==size-1 && y_end)
                     button.setEnabled(false);
             }
         }
@@ -1164,7 +1146,7 @@ public class GUI extends JFrame implements PlayerListener,
      * @param castle - tile where knights are being moved from
      * @param numKnights - new total of knights on castle tile
      * @param destination  - tile knights are being moved to
-     * @param knights - new total of kngihts being moved onto destination
+     * @param knights - new total of knights on destination
      * @param playerColor - color of knight on top of destination tile
      */
     public void movedKnight(Tile castle, int numKnights, Tile destination, int knights, Color playerColor) {
