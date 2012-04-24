@@ -439,6 +439,7 @@ public class Board {
             for(Tile tile : adjacentTiles){
                 for (Integer knights : knightsAvailble) {
                     if(knights + tile.getNumKnights() >= tile.getMinimumKnights() && knights + tile.getNumKnights() <= MAX_KNIGHTS)
+                         //TODO if 0 knights are movable it still still show it as a valid move.
                         //TODO allows duplicates, not a big deal ( doesn't break anything i think?)
                         boardLocations.add(GameUtils.getGridLocation(tile, size));
                 }
