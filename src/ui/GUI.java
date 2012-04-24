@@ -1044,13 +1044,41 @@ public class GUI extends JFrame implements PlayerListener,
     }
 
     /**
+     * Draw knights on an icon
+     */
+    
+    public void drawKnights(JButton button, int numKnights, int alreadyPlaced){
+        Icon icon = button.getIcon();
+        BufferedImage bi = new BufferedImage(
+            icon.getIconWidth(),
+            icon.getIconHeight(),
+            BufferedImage.TYPE_INT_RGB);
+        Graphics g = bi.createGraphics();
+        
+        icon.paintIcon(null, g, 0,0);
+        g.setColor(GameUtils.getColor(currentPlayer.getColor()));
+        int j = 80 -(alreadyPlaced * 20);
+        for(int i = 0; i < numKnights; i++){
+        	g.fillOval(25, j, 50, 25);
+        	j = j - 20;
+        }
+        g.dispose();
+        button.setIcon(new ImageIcon(bi));
+    }
+    /**
+     * Remove knights from button
+     */
+    
+    public void removeKnights(JButton button){
+    	//TODO
+    }
+    /**
      * Triggers when a piece is placed on the game board.  Updates UI board accordingly.
      * @param t - tile being placed
      */
     public void placedTile(Tile t) {
         int gridLocation = GameUtils.getGridLocation(t, game.getBoard().getSize());
-        TileButton button = (TileButton) grid
-                .getComponent(gridLocation);
+        TileButton button = (TileButton) grid.getComponent(gridLocation);
         button.setIcon(t.getImage(), game.getNumPlayers());
         // If a castle has been placed, prompt user for knight placement.
         
@@ -1088,29 +1116,9 @@ public class GUI extends JFrame implements PlayerListener,
         //button.setText(Integer.toString(t.getNumKnights()));
         //button.setText(Integer.toString(castle.getNumKnights()));
         button.setOpaque(true);
-
         //button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
-        /**
-         * 
-         */
-        Icon icon1 = button.getIcon();
-        BufferedImage bi1 = new BufferedImage(
-            icon1.getIconWidth(),
-            icon1.getIconHeight(),
-            BufferedImage.TYPE_INT_RGB);
-        Graphics g1 = bi1.createGraphics();
-        // paint the Icon to the BufferedImage.
-        icon1.paintIcon(null, g1, 0,0);
-        g1.setColor(GameUtils.getColor(currentPlayer.getColor()));
-        int j = 80;
-        for(int i = 0; i < numKnights; i++){
-        	g1.fillOval(25, j, 50, 25);
-        	j = j - 20;
-        }
-        
-        
-        g1.dispose();
-        button.setIcon(new ImageIcon(bi1));
+
+        drawKnights(button, numKnights, 0);
         
         // joe - testing valid knight moves
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castle, numKnights);
@@ -1153,7 +1161,7 @@ public class GUI extends JFrame implements PlayerListener,
 
     /**
      * Triggers when knights have been moved sucessfully.
-     * @param castle - tile where kngihts are being moved from
+     * @param castle - tile where knights are being moved from
      * @param numKnights - new total of knights on castle tile
      * @param destination  - tile knights are being moved to
      * @param knights - new total of kngihts being moved onto destination
@@ -1164,7 +1172,7 @@ public class GUI extends JFrame implements PlayerListener,
         TileButton startButton = (TileButton) grid.getComponent(GameUtils.getGridLocation(castle, game.getBoard().getSize()));
         TileButton destinationButton = (TileButton) grid.getComponent(GameUtils.getGridLocation(destination, game.getBoard().getSize()));
         startButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        startButton.setText(Integer.toString(castle.getNumKnights()));
+        //startButton.setText(Integer.toString(castle.getNumKnights()));
         startButton.setOpaque(true);
         startButton.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
         startButton.setForeground(playerColor); startButton.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -1176,22 +1184,8 @@ public class GUI extends JFrame implements PlayerListener,
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castleTile, destination, castle.getNumKnights());
 
         
-        Icon icon = destinationButton.getIcon();
-        BufferedImage bi = new BufferedImage(
-            icon.getIconWidth(),
-            icon.getIconHeight(),
-            BufferedImage.TYPE_INT_RGB);
-        Graphics g = bi.createGraphics();
-        // paint the Icon to the BufferedImage.
-        icon.paintIcon(null, g, 0,0);
-        g.setColor(GameUtils.getColor(currentPlayer.getColor()));
-        int j = 80;
-        for(int i = 0; i < numKnights; i++){
-        	g.fillOval(25, j, 50, 25);
-        	j = j - 20;
-        }
-        g.dispose();
-        destinationButton.setIcon(new ImageIcon(bi));
+        drawKnights(destinationButton, numKnights, destination.getNumKnights());
+        removeKnights(startButton);
         
         
         if(!gridLocations.isEmpty()){
