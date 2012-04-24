@@ -12,7 +12,6 @@ import domain.RobberKnight;
 
 public class WinScreen {
 
-	private static final int FONT_SIZE = 34;
 	private int winner = 0;
 	private int total = 0;
 	private int[] playerTotals;
@@ -27,6 +26,7 @@ public class WinScreen {
 	private JLabel pic = new JLabel();
 	private JButton newGame = new JButton("New Game");
 	private JButton quit = new JButton("Quit");
+	private Font font = new Font("Serif", Font.BOLD, 34);
 	
 	public WinScreen(RobberKnight game){
 		
@@ -47,20 +47,20 @@ public class WinScreen {
 		frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         frame.setBounds(750, 300, 250, 250);
-        //frame.setResizable(false);
+        frame.setResizable(false);
         panel.setLayout(new BorderLayout());
         
         /**
          *Display who won game
          */
         player.setText("Player ");
-        player.setFont(new Font("Serif", Font.BOLD, FONT_SIZE));
+        player.setFont(font);
         
         winningPlayer.setText(Integer.toString(winner + 1));
-        winningPlayer.setFont(new Font("Serif", Font.BOLD, FONT_SIZE));
+        winningPlayer.setFont(font);
         
         win.setText(" Wins!");
-        win.setFont(new Font("Serif", Font.BOLD, FONT_SIZE));
+        win.setFont(font);
         
         winningPanel.add(player);
         winningPanel.add(winningPlayer);
