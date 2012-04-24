@@ -340,9 +340,9 @@ public class PlayerSelection {
      * Event that creates new game accoarding to information entered into ui.
      * @param evt
      */
-    private void startGameActionPerformed(java.awt.event.ActionEvent evt) {
+
+	private void startGameActionPerformed(java.awt.event.ActionEvent evt) {
         //Check to see if there is at least two players
-        // TODO : need to add more checks
         ArrayList<Date> dates = new ArrayList<Date>();
         dates.add(new Date(Integer.parseInt(year1.getSelectedItem().toString()) - 1900, month1.getSelectedIndex(), day1.getSelectedIndex()+1));
         dates.add(new Date(Integer.parseInt(year2.getSelectedItem().toString()) - 1900, month2.getSelectedIndex(), day2.getSelectedIndex()+1));

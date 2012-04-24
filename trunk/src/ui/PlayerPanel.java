@@ -9,6 +9,7 @@ import javax.swing.*;
  * Date: Apr 16, 2012
  * Time: 9:11:24 PM
  */
+@SuppressWarnings("serial")
 public class PlayerPanel extends JPanel{
 
     private JButton card1;
@@ -24,7 +25,6 @@ public class PlayerPanel extends JPanel{
 
     public PlayerPanel(Player p){
 
-        Player currentPlay = p;
         javax.swing.GroupLayout PlayerPanelLayout = new javax.swing.GroupLayout(this);
         this.setLayout(PlayerPanelLayout);
         PlayerPanelLayout.setHorizontalGroup(
