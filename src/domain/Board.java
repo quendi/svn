@@ -349,7 +349,7 @@ public class Board {
                 // Check next tile to the right of tile where movement last occured.
                 if ((int) p.x != 0) {
                     if(tiles[(int) p.x+1][(int) p.y] != null){
-                        nextMovement = tiles[(int) p.x-1][(int) p.y];
+                        nextMovement = tiles[(int) p.x+1][(int) p.y];
                     }
                 }
             }
@@ -504,4 +504,11 @@ public class Board {
     public Tile getTile(Point moveTo) {
         return tiles[(int) moveTo.getX()][(int)moveTo.getY()];
     }
+
+//    public ArrayList<Integer> getValidKnights(Tile castleTile, ArrayList<Integer> gridLocations) {
+//        ArrayList<Tile> tilesToMoveTo = new ArrayList<Tile>();
+//        for(Integer i : gridLocations){
+//
+//        }
+//    }
 }
