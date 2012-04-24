@@ -227,7 +227,7 @@ public class GUI extends JFrame implements PlayerListener,
                                                                                         233,
                                                                                         GroupLayout.PREFERRED_SIZE))
 
-        
+
                                                                         .addGroup(
                                                                                 PlayerPanelLayout
                                                                                         .createSequentialGroup()
@@ -1065,7 +1065,7 @@ public class GUI extends JFrame implements PlayerListener,
             Clip clip = (Clip) AudioSystem.getLine(info);
             clip.open(audio);
             clip.start();
-            
+
         }
 
         catch(UnsupportedAudioFileException uae) {
@@ -1102,9 +1102,11 @@ public class GUI extends JFrame implements PlayerListener,
         destinationButton.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
         destinationButton.setForeground(playerColor);
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castleTile, destination, castle.getNumKnights());
+
         if(!gridLocations.isEmpty()){
             reenableAll();
             disableAllExcept(gridLocations);
+            //TODO Give knight picker only valid options.  need to take into consideration the tile to move to might go over max kngihts
             knightPicker.setKnightPicker(castleTile.getNumKnights() - castleTile.getMinimumKnights());
             knightMode = true;
         }
