@@ -218,6 +218,11 @@ public class RobberKnight {
         turnListener.playerTurn(currentPlayer);
     }
 
+    public int getMoveableKnights(Tile castle, Point moveTo){
+        Tile goTo = board.getTile(moveTo);
+        return (castle.getNumKnights() - castle.getMinimumKnights()) - goTo.getNumKnights();
+    }
+
     //TODO Get direction of travel to limit knights movement.
     public void moveKnight(Tile castle, Point moveTo, int numberOfKnights) {
         try {

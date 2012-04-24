@@ -740,6 +740,7 @@ public class GUI extends JFrame implements PlayerListener,
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if(knightMode){
+                    knightPicker.setKnightPicker(game.getMoveableKnights(castleTile, location));
                     knightPicker.setVisible(true);
                     moveTo = location;
                 }
@@ -1044,7 +1045,7 @@ public class GUI extends JFrame implements PlayerListener,
 
     /**
      * Triggers when a piece is placed on the game board.  Updates UI board accordingly.
-     * @param t
+     * @param t - tile being placed
      */
     public void placedTile(Tile t) {
         int gridLocation = GameUtils.getGridLocation(t, game.getBoard().getSize());
@@ -1076,15 +1077,15 @@ public class GUI extends JFrame implements PlayerListener,
     }
 
     /**
-     * Draws knight on tile.
-     * @param t
-     * @param numKnights
+     * Draws knight of castle tile.  CAalled when knights are intiailly placed ona castle.
+     * @param castle - tile knights are being placed on
+     * @param numKnights - number of knight being placed
      */
-    public void placedKnight(Tile t, int numKnights, Color playerColor) {
-        int gridLocation = GameUtils.getGridLocation(t, game.getBoard().getSize());
+    public void placedKnight(Tile castle, int numKnights, Color playerColor) {
+        int gridLocation = GameUtils.getGridLocation(castle, game.getBoard().getSize());
         TileButton button = (TileButton) grid.getComponent(gridLocation);
         button.setHorizontalTextPosition(SwingConstants.CENTER);
-        //button.setText(Integer.toString(t.getNumKnights()));
+        //button.setText(Integer.toString(castle.getNumKnights()));
         button.setOpaque(true);
         //button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
         /**
@@ -1110,13 +1111,13 @@ public class GUI extends JFrame implements PlayerListener,
         button.setIcon(new ImageIcon(bi));
 
         // joe - testing valid knight moves
-        ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(t, numKnights);
+        ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castle, numKnights);
         if(!gridLocations.isEmpty()){
             //TODO add something to allow user to end knight movement early if they choose to
             disableAllExcept(gridLocations);
-            knightPicker.setKnightPicker(t.getNumKnights() - t.getMinimumKnights());
+//            knightPicker.setKnightPicker(castle.getNumKnights() - castle.getMinimumKnights());
             knightMode = true;
-            castleTile = t;
+            castleTile = castle;
         }
         else{
             endKnightMovement();
@@ -1150,11 +1151,11 @@ public class GUI extends JFrame implements PlayerListener,
 
     /**
      * Triggers when knights have been moved sucessfully.
-     * @param castle
-     * @param numKnights
-     * @param destination
-     * @param knights
-     * @param color
+     * @param castle - tile where kngihts are being moved from
+     * @param numKnights - new total of knights on castle tile
+     * @param destination  - tile knights are being moved to
+     * @param knights - new total of kngihts being moved onto destination
+     * @param playerColor - color of knight on top of destination tile
      */
     public void movedKnight(Tile castle, int numKnights, Tile destination, int knights, Color playerColor) {
         //To change body of implemented methods use File | Settings | File Templates.
@@ -1195,7 +1196,7 @@ public class GUI extends JFrame implements PlayerListener,
             reenableAll();
             disableAllExcept(gridLocations);
             //TODO Give knight picker only valid options.  need to take into consideration the tile to move to might go over max kngihts
-            knightPicker.setKnightPicker(castleTile.getNumKnights() - castleTile.getMinimumKnights());
+//            knightPicker.setKnightPicker(castleTile.getNumKnights() - castleTile.getMinimumKnights());
             knightMode = true;
         }
         else{
