@@ -496,7 +496,7 @@ public class GUI extends JFrame implements PlayerListener,
         setResizable(false);
 
         titleScreen.setIcon(new ImageIcon(
-                "resources/RobberKnights.jpg")); // NOI18N
+                "resources/RobberKnights1.jpg")); // NOI18N
 
         File.setText("File");
 
