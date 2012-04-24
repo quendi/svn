@@ -10,4 +10,5 @@ package domain;
 public interface TurnListener {
     public void playerTurn(Player currentPlayer);
     public void endGame();
+    public void endKnightMovement();
 }
