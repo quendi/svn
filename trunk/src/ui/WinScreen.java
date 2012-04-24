@@ -94,6 +94,12 @@ public class WinScreen {
         pic.setIcon(new ImageIcon("resources/fireworks.gif"));
         panel.add(pic, BorderLayout.WEST);
         
+        /** 
+         * Play Sound
+         */
+        
+        GUI.playSound("resources/YouWin.wav");
+        
         /**
          *Display player scores
          */
