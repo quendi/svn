@@ -583,7 +583,7 @@ public class GUI extends JFrame implements PlayerListener,
     }
 
     private void aboutActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        new About();
     }
 
     private void helpActionPerformed(java.awt.event.ActionEvent evt) {

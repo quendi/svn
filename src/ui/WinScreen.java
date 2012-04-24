@@ -23,7 +23,7 @@ public class WinScreen {
 	private int winner = 0;
 	private int total = 0;
 	private int[] playerTotals;
-	private JFrame frame = new JFrame();
+	private JFrame frame = new JFrame("Win Screen");
 	private JPanel panel = new JPanel();
 	private JPanel winningPanel = new JPanel();
 	private JPanel playerPoints = new JPanel();
@@ -97,8 +97,11 @@ public class WinScreen {
         /** 
          * Play Sound
          */
-        
-        GUI.playSound("resources/YouWin.wav");
+        try{
+        	GUI.playSound("resources/YouWin.wav");
+        }catch(Exception e){
+        	System.out.println(e);
+        }
         
         /**
          *Display player scores
@@ -153,13 +156,10 @@ public class WinScreen {
         frame.add(panel);
 	}
 	
-	/***Testing purposes***/
+	/***Testing***/
 	public static void main(String args[]) {
-
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
-            	
                 new WinScreen(new RobberKnight(0, null, null, null));
             }
         });
