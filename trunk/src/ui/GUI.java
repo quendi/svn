@@ -1030,6 +1030,7 @@ public class GUI extends JFrame implements PlayerListener,
      */
     
     public void drawKnights(JButton button, int numKnights, int alreadyPlaced){
+    	
         Icon icon = button.getIcon();
         BufferedImage bi = new BufferedImage(
             icon.getIconWidth(),
@@ -1040,6 +1041,7 @@ public class GUI extends JFrame implements PlayerListener,
         icon.paintIcon(null, g, 0,0);
         g.setColor(GameUtils.getColor(currentPlayer.getColor()));
         int j = 80 -(alreadyPlaced * 20);
+        System.out.println("j is : " + j);
         for(int i = 0; i < numKnights; i++){
         	g.fillOval(25, j, 50, 25);
         	j = j - 20;
@@ -1051,8 +1053,16 @@ public class GUI extends JFrame implements PlayerListener,
      * Remove knights from button
      */
     
-    public void removeKnights(JButton button){
-    	//TODO
+    public void removeKnights(Tile tile, JButton button){
+    	/**
+    	 * Reset image
+    	 */
+    	button.setIcon(tile.getImage());
+    	
+    	/**
+    	 * redraw knights
+    	 */
+        drawKnights(button, tile.getNumKnights(), 0);
     }
     /**
      * Triggers when a piece is placed on the game board.  Updates UI board accordingly.
@@ -1165,9 +1175,10 @@ public class GUI extends JFrame implements PlayerListener,
         //destinationButton.setForeground(playerColor);
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castleTile, destination, castle.getNumKnights());
 
-        
-        drawKnights(destinationButton, numKnights, destination.getNumKnights());
-        removeKnights(startButton);
+        System.out.println("numknights-1" + (numKnights-1));
+        System.out.println("destination.getnumknights..." + destination.getNumKnights());
+        drawKnights(destinationButton, numKnights-1, destination.getNumKnights());
+        removeKnights(castle, startButton);
         
         
         if(!gridLocations.isEmpty()){
