@@ -15,7 +15,7 @@ public class Tile {
     private Point	 location;
     private ImageIcon image;
     private int minimumKnights;
-    public ArrayList<Color> knights;
+    public ArrayList<Color> knights = new ArrayList<Color>();
 
     public Tile(Terrain t, Building b, char l){
         terrain = t;
