@@ -1059,7 +1059,7 @@ public class GUI extends JFrame implements PlayerListener,
     	/**
     	 * redraw knights
     	 */
-        drawKnights(button, tile.getNumKnights(), 0);
+        drawKnights(button, tile);
     }
     /**
      * Triggers when a piece is placed on the game board.  Updates UI board accordingly.
@@ -1107,7 +1107,7 @@ public class GUI extends JFrame implements PlayerListener,
         button.setOpaque(true);
         //button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
 
-        drawKnights(button, numKnights, 0);
+        drawKnights(button, castle);
         
         // joe - testing valid knight moves
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castle, numKnights);
@@ -1174,7 +1174,7 @@ public class GUI extends JFrame implements PlayerListener,
 
         System.out.println("numknights-1" + (numKnights-1));
         System.out.println("destination.getnumknights..." + destination.getNumKnights());
-        drawKnights(destinationButton, numKnights-1, destination.getNumKnights());
+        drawKnights(destinationButton, castle);
         removeKnights(castle, startButton);
         
         
