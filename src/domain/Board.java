@@ -111,8 +111,8 @@ public class Board {
     
     public boolean placeTile(Tile t, Point p, boolean init) {
         // if there has an exist tile, new tile can't be put
-        if ( tiles[(int) p.x][(int) p.y] == null ){
-            if ( isValidMove(p) == true || init == true ){
+        if ( tiles[p.x][p.y] == null ){
+            if ( isValidMove(p) || init){
                 t.setLocation(p);
                 tiles[(int) t.getLocation().getX()][(int) t.getLocation().getY()] = t;
                 notifyPlaced(t);
@@ -333,8 +333,6 @@ public class Board {
     public ArrayList<Integer> getValidMoves(Tile castle, Tile lastPlaced, int numKnights){
         //TODO FIX LOGIC IN THIS METHOD
         int diffX = (int) ( lastPlaced.getLocation().getX() - castle.getLocation().getX());
-
-        int diffY = (int) (lastPlaced.getLocation().getY() - castle.getLocation().getY());
         Point p = lastPlaced.getLocation();
         // Tile that can possible by moved to next
         Tile nextMovement = null;
@@ -344,18 +342,18 @@ public class Board {
             // Knights are being moved to the right.
             if(diffX > 0){
                 // Check next tile to the right of tile where movement last occured.
-                if ((int) p.x != 0) {
-                    if(tiles[(int) p.x+1][(int) p.y] != null){
-                        nextMovement = tiles[(int) p.x+1][(int) p.y];
+                if (p.x != 0) {
+                    if(tiles[p.x +1][p.y] != null){
+                        nextMovement = tiles[p.x +1][p.y];
                     }
                 }
             }
             // Knight are being moved to the left.
             else{
                 // Check next tile to the left of tile where movement last occured.
-                if ((int) p.x != size-1) {
-                    if (tiles[(int) p.x-1][(int) p.y] != null ){
-                        nextMovement = tiles[(int) p.x-1][(int) p.y];
+                if (p.x != size-1) {
+                    if (tiles[p.x -1][p.y] != null ){
+                        nextMovement = tiles[p.x -1][p.y];
                     }
                 }
             }
@@ -364,20 +362,20 @@ public class Board {
         // Knights are being moved vertically.
         else{
             // Knight are being moved down.
-            if((int) p.y != size-1){
+            if(p.y != size-1){
                 // Check next tile below the tile where movement last occured.
-                if ((int) p.y != 0) {
-                    if(tiles[(int) p.x][(int) p.y+1] != null){
-                        nextMovement = tiles[(int) p.x][(int) p.y+1];
+                if (p.y != 0) {
+                    if(tiles[p.x][p.y +1] != null){
+                        nextMovement = tiles[p.x][p.y +1];
                     }
                 }
             }
             // Knight are being moved up.
             else{
                 // Check next tile above the tile where movement last occured.
-                if ((int) p.y != 0) {
-                    if(tiles[(int) p.x][(int) p.y-1] != null){
-                        nextMovement = tiles[(int) p.x][(int) p.y-1];
+                if (p.y != 0) {
+                    if(tiles[p.x][p.y -1] != null){
+                        nextMovement = tiles[p.x][p.y -1];
                     }
                 }
             }
@@ -412,21 +410,21 @@ public class Board {
         // get adjacent tiles
         ArrayList<Tile> adjacentTiles = new ArrayList<Tile>();
         ArrayList<Integer> boardLocations = new ArrayList<Integer>();
-        if( (int) p.x != 0 ){
-            if( tiles[(int) p.x-1][(int) p.y] != null )
-                adjacentTiles.add(tiles[(int) p.x-1][(int) p.y]);
+        if( p.x != 0 ){
+            if( tiles[p.x -1][p.y] != null )
+                adjacentTiles.add(tiles[p.x -1][p.y]);
         }
-        if( (int) p.y != 0 ){
-            if( tiles[(int) p.x][(int) p.y-1] != null )
-                adjacentTiles.add(tiles[(int) p.x][(int) p.y-1]);
+        if( p.y != 0 ){
+            if( tiles[p.x][p.y -1] != null )
+                adjacentTiles.add(tiles[p.x][p.y -1]);
         }
-        if( (int) p.x != size-1 ){
-            if( tiles[(int) p.x+1][(int) p.y] != null )
-                adjacentTiles.add(tiles[(int) p.x+1][(int) p.y]);
+        if( p.x != size-1 ){
+            if( tiles[p.x +1][p.y] != null )
+                adjacentTiles.add(tiles[p.x +1][p.y]);
         }
-        if( (int) p.y != size-1 ){
-            if( tiles[(int) p.x][(int) p.y+1] != null )
-                adjacentTiles.add(tiles[(int) p.x][(int) p.y+1]);
+        if( p.y != size-1 ){
+            if( tiles[p.x][p.y +1] != null )
+                adjacentTiles.add(tiles[p.x][p.y +1]);
         }
         // Number of knights available for movement is obtained by the minimum knights the must be left behind
         int moveableKnights = numKnights - castle.getMinimumKnights();
@@ -454,20 +452,20 @@ public class Board {
      * @return
      */
     public boolean isValidMove(Point p) {
-        if( (int) p.x != 0 ){
-            if( tiles[(int) p.x-1][(int) p.y] != null )
+        if( p.x != 0 ){
+            if( tiles[p.x -1][p.y] != null )
                 return true;
         }
-        if( (int) p.y != 0 ){
-            if( tiles[(int) p.x][(int) p.y-1] != null )
+        if( p.y != 0 ){
+            if( tiles[p.x][p.y -1] != null )
                 return true;
         }
-        if( (int) p.x != size-1 ){
-            if( tiles[(int) p.x+1][(int) p.y] != null )
+        if( p.x != size-1 ){
+            if( tiles[p.x +1][p.y] != null )
                 return true;
         }
-        if( (int) p.y != size-1 ){
-            if( tiles[(int) p.x][(int) p.y+1] != null )
+        if( p.y != size-1 ){
+            if( tiles[p.x][p.y +1] != null )
                 return true;
         }
         return false;
