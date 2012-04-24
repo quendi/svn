@@ -1132,9 +1132,6 @@ public class GUI extends JFrame implements PlayerListener,
         }
 
         playSound("resources/KnightMovement.wav");
-
-        // joe - testing out audio
-
     }
 
     /**
