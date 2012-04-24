@@ -1085,31 +1085,33 @@ public class GUI extends JFrame implements PlayerListener,
         int gridLocation = GameUtils.getGridLocation(castle, game.getBoard().getSize());
         TileButton button = (TileButton) grid.getComponent(gridLocation);
         button.setHorizontalTextPosition(SwingConstants.CENTER);
+        //button.setText(Integer.toString(t.getNumKnights()));
         //button.setText(Integer.toString(castle.getNumKnights()));
         button.setOpaque(true);
+
         //button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
         /**
          * 
          */
-        Icon icon = button.getIcon();
-        BufferedImage bi = new BufferedImage(
-            icon.getIconWidth(),
-            icon.getIconHeight(),
+        Icon icon1 = button.getIcon();
+        BufferedImage bi1 = new BufferedImage(
+            icon1.getIconWidth(),
+            icon1.getIconHeight(),
             BufferedImage.TYPE_INT_RGB);
-        Graphics g = bi.createGraphics();
+        Graphics g1 = bi1.createGraphics();
         // paint the Icon to the BufferedImage.
-        icon.paintIcon(null, g, 0,0);
-        g.setColor(GameUtils.getColor(currentPlayer.getColor()));
+        icon1.paintIcon(null, g1, 0,0);
+        g1.setColor(GameUtils.getColor(currentPlayer.getColor()));
         int j = 80;
         for(int i = 0; i < numKnights; i++){
-        	g.fillOval(25, j, 50, 25);
+        	g1.fillOval(25, j, 50, 25);
         	j = j - 20;
         }
         
         
-        g.dispose();
-        button.setIcon(new ImageIcon(bi));
-
+        g1.dispose();
+        button.setIcon(new ImageIcon(bi1));
+        
         // joe - testing valid knight moves
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castle, numKnights);
         if(!gridLocations.isEmpty()){
@@ -1207,8 +1209,14 @@ public class GUI extends JFrame implements PlayerListener,
 
 
     private void reenableAll(){
-        card1.setEnabled(true);
-        card2.setEnabled(true);
+    	if(currentPlayer.getDeck().getSize() > 0)
+    		card1.setEnabled(true);
+    	else
+    		card1.setEnabled(false);
+    	if(currentPlayer.getDeck().getSize() > 1)
+        	card2.setEnabled(true);
+    	else
+    		card2.setEnabled(false);
         for(Component c : grid.getComponents()){
             c.setEnabled(true);
         }
@@ -1233,17 +1241,45 @@ public class GUI extends JFrame implements PlayerListener,
     /**
      * Updates hand in ui to current player. Triggered when player places a tile.
      */
-    public void updateHand() {
-        card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
-        card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
+	public void updateHand() {
+		if(currentPlayer.getDeck().getSize() > 0){
+	        card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
+	        card1.setEnabled(true);
+		}
+		else{
+			card1.setIcon(null);
+        	card2.setEnabled(false);
+		}
+        if(currentPlayer.getDeck().getSize() > 1){
+        	card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
+        	card2.setEnabled(true);
+        }
+        else{
+        	card2.setIcon(null);
+        	card2.setEnabled(false);
+        }        
     }
 
     /**
      * Updates hand in ui to current player. Triggered when it is a new player's turn.
      */
     public void updateHand(Player p){
-        card1.setIcon(p.getDeck().getTile1().getImage());
-        card2.setIcon(p.getDeck().getTile2().getImage());
+		if(p.getDeck().getSize() > 0){
+	        card1.setIcon(p.getDeck().getTile1().getImage());
+	        card1.setEnabled(true);
+		}
+		else{
+			card1.setIcon(null);
+        	card2.setEnabled(false);
+		}
+        if(p.getDeck().getSize() > 1){
+        	card2.setIcon(p.getDeck().getTile2().getImage());
+        	card2.setEnabled(true);
+        }
+        else{
+        	card2.setIcon(null);
+        	card2.setEnabled(false);
+        }
     }
 
     /**
