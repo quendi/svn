@@ -53,7 +53,7 @@ public class WinScreen {
 		 *Default
 		 */
 		frame.setVisible(true);
-        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setBounds(750, 300, 250, 250);
         frame.setResizable(false);
         panel.setLayout(new BorderLayout());
@@ -103,11 +103,15 @@ public class WinScreen {
         playerPoints.add(new JLabel("Player 2: "));
         playerPoints.add(new JLabel(Integer.toString(playerTotals[1])));
         
-        playerPoints.add(new JLabel("Player 3: "));
-        playerPoints.add(new JLabel(Integer.toString(playerTotals[2])));
+        if(game.getNumPlayers() > 2){
+	        playerPoints.add(new JLabel("Player 3: "));
+	        playerPoints.add(new JLabel(Integer.toString(playerTotals[2])));
+        }
         
-        playerPoints.add(new JLabel("Player 4: "));
-        playerPoints.add(new JLabel(Integer.toString(playerTotals[3])));
+        if(game.getNumPlayers() > 3){
+	        playerPoints.add(new JLabel("Player 4: "));
+	        playerPoints.add(new JLabel(Integer.toString(playerTotals[3])));
+        }
         
         panel.add(playerPoints, BorderLayout.CENTER);
         

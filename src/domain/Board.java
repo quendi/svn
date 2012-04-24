@@ -50,12 +50,8 @@ public class Board {
     }
 
     /**
-     * Places tile in location.
-     * @param t
-     * @param p
-     * @return
+     * Iterate through the array of tiles, check top knight, add points to player according to building
      */
-    
     public void calculatePoints(){
     	for(int i = 0; i < size; i++){
     		for(int j = 0; j < size; j++){
@@ -94,23 +90,24 @@ public class Board {
         			}
     			}
     			else{
-
+    				//Do nothing
     			}	
     		}
     	}
     }
-    public int getPlayer1(){
-    	return playerTotals[0];
+    /**
+     * Return final scores to RobberKnight class
+     */
+    public int[] getPlayerTotals(){
+    	return playerTotals;
     }
-    public int getPlayer2(){
-    	return playerTotals[1];
-    }
-    public int getPlayer3(){
-    	return playerTotals[2];
-    }
-    public int getPlayer4(){
-    	return playerTotals[3];
-    }
+
+    /**
+     * Places tile in location.
+     * @param t
+     * @param p
+     * @return
+     */
     
     public boolean placeTile(Tile t, Point p, boolean init) {
         // if there has an exist tile, new tile can't be put
