@@ -1062,9 +1062,11 @@ public class GUI extends JFrame implements PlayerListener,
         // joe - testing out audio
         try {
             AudioInputStream audio = AudioSystem.getAudioInputStream(new java.io.File("resources/GallopingHorse.wav"));
-            Clip clip = AudioSystem.getClip();
+            DataLine.Info info = new DataLine.Info(Clip.class, audio.getFormat());
+            Clip clip = (Clip) AudioSystem.getLine(info);
             clip.open(audio);
             clip.start();
+            
         }
 
         catch(UnsupportedAudioFileException uae) {
