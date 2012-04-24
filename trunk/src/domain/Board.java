@@ -392,7 +392,6 @@ public class Board {
                 for (Integer knights : knightsAvailble) {
                     if(knights + nextMovement.getNumKnights() >= nextMovement.getMinimumKnights() && knights + nextMovement.getNumKnights() <= MAX_KNIGHTS) {
                         int gridLocation = GameUtils.getGridLocation(nextMovement, size);
-                        //TODO if 0 knights are movable it still still show it as a valid move.
                         if(!boardLocations.contains(gridLocation)){
                             boardLocations.add(gridLocation);
                         }

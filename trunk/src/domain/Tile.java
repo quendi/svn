@@ -22,6 +22,7 @@ public class Tile {
         building = b;
         letter = l;
         minimumKnights = t.getKnightRestriction();
+        knights = new ArrayList<Color>();
         setImage(t,b);
     }
 
