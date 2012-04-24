@@ -1029,7 +1029,7 @@ public class GUI extends JFrame implements PlayerListener,
      * Draw knights on an icon
      */
     
-    public void drawKnights(JButton button, int numKnights, int alreadyPlaced){
+    public void drawKnights(JButton button, Tile t){
     	
         Icon icon = button.getIcon();
         BufferedImage bi = new BufferedImage(
@@ -1037,14 +1037,11 @@ public class GUI extends JFrame implements PlayerListener,
             icon.getIconHeight(),
             BufferedImage.TYPE_INT_RGB);
         Graphics g = bi.createGraphics();
-        
         icon.paintIcon(null, g, 0,0);
         g.setColor(GameUtils.getColor(currentPlayer.getColor()));
-        int j = 80 -(alreadyPlaced * 20);
-        System.out.println("j is : " + j);
-        for(int i = 0; i < numKnights; i++){
-        	g.fillOval(25, j, 50, 25);
-        	j = j - 20;
+        
+        for(int i = 0; i < t.getNumKnights(); i++){
+        	//g.fillOval(25, j, 50, 25);
         }
         g.dispose();
         button.setIcon(new ImageIcon(bi));
