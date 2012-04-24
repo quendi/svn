@@ -313,7 +313,7 @@ public class Board {
 
         // Remove knights from the start tile and add too the distination's knight.
         else{
-            start.setNumKnights(start.getNumKnights() - numKnights);
+        	start.RemoveKnights(numKnights);
             destination.AddKnights(numKnights, currentPlayerColor);
             boardListener.movedKnight(start, start.getNumKnights(), destination, destination.getNumKnights(), GameUtils.getColor(currentPlayerColor));
             return true;
