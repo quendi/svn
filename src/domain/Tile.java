@@ -12,11 +12,10 @@ public class Tile {
     private Terrain  terrain;
     private Building building;
     private char 	 letter;
-    private int 	 NumKnights=0;
     private Point	 location;
     private ImageIcon image;
     private int minimumKnights;
-    private ArrayList<Color> knights;
+    public ArrayList<Color> knights;
 
     public Tile(Terrain t, Building b, char l){
         terrain = t;
@@ -28,28 +27,24 @@ public class Tile {
 
     void AddKnight(Color c){
     	knights.add(c);
-        NumKnights++;
     }
 
     void AddKnights(int n, Color c){
        	for(int i = 0; i < n; i++){
-    		if(NumKnights > 0)
+    		if(knights.size() > 0)
             	knights.add(c);
-            NumKnights++;
     	}
     }
 
     void RemoveKnight(){
-        if(NumKnights > 0)
+        if(knights.size() > 0)
         	knights.remove(knights.size()-1);
-        NumKnights--;
     }
 
     void RemoveKnights(int n){
     	for(int i = 0; i < n; i++){
-    		if(NumKnights > 0)
+    		if(knights.size() > 0)
             	knights.remove(knights.size()-1);
-            NumKnights--;
     	}
     }
 
@@ -66,11 +61,7 @@ public class Tile {
     }
 
     public int getNumKnights() {
-        return NumKnights;
-    }
-
-    public void setNumKnights(int numKnights) {
-        NumKnights = numKnights;
+        return knights.size();
     }
 
     public Color getTopKnight() {
