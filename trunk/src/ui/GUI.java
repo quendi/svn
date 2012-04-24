@@ -1038,10 +1038,11 @@ public class GUI extends JFrame implements PlayerListener,
             BufferedImage.TYPE_INT_RGB);
         Graphics g = bi.createGraphics();
         icon.paintIcon(null, g, 0,0);
-        g.setColor(GameUtils.getColor(currentPlayer.getColor()));
         
+        int j = 80;
         for(int i = 0; i < t.getNumKnights(); i++){
-        	//g.fillOval(25, j, 50, 25);
+        	g.setColor(GameUtils.getColor(t.knights.get(i)));
+        	g.fillOval(25, j, 50, 25);
         }
         g.dispose();
         button.setIcon(new ImageIcon(bi));
@@ -1107,7 +1108,7 @@ public class GUI extends JFrame implements PlayerListener,
         button.setOpaque(true);
         //button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
 
-        drawKnights(button, castle);
+       // drawKnights(button, castle);
         
         // joe - testing valid knight moves
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castle, numKnights);
@@ -1125,27 +1126,7 @@ public class GUI extends JFrame implements PlayerListener,
         playSound("resources/KnightMovement.wav");
 
         // joe - testing out audio
-        try {
-            AudioInputStream audio = AudioSystem.getAudioInputStream(new java.io.File("resources/GallopingHorse.wav"));
-            DataLine.Info info = new DataLine.Info(Clip.class, audio.getFormat());
-            Clip clip = (Clip) AudioSystem.getLine(info);
-            clip.open(audio);
-            clip.start();
-
-        }
-
-        catch(UnsupportedAudioFileException uae) {
-            System.out.println(uae);
-        }
-        catch(IOException ioe) {
-            System.out.println(ioe);
-        }
-        catch(LineUnavailableException lua) {
-            System.out.println(lua);
-        }
-        catch(Exception e){
-        	System.out.println(e);
-        }
+      
     }
 
     /**
@@ -1174,8 +1155,8 @@ public class GUI extends JFrame implements PlayerListener,
 
         System.out.println("numknights-1" + (numKnights-1));
         System.out.println("destination.getnumknights..." + destination.getNumKnights());
-        drawKnights(destinationButton, castle);
-        removeKnights(castle, startButton);
+       // drawKnights(destinationButton, castle);
+       // removeKnights(castle, startButton);
         
         
         if(!gridLocations.isEmpty()){
