@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
  * Time: 3:23:44 PM
  * To change this template use File | Settings | File Templates.
  */
+@SuppressWarnings("serial")
 public class TileButton extends JButton {
     // width of images used on buttons.
     private static final int BUTTON_WIDTH = 117;

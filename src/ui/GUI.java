@@ -1046,14 +1046,23 @@ public class GUI extends JFrame implements PlayerListener,
         Graphics g = bi.createGraphics();
         icon.paintIcon(null, g, 0,0);
 
-        int j = 80;
+        int j = 100;
         for(int i = 0; i < t.getNumKnights(); i++){
-            g.setColor(GameUtils.getColor(t.knights.get(i)));
-            g.fillOval(25, j, 20, 10);
-            j = j - 10;
+        	g.setColor(GameUtils.getColor(t.knights.get(i)));
+        	//g.fillOval(25, j, 20, 10);
+        	g.fillRect(90, j, 20, 5);
+        	j = j - 10;
         }
+        
+
+        TileButton tileButton = (TileButton) button;
         g.dispose();
-        button.setIcon(new ImageIcon(bi));
+        tileButton.setIcon(new ImageIcon(bi), game.getNumPlayers());
+
+        
+        System.out.println("game has " + game.getNumPlayers() + " players");
+
+
     }
     /**
      * Remove knights from button
@@ -1082,11 +1091,12 @@ public class GUI extends JFrame implements PlayerListener,
 
         // Detect the Knights on this tile
         if( t.getNumKnights() != 0){
-            button.setHorizontalTextPosition(SwingConstants.CENTER);
-            button.setText(Integer.toString(t.getNumKnights()));
-            button.setOpaque(true);
-            button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
-            button.setForeground( GameUtils.getColor(t.getTopKnight()) );
+        	/*button.setHorizontalTextPosition(SwingConstants.CENTER);
+        	button.setText(Integer.toString(t.getNumKnights()));
+        	button.setOpaque(true);
+        	button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
+        	button.setForeground( GameUtils.getColor(t.getTopKnight()) ); */
+        	drawKnights(button, t);
         }
     }
 
@@ -1160,7 +1170,8 @@ public class GUI extends JFrame implements PlayerListener,
 
         System.out.println("numknights-1" + (numKnights-1));
         System.out.println("destination.getnumknights..." + destination.getNumKnights());
-        drawKnights(destinationButton, castle);
+        
+        drawKnights(destinationButton, destination);
         removeKnights(castle, startButton);
 
 
