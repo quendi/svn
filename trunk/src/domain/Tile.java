@@ -2,6 +2,7 @@ package domain;
 
 import java.awt.Point;
 import java.io.File;
+import java.util.ArrayList;
 
 import domain.enums.*;
 
@@ -13,9 +14,9 @@ public class Tile {
     private char 	 letter;
     private int 	 NumKnights=0;
     private Point	 location;
-    public  Color 	 TopKnight;
     private ImageIcon image;
     private int minimumKnights;
+    private ArrayList<Color> knights;
 
     public Tile(Terrain t, Building b, char l){
         terrain = t;
@@ -25,44 +26,43 @@ public class Tile {
         setImage(t,b);
     }
 
-    void AddKnight(){
+    void AddKnight(Color c){
+    	knights.add(c);
         NumKnights++;
     }
 
-    void AddKnights(int n){
-        NumKnights += n;
+    void AddKnights(int n, Color c){
+       	for(int i = 0; i < n; i++){
+    		if(NumKnights > 0)
+            	knights.add(c);
+            NumKnights++;
+    	}
     }
 
     void RemoveKnight(){
+        if(NumKnights > 0)
+        	knights.remove(knights.size()-1);
         NumKnights--;
     }
 
     void RemoveKnights(int n){
-        NumKnights -= n;
+    	for(int i = 0; i < n; i++){
+    		if(NumKnights > 0)
+            	knights.remove(knights.size()-1);
+            NumKnights--;
+    	}
     }
 
     public Terrain getTerrain() {
         return terrain;
     }
 
-    public void setTerrain(Terrain t) {
-        terrain = t;
-    }
-
     public Building getBuilding() {
         return building;
     }
 
-    public void setBuilding(Building b) {
-        building = b;
-    }
-
     public char getLetter() {
         return letter;
-    }
-
-    public void setLetter(char l) {
-        letter = l;
     }
 
     public int getNumKnights() {
@@ -74,13 +74,9 @@ public class Tile {
     }
 
     public Color getTopKnight() {
-        return TopKnight;
+        return knights.get(knights.size()-1);
     }
-
-    public void setTopKnight(Color topKnight) {
-        TopKnight = topKnight;
-    }
-
+    
     public void setLocation(Point p){
         location=p;
     }
@@ -138,7 +134,6 @@ public class Tile {
         }
         else{
             this.image = new ImageIcon("resources" + separator + "Mountain.jpg");
-            //System.out.println("WIDTH: " + this.image.getIconWidth() + " HEIGHT: " + this.image.getIconHeight());
         }
 
     }

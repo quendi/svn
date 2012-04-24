@@ -285,8 +285,7 @@ public class Board {
     public boolean placeKnight(Tile castle, int numKnights, Color currentPlayerColor){
         // Make sure the number of knights being placed is at least the minimum amount of knights for the tile.
         if(numKnights >= castle.getMinimumKnights()){
-            castle.setNumKnights(numKnights + castle.getNumKnights());
-            castle.setTopKnight(currentPlayerColor);
+        	castle.AddKnights(numKnights, currentPlayerColor);
             boardListener.placedKnight(castle, castle.getNumKnights(), GameUtils.getColor(currentPlayerColor));
             return true;
         }
@@ -315,8 +314,7 @@ public class Board {
         // Remove knights from the start tile and add too the distination's knight.
         else{
             start.setNumKnights(start.getNumKnights() - numKnights);
-            destination.setNumKnights(destination.getNumKnights() + numKnights);
-            destination.setTopKnight(currentPlayerColor);
+            destination.AddKnights(numKnights, currentPlayerColor);
             boardListener.movedKnight(start, start.getNumKnights(), destination, destination.getNumKnights(), GameUtils.getColor(currentPlayerColor));
             return true;
         }
