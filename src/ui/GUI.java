@@ -8,6 +8,7 @@ import utils.GameUtils;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -923,8 +924,9 @@ public class GUI extends JFrame implements PlayerListener,
         playerNumber.setFont(font);
         select.setPreferredSize(new Dimension(300, 100));
         tilePanel.setForeground(new java.awt.Color(0,0,255));
-        initialTile.setForeground(GameUtils.getColor(game.getCurrentPlayer().getColor()));
-
+        //initialTile.getContentPane().setForeground(GameUtils.getColor(game.getCurrentPlayer().getColor()));
+        //initialTile.getContentPane().setBackground(GameUtils.getColor(currentPlayer.getColor()));
+        //TODO
         
         /**
          * Add contents to frame
@@ -1082,10 +1084,28 @@ public class GUI extends JFrame implements PlayerListener,
         int gridLocation = GameUtils.getGridLocation(t, game.getBoard().getSize());
         TileButton button = (TileButton) grid.getComponent(gridLocation);
         button.setHorizontalTextPosition(SwingConstants.CENTER);
-        button.setText(Integer.toString(t.getNumKnights()));
+        //button.setText(Integer.toString(t.getNumKnights()));
         button.setOpaque(true);
-        button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
-        button.setForeground(playerColor);
+        //button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
+        /**
+         * 
+         */
+        Icon icon = button.getIcon();
+        BufferedImage bi = new BufferedImage(
+            icon.getIconWidth(),
+            icon.getIconHeight(),
+            BufferedImage.TYPE_INT_RGB);
+        Graphics g = bi.createGraphics();
+        // paint the Icon to the BufferedImage.
+        icon.paintIcon(null, g, 0,0);
+        g.setColor(Color.WHITE);
+        
+        g.fillOval(25, 25, 50, 50);
+        
+        
+        g.dispose();
+        button.setIcon(new ImageIcon(bi));
+
         // joe - testing valid knight moves
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(t, numKnights);
         if(!gridLocations.isEmpty()){
@@ -1250,5 +1270,8 @@ public class GUI extends JFrame implements PlayerListener,
         catch(LineUnavailableException lua) {
             System.out.println(lua);
         }
+    	catch(Exception e){
+    		System.out.println(e);
+    	}
     }
 }
