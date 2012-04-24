@@ -30,14 +30,13 @@ public class RobberKnight {
         initialize(numPlayers, colors, dates, bl);
     }
     
+    /**
+     * Return an array containing totals
+     */
     public int[] getTotals(){
     	board.calculatePoints();
-    	playerTotals[0] = board.getPlayer1();
-    	playerTotals[1] = board.getPlayer2();
-    	playerTotals[2] = board.getPlayer3();
-    	playerTotals[3] = board.getPlayer4();
+    	playerTotals = board.getPlayerTotals();
 		return playerTotals;
-    	
     }
 
     /**
