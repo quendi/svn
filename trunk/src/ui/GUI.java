@@ -1098,9 +1098,12 @@ public class GUI extends JFrame implements PlayerListener,
         Graphics g = bi.createGraphics();
         // paint the Icon to the BufferedImage.
         icon.paintIcon(null, g, 0,0);
-        g.setColor(Color.WHITE);
-        
-        g.fillOval(25, 25, 50, 50);
+        g.setColor(GameUtils.getColor(currentPlayer.getColor()));
+        int j = 80;
+        for(int i = 0; i < numKnights; i++){
+        	g.fillOval(25, j, 50, 25);
+        	j = j - 20;
+        }
         
         
         g.dispose();
@@ -1140,6 +1143,9 @@ public class GUI extends JFrame implements PlayerListener,
         catch(LineUnavailableException lua) {
             System.out.println(lua);
         }
+        catch(Exception e){
+        	System.out.println(e);
+        }
     }
 
     /**
@@ -1160,12 +1166,31 @@ public class GUI extends JFrame implements PlayerListener,
         startButton.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
         startButton.setForeground(playerColor); startButton.setHorizontalTextPosition(SwingConstants.CENTER);
         destinationButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        destinationButton.setText(Integer.toString(destination.getNumKnights()));
+        //destinationButton.setText(Integer.toString(destination.getNumKnights()));
         destinationButton.setOpaque(true);
         destinationButton.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
-        destinationButton.setForeground(playerColor);
+        //destinationButton.setForeground(playerColor);
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castleTile, destination, castle.getNumKnights());
 
+        
+        Icon icon = destinationButton.getIcon();
+        BufferedImage bi = new BufferedImage(
+            icon.getIconWidth(),
+            icon.getIconHeight(),
+            BufferedImage.TYPE_INT_RGB);
+        Graphics g = bi.createGraphics();
+        // paint the Icon to the BufferedImage.
+        icon.paintIcon(null, g, 0,0);
+        g.setColor(GameUtils.getColor(currentPlayer.getColor()));
+        int j = 80;
+        for(int i = 0; i < numKnights; i++){
+        	g.fillOval(25, j, 50, 25);
+        	j = j - 20;
+        }
+        g.dispose();
+        destinationButton.setIcon(new ImageIcon(bi));
+        
+        
         if(!gridLocations.isEmpty()){
             reenableAll();
             disableAllExcept(gridLocations);
