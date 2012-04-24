@@ -29,10 +29,10 @@ public class Board {
     private boolean y_end=false;
 
     private static int MAX_KNIGHTS = 4;
-    
-    
+
+
     private int[] playerTotals = new int[4];
-    
+
 
     /**
      * Creates board according to number of players
@@ -53,53 +53,53 @@ public class Board {
      * Iterate through the array of tiles, check top knight, add points to player according to building
      */
     public void calculatePoints(){
-    	for(int i = 0; i < size; i++){
-    		for(int j = 0; j < size; j++){
-    			if(tiles[i][j] != null && tiles[i][j].getTopKnight() != null){
-        			if(tiles[i][j].getTopKnight().equals(Color.BLUE)){
-        				if(tiles[i][j].getBuilding().equals(Building.Castle))
-        					playerTotals[0]++;
-        				else if(tiles[i][j].getBuilding().equals(Building.Village))
-        					playerTotals[0]+=2;
-        				else if(tiles[i][j].getBuilding().equals(Building.Town))
-        					playerTotals[0]+=3;
-        			}
-        			else if(tiles[i][j].getTopKnight().equals(Color.GREEN)){
-        				if(tiles[i][j].getBuilding().equals(Building.Castle))
-        					playerTotals[1]++;
-        				else if(tiles[i][j].getBuilding().equals(Building.Village))
-        					playerTotals[1]+=2;
-        				else if(tiles[i][j].getBuilding().equals(Building.Town))
-        					playerTotals[1]+=3;
-        			}
-        			else if(tiles[i][j].getTopKnight().equals(Color.YELLOW)){
-        				if(tiles[i][j].getBuilding().equals(Building.Castle))
-        					playerTotals[2]++;
-        				else if(tiles[i][j].getBuilding().equals(Building.Village))
-        					playerTotals[2]+=2;
-        				else if(tiles[i][j].getBuilding().equals(Building.Town))
-        					playerTotals[2]+=3;
-        			}
-        			else{
-        				if(tiles[i][j].getBuilding().equals(Building.Castle))
-        					playerTotals[3]++;
-        				else if(tiles[i][j].getBuilding().equals(Building.Village))
-        					playerTotals[3]+=2;
-        				else if(tiles[i][j].getBuilding().equals(Building.Town))
-        					playerTotals[3]+=3;
-        			}
-    			}
-    			else{
-    				//Do nothing
-    			}	
-    		}
-    	}
+        for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
+                if(tiles[i][j] != null && tiles[i][j].getTopKnight() != null){
+                    if(tiles[i][j].getTopKnight().equals(Color.BLUE)){
+                        if(tiles[i][j].getBuilding().equals(Building.Castle))
+                            playerTotals[0]++;
+                        else if(tiles[i][j].getBuilding().equals(Building.Village))
+                            playerTotals[0]+=2;
+                        else if(tiles[i][j].getBuilding().equals(Building.Town))
+                            playerTotals[0]+=3;
+                    }
+                    else if(tiles[i][j].getTopKnight().equals(Color.GREEN)){
+                        if(tiles[i][j].getBuilding().equals(Building.Castle))
+                            playerTotals[1]++;
+                        else if(tiles[i][j].getBuilding().equals(Building.Village))
+                            playerTotals[1]+=2;
+                        else if(tiles[i][j].getBuilding().equals(Building.Town))
+                            playerTotals[1]+=3;
+                    }
+                    else if(tiles[i][j].getTopKnight().equals(Color.YELLOW)){
+                        if(tiles[i][j].getBuilding().equals(Building.Castle))
+                            playerTotals[2]++;
+                        else if(tiles[i][j].getBuilding().equals(Building.Village))
+                            playerTotals[2]+=2;
+                        else if(tiles[i][j].getBuilding().equals(Building.Town))
+                            playerTotals[2]+=3;
+                    }
+                    else{
+                        if(tiles[i][j].getBuilding().equals(Building.Castle))
+                            playerTotals[3]++;
+                        else if(tiles[i][j].getBuilding().equals(Building.Village))
+                            playerTotals[3]+=2;
+                        else if(tiles[i][j].getBuilding().equals(Building.Town))
+                            playerTotals[3]+=3;
+                    }
+                }
+                else{
+                    //Do nothing
+                }
+            }
+        }
     }
     /**
      * Return final scores to RobberKnight class
      */
     public int[] getPlayerTotals(){
-    	return playerTotals;
+        return playerTotals;
     }
 
     /**
@@ -108,7 +108,7 @@ public class Board {
      * @param p
      * @return
      */
-    
+
     public boolean placeTile(Tile t, Point p, boolean init) {
         // if there has an exist tile, new tile can't be put
         if ( tiles[p.x][p.y] == null ){
@@ -391,8 +391,13 @@ public class Board {
                 }
                 // Check which adjacent tiles can be moves with the amount of knights the player can move.
                 for (Integer knights : knightsAvailble) {
-                    if(knights + nextMovement.getNumKnights() >= nextMovement.getMinimumKnights() && knights + nextMovement.getNumKnights() <= MAX_KNIGHTS)
-                        boardLocations.add(GameUtils.getGridLocation(nextMovement, size));
+                    if(knights + nextMovement.getNumKnights() >= nextMovement.getMinimumKnights() && knights + nextMovement.getNumKnights() <= MAX_KNIGHTS) {
+                        int gridLocation = GameUtils.getGridLocation(nextMovement, size);
+                        //TODO if 0 knights are movable it still still show it as a valid move.
+                        if(!boardLocations.contains(gridLocation)){
+                            boardLocations.add(gridLocation);
+                        }
+                    }
                 }
             }
         }
@@ -436,10 +441,13 @@ public class Board {
             // Check which adjacent tiles can be moves with the amount of knights the player can move.
             for(Tile tile : adjacentTiles){
                 for (Integer knights : knightsAvailble) {
-                    if(knights + tile.getNumKnights() >= tile.getMinimumKnights() && knights + tile.getNumKnights() <= MAX_KNIGHTS)
-                         //TODO if 0 knights are movable it still still show it as a valid move.
-                        //TODO allows duplicates, not a big deal ( doesn't break anything i think?)
-                        boardLocations.add(GameUtils.getGridLocation(tile, size));
+                    if(knights + tile.getNumKnights() >= tile.getMinimumKnights() && knights + tile.getNumKnights() <= MAX_KNIGHTS) {
+                        int gridLocation = GameUtils.getGridLocation(tile, size);
+                        //TODO if 0 knights are movable it still still show it as a valid move.
+                        if(!boardLocations.contains(gridLocation)){
+                            boardLocations.add(gridLocation);
+                        }
+                    }
                 }
             }
         }
