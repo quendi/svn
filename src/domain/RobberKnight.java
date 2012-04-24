@@ -78,21 +78,22 @@ public class RobberKnight {
      * @return id of next player
      */
     public Player getNextPlayer() throws NoSuchPlayerException {
-        currentPlayerId = (currentPlayerId + 1) % numPlayers;
-        System.out.println("New player " + currentPlayerId + "of total " + numPlayers);
-        try {
-            Player next = lookUpPlayerById(currentPlayerId);
-            notifyTurn(next);
-            next.notifyHand();
-            return next;
-        } catch (NoSuchPlayerException e) {
-            throw new NoSuchPlayerException("No player with id " + currentPlayerId + "found.");
+        //TODO end the game
+        if (playersHaveTiles()) {
+            currentPlayerId = (currentPlayerId + 1) % numPlayers;
+            System.out.println("New player " + currentPlayerId + "of total " + numPlayers);
+            try {
+                Player next = lookUpPlayerById(currentPlayerId);
+                notifyTurn(next);
+                next.notifyHand();
+                return next;
+            } catch (NoSuchPlayerException e) {
+                throw new NoSuchPlayerException("No player with id " + currentPlayerId + "found.");
+            }
         }
+        return null;
     }
 
-    public Player NextPlayer() throws NoSuchPlayerException {
-        return lookUpPlayerById((currentPlayerId + 1) % numPlayers);
-    }
 
     /**
      * Places tile on given location.  Return true on success, false on failure.
@@ -224,8 +225,7 @@ public class RobberKnight {
             Player current = lookUpPlayerById(currentPlayerId);
             Tile goTo = board.getTile(moveTo);
             if (!board.moveKnight(castle, goTo, numberOfKnights, current.getColor())){
-
-                //TODO indicate that enough knights have not been moved to tile.
+                 turnListener.endKnightMovement();
             }
         } catch (NoSuchPlayerException e) {
             e.printStackTrace();

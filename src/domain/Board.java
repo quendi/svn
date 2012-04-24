@@ -348,7 +348,7 @@ public class Board {
             if(diffX > 0){
                 // Check next tile to the right of tile where movement last occured.
                 if ((int) p.x != 0) {
-                    if(tiles[(int) p.x-1][(int) p.y] != null){
+                    if(tiles[(int) p.x+1][(int) p.y] != null){
                         nextMovement = tiles[(int) p.x-1][(int) p.y];
                     }
                 }
@@ -357,8 +357,8 @@ public class Board {
             else{
                 // Check next tile to the left of tile where movement last occured.
                 if ((int) p.x != size-1) {
-                    if (tiles[(int) p.x+1][(int) p.y] != null ){
-                        nextMovement = tiles[(int) p.x+1][(int) p.y];
+                    if (tiles[(int) p.x-1][(int) p.y] != null ){
+                        nextMovement = tiles[(int) p.x-1][(int) p.y];
                     }
                 }
             }

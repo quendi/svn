@@ -1055,8 +1055,7 @@ public class GUI extends JFrame implements PlayerListener,
             castleTile = t;
         }
         else{
-            reenableAll();
-            knightMode = false;
+            endKnightMovement();
         }
 
 
@@ -1101,7 +1100,7 @@ public class GUI extends JFrame implements PlayerListener,
         destinationButton.setOpaque(true);
         destinationButton.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
         destinationButton.setForeground(playerColor);
-        ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castleTile, destination, destination.getNumKnights());
+        ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castleTile, destination, castle.getNumKnights());
         if(!gridLocations.isEmpty()){
             reenableAll();
             disableAllExcept(gridLocations);
@@ -1109,8 +1108,7 @@ public class GUI extends JFrame implements PlayerListener,
             knightMode = true;
         }
         else{
-            reenableAll();
-            knightMode = false;
+            endKnightMovement();
         }
 
     }
@@ -1183,6 +1181,7 @@ public class GUI extends JFrame implements PlayerListener,
     }
 
     public void endKnightMovement() {
+        castleTile = null;
         reenableAll();
         knightMode = false;
     }
