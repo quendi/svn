@@ -53,20 +53,7 @@ public class WinScreen {
         frame.setBounds(750, 300, 250, 250);
         frame.setResizable(false);
         panel.setLayout(new BorderLayout());
-        
-        /**
-         * Play Sound
-         */
-		try {
-			AudioInputStream audio = AudioSystem.getAudioInputStream(new java.io.File("resources/YouWin.wav"));
-			DataLine.Info info = new DataLine.Info(Clip.class,audio.getFormat());
-			Clip clip = (Clip) AudioSystem.getLine(info);
-			clip.open(audio);
-			clip.start();
-		}catch (Exception e) {
-			System.out.println(e);
-		}
-		
+
         /**
          *Display who won game
          */
@@ -93,12 +80,8 @@ public class WinScreen {
         /** 
          * Play Sound
          */
-        try{
-        	GUI.playSound("resources/YouWin.wav");
-        }catch(Exception e){
-        	System.out.println(e);
-        }
-        
+        GUI.playSound("resources/YouWin.wav");
+
         /**
          *Display player scores
          */
