@@ -8,7 +8,6 @@ import utils.GameUtils;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -48,7 +47,6 @@ public class GUI extends JFrame implements PlayerListener,
     private JLabel errorNotEnoughPlayersMsg;
     private JButton errorOK;
 
-    private JButton endGame = new JButton("End Game");
     protected JPanel grid;
     private JMenuItem help;
     private JButton jButton104;
@@ -90,8 +88,6 @@ public class GUI extends JFrame implements PlayerListener,
 //            return true;
         return game.placeTile(tile, location, init);
     }
-
-    @SuppressWarnings("unchecked")
 
     private void initComponents() {
 

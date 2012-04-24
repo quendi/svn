@@ -9,6 +9,7 @@ import java.util.ArrayList;
 /**
  * User: Joe
  */
+@SuppressWarnings({ "serial", "unused" })
 public class KnightPicker extends JFrame {
     private JComboBox knightPick;
     private int numberOfKnights;
