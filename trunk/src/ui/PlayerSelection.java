@@ -341,6 +341,7 @@ public class PlayerSelection {
      * @param evt
      */
 
+	@SuppressWarnings("deprecation")
 	private void startGameActionPerformed(java.awt.event.ActionEvent evt) {
         //Check to see if there is at least two players
         ArrayList<Date> dates = new ArrayList<Date>();

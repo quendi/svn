@@ -6,7 +6,6 @@ import java.util.Date;
 
 import domain.enums.Color;
 import exceptions.NoSuchPlayerException;
-import utils.GameUtils;
 
 /**
  * Created by IntelliJ IDEA.

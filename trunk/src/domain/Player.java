@@ -1,9 +1,6 @@
 package domain;
 
-import domain.enums.*;
 import domain.enums.Color;
-
-import java.awt.*;
 import java.util.Date;
 
 /**

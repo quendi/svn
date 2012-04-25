@@ -7,7 +7,6 @@ import exceptions.NoSuchPlayerException;
 import utils.GameUtils;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,8 +59,6 @@ public class GUI extends JFrame implements PlayerListener,
     protected JLabel playersTurn;
     protected JPanel PlayerPanel;
     private KnightPicker knightPicker;
-    private int NumKnightPlace = 0;
-    private JComboBox knightPick;
     private JFrame initialTile;
     private int turn = 0;
     private int tilesPlaced = 0;
@@ -1046,13 +1043,13 @@ public class GUI extends JFrame implements PlayerListener,
         Graphics g = bi.createGraphics();
         icon.paintIcon(null, g, 0,0);
 
-        int j = 90;
         int d = button.getHeight()/2;
+        int j = button.getHeight()-5;
         System.out.println("button height is" + button.getHeight());
         for(int i = 0; i < t.getNumKnights(); i++){
         	g.setColor(GameUtils.getColor(t.knights.get(i)));
-        	g.fillOval(d, d, 20, 20);
-        	g.fillRect(80, j, 20, 5);
+        	g.fillOval(d-10, d-10, 20, 20);
+        	g.fillRect(button.getWidth()-20, j, 20, 5);
         	j = j - 6;
         }
         
