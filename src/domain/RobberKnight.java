@@ -28,14 +28,14 @@ public class RobberKnight {
         players = new ArrayList<Player>();
         initialize(numPlayers, colors, dates, bl);
     }
-    
+
     /**
      * Return an array containing totals
      */
     public int[] getTotals(){
-    	board.calculatePoints();
-    	playerTotals = board.getPlayerTotals();
-		return playerTotals;
+        board.calculatePoints();
+        playerTotals = board.getPlayerTotals();
+        return playerTotals;
     }
 
     /**
@@ -78,10 +78,16 @@ public class RobberKnight {
     public Player getNextPlayer() throws NoSuchPlayerException {
         //TODO end the game
         if (playersHaveTiles()) {
-            currentPlayerId = (currentPlayerId + 1) % numPlayers;
+
             System.out.println("New player " + currentPlayerId + "of total " + numPlayers);
             try {
-                Player next = lookUpPlayerById(currentPlayerId);
+                Player next;
+                // Get next player that is still in the game.  Repeat loop until a player that is still in the game is found.
+                do {
+                    currentPlayerId = (currentPlayerId + 1) % numPlayers;
+                    next = lookUpPlayerById(currentPlayerId);
+                    System.out.println("Getting NEXT");
+                } while (!next.isInGame());
                 notifyTurn(next);
                 next.notifyHand();
                 return next;
@@ -89,6 +95,11 @@ public class RobberKnight {
                 throw new NoSuchPlayerException("No player with id " + currentPlayerId + "found.");
             }
         }
+        else{
+            turnListener.endGame();
+        }
+
+
         return null;
     }
 
@@ -101,8 +112,8 @@ public class RobberKnight {
      * @return
      */
     public boolean placeTile(Tile t, Point location, boolean init){
-    	// if there has an exist tile, new tile can't be put
-    	if(board.placeTile(t, location, init)){
+        // if there has an exist tile, new tile can't be put
+        if(board.placeTile(t, location, init)){
             try {
                 Player p = lookUpPlayerById(currentPlayerId);
                 p.playTile(t);
@@ -228,7 +239,7 @@ public class RobberKnight {
             Player current = lookUpPlayerById(currentPlayerId);
             Tile goTo = board.getTile(moveTo);
             if (!board.moveKnight(castle, goTo, numberOfKnights, current.getColor())){
-                 turnListener.endKnightMovement();
+                turnListener.endKnightMovement();
             }
         } catch (NoSuchPlayerException e) {
             e.printStackTrace();

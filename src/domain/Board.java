@@ -53,7 +53,7 @@ public class Board {
     public void calculatePoints(){
         for(int i = 0; i < size; i++){
             for(int j = 0; j < size; j++){
-                if(tiles[i][j] != null && tiles[i][j].getTopKnight() != null){
+                if(tiles[i][j] != null && tiles[i][j].getNumKnights() > 0){
                     if(tiles[i][j].getTopKnight().equals(Color.BLUE)){
                         if(tiles[i][j].getBuilding().equals(Building.Castle))
                             playerTotals[0]++;
