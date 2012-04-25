@@ -1323,7 +1323,11 @@ public class GUI extends JFrame implements PlayerListener,
      */
     public void moveKnight(int numberOfKnights) {
         game.moveKnight(castleTile, moveTo, numberOfKnights);
-
+    	Player current = game.getCurrentPlayer();
+        Tile goTo = game.getBoard().getTile(moveTo);
+        if(goTo.knights.size() > 0)
+        	if(current.getColor() != goTo.getTopKnight())
+        		playSound("KillStab.wav");
     }
 
     public void endKnightMovement() {
