@@ -652,34 +652,28 @@ public class GUI extends JFrame implements PlayerListener,
     // when they reach the bound of each dimension I will disable the extra line
 
     public void setUpGrid(JPanel grid, int numPlayers, boolean x_end, boolean y_end) {
-        int sizeX = 0;
-        int sizeY = 0;
-        if (numPlayers == 2)  {
-            sizeX=7+1;
-            sizeY=7+1;
-        }
-        else if (numPlayers == 3){
-            sizeX=9+1;
-            sizeY=9+1;
-        }
-        else if (numPlayers == 4){
-            sizeX=10+1;
-            sizeY=10+1;
-        }
-        if(x_end){
-            sizeX--;
-        }
-        if(y_end){
-            sizeY--;
-        }
+        int size = 0;
 
-        grid.setLayout(new java.awt.GridLayout(sizeX, sizeY));
-        for (int i = 0; i < sizeY; i++) {
-            for (int j = 0; j < sizeX; j++) {
+        if (numPlayers == 2)
+            size=7+1;
+        else if (numPlayers == 3)
+            size=9+1;
+        else if (numPlayers == 4)
+            size=10+1;
+
+        grid.setLayout(new java.awt.GridLayout(size, size));
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 final TileButton button = new TileButton();
                 final Point location = new Point(j, i);
                 addGridListener(button, location);
                 grid.add(button);
+                if(j==size-1 && x_end)
+                	button.setVisible(false);
+//                    button.setEnabled(false);
+                if(i==size-1 && y_end)
+                	button.setVisible(false);
+//                    button.setEnabled(false);
             }
         }
     }
