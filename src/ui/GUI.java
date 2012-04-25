@@ -1027,6 +1027,7 @@ public class GUI extends JFrame implements PlayerListener,
      * Signal to ui to end the game.  Show end screen with point totals.
      */
     public void endGame() {
+        new WinScreen(game);
 
     }
 
