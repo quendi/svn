@@ -9,7 +9,11 @@ import utils.GameUtils;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import javax.sound.sampled.*;
@@ -28,7 +32,7 @@ public class GUI extends JFrame implements PlayerListener,
     private boolean knightMode = false;
     private Point moveTo;
 
-    public RobberKnight game;
+    public static RobberKnight game;
     PlayerSelection playerSelection;
 
     // private JMenu Edit;
@@ -1046,7 +1050,6 @@ public class GUI extends JFrame implements PlayerListener,
         Graphics g = bi.createGraphics();
         icon.paintIcon(null, g, 0,0);
 
-        int j = 90;
         int d = button.getHeight()/2;
         int j = button.getHeight()-5;
         System.out.println("button height is" + button.getHeight());
@@ -1335,4 +1338,46 @@ public class GUI extends JFrame implements PlayerListener,
             System.out.println(e);
         }
     }
+    
+    public static void saveGame(String filename)
+    {
+    	filename = filename + ".ser";
+    	GameState gs = new GameState();
+    	gs.game = game;
+    	try
+    	{ 
+    		FileOutputStream fileOut = new FileOutputStream(filename);
+    		ObjectOutputStream out = new ObjectOutputStream(fileOut);
+    		out.writeObject(gs);
+    		out.close();
+    		fileOut.close();
+    	}catch(IOException i)
+    	{
+    		i.printStackTrace();
+    	}
+    }
+    
+    public static void LoadGame (String filename)
+    {
+    	filename = filename + ".ser";
+    	GameState gs = null;
+    	try
+    	{
+    		FileInputStream fileIn = new FileInputStream(filename);
+    		ObjectInputStream in = new ObjectInputStream(fileIn);
+    		gs = (GameState) in.readObject();
+    		in.close();
+    		fileIn.close();
+    	}catch(IOException i)
+    	{
+    		i.printStackTrace();
+    		return;
+    	}catch(ClassNotFoundException c)
+    	{
+    		System.out.println("GameState class not found");
+    		c.printStackTrace();
+    		return;
+    	}
+    	game = gs.game;
+	}
 }
