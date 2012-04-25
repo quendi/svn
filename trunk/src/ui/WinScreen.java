@@ -1,17 +1,9 @@
 package ui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
+import java.awt.*;
+import java.awt.event.*;
+import javax.sound.sampled.*;
 import javax.swing.*;
-
 import domain.RobberKnight;
 
 @SuppressWarnings("unused")
@@ -133,7 +125,6 @@ public class WinScreen{
         /**
          * Add everything to frame
          */
-        frame.setJMenuBar(new GameMenu(true));
         frame.add(panel);
 	}
 	
