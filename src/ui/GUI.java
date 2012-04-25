@@ -9,15 +9,13 @@ import utils.GameUtils;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
 import java.util.ArrayList;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
+import java.io.*;
+
 
 /**
  *
@@ -510,7 +508,13 @@ public class GUI extends JFrame implements PlayerListener,
         File.add(newGame);
 
         loadGame.setText("Load Game");
+        loadGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                
+            }
+        });
         File.add(loadGame);
+        
 
         close.setText("Close");
         close.addActionListener(new java.awt.event.ActionListener() {
@@ -569,7 +573,13 @@ public class GUI extends JFrame implements PlayerListener,
     }
 
     private void helpActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        File file = new File("resources/RobberKnights.pdf");
+
+        try {
+			Desktop.getDesktop().open(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
 
