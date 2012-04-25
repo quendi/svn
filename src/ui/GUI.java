@@ -1046,18 +1046,19 @@ public class GUI extends JFrame implements PlayerListener,
         Graphics g = bi.createGraphics();
         icon.paintIcon(null, g, 0,0);
 
-        int j = 100;
+        int j = 90;
+        int d = button.getHeight()/2;
+        System.out.println("button height is" + button.getHeight());
         for(int i = 0; i < t.getNumKnights(); i++){
         	g.setColor(GameUtils.getColor(t.knights.get(i)));
-        	//g.fillOval(25, j, 20, 10);
-        	g.fillRect(90, j, 20, 5);
-        	j = j - 10;
+        	g.fillOval(d, d, 20, 20);
+        	g.fillRect(80, j, 20, 5);
+        	j = j - 6;
         }
         
 
-        TileButton tileButton = (TileButton) button;
         g.dispose();
-        tileButton.setIcon(new ImageIcon(bi), game.getNumPlayers());
+        button.setIcon(new ImageIcon(bi));
 
         
         System.out.println("game has " + game.getNumPlayers() + " players");
@@ -1073,6 +1074,8 @@ public class GUI extends JFrame implements PlayerListener,
          * Reset image
          */
         button.setIcon(tile.getImage());
+        TileButton tileButton = (TileButton) button;
+        tileButton.setIcon(tile.getImage(), game.getNumPlayers());
 
         /**
          * redraw knights
