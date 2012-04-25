@@ -20,14 +20,14 @@ public class Deck {
     public void initialize(){ 
     	int rep;
     	populateDeck();
-    	/*rep = generator.nextInt(10)+10;
+    	rep = generator.nextInt(10)+10;
     	//shuffleTiles(4, 8, rep);	//b
     	rep = generator.nextInt(10)+10;
     	shuffleTiles(9, 13, rep);	//c
     	rep = generator.nextInt(10)+10;
     	shuffleTiles(14, 18, rep);	//e
     	rep = generator.nextInt(10)+10;
-    	shuffleTiles(19, 23, rep);	//f*/
+    	shuffleTiles(19, 23, rep);	//f
          }
     
     private void populateDeck(){
