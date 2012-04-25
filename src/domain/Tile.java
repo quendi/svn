@@ -93,36 +93,36 @@ public class Tile {
     private void setImage(Terrain t, Building b){
         String separator = File.separator;
         if(Terrain.Lake.equals(t)){
-            this.image = new ImageIcon("resources" + separator + "Lake.jpg");
+            this.image = new ImageIcon("resources" + separator + "Lake small.jpg");
         }
         else if(Terrain.Plain.equals(t)){
             if(Building.Castle.equals(b)){
-                this.image = new ImageIcon("resources" + separator + "Castle.jpg");
+                this.image = new ImageIcon("resources" + separator + "Plains Castle small.jpg");
             }
             else if(Building.Village.equals(b)){
-                this.image = new ImageIcon("resources" + separator + "Village.jpg");
+                this.image = new ImageIcon("resources" + separator + "Plains Village small.jpg");
             }
             else if(Building.Town.equals(b)){
-                this.image = new ImageIcon("resources" + separator + "Town.jpg");
+                this.image = new ImageIcon("resources" + separator + "Plains Town small.jpg");
             }
             else{
-                this.image = new ImageIcon("resources" + separator + "Plains.jpg");
+                this.image = new ImageIcon("resources" + separator + "Plains small.jpg");
             }
         }
         else if (Terrain.Forest.equals(t)){
             if(Building.Castle.equals(b)){
-                this.image = new ImageIcon("resources" + separator + "ForestCastle.jpg");
+                this.image = new ImageIcon("resources" + separator + "Forested Castle small.jpg");
             }
             else if(Building.Village.equals(b)){
-                this.image = new ImageIcon("resources" + separator + "ForestVillage.jpg");
+                this.image = new ImageIcon("resources" + separator + "Forested Village small.jpg");
             }
             else{
-                this.image = new ImageIcon("resources" + separator + "ForestTown.jpg");
+                this.image = new ImageIcon("resources" + separator + "Forested Town small.jpg");
             }
 
         }
         else{
-            this.image = new ImageIcon("resources" + separator + "Mountain.jpg");
+            this.image = new ImageIcon("resources" + separator + "Mountains small.jpg");
         }
 
     }

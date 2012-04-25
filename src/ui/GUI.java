@@ -498,7 +498,7 @@ public class GUI extends JFrame implements PlayerListener,
         setResizable(false);
 
         titleScreen.setIcon(new ImageIcon(
-                "resources/RobberKnights.jpg")); // NOI18N
+                "resources/robber knights cover small.jpg")); // NOI18N
 
         File.setText("File");
 
@@ -749,8 +749,16 @@ public class GUI extends JFrame implements PlayerListener,
                     if (game.placeTile(tileInPlay, location, false)) {
                         if(tileInPlay.getTerrain() == Terrain.Lake)
                             playSound("resources/LakePlacement.wav");
+                        if(tileInPlay.getTerrain() == Terrain.Mountain)
+                            playSound("resources/Mountains(rubble).wav");
+                        if(tileInPlay.getTerrain() == Terrain.Forest)
+                            playSound("resources/Forest.wav");
+                        if(tileInPlay.getTerrain() == Terrain.Plain)
+                            playSound("resources/plains.wav");
                         if(tileInPlay.getBuilding() == Building.Town)
                             playSound("resources/TownPlacement.wav");
+                        if(tileInPlay.getBuilding() == Building.Village)
+                            playSound("resources/village.wav");
                         moves++;
                         tileInPlay = null;
                         // End turn once player has made 3 turns
