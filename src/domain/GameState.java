@@ -11,6 +11,7 @@ import java.io.Serializable;
  * Time: 6:17:21 PM
 
  */
+@SuppressWarnings("serial")
 public class GameState implements Serializable {
     
 }
