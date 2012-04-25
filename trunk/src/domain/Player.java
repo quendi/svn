@@ -23,6 +23,7 @@ public class Player {
     public Player(){}
 
     public Player(Color color, Date birthdate, int id, PlayerListener pl) {
+        this.inGame = true;
         this.color = color;
         this.birthDate = birthdate;
         this.deck = new Deck();
