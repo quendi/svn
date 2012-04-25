@@ -119,10 +119,10 @@ public class Board {
                 }
                 System.out.println("X: " + t.getLocation().getX() + " Y: " + t.getLocation().getY());
                 if( t.getLocation().getX() == 0 ||
-                        t.getLocation().getY() == 0 ||
-                        t.getLocation().getY() == size - 1 ||
-                        t.getLocation().getX() == size - 1 ){
-                    OutofBound(t);
+                    t.getLocation().getY() == 0 ||
+                    t.getLocation().getY() == size - 1 ||
+                    t.getLocation().getX() == size - 1 ){
+                    	OutofBound(t);
                 }
 
             }
