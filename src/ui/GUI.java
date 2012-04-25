@@ -494,6 +494,7 @@ public class GUI extends JFrame implements PlayerListener,
 
 
         this.setJMenuBar(new GameMenu(false));//TODO
+        InGame.setJMenuBar(new GameMenu(true));
 
         GroupLayout layout = new GroupLayout(
                 getContentPane());
