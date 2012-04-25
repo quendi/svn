@@ -75,6 +75,7 @@ public class GUI extends JFrame implements PlayerListener,
 
     // End of variables declaration
 
+    
     /**
      *
      */
@@ -121,6 +122,8 @@ public class GUI extends JFrame implements PlayerListener,
         about = new JMenuItem();
         help = new JMenuItem();
         PlayerPanel = new JPanel();
+        
+        grid.setBackground(null);
 
 //        knightPicker.setBounds(500, 500, 200, 100);
 //        knightPicker.setDefaultCloseOperation(HIDE_ON_CLOSE);
