@@ -52,7 +52,7 @@ public class WinScreen{
 		frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setBounds(750, 300, 250, 250);
-        frame.setResizable(false);
+        //frame.setResizable(false);
         panel.setLayout(new BorderLayout());
 
         /**
@@ -133,14 +133,15 @@ public class WinScreen{
         /**
          * Add everything to frame
          */
+        frame.setJMenuBar(new GameMenu(true));
         frame.add(panel);
 	}
 	
-	/***Testing***/
+	/***Testing**
 	public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new WinScreen(new RobberKnight(0, null, null, null));
+                new WinScreen(new RobberKnight(0, null, null, null), new GameMenu(true));
             }
         });
 	}

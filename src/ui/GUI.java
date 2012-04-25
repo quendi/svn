@@ -34,15 +34,14 @@ public class GUI extends JFrame implements PlayerListener,
     PlayerSelection playerSelection;
 
     // private JMenu Edit;
-    private JMenu File;
-    private JMenu Help;
-    protected JFrame InGame;
-    private JMenuBar Menu;
 
-    private JMenuItem about;
+    protected JFrame InGame;
+
+
+
     protected TileButton card1;
     protected TileButton card2;
-    private JMenuItem close;
+
     protected JLabel currentColor;
 
     private JButton endTurn;
@@ -51,13 +50,11 @@ public class GUI extends JFrame implements PlayerListener,
     private JButton errorOK;
 
     protected JPanel grid;
-    private JMenuItem help;
+
     private JButton jButton104;
     private JLabel playerLabel;
     private JLabel knightLabel;
     private JLabel titleScreen;
-    private JMenuItem loadGame;
-    protected JMenuItem newGame;
     protected JLabel numberOfKnights;
     protected JLabel playersTurn;
     protected JPanel PlayerPanel;
@@ -112,15 +109,7 @@ public class GUI extends JFrame implements PlayerListener,
         errorNotEnoughPlayersMsg = new JLabel();
         errorOK = new JButton();
         titleScreen = new JLabel();
-        Menu = new JMenuBar();
-        File = new JMenu();
-        newGame = new JMenuItem();
-        loadGame = new JMenuItem();
-        close = new JMenuItem();
-        //Edit = new JMenu();
-        Help = new JMenu();
-        about = new JMenuItem();
-        help = new JMenuItem();
+
         PlayerPanel = new JPanel();
         
         grid.setBackground(null);
@@ -500,59 +489,11 @@ public class GUI extends JFrame implements PlayerListener,
         titleScreen.setIcon(new ImageIcon(
                 "resources/robber knights cover small.jpg")); // NOI18N
 
-        File.setText("File");
 
-        newGame.setText("New Game");
-        newGame.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newGameActionPerformed(evt);
-            }
-        });
-        File.add(newGame);
 
-        loadGame.setText("Load Game");
-        loadGame.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                
-            }
-        });
-        File.add(loadGame);
-        
 
-        close.setText("Close");
-        close.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                closeActionPerformed(evt);
-            }
-        });
-        File.add(close);
 
-        Menu.add(File);
-
-        //Edit.setText("Edit");
-        // Menu.add(Edit);
-
-        Help.setText("Help");
-
-        about.setText("About");
-        about.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aboutActionPerformed(evt);
-            }
-        });
-        Help.add(about);
-
-        help.setText("Help");
-        help.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                helpActionPerformed(evt);
-            }
-        });
-        Help.add(help);
-
-        Menu.add(Help);
-
-        setJMenuBar(Menu);
+        this.setJMenuBar(new GameMenu(false));//TODO
 
         GroupLayout layout = new GroupLayout(
                 getContentPane());
@@ -571,19 +512,7 @@ public class GUI extends JFrame implements PlayerListener,
         pack();
     }
 
-    private void aboutActionPerformed(java.awt.event.ActionEvent evt) {
-        new About();
-    }
 
-    private void helpActionPerformed(java.awt.event.ActionEvent evt) {
-        File file = new File("resources/RobberKnights.pdf");
-
-        try {
-			Desktop.getDesktop().open(file);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    }
 
 
 
@@ -591,14 +520,6 @@ public class GUI extends JFrame implements PlayerListener,
         errorNotEnoughPlayers.setVisible(false);
     }
 
-    private void newGameActionPerformed(java.awt.event.ActionEvent evt) {
-        playerSelection = new PlayerSelection(true, this, game);// true
-        this.setVisible(false);
-    }
-
-    private void closeActionPerformed(java.awt.event.ActionEvent evt) {
-        System.exit(0);
-    }
 
     /**
      * Moves current turn to next player.
