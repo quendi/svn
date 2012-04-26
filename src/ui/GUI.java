@@ -31,7 +31,7 @@ public class GUI extends JFrame implements PlayerListener,
     private Point moveTo;
 
     public static RobberKnight game;
-    PlayerSelection playerSelection;
+
 
     // private JMenu Edit;
 
@@ -493,8 +493,8 @@ public class GUI extends JFrame implements PlayerListener,
 
 
 
-        this.setJMenuBar(new GameMenu(false));//TODO
-        InGame.setJMenuBar(new GameMenu(true));
+        this.setJMenuBar(new GameMenu(false, this));//TODO
+        InGame.setJMenuBar(new GameMenu(true,this));
 
         GroupLayout layout = new GroupLayout(
                 getContentPane());

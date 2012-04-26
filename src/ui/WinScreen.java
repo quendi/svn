@@ -34,7 +34,7 @@ public class WinScreen{
 		for(int i = 0; i < 4; i++){
 			if (playerTotals[i] > total){
 				total = playerTotals[i];
-				winner = playerTotals[i];
+				winner = i;
 			}
 		}
 		
@@ -103,7 +103,7 @@ public class WinScreen{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				frame.setVisible(false);
-				new PlayerSelection(true, new GUI(), new RobberKnight(0, null, null, null));
+				new PlayerSelection(new GUI());
 			}
         });
         quit.addActionListener(new ActionListener() {

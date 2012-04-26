@@ -31,7 +31,7 @@ public class GameMenu extends JMenuBar{
 	JMenuItem rules = new JMenuItem("Rules");
 	
 	
-	public GameMenu(boolean inGame){
+	public GameMenu(boolean inGame, final GUI gui){
 		/**
 		 * Disable menu items according to whether you are in the game or not
 		 */
@@ -46,7 +46,8 @@ public class GameMenu extends JMenuBar{
 		 */
         newGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-				new PlayerSelection(true, new GUI(), new RobberKnight(0, null, null, null));
+				new PlayerSelection(new GUI());
+				gui.setVisible(false);
 				//TODO - close out other screens
             }
         });
