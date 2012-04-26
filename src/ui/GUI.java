@@ -1142,45 +1142,5 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         }
     }
     
-    public static void saveGame(String filename)
-    {
-    	filename = filename + ".ser";
-    	GameState gs = new GameState();
-    	gs.game = game;
-    	try
-    	{ 
-    		FileOutputStream fileOut = new FileOutputStream(filename);
-    		ObjectOutputStream out = new ObjectOutputStream(fileOut);
-    		out.writeObject(gs);
-    		out.close();
-    		fileOut.close();
-    	}catch(IOException i)
-    	{
-    		i.printStackTrace();
-    	}
-    }
-    
-    public static void LoadGame (String filename)
-    {
-    	filename = filename + ".ser";
-    	GameState gs = null;
-    	try
-    	{
-    		FileInputStream fileIn = new FileInputStream(filename);
-    		ObjectInputStream in = new ObjectInputStream(fileIn);
-    		gs = (GameState) in.readObject();
-    		in.close();
-    		fileIn.close();
-    	}catch(IOException i)
-    	{
-    		i.printStackTrace();
-    		return;
-    	}catch(ClassNotFoundException c)
-    	{
-    		System.out.println("GameState class not found");
-    		c.printStackTrace();
-    		return;
-    	}
-    	game = gs.game;
-	}
+
 }

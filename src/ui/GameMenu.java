@@ -52,12 +52,12 @@ public class GameMenu extends JMenuBar{
         });
         saveGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //TODO
+                new SaveAndLoad(null);
             }
         });
         loadGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //TODO
+                new SaveAndLoad(null);
             }
         });
         surrender.addActionListener(new java.awt.event.ActionListener() {
