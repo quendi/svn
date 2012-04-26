@@ -21,8 +21,8 @@ import java.io.*;
  *
  * @author Aaron
  */
-public class GUI extends JFrame implements PlayerListener,
-        BoardListener, TurnListener {
+public class GUI implements PlayerListener,BoardListener, TurnListener {
+	
     private JButton selectedCard = new JButton("Null");
     private int moves = 0;
     private Tile tileInPlay;
@@ -33,7 +33,6 @@ public class GUI extends JFrame implements PlayerListener,
     public static RobberKnight game;
 
 
-    // private JMenu Edit;
 
     protected JFrame InGame;
 
@@ -45,16 +44,13 @@ public class GUI extends JFrame implements PlayerListener,
     protected JLabel currentColor;
 
     private JButton endTurn;
-    private JDialog errorNotEnoughPlayers;
-    private JLabel errorNotEnoughPlayersMsg;
-    private JButton errorOK;
+
 
     protected JPanel grid;
 
     private JButton jButton104;
     private JLabel playerLabel;
     private JLabel knightLabel;
-    private JLabel titleScreen;
     protected JLabel numberOfKnights;
     protected JLabel playersTurn;
     protected JPanel PlayerPanel;
@@ -72,11 +68,8 @@ public class GUI extends JFrame implements PlayerListener,
 
     // End of variables declaration
 
-    
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+
+
 
     public GUI() {
         initComponents();
@@ -105,10 +98,7 @@ public class GUI extends JFrame implements PlayerListener,
         playersTurn = new JLabel();
         currentColor = new JLabel();
         grid = new JPanel();
-        errorNotEnoughPlayers = new JDialog();
-        errorNotEnoughPlayersMsg = new JLabel();
-        errorOK = new JButton();
-        titleScreen = new JLabel();
+
 
         PlayerPanel = new JPanel();
         
@@ -408,118 +398,16 @@ public class GUI extends JFrame implements PlayerListener,
 												 * Short.MAX_VALUE
 												 */).addContainerGap()));
 
-        errorNotEnoughPlayers.setIconImage(null);
-        errorNotEnoughPlayers.setMinimumSize(new java.awt.Dimension(400, 300));
-        errorNotEnoughPlayers.setResizable(false);
-
-        errorNotEnoughPlayersMsg
-                .setText("                               Error: Must have at least two players");
-
-        errorOK.setText("OK");
-        errorOK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                errorOKActionPerformed(evt);
-            }
-        });
-
-        GroupLayout errorNotEnoughPlayersLayout = new GroupLayout(
-                errorNotEnoughPlayers.getContentPane());
-        errorNotEnoughPlayers.getContentPane().setLayout(
-                errorNotEnoughPlayersLayout);
-        errorNotEnoughPlayersLayout
-                .setHorizontalGroup(errorNotEnoughPlayersLayout
-                        .createParallelGroup(
-                                GroupLayout.Alignment.LEADING)
-                        .addGroup(
-                        errorNotEnoughPlayersLayout
-                                .createSequentialGroup()
-                                .addGroup(
-                                        errorNotEnoughPlayersLayout
-                                                .createParallelGroup(
-                                                        GroupLayout.Alignment.LEADING)
-                                                .addGroup(
-                                                        errorNotEnoughPlayersLayout
-                                                                .createSequentialGroup()
-                                                                .addContainerGap()
-                                                                .addComponent(
-                                                                errorNotEnoughPlayersMsg,
-                                                                GroupLayout.DEFAULT_SIZE,
-                                                                380,
-                                                                Short.MAX_VALUE))
-                                                .addGroup(
-                                                errorNotEnoughPlayersLayout
-                                                        .createSequentialGroup()
-                                                        .addGap(146,
-                                                                146,
-                                                                146)
-                                                        .addComponent(
-                                                                errorOK,
-                                                                GroupLayout.PREFERRED_SIZE,
-                                                                93,
-                                                                GroupLayout.PREFERRED_SIZE)
-                                                        .addGap(0,
-                                                        0,
-                                                        Short.MAX_VALUE)))
-                                .addContainerGap()));
-        errorNotEnoughPlayersLayout
-                .setVerticalGroup(errorNotEnoughPlayersLayout
-                        .createParallelGroup(
-                                GroupLayout.Alignment.LEADING)
-                        .addGroup(
-                        errorNotEnoughPlayersLayout
-                                .createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(
-                                        errorNotEnoughPlayersMsg,
-                                        GroupLayout.PREFERRED_SIZE,
-                                        191,
-                                        GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(
-                                        LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(
-                                        errorOK,
-                                        GroupLayout.PREFERRED_SIZE,
-                                        40,
-                                        GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(52, Short.MAX_VALUE)));
-
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
-
-        titleScreen.setIcon(new ImageIcon(
-                "resources/robber knights cover small.jpg")); // NOI18N
 
 
 
+      
+        InGame.setJMenuBar(new GameMenu(true, new InitialScreen()));
 
-
-        this.setJMenuBar(new GameMenu(false, this));//TODO
-        InGame.setJMenuBar(new GameMenu(true,this));
-
-        GroupLayout layout = new GroupLayout(
-                getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(
-                GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addGap(25, 25, 25)
-                        .addComponent(titleScreen)
-                        .addContainerGap(30, Short.MAX_VALUE)));
-        layout.setVerticalGroup(layout.createParallelGroup(
-                GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addGap(24, 24, 24)
-                        .addComponent(titleScreen)
-                        .addContainerGap(33, Short.MAX_VALUE)));
-
-        pack();
     }
 
 
 
-
-
-    private void errorOKActionPerformed(java.awt.event.ActionEvent evt) {
-        errorNotEnoughPlayers.setVisible(false);
-    }
 
 
     /**
@@ -702,7 +590,7 @@ public class GUI extends JFrame implements PlayerListener,
 
             public void run() {
                 GUI gui = new GUI();
-                gui.setVisible(true);
+                new InitialScreen();
             }
         });
     }
@@ -718,7 +606,7 @@ public class GUI extends JFrame implements PlayerListener,
          */
         initialTile.setVisible(true);
         initialTile.setBounds(100, 100, 850, 450);
-        initialTile.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        initialTile.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
         JPanel tilePanel = new JPanel();
         tilePanel.setLayout(new BorderLayout());

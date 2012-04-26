@@ -103,7 +103,7 @@ public class WinScreen{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				frame.setVisible(false);
-				new PlayerSelection(new GUI());
+				new PlayerSelection();
 			}
         });
         quit.addActionListener(new ActionListener() {
