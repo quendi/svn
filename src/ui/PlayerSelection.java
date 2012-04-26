@@ -97,7 +97,7 @@ public class PlayerSelection extends JFrame{
     private Font font2 = new Font("Serif", Font.BOLD, 20);
 	
 	
-	public PlayerSelection(final GUI gui){
+	public PlayerSelection(){
 		/**
 		 * Default
 		 */
@@ -197,6 +197,7 @@ public class PlayerSelection extends JFrame{
 		        //Set Player Selection to invisible
 		        erase();
 		        // Create game and return to main window(GUI).
+		        GUI gui = new GUI();
 		        gui.startGame(new RobberKnight(numOfPlayers, colors, dates, gui));
 		        
 		    }
@@ -240,7 +241,7 @@ public class PlayerSelection extends JFrame{
 	public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PlayerSelection(new GUI());
+              //  new PlayerSelection(new GUI());
             }
         });
 	}
