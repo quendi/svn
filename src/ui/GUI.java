@@ -337,12 +337,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
 
         GroupLayout gridLayout = new GroupLayout(grid);
         grid.setLayout(gridLayout);
-        /*gridLayout.setHorizontalGroup(gridLayout.createParallelGroup(
-                  GroupLayout.Alignment.LEADING).addGap(0, 574,
-                  Short.MAX_VALUE));
-          gridLayout.setVerticalGroup(gridLayout.createParallelGroup(
-                  GroupLayout.Alignment.LEADING).addGap(0, 0,
-                  Short.MAX_VALUE));*/
+
 
         GroupLayout InGameLayout = new GroupLayout(
                 InGame.getContentPane());
@@ -358,10 +353,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                         InGameLayout
                                 .createSequentialGroup()
                                 .addContainerGap()
-                                        // .addComponent(grid,
-                                        // GroupLayout.DEFAULT_SIZE,
-                                        // GroupLayout.DEFAULT_SIZE,
-                                        // Short.MAX_VALUE)
+
                                 .addComponent(grid,
                                         SIZE,
                                         SIZE,
@@ -390,19 +382,14 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                                 SIZE,
                                 SIZE,
                                 SIZE)
-                        .addComponent(grid/*
-												 * , GroupLayout.
-												 * DEFAULT_SIZE,
-												 * GroupLayout
-												 * .DEFAULT_SIZE,
-												 * Short.MAX_VALUE
-												 */).addContainerGap()));
+                        .addComponent(grid
+												).addContainerGap()));
 
 
 
 
       
-        InGame.setJMenuBar(new GameMenu(true, new InitialScreen()));
+        InGame.setJMenuBar(new GameMenu(true, null));
 
     }
 
@@ -584,17 +571,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
 
 
 
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                GUI gui = new GUI();
-                new InitialScreen();
-            }
-        });
-    }
-
     /**
      * Get starting layout of tiles from players.
      * Castle placement is not allowed in this phase.
@@ -743,9 +719,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         playerNumber.setFont(font);
         select.setPreferredSize(new Dimension(300, 100));
         tilePanel.setForeground(new java.awt.Color(0,0,255));
-        //initialTile.getContentPane().setForeground(GameUtils.getColor(game.getCurrentPlayer().getColor()));
-        //initialTile.getContentPane().setBackground(GameUtils.getColor(currentPlayer.getColor()));
-        //TODO
 
         /**
          * Add contents to frame
