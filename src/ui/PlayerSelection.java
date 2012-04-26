@@ -25,70 +25,70 @@ public class PlayerSelection extends JFrame{
 	/**
 	 * Center panel
 	 */
-	JPanel centerPanel = new JPanel(new GridLayout(1,4));
+	private JPanel centerPanel = new JPanel(new GridLayout(1,4));
 	
-	JPanel firstPanel = new JPanel(new GridLayout(4,1));
-	JPanel secondPanel = new JPanel(new GridLayout(4,1));
-	JPanel thirdPanel = new JPanel(new GridLayout(4,1));
-	JPanel fourthPanel = new JPanel(new GridLayout(4,1));
+	private JPanel firstPanel = new JPanel(new GridLayout(4,1));
+	private JPanel secondPanel = new JPanel(new GridLayout(4,1));
+	private JPanel thirdPanel = new JPanel(new GridLayout(4,1));
+	private JPanel fourthPanel = new JPanel(new GridLayout(4,1));
 	
-	JLabel player1Name = new JLabel("Player 1", JLabel.CENTER);
-	JLabel player2Name = new JLabel("Player 2", JLabel.CENTER);
-	JLabel player3Name = new JLabel("Player 3", JLabel.CENTER);
-	JLabel player4Name = new JLabel("Player 4", JLabel.CENTER);
+	private JLabel player1Name = new JLabel("Player 1", JLabel.CENTER);
+	private JLabel player2Name = new JLabel("Player 2", JLabel.CENTER);
+	private JLabel player3Name = new JLabel("Player 3", JLabel.CENTER);
+	private JLabel player4Name = new JLabel("Player 4", JLabel.CENTER);
 	
-	JLabel birthday1 = new JLabel("Enter Birthday:", JLabel.CENTER);
-	JLabel birthday2 = new JLabel("Enter Birthday:", JLabel.CENTER);
-	JLabel birthday3 = new JLabel("Enter Birthday:", JLabel.CENTER);
-	JLabel birthday4 = new JLabel("Enter Birthday:", JLabel.CENTER);
+	private JLabel birthday1 = new JLabel("Enter Birthday:", JLabel.CENTER);
+	private JLabel birthday2 = new JLabel("Enter Birthday:", JLabel.CENTER);
+	private JLabel birthday3 = new JLabel("Enter Birthday:", JLabel.CENTER);
+	private JLabel birthday4 = new JLabel("Enter Birthday:", JLabel.CENTER);
 	
-	String month[] = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
-	String day[] = new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", 
-								  "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", 
-								  "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" };
-	String year[] = new String[] { "1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959",
-								   "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969",
-								   "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979",
-								   "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", 
-								   "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", 
-								   "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", 
-								   "2010", "2011", "2012" };
+	private String month[] = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+	private String day[] = new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", 
+								  		  "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", 
+								  		  "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" };
+	private String year[] = new String[] { "1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959",
+								   		   "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969",
+								   		   "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979",
+										   "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", 
+										   "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", 
+										   "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", 
+										   "2010", "2011", "2012" };
 	
 	
 	private JPanel birthdayPanel1 = new JPanel();
-	JComboBox month1 = new JComboBox(month);
-	JComboBox day1 = new JComboBox(day);
-	JComboBox year1 = new JComboBox(year);
+	private JComboBox month1 = new JComboBox(month);
+	private JComboBox day1 = new JComboBox(day);
+	private JComboBox year1 = new JComboBox(year);
 	
 	private JPanel birthdayPanel2 = new JPanel();
-	JComboBox month2 = new JComboBox(month);
-	JComboBox day2 = new JComboBox(day);
-	JComboBox year2 = new JComboBox(year);
+	private JComboBox month2 = new JComboBox(month);
+	private JComboBox day2 = new JComboBox(day);
+	private JComboBox year2 = new JComboBox(year);
 	
 	private JPanel birthdayPanel3 = new JPanel();
-	JComboBox month3 = new JComboBox(month);
-	JComboBox day3 = new JComboBox(day);
-	JComboBox year3 = new JComboBox(year);
+	private JComboBox month3 = new JComboBox(month);
+	private JComboBox day3 = new JComboBox(day);
+	private JComboBox year3 = new JComboBox(year);
 	
 	private JPanel birthdayPanel4 = new JPanel();
-	JComboBox month4 = new JComboBox(month);
-	JComboBox day4 = new JComboBox(day);
-	JComboBox year4 = new JComboBox(year);
+	private JComboBox month4 = new JComboBox(month);
+	private JComboBox day4 = new JComboBox(day);
+	private JComboBox year4 = new JComboBox(year);
 	
 	private CardLayout cl1 = new CardLayout();
 	private CardLayout cl2 = new CardLayout();
-	JPanel sub1 = new JPanel(cl1);
+	private JPanel sub1 = new JPanel(cl1);
 	private JPanel sub1ButtonPanel = new JPanel(new BorderLayout());
-	JPanel sub2 = new JPanel(cl2);
+	private JPanel sub2 = new JPanel(cl2);
 	private JPanel sub2ButtonPanel = new JPanel(new BorderLayout());
-	JButton addPlayer3 = new JButton("Add Player");
-	JButton addPlayer4 = new JButton("Add Player");
+	private JButton addPlayer3 = new JButton("Add Player");
+	private JButton addPlayer4 = new JButton("Add Player");
 
 	/**
 	 * South panel
 	 */
-	JPanel southPanel = new JPanel();
-	JButton startGame = new JButton("Start Game");
+	private JPanel southPanel = new JPanel();
+	private JButton startGame = new JButton("Start Game");
 	/**
 	 * Other
 	 */
