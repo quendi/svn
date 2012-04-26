@@ -47,8 +47,7 @@ public class GameMenu extends JMenuBar{
         newGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
 				new PlayerSelection();
-				initialScreen.setVisible(false);
-				//TODO - close out other screens
+				initialScreen.dispose();
             }
         });
         saveGame.addActionListener(new java.awt.event.ActionListener() {
