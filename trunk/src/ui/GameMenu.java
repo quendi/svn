@@ -24,8 +24,11 @@ public class GameMenu extends JMenuBar{
 	JMenuItem surrender = new JMenuItem("Surrender");
 	JMenuItem close = new JMenuItem("Close");
 	/**
+	 * Load and Save
+	 */
+	SaveAndLoad saveAndLoad;
+	/**
 	 * Items under Help
-	 * 
 	 */
 	JMenuItem about = new JMenuItem("About");
 	JMenuItem rules = new JMenuItem("Rules");
@@ -48,16 +51,6 @@ public class GameMenu extends JMenuBar{
             public void actionPerformed(java.awt.event.ActionEvent evt) {
 				new PlayerSelection();
 				initialScreen.dispose();
-            }
-        });
-        saveGame.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                new SaveAndLoad(null);
-            }
-        });
-        loadGame.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                new SaveAndLoad(null);
             }
         });
         surrender.addActionListener(new java.awt.event.ActionListener() {
@@ -86,6 +79,8 @@ public class GameMenu extends JMenuBar{
         		}
             }
         });
+        saveAndLoad = new SaveAndLoad(null);//TODO - Add game to this
+        
 		/**
 		 * Add items to file menu
 		 */
@@ -103,6 +98,7 @@ public class GameMenu extends JMenuBar{
 		 * Add items to Bar
 		 */
 		this.add(file);
+		this.add(saveAndLoad);
 		this.add(help);
 		
 	}
