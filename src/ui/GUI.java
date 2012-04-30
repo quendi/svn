@@ -137,7 +137,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         endTurn.setText("End Turn");
         endTurn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                endTurnActionPerformed(evt);
+                endTurnActionPerformed();
             }
         });
 
@@ -441,7 +441,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
      *
      * @param evt
      */
-    private void endTurnActionPerformed(java.awt.event.ActionEvent evt) {
+    private void endTurnActionPerformed() {
         // TODO
         if (moves < 1) {
             JOptionPane.showMessageDialog(InGame,
@@ -548,13 +548,9 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                             playSound("resources/TownPlacement.wav");
                         if(tileInPlay.getBuilding() == Building.Village)
                             playSound("resources/village.wav");
-                        moves++;
                         tileInPlay = null;
                         // End turn once player has made 3 turns
                         //TODO change this so when a castle is placed on the last turn it will activate knight movement
-                        if (moves > 2) {
-                            endTurnActionPerformed(evt);
-                        }
                     }
                 }
             }
@@ -885,17 +881,18 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         int gridLocation = GameUtils.getGridLocation(t, game.getBoard().getSize());
         TileButton button = (TileButton) grid.getComponent(gridLocation);
         button.setIcon(t.getImage(), game.getNumPlayers());
-        // If a castle has been placed, prompt user for knight placement.
-
+        // Increment moves if not castle plcaed.  This is to allow player to initiate knight movement on the last move of their turn.
+        if(!Building.Castle.equals(t.getBuilding())){
+            moves++;
+        }
         // Detect the Knights on this tile
         if( t.getNumKnights() != 0){
-            /*button.setHorizontalTextPosition(SwingConstants.CENTER);
-               button.setText(Integer.toString(t.getNumKnights()));
-               button.setOpaque(true);
-               button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
-               button.setForeground( GameUtils.getColor(t.getTopKnight()) ); */
             drawKnights(button, t);
         }
+        if (moves > 2) {
+            endTurnActionPerformed();
+        }
+
     }
 
     public void placedCastle(Tile castle) {
@@ -903,6 +900,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         knightPicker = new KnightPicker(this, castle.getMinimumKnights());
         knightPicker.setVisible(true);
         castleTile = castle;
+        moves++;
     }
 
     // while shift, remove the icon of the tile which has been set to null
@@ -1104,12 +1102,19 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                 playSound("KillStab.wav");
     }
 
+
+    /**
+     * Ends knight movement
+     */
     public void endKnightMovement() {
         endKnightPlacement.setVisible(false);
         knightPicker.setVisible(false);
         castleTile = null;
         reenableAll();
         knightMode = false;
+        if (moves > 2) {
+            endTurnActionPerformed();
+        }
     }
 
     public static void playSound(String filename){
