@@ -1,7 +1,5 @@
 package domain;
 
-import java.io.Serializable;
-
 /**
  * Created by IntelliJ IDEA.
  * User: Joe
@@ -9,7 +7,7 @@ import java.io.Serializable;
  * Time: 9:56:46 AM
  * To change this template use File | Settings | File Templates.
  */
-public interface TurnListener{
+public interface TurnListener {
     public void playerTurn(Player currentPlayer);
     public void endGame();
     public void endKnightMovement();

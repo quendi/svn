@@ -20,7 +20,7 @@ public class Player implements Serializable{
     private Date birthDate;
     private Deck deck;
     private boolean inGame;
-    transient private PlayerListener playerListener;
+    private PlayerListener playerListener;
 
     public Player(){}
 

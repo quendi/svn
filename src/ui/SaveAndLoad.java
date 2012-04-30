@@ -38,22 +38,21 @@ public class SaveAndLoad extends JMenu{
 	JButton cancel = new JButton("Cancel");
 	JButton ok = new JButton("OK");
 	JMenuItem deleteAll = new JMenuItem("Delete All Saves");
-	int i = 0;
 		
 	@SuppressWarnings("static-access")
 	public SaveAndLoad(RobberKnight game){
 		this.setText("Game");
 		this.add(new JMenuItem("Restart"));//TODO
-
+		/**
+		 * Save game
+		 */
 		this.game = game;
+		startSave();
 		
-		saveGame.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0){
-				createSaveFrame();
-			}
-		});
-		
-		//startLoad();
+		/**
+		 * Load game
+		 */
+		startLoad();
 		
 		deleteAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -63,6 +62,8 @@ public class SaveAndLoad extends JMenu{
 					e.printStackTrace();
 				}
 				refresh();
+				//startLoad();//TODO - displays wrong amount of loads
+				//System.out.print(loadNames.size());
 			}
         });
 		this.add(saveGame);
@@ -72,12 +73,12 @@ public class SaveAndLoad extends JMenu{
 	}
 	private void refresh(){
 		loadGame.removeAll();
-		//getAvailableLoads("LoadNames.txt");
 	}
 	
 	public void startLoad(){
 		
 		getAvailableLoads("LoadNames.txt");
+		System.out.println("startLoad size is " + loadNames.size());
 		
 		/**
 		 * Add load items to menu
@@ -94,7 +95,13 @@ public class SaveAndLoad extends JMenu{
 		}
 	}
 	
-
+	public void startSave(){	
+		saveGame.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				createSaveFrame();
+			}
+		});
+	}
 	
 	
 	
@@ -102,20 +109,8 @@ public class SaveAndLoad extends JMenu{
     public static void saveGame (String filename){
     	filename = filename + ".ser";
     	GameState gs = new GameState(game);
-    	
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try {
-	        ObjectOutputStream oos = new ObjectOutputStream(out);
-	        oos.writeObject(gs);
-			oos.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        System.out.println("Saving game");
-        System.out.println(out.toByteArray().length > 0);
-    	
-    	/*try{ 
+    	    	
+    	try{ 
     		FileOutputStream fileOut = new FileOutputStream(filename);
     		ObjectOutputStream out = new ObjectOutputStream(fileOut);
     		out.writeObject(gs);
@@ -123,7 +118,7 @@ public class SaveAndLoad extends JMenu{
     		fileOut.close();
     	}catch(IOException i){
     		i.printStackTrace();
-    	}*/
+    	}
     }
     
     public static void loadGame(String filename){
@@ -150,7 +145,7 @@ public class SaveAndLoad extends JMenu{
     		c.printStackTrace();
     		return null;
     	}
-    	System.out.println(gs.game);
+    	System.out.println(gs);
     	return gs.game;
     	
 	}
@@ -172,10 +167,14 @@ public class SaveAndLoad extends JMenu{
     
     
     public void writeName(String filename, String loadName){
+    	System.out.println("size is " + loadNames.size());
+    	loadNames.add(loadName);
     	Writer output = null;
     	try {
         	output = new BufferedWriter(new FileWriter(new File(filename), true));
-        	output.append(loadName + " ");
+	        for(int i = 0; i < loadNames.size(); i++){
+	        		output.append(loadNames.get(i) + " ");
+	        }
 	    	output.close();
 		}catch (IOException e){
 			e.printStackTrace();
@@ -188,7 +187,7 @@ public class SaveAndLoad extends JMenu{
 		saveFrame.setBounds(0, 0, 500, 100);
 		saveFrame.setResizable(false);
 		saveFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
+		
 		//textArea.setText((new Date()).toString());//FIX SO YOU CAN SAVE AS A DATE...
 		
 		cancel.addActionListener(new ActionListener(){
@@ -196,18 +195,15 @@ public class SaveAndLoad extends JMenu{
 				saveFrame.dispose();
 			}
 		});
-		if(i == 0){
-			ok.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent arg0){
-					saveGame(textArea.getText());
-					writeName("LoadNames.txt", textArea.getText());
-					saveFrame.dispose();
-					refresh();
-					startLoad();
-					i = 1;
-				}
-			});
-		}
+		
+		ok.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				saveGame(textArea.getText());
+				writeName("LoadNames.txt", textArea.getText());
+				//loadGame.add(textArea.getText());
+				saveFrame.dispose();
+			}
+		});
 
 		savePanel.add(textArea);
 		savePanel.add(cancel);
