@@ -1,6 +1,5 @@
 package ui;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
@@ -57,6 +56,7 @@ public class SaveAndLoad extends JMenu{
 				}
 	        });
 		}
+		loadGame("SaveGame");
 		this.add(loadGame);
 	}
 	
