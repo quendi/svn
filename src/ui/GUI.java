@@ -794,6 +794,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
     }
 
     public void loadGame(RobberKnight game){
+    	System.out.println(game);
     	this.game = game;
     	setUpGrid(grid, this.game.getNumPlayers(), false, false);
     	InGame.setVisible(true);
