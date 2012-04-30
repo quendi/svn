@@ -140,7 +140,6 @@ public class Board {
 
     private void OutofBound(Tile t){
         int i, j;
-        // TODO shifting board resets all images drawn of tiles.
         if( t.getLocation().getX() == 0 ){
             // check if it already reach the maximum board size
             for( i = 0; i < size-1; i++ ){
@@ -254,24 +253,6 @@ public class Board {
         }
     }
 
-//    //todo this is not the purpose of calculate points.  you have to add up each players point for the game.  the tile will already know the points by the
-//    // building on it.
-//    public int calculatePoints( Color c ){
-//    	int point = 0;
-//    	for( Tile t : tiles){
-//    		if( t.TopKnight == c ){
-//    			if( t.getBuilding() == Building.Castle )
-//    				point+=1;
-//    			else if( t.getBuilding() == Building.Village )
-//    				point+=2;
-//    			else if( t.getBuilding() == Building.Town )
-//    				point+=3;
-//
-//
-//    		}
-//    	}
-//    	return point;
-//    }
 
     /**
      * Places knight on tile castle.  Returns true if successful.
@@ -327,7 +308,6 @@ public class Board {
      * @return
      */
     public ArrayList<Integer> getValidMoves(Tile castle, Tile lastPlaced, int numKnights){
-        //TODO FIX LOGIC IN THIS METHOD
         int diffX = (int) ( lastPlaced.getLocation().getX() - castle.getLocation().getX());
         int diffY = (int) (lastPlaced.getLocation().getY() - castle.getLocation().getY());
         Point p = lastPlaced.getLocation();
@@ -439,7 +419,6 @@ public class Board {
                 for (Integer knights : knightsAvailble) {
                     if(knights + tile.getNumKnights() >= tile.getMinimumKnights() && knights + tile.getNumKnights() <= MAX_KNIGHTS) {
                         int gridLocation = GameUtils.getGridLocation(tile, size);
-                        //TODO if 0 knights are movable it still still show it as a valid move.
                         if(!boardLocations.contains(gridLocation)){
                             boardLocations.add(gridLocation);
                         }

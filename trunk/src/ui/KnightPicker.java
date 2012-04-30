@@ -11,19 +11,29 @@ import java.util.ArrayList;
  */
 @SuppressWarnings({ "serial", "unused" })
 public class KnightPicker extends JFrame {
+    private static final int MAX_KNIGHTS = 5;
     private JComboBox knightPick;
     private int numberOfKnights;
-    private GUI gui;
+    private final GUI gui;
     private JPanel knightPanel = new JPanel();
     private boolean knightMovement = false;
-    public KnightPicker(GUI gui){
+
+    /**
+     * Constructor for knightpicker.  Called when castle is placed.
+     * @param gui - main game window
+     * @param minimumKnights - minimum knights that player should be allowed to play
+     */
+    public KnightPicker(GUI gui, int minimumKnights){
         this.gui = gui;
         this.setBounds(500, 500, 200, 100);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setTitle("Pick knights");
         JLabel message = new JLabel("Number of Knight to Place");
-        knightPick = new JComboBox(new DefaultComboBoxModel(
-                new String[] { "0", "1", "2", "3", "4", "5" }));
+        String[] knightPickers = new String[MAX_KNIGHTS + 1];
+        for(int i = minimumKnights; i <= MAX_KNIGHTS; i++){
+            knightPickers[i] = Integer.toString(i);
+        }
+        knightPick =  new JComboBox(new DefaultComboBoxModel(knightPickers));
         JButton ok = new JButton("OK");
         ok.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -35,6 +45,7 @@ public class KnightPicker extends JFrame {
         knightPanel.add(ok);
         this.add(knightPanel);
     }
+
 
     /**
      * Sets avaiable options accoarding to the available knights.  Used in knight movement.
@@ -72,4 +83,9 @@ public class KnightPicker extends JFrame {
             this.setVisible(false);
         }
     }
+
+    private void endKnightMovement() {
+        gui.endKnightMovement();
+    }
+
 }
