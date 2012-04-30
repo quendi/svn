@@ -11,8 +11,6 @@ import java.util.Date;
 
 import javax.swing.*;
 
-import domain.RobberKnight;
-import domain.enums.Color;
 
 @SuppressWarnings("serial")
 public class PlayerSelection extends JFrame{
