@@ -783,20 +783,20 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
      */
 
     public void startGame(RobberKnight game){
-        this.game = game;
-        currentPlayer = this.game.getFirstPlayer();
+        GUI.game = game;
+        currentPlayer = GUI.game.getFirstPlayer();
         card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
         card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
         playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
         numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
-        setUpGrid(grid, this.game.getNumPlayers(), false, false);
+        setUpGrid(grid, GUI.game.getNumPlayers(), false, false);
         initializeTiles();
     }
 
     public void loadGame(RobberKnight game){
     	System.out.println(game);
-    	this.game = game;
-    	setUpGrid(grid, this.game.getNumPlayers(), false, false);
+    	GUI.game = game;
+    	setUpGrid(grid, GUI.game.getNumPlayers(), false, false);
     	InGame.setVisible(true);
     }
 
@@ -911,7 +911,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
     // while shift, remove the icon of the tile which has been set to null
     public void removedTile(boolean x_end, boolean y_end) {
         grid.removeAll();
-        setUpGrid(grid, this.game.getNumPlayers(), x_end, y_end);
+        setUpGrid(grid, GUI.game.getNumPlayers(), x_end, y_end);
     }
 
     /**

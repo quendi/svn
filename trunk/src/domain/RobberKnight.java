@@ -21,7 +21,7 @@ public class RobberKnight implements Serializable{
     private ArrayList<Player> players;
     private Board board;
     private int currentPlayerId;
-    transient private TurnListener turnListener;
+    private TurnListener turnListener;
     private int[] playerTotals = new int[4];
 
 

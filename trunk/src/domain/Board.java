@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class Board implements Serializable{
     private int size;
     private Tile[][] tiles;
-    transient private BoardListener boardListener;
+    private BoardListener boardListener;
 
     private boolean x_end=false;
     private boolean y_end=false;
