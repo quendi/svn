@@ -121,6 +121,12 @@ public class SaveAndLoad extends JMenu{
     }
     
     public static void loadGame(String filename){
+    	GUI gui = new GUI();
+    	game = readFile(filename);
+    	gui.loadGame(game);
+    }
+    
+    public static RobberKnight readFile(String filename){
     	filename = filename + ".ser";
     	GameState gs = null;
     	try{
@@ -131,13 +137,14 @@ public class SaveAndLoad extends JMenu{
     		fileIn.close();
     	}catch(IOException i){
     		i.printStackTrace();
-    		return;
+    		return null;
     	}catch(ClassNotFoundException c){
     		System.out.println("GameState class not found");
     		c.printStackTrace();
-    		return;
+    		return null;
     	}
-    	game = gs.game;
+    	return gs.game;
+    	
 	}
     
     /**
