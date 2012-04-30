@@ -7,4 +7,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class GameState implements Serializable {
 	public RobberKnight game;
+	public GameState(RobberKnight g){
+		game = g;
+	}
 }

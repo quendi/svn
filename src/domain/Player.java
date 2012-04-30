@@ -1,6 +1,8 @@
 package domain;
 
 import domain.enums.Color;
+
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +12,7 @@ import java.util.Date;
  * Time: 5:41:38 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Player {
+public class Player implements Serializable{
 	private int numKnights;
     private String name;
     private Color color;
@@ -18,7 +20,7 @@ public class Player {
     private Date birthDate;
     private Deck deck;
     private boolean inGame;
-    private PlayerListener playerListener;
+    transient private PlayerListener playerListener;
 
     public Player(){}
 

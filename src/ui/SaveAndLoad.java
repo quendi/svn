@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -98,11 +99,23 @@ public class SaveAndLoad extends JMenu{
 	
 	
 	
-    public static void saveGame(String filename) {
+    public static void saveGame (String filename){
     	filename = filename + ".ser";
-    	GameState gs = new GameState();
-    	gs.game = game;
-    	try{ 
+    	GameState gs = new GameState(game);
+    	
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try {
+	        ObjectOutputStream oos = new ObjectOutputStream(out);
+	        oos.writeObject(gs);
+			oos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        System.out.println("Saving game");
+        System.out.println(out.toByteArray().length > 0);
+    	
+    	/*try{ 
     		FileOutputStream fileOut = new FileOutputStream(filename);
     		ObjectOutputStream out = new ObjectOutputStream(fileOut);
     		out.writeObject(gs);
@@ -110,7 +123,7 @@ public class SaveAndLoad extends JMenu{
     		fileOut.close();
     	}catch(IOException i){
     		i.printStackTrace();
-    	}
+    	}*/
     }
     
     public static void loadGame(String filename){

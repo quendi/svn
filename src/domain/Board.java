@@ -5,6 +5,7 @@ import domain.enums.Color;
 import utils.GameUtils;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 //import org.apache.commons.lang3.ArrayUtils;
 
@@ -18,10 +19,10 @@ import java.util.ArrayList;
 
 
 
-public class Board {
+public class Board implements Serializable{
     private int size;
     private Tile[][] tiles;
-    private BoardListener boardListener;
+    transient private BoardListener boardListener;
 
     private boolean x_end=false;
     private boolean y_end=false;
