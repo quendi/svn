@@ -76,7 +76,6 @@ public class RobberKnight {
      * @return id of next player
      */
     public Player getNextPlayer() throws NoSuchPlayerException {
-        //TODO end the game
         if (playersHaveTiles()) {
 
             System.out.println("New player " + currentPlayerId + "of total " + numPlayers);
@@ -190,7 +189,7 @@ public class RobberKnight {
             p.setInGame(false);
         }
         catch(Exception e){
-
+            e.printStackTrace();
         }
 
     }
@@ -233,7 +232,6 @@ public class RobberKnight {
         return (castle.getNumKnights() - castle.getMinimumKnights()) - goTo.getNumKnights();
     }
 
-    //TODO Get direction of travel to limit knights movement.
     public void moveKnight(Tile castle, Point moveTo, int numberOfKnights) {
         try {
             Player current = lookUpPlayerById(currentPlayerId);

@@ -7,7 +7,6 @@ import exceptions.NoSuchPlayerException;
 import utils.GameUtils;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ import java.io.*;
  * @author Aaron
  */
 public class GUI implements PlayerListener,BoardListener, TurnListener {
-	
+
     private JButton selectedCard = new JButton("Null");
     private int moves = 0;
     private Tile tileInPlay;
@@ -44,11 +43,12 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
     protected JLabel currentColor;
 
     private JButton endTurn;
+    private JButton endKnightPlacement;
 
 
     protected JPanel grid;
 
-    private JButton jButton104;
+    private JButton deckLabel;
     private JLabel playerLabel;
     private JLabel knightLabel;
     protected JLabel numberOfKnights;
@@ -88,10 +88,11 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
 
         initialTile = new JFrame("Choose initial tiles");
         InGame = new JFrame();
-        jButton104 = new JButton();
+        deckLabel = new JButton();
         playerLabel = new JLabel();
         knightLabel = new JLabel();
         endTurn = new JButton();
+        endKnightPlacement = new JButton("End Knight Placement");
         card1 = new TileButton();
         card2 = new TileButton();
         numberOfKnights = new JLabel();
@@ -101,7 +102,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
 
 
         PlayerPanel = new JPanel();
-        
+
         grid.setBackground(null);
 
 //        knightPicker.setBounds(500, 500, 200, 100);
@@ -124,8 +125,8 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         InGame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         InGame.setMinimumSize(new java.awt.Dimension(900, 600));
 
-//        jButton104.setText("End Knight Placement");
-//        jButton104.addActionListener(new java.awt.event.ActionListener() {
+//        deckLabel.setText("");
+//        deckLabel.addActionListener(new java.awt.event.ActionListener() {
 //            public void actionPerformed(java.awt.event.ActionEvent evt) {
 //                jButton104ActionPerformed(evt);
 //            }
@@ -139,6 +140,13 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         endTurn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 endTurnActionPerformed(evt);
+            }
+        });
+
+        endKnightPlacement.setVisible(false);
+         endKnightPlacement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                endKnightMovement();
             }
         });
 
@@ -209,6 +217,16 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                                                                                         233,
                                                                                         GroupLayout.PREFERRED_SIZE))
 
+                                                                        .addGroup(PlayerPanelLayout
+                                                                                .createSequentialGroup()
+                                                                                .addGap(24,
+                                                                                        24,
+                                                                                        24)
+                                                                                .addComponent(
+                                                                                endKnightPlacement,
+                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                233,
+                                                                                GroupLayout.PREFERRED_SIZE))
                                                                         .addGroup(
                                                                                 PlayerPanelLayout
                                                                                         .createSequentialGroup()
@@ -236,7 +254,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                                                                                         .createParallelGroup(
                                                                                                 GroupLayout.Alignment.LEADING)
                                                                                         .addComponent(
-                                                                                                jButton104,
+                                                                                                deckLabel,
                                                                                                 GroupLayout.PREFERRED_SIZE,
                                                                                                 144,
                                                                                                 GroupLayout.PREFERRED_SIZE)
@@ -292,7 +310,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                                 .addPreferredGap(
                                         LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(
-                                        jButton104,
+                                        deckLabel,
                                         GroupLayout.PREFERRED_SIZE,
                                         122,
                                         GroupLayout.PREFERRED_SIZE)
@@ -333,7 +351,30 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                                         GroupLayout.PREFERRED_SIZE,
                                         63,
                                         GroupLayout.PREFERRED_SIZE)
-                                .addGap(52, 52, 52)));
+
+                                .addGap(52, 52, 52)
+                                .addGroup(
+                                        PlayerPanelLayout
+                                                .createParallelGroup(
+                                                        GroupLayout.Alignment.BASELINE)
+                                                .addComponent(
+                                                        knightLabel,
+                                                        GroupLayout.PREFERRED_SIZE,
+                                                        28,
+                                                        GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(
+                                                numberOfKnights))
+                                .addPreferredGap(
+                                        LayoutStyle.ComponentPlacement.RELATED,
+                                        119, Short.MAX_VALUE)
+                                .addComponent(
+                                        endKnightPlacement,
+                                        GroupLayout.PREFERRED_SIZE,
+                                        63,
+                                        GroupLayout.PREFERRED_SIZE)
+
+                                .addGap(52, 52, 52)
+                ));
 
         GroupLayout gridLayout = new GroupLayout(grid);
         grid.setLayout(gridLayout);
@@ -383,12 +424,12 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                                 SIZE,
                                 SIZE)
                         .addComponent(grid
-												).addContainerGap()));
+                        ).addContainerGap()));
 
 
 
 
-      
+
         InGame.setJMenuBar(new GameMenu(true, null));
 
     }
@@ -446,21 +487,12 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
 //    }
 
     /**
-     * Creates appropriate grid for player SIZE.
-     *
+     *  Draws grid based on approriate player size/state of game.
      * @param grid
-     *            - Jpanel representation of game board
-     * @param numPlayers
+     * @param numPlayers - players in game
+     * @param x_end - boolean flag to show that board has reached the x boundary
+     * @param y_end - boolean flag to show that board has reached the y boundary
      */
-
-    // I put two boolean value x_end, y_end
-    // while x_end or y_end is true means tiles are reach the x or y bound of the board
-    // Original code is comment below the new code
-    // I add 1 more line for chose the tile location,
-    // for example, while 4 players have place 9 tiles in a dimension
-    // they still have right side and left side to choose where to put the tile
-    // when they reach the bound of each dimension I will disable the extra line
-
     public void setUpGrid(JPanel grid, int numPlayers, boolean x_end, boolean y_end) {
         int size = 0;
 
@@ -479,52 +511,14 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                 addGridListener(button, location);
                 grid.add(button);
                 if(j==size-1 && x_end)
-                	button.setVisible(false);
-//                    button.setEnabled(false);
+                    button.setVisible(false);
                 if(i==size-1 && y_end)
-                	button.setVisible(false);
-//                    button.setEnabled(false);
+                    button.setVisible(false);
             }
         }
     }
 
 
-    /*
-   public void setUpGrid(JPanel grid, int numPlayers) {
-       if (numPlayers == 2) {
-           grid.setLayout(new java.awt.GridLayout(7, 7));
-           for (int i = 0; i < 7; i++) {
-               for (int j = 0; j < 7; j++) {
-                   final TileButton button = new TileButton();
-                   final Point location = new Point(j, i);
-                   addGridListener(button, location);
-                   grid.add(button);
-               }
-           }
-
-       } else if (numPlayers == 3) {
-           grid.setLayout(new java.awt.GridLayout(9, 9));
-           for (int i = 0; i < 9; i++) {
-               for (int j = 0; j < 9; j++) {
-                   final TileButton button = new TileButton();
-                   final Point location = new Point(j, i);
-                   addGridListener(button, location);
-                   grid.add(button);
-               }
-           }
-       } else {
-           grid.setLayout(new java.awt.GridLayout(10, 10));
-           for (int i = 0; i < 10; i++) {
-               for (int j = 0; j < 10; j++) {
-                   final TileButton button = new TileButton();
-                   final Point location = new Point(j, i);
-                   addGridListener(button, location);
-                   grid.add(button);
-               }
-           }
-       }
-   }
-    */
 
     /**
      * Add listen to button that will place tile in corresponding location when
@@ -853,17 +847,17 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         int j = button.getHeight()-5;
         System.out.println("button height is" + button.getHeight());
         for(int i = 0; i < t.getNumKnights(); i++){
-        	g.setColor(GameUtils.getColor(t.knights.get(i)));
-        	g.fillOval(d-10, d-10, 20, 20);
-        	g.fillRect(button.getWidth()-20, j, 20, 5);
-        	j = j - 6;
+            g.setColor(GameUtils.getColor(t.knights.get(i)));
+            g.fillOval(d-10, d-10, 20, 20);
+            g.fillRect(button.getWidth()-20, j, 20, 5);
+            j = j - 6;
         }
-        
+
 
         g.dispose();
         button.setIcon(new ImageIcon(bi));
 
-        
+
         System.out.println("game has " + game.getNumPlayers() + " players");
 
 
@@ -897,17 +891,18 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
 
         // Detect the Knights on this tile
         if( t.getNumKnights() != 0){
-        	/*button.setHorizontalTextPosition(SwingConstants.CENTER);
-        	button.setText(Integer.toString(t.getNumKnights()));
-        	button.setOpaque(true);
-        	button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
-        	button.setForeground( GameUtils.getColor(t.getTopKnight()) ); */
-        	drawKnights(button, t);
+            /*button.setHorizontalTextPosition(SwingConstants.CENTER);
+               button.setText(Integer.toString(t.getNumKnights()));
+               button.setOpaque(true);
+               button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
+               button.setForeground( GameUtils.getColor(t.getTopKnight()) ); */
+            drawKnights(button, t);
         }
     }
 
     public void placedCastle(Tile castle) {
-        knightPicker = new KnightPicker(this);
+        endKnightPlacement.setVisible(true);
+        knightPicker = new KnightPicker(this, castle.getMinimumKnights());
         knightPicker.setVisible(true);
         castleTile = castle;
     }
@@ -976,7 +971,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
 
         System.out.println("numknights-1" + (numKnights-1));
         System.out.println("destination.getnumknights..." + destination.getNumKnights());
-        
+
         drawKnights(destinationButton, destination);
         removeKnights(castle, startButton);
 
@@ -984,8 +979,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         if(!gridLocations.isEmpty()){
             reenableAll();
             disableAllExcept(gridLocations);
-            //TODO Give knight picker only valid options.  need to take into consideration the tile to move to might go over max kngihts
-//            knightPicker.setKnightPicker(castleTile.getNumKnights() - castleTile.getMinimumKnights());
             knightMode = true;
         }
         else{
@@ -1106,14 +1099,16 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
      */
     public void moveKnight(int numberOfKnights) {
         game.moveKnight(castleTile, moveTo, numberOfKnights);
-    	Player current = game.getCurrentPlayer();
+        Player current = game.getCurrentPlayer();
         Tile goTo = game.getBoard().getTile(moveTo);
         if(goTo.knights.size() > 0)
-        	if(current.getColor() != goTo.getTopKnight())
-        		playSound("KillStab.wav");
+            if(current.getColor() != goTo.getTopKnight())
+                playSound("KillStab.wav");
     }
 
     public void endKnightMovement() {
+        endKnightPlacement.setVisible(false);
+        knightPicker.setVisible(false);
         castleTile = null;
         reenableAll();
         knightMode = false;
@@ -1141,6 +1136,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
             System.out.println(e);
         }
     }
-    
+
 
 }
