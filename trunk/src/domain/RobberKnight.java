@@ -1,6 +1,7 @@
 package domain;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,13 +15,13 @@ import exceptions.NoSuchPlayerException;
  * Time: 5:40:45 PM
  * To change this template use File | Settings | File Templates.
  */
-public class RobberKnight {
+public class RobberKnight implements Serializable{
 
     private int numPlayers;
     private ArrayList<Player> players;
     private Board board;
     private int currentPlayerId;
-    private TurnListener turnListener;
+    transient private TurnListener turnListener;
     private int[] playerTotals = new int[4];
 
 

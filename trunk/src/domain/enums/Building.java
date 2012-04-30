@@ -1,8 +1,10 @@
 package domain.enums;
 
+import java.io.Serializable;
+
 import javax.swing.*;
 
-public enum Building {
+public enum Building implements Serializable{
 	Village(2),
 	Castle(1),
 	Town(3),

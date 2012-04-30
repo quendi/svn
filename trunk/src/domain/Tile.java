@@ -2,13 +2,14 @@ package domain;
 
 import java.awt.Point;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import domain.enums.*;
 
 import javax.swing.*;
 
-public class Tile {
+public class Tile implements Serializable{
     private Terrain  terrain;
     private Building building;
     private char 	 letter;

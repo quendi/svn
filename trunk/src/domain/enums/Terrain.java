@@ -1,6 +1,8 @@
 package domain.enums;
 
-public enum Terrain {
+import java.io.Serializable;
+
+public enum Terrain implements Serializable{
     Mountain(3),
     Forest(2),
     Plain(1),
