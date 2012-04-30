@@ -123,6 +123,7 @@ public class SaveAndLoad extends JMenu{
     public static void loadGame(String filename){
     	GUI gui = new GUI();
     	game = readFile(filename);
+    	//System.out.println(game);
     	gui.loadGame(game);
     }
     
@@ -143,6 +144,7 @@ public class SaveAndLoad extends JMenu{
     		c.printStackTrace();
     		return null;
     	}
+    	System.out.println(gs);
     	return gs.game;
     	
 	}
