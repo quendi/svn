@@ -6,8 +6,6 @@ import java.io.IOException;
 
 import javax.swing.*;
 
-import domain.RobberKnight;
-
 @SuppressWarnings("serial")
 public class GameMenu extends JMenuBar{
 	/**

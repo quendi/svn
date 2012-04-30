@@ -2,16 +2,24 @@ package ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Writer;
 
 import javax.swing.*;
-
 import domain.GameState;
 import domain.RobberKnight;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 @SuppressWarnings("serial")
 public class SaveAndLoad extends JMenu{
@@ -20,6 +28,7 @@ public class SaveAndLoad extends JMenu{
 	private int loadNum = 0;
 	JMenuItem saveGame = new JMenuItem("Save");
 	JMenu loadGame = new JMenu("Load");
+	ArrayList<String> loadNames = new ArrayList<String>();
 		
 	@SuppressWarnings("static-access")
 	public SaveAndLoad(RobberKnight game){
@@ -40,27 +49,31 @@ public class SaveAndLoad extends JMenu{
 	}
 	
 	public void startLoad(){
+		
+		getAvailableLoads("LoadNames.txt");
+		
 		/**
 		 * Add load items to menu
 		 */
-
 		for(int i = 0; i < loadNum; i++){
 			final JMenuItem addMenus = new JMenuItem();
 			
-			addMenus.setText("");//TODO Get what states are available
-			
+			addMenus.setText(loadNames.get(i));//TODO Get what states are available
 			//Add response
 			addMenus.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					loadGame(addMenus.getText());
 				}
 	        });
+			loadGame.add(addMenus);
 		}
 		loadGame("SaveGame");
 		this.add(loadGame);
 	}
 	
 	public void startSave(){
+		writeName("LoadNames.txt", "hi");
+		writeName("LoadNames.txt", "no");
 		saveGame("SaveGame");
 		this.add(saveGame);//TODO
 	}
@@ -110,8 +123,38 @@ public class SaveAndLoad extends JMenu{
     	game = gs.game;
 	}
     
-    public String getAvailableLoads(String filename){
-    	return null; //TODO
+    public void getAvailableLoads(String filename){
+
+    	try {
+			Scanner in = new Scanner(new File(filename));
+			loadNames.addAll(Arrays.asList(in.nextLine().split("\\s+")));
+
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+    }
+    
+    
+    public void writeName(String filename, String loadName){
+    		  Writer output = null;
+    		  try {
+        		  File file = new File(filename);
+        		  output = new BufferedWriter(new FileWriter(file));
+        		  System.out.print(loadNames.size());
+        		  for(int i = 0; i < loadNames.size(); i++){
+        			  output.append(loadNames.get(i));
+        		  }
+        		  if(loadNum == 0)
+        			  output.write(loadName);
+        		  else
+        			  output.append(" " + loadName);
+	    		  output.close();
+			} catch (IOException e){
+				e.printStackTrace();
+			}
+    		  loadNum++;
     }
 	
 }

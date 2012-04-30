@@ -55,8 +55,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
     protected JLabel playersTurn;
     protected JPanel PlayerPanel;
     private KnightPicker knightPicker;
-    private int NumKnightPlace = 0;
-    private JComboBox knightPick;
     private JFrame initialTile;
     private int turn = 0;
     private int tilesPlaced = 0;

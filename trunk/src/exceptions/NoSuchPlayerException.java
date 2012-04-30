@@ -7,6 +7,7 @@ package exceptions;
  * Time: 7:55:31 PM
  * To change this template use File | Settings | File Templates.
  */
+@SuppressWarnings("serial")
 public class NoSuchPlayerException extends Exception {
 
     public NoSuchPlayerException(String message){
