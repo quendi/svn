@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
@@ -14,21 +15,28 @@ import java.io.ObjectOutputStream;
 import java.io.Writer;
 
 import javax.swing.*;
+
 import domain.GameState;
 import domain.RobberKnight;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Scanner;
 
 @SuppressWarnings("serial")
 public class SaveAndLoad extends JMenu{
 
 	static RobberKnight game = new RobberKnight(0, null, null, null);
-	private int loadNum = 0;
 	JMenuItem saveGame = new JMenuItem("Save");
 	JMenu loadGame = new JMenu("Load");
 	ArrayList<String> loadNames = new ArrayList<String>();
+	JFrame saveFrame = new JFrame("Save Game");
+	JPanel savePanel = new JPanel(new GridLayout(1,3));
+	JTextArea textArea = new JTextArea("Date");
+	JButton cancel = new JButton("Cancel");
+	JButton ok = new JButton("OK");
+	JMenuItem deleteAll = new JMenuItem("Delete All Saves");
 		
 	@SuppressWarnings("static-access")
 	public SaveAndLoad(RobberKnight game){
@@ -43,23 +51,40 @@ public class SaveAndLoad extends JMenu{
 		/**
 		 * Load game
 		 */
-
 		startLoad();
 		
+		deleteAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					new FileOutputStream("LoadNames.txt").close();
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+				refresh();
+				//startLoad();//TODO - displays wrong amount of loads
+				//System.out.print(loadNames.size());
+			}
+        });
+		this.add(saveGame);
+		this.add(loadGame);
+		this.add(deleteAll);
+
+	}
+	private void refresh(){
+		loadGame.removeAll();
 	}
 	
 	public void startLoad(){
 		
 		getAvailableLoads("LoadNames.txt");
+		System.out.println("startLoad size is " + loadNames.size());
 		
 		/**
 		 * Add load items to menu
 		 */
-		for(int i = 0; i < loadNum; i++){
+		for(int i = 0; i < loadNames.size(); i++){
 			final JMenuItem addMenus = new JMenuItem();
-			
-			addMenus.setText(loadNames.get(i));//TODO Get what states are available
-			//Add response
+			addMenus.setText(loadNames.get(i));
 			addMenus.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					loadGame(addMenus.getText());
@@ -67,55 +92,47 @@ public class SaveAndLoad extends JMenu{
 	        });
 			loadGame.add(addMenus);
 		}
-		loadGame("SaveGame");
-		this.add(loadGame);
 	}
 	
-	public void startSave(){
-		writeName("LoadNames.txt", "hi");
-		writeName("LoadNames.txt", "no");
-		saveGame("SaveGame");
-		this.add(saveGame);//TODO
+	public void startSave(){	
+		saveGame.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				createSaveFrame();
+			}
+		});
 	}
 	
 	
 	
 	
-    public static void saveGame(String filename)
-    {
+    public static void saveGame(String filename) {
     	filename = filename + ".ser";
     	GameState gs = new GameState();
     	gs.game = game;
-    	try
-    	{ 
+    	try{ 
     		FileOutputStream fileOut = new FileOutputStream(filename);
     		ObjectOutputStream out = new ObjectOutputStream(fileOut);
     		out.writeObject(gs);
     		out.close();
     		fileOut.close();
-    	}catch(IOException i)
-    	{
+    	}catch(IOException i){
     		i.printStackTrace();
     	}
     }
     
-    public static void loadGame (String filename)
-    {
+    public static void loadGame(String filename){
     	filename = filename + ".ser";
     	GameState gs = null;
-    	try
-    	{
+    	try{
     		FileInputStream fileIn = new FileInputStream(filename);
     		ObjectInputStream in = new ObjectInputStream(fileIn);
     		gs = (GameState) in.readObject();
     		in.close();
     		fileIn.close();
-    	}catch(IOException i)
-    	{
+    	}catch(IOException i){
     		i.printStackTrace();
     		return;
-    	}catch(ClassNotFoundException c)
-    	{
+    	}catch(ClassNotFoundException c){
     		System.out.println("GameState class not found");
     		c.printStackTrace();
     		return;
@@ -123,38 +140,65 @@ public class SaveAndLoad extends JMenu{
     	game = gs.game;
 	}
     
+    /**
+     * Set the arraylist according to the filenames inside LoadNames.txt
+     * @param filename
+     */
     public void getAvailableLoads(String filename){
-
-    	try {
+    	loadNames = new ArrayList<String>();
+    	try{
 			Scanner in = new Scanner(new File(filename));
-			loadNames.addAll(Arrays.asList(in.nextLine().split("\\s+")));
-
-
-		} catch (FileNotFoundException e) {
+			if(in.hasNextLine())
+				loadNames.addAll(Arrays.asList(in.nextLine().split("\\s+")));
+		}catch (FileNotFoundException e){
 			e.printStackTrace();
 		}
-
     }
     
     
     public void writeName(String filename, String loadName){
-    		  Writer output = null;
-    		  try {
-        		  File file = new File(filename);
-        		  output = new BufferedWriter(new FileWriter(file));
-        		  System.out.print(loadNames.size());
-        		  for(int i = 0; i < loadNames.size(); i++){
-        			  output.append(loadNames.get(i));
-        		  }
-        		  if(loadNum == 0)
-        			  output.write(loadName);
-        		  else
-        			  output.append(" " + loadName);
-	    		  output.close();
-			} catch (IOException e){
-				e.printStackTrace();
+    	System.out.println("size is " + loadNames.size());
+    	loadNames.add(loadName);
+    	Writer output = null;
+    	try {
+        	output = new BufferedWriter(new FileWriter(new File(filename), true));
+	        for(int i = 0; i < loadNames.size(); i++){
+	        		output.append(loadNames.get(i) + " ");
+	        }
+	    	output.close();
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+    }
+    
+    private void createSaveFrame(){
+    	
+		saveFrame.setVisible(true);
+		saveFrame.setBounds(0, 0, 500, 100);
+		saveFrame.setResizable(false);
+		saveFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		
+		//textArea.setText((new Date()).toString());//FIX SO YOU CAN SAVE AS A DATE...
+		
+		cancel.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				saveFrame.dispose();
 			}
-    		  loadNum++;
+		});
+		
+		ok.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				saveGame(textArea.getText());
+				writeName("LoadNames.txt", textArea.getText());
+				//loadGame.add(textArea.getText());
+				saveFrame.dispose();
+			}
+		});
+
+		savePanel.add(textArea);
+		savePanel.add(cancel);
+		savePanel.add(ok);
+		saveFrame.add(savePanel);
     }
 	
 }
