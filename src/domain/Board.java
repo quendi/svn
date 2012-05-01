@@ -118,7 +118,7 @@ public class Board implements Serializable{
                 if (Building.Castle.equals(t.getBuilding())) {
                     notifyCastlePlacement(t);
                 }
-                System.out.println("X: " + t.getLocation().getX() + " Y: " + t.getLocation().getY());
+                //System.out.println("X: " + t.getLocation().getX() + " Y: " + t.getLocation().getY());
                 if( t.getLocation().getX() == 0 ||
                     t.getLocation().getY() == 0 ||
                     t.getLocation().getY() == size - 1 ||
