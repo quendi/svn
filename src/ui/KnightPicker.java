@@ -10,7 +10,8 @@ import java.util.ArrayList;
  * User: Joe
  */
 @SuppressWarnings({ "serial", "unused" })
-public class KnightPicker extends JFrame {
+public class KnightPicker extends JPanel {
+	
     private static final int MAX_KNIGHTS = 5;
     private JComboBox knightPick;
     private int numberOfKnights;
@@ -24,10 +25,9 @@ public class KnightPicker extends JFrame {
      * @param minimumKnights - minimum knights that player should be allowed to play
      */
     public KnightPicker(GUI gui, int minimumKnights){
+    	
         this.gui = gui;
-        this.setBounds(500, 500, 200, 100);
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setTitle("Pick knights");
+       // this.setBounds(500, 500, 200, 200);
         JLabel message = new JLabel("Number of Knight to Place");
         String[] knightPickers = new String[MAX_KNIGHTS + 1];
         for(int i = minimumKnights; i <= MAX_KNIGHTS; i++){
