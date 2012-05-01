@@ -209,6 +209,7 @@ public class Board implements Serializable{
                 if( tiles[i][1] != null ){
                     // System.out.println("can't shift");
                     y_end = true;
+                    break;
                     // return;
                 }
             }
