@@ -28,7 +28,7 @@ public class Player implements Serializable{
         this.inGame = true;
         this.color = color;
         this.birthDate = birthdate;
-        this.deck = new Deck();
+        this.deck = new Deck( color );
         this.numKnights = 30;
         this.id = id;
         this.playerListener = pl;

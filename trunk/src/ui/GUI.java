@@ -254,7 +254,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                                                                                         .addComponent(
                                                                                                 deckLabel,
                                                                                                 GroupLayout.PREFERRED_SIZE,
-                                                                                                144,
+                                                                                                117,
                                                                                                 GroupLayout.PREFERRED_SIZE)
                                                                                         .addGroup(
                                                                                         PlayerPanelLayout
@@ -310,7 +310,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                                 .addComponent(
                                         deckLabel,
                                         GroupLayout.PREFERRED_SIZE,
-                                        122,
+                                        117,
                                         GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(
                                         LayoutStyle.ComponentPlacement.RELATED)
@@ -787,6 +787,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         currentPlayer = GUI.game.getFirstPlayer();
         card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
         card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
+        deckLabel.setIcon(currentPlayer.getDeck().getTile3().getBack());
         playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
         numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
         setUpGrid(grid, GUI.game.getNumPlayers(), false, false);
@@ -1029,6 +1030,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         if(currentPlayer.getDeck().getSize() > 0){
             card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
             card1.setEnabled(true);
+            deckLabel.setIcon(currentPlayer.getDeck().getTile3().getBack());
         }
         else{
             try {
@@ -1058,6 +1060,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         if(p.getDeck().getSize() > 0){
             card1.setIcon(p.getDeck().getTile1().getImage());
             card1.setEnabled(true);
+            deckLabel.setIcon(p.getDeck().getTile3().getBack());
         }
         else{
             try {
