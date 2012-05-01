@@ -506,9 +506,14 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if(knightMode){
-                    knightPicker.setKnightPicker(game.getMoveableKnights(castleTile, location));
-                    knightPicker.setVisible(true);
-                    moveTo = location;
+                	// JJ: add if else to check if game.getMoveableKnights(castleTile, location) is 0
+                	if( game.getMoveableKnights(castleTile, location) > 0 ){
+                		knightPicker.setKnightPicker(game.getMoveableKnights(castleTile, location));
+                		knightPicker.setVisible(true);
+                		moveTo = location;
+                	}
+                	else
+                		endKnightMovement();
                 }
                 if (tileInPlay != null && selectedCard != null) {
                     // check if tile have already been placed in location
