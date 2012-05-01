@@ -114,7 +114,7 @@ public class Board implements Serializable{
             if ( isValidMove(p) || init){
                 t.setLocation(p);
                 tiles[(int) t.getLocation().getX()][(int) t.getLocation().getY()] = t;
-                notifyPlaced(t);
+                notifyPlaced(t, false);
                 if (Building.Castle.equals(t.getBuilding())) {
                     notifyCastlePlacement(t);
                 }
@@ -153,7 +153,7 @@ public class Board implements Serializable{
                     for( i = 0;  i < size-1; i++){
                         for( j = 0;  j < size; j++){
                             if( tiles[i][j] != null ){
-                                notifyPlaced(tiles[i][j]);
+                                notifyPlaced(tiles[i][j], true);
                             }
                         }
                     }
@@ -183,7 +183,7 @@ public class Board implements Serializable{
                     for( i = 0;  i < size; i++){
                         for( j = 0;  j < size; j++){
                             if( tiles[i][j] != null ){
-                                notifyPlaced(tiles[i][j]);
+                                notifyPlaced(tiles[i][j], true);
                             }
                         }
                     }
@@ -248,7 +248,7 @@ public class Board implements Serializable{
         for( i = 0;  i < size; i++){
             for( j = 0;  j < size; j++){
                 if( tiles[i][j] != null ){
-                    notifyPlaced(tiles[i][j]);
+                    notifyPlaced(tiles[i][j], true);
                 }
             }
         }
@@ -459,8 +459,8 @@ public class Board implements Serializable{
         this.boardListener = bl;
     }
 
-    public void notifyPlaced(Tile t){
-        boardListener.placedTile(t);
+    public void notifyPlaced(Tile t, boolean sys){
+        boardListener.placedTile(t, sys);
     }
 
     // while shift, remove the icon of the tile which has been set to null
