@@ -46,7 +46,7 @@ public class GameMenu extends JMenuBar{
         });
         surrender.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //TODO
+                
             }
         });
         close.addActionListener(new java.awt.event.ActionListener() {
