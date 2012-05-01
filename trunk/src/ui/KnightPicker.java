@@ -76,7 +76,6 @@ public class KnightPicker extends JPanel {
             else{
                 gui.placeKnight(numberOfKnights);
             }
-
         }
         else{
             gui.endKnightMovement();
