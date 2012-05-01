@@ -20,7 +20,7 @@ import java.io.*;
  *
  * @author Aaron
  */
-public class GUI implements PlayerListener,BoardListener, TurnListener {
+public class GUI implements PlayerListener,BoardListener, TurnListener, Serializable{
 
     private JButton selectedCard = new JButton("Null");
     private int moves = 0;
@@ -423,12 +423,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                         .addComponent(grid
                         ).addContainerGap()));
 
-
-
-
-
-        InGame.setJMenuBar(new GameMenu(true, null, game));
-
     }
 
 
@@ -821,6 +815,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
         setUpGrid(grid, GUI.game.getNumPlayers(), false, false);
         initializeTiles();
+        InGame.setJMenuBar(new GameMenu(true, null, game));
     }
 
     public void loadGame(RobberKnight game){
