@@ -8,18 +8,19 @@ package domain;
 import java.util.*;
 
 import domain.enums.Building;
+import domain.enums.Color;
 import domain.enums.Terrain;
 
 public class Deck {
 	private ArrayList<Tile> tiles = new ArrayList<Tile>();
     private Random generator = new Random(System.currentTimeMillis());
 
-    public Deck(){
-        initialize();       
+    public Deck( Color color ){
+        initialize( color );       
     }
-    public void initialize(){ 
+    public void initialize( Color color ){ 
     	int rep;
-    	populateDeck();
+    	populateDeck( color );
     	rep = generator.nextInt(10)+10;
     	//shuffleTiles(4, 8, rep);	//b
     	rep = generator.nextInt(10)+10;
@@ -30,32 +31,32 @@ public class Deck {
     	shuffleTiles(19, 23, rep);	//f
          }
     
-    private void populateDeck(){
+    private void populateDeck( Color color ){
     	// create a stack of tiles
-    	tiles.add(new Tile(Terrain.Plain, Building.Nothing, 'A')); 
-    	tiles.add(new Tile(Terrain.Plain, Building.Village, 'A'));
-    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'A')); 
-    	tiles.add(new Tile(Terrain.Mountain, Building.Nothing, 'A')); 
-    	tiles.add(new Tile(Terrain.Plain, Building.Village, 'B'));
-    	tiles.add(new Tile(Terrain.Forest, Building.Village, 'B'));
-    	tiles.add(new Tile(Terrain.Plain, Building.Town, 'B'));
-    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'B'));
-    	tiles.add(new Tile(Terrain.Lake, Building.Nothing, 'B'));
-    	tiles.add(new Tile(Terrain.Plain, Building.Nothing, 'C'));
-    	tiles.add(new Tile(Terrain.Plain, Building.Nothing, 'C'));
-    	tiles.add(new Tile(Terrain.Forest, Building.Town, 'C'));
-    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'C'));
-    	tiles.add(new Tile(Terrain.Forest, Building.Castle, 'C'));
-    	tiles.add(new Tile(Terrain.Forest, Building.Village, 'D'));
-    	tiles.add(new Tile(Terrain.Plain, Building.Town, 'D'));
-    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'D'));
-    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'D'));
-    	tiles.add(new Tile(Terrain.Mountain, Building.Nothing, 'D'));
-    	tiles.add(new Tile(Terrain.Plain, Building.Nothing, 'E'));
-    	tiles.add(new Tile(Terrain.Forest, Building.Village, 'E'));
-    	tiles.add(new Tile(Terrain.Plain, Building.Town, 'E'));
-    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'E'));
-    	tiles.add(new Tile(Terrain.Forest, Building.Castle, 'E'));
+    	tiles.add(new Tile(Terrain.Plain, Building.Nothing, 'A', color)); 
+    	tiles.add(new Tile(Terrain.Plain, Building.Village, 'A', color));
+    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'A', color)); 
+    	tiles.add(new Tile(Terrain.Mountain, Building.Nothing, 'A', color)); 
+    	tiles.add(new Tile(Terrain.Plain, Building.Village, 'B', color));
+    	tiles.add(new Tile(Terrain.Forest, Building.Village, 'B', color));
+    	tiles.add(new Tile(Terrain.Plain, Building.Town, 'B', color));
+    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'B', color));
+    	tiles.add(new Tile(Terrain.Lake, Building.Nothing, 'B', color));
+    	tiles.add(new Tile(Terrain.Plain, Building.Nothing, 'C', color));
+    	tiles.add(new Tile(Terrain.Plain, Building.Nothing, 'C', color));
+    	tiles.add(new Tile(Terrain.Forest, Building.Town, 'C', color));
+    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'C', color));
+    	tiles.add(new Tile(Terrain.Forest, Building.Castle, 'C', color));
+    	tiles.add(new Tile(Terrain.Forest, Building.Village, 'D', color));
+    	tiles.add(new Tile(Terrain.Plain, Building.Town, 'D', color));
+    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'D', color));
+    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'D', color));
+    	tiles.add(new Tile(Terrain.Mountain, Building.Nothing, 'D', color));
+    	tiles.add(new Tile(Terrain.Plain, Building.Nothing, 'E', color));
+    	tiles.add(new Tile(Terrain.Forest, Building.Village, 'E', color));
+    	tiles.add(new Tile(Terrain.Plain, Building.Town, 'E', color));
+    	tiles.add(new Tile(Terrain.Plain, Building.Castle, 'E', color));
+    	tiles.add(new Tile(Terrain.Forest, Building.Castle, 'E', color));
     }
     
     private void shuffleTiles(int start, int end, int repeat){
