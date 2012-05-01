@@ -508,11 +508,12 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                 addGridListener(button, location);
                 grid.add(button);
                 if(j==size-1 && x_end)
-                    button.setVisible(false);
+                	button.setVisible(false);                	
                 if(i==size-1 && y_end)
-                    button.setVisible(false);
+                	button.setVisible(false);
             }
         }
+        InGame.repaint();
     }
 
     private GUI getGUI(){
@@ -780,10 +781,18 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                                     JOptionPane.PLAIN_MESSAGE);
                         }
                     } else {
-                        initialTile.setVisible(false);
-                        currentPlayer = game.getNextPlayer();
-                        InGame.setVisible(true);
-                        selectedCard = new JButton();
+                    	// fix the bug when the final player can start the game with place 2 init tiles
+                    	if (tilesPlaced >= 2) {
+                    		initialTile.setVisible(false);
+                    		currentPlayer = game.getNextPlayer();
+                    		InGame.setVisible(true);
+                    		selectedCard = new JButton();
+                    	}
+                    	else {
+                            JOptionPane.showMessageDialog(initialTile,
+                                    "You must place two tiles.", "Error",
+                                    JOptionPane.PLAIN_MESSAGE);
+                        }
                     }
                 } catch (NoSuchPlayerException e) {
                     // TODO Auto-generated catch block
@@ -838,7 +847,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         currentColor.setText(currentPlayer.getColor().toString());
         InGame.getContentPane().setBackground(GameUtils.getColor(currentPlayer.getColor()));
         PlayerPanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
-
 
     }
 
@@ -1081,10 +1089,13 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
      * Updates hand in ui to current player. Triggered when player places a tile.
      */
     public void updateHand() {
+    	if(currentPlayer.getDeck().getSize() < 3){
+            deckLabel.setIcon(null);
+    	}
         if(currentPlayer.getDeck().getSize() > 0){
             card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
             card1.setEnabled(true);
-            if(currentPlayer.getDeck().getSize() > 3){
+            if(currentPlayer.getDeck().getSize() > 2){
                 deckLabel.setIcon(currentPlayer.getDeck().getTile3().getBack());
             }
         }
