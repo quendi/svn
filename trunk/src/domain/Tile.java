@@ -26,7 +26,7 @@ public class Tile implements Serializable{
         minimumKnights = t.getKnightRestriction();
         knights = new ArrayList<Color>();
         setImage(t,b);
-        setBack(t, l, color);
+        setBack(l, color);
     }
 
     void AddKnight(Color c){
@@ -133,7 +133,7 @@ public class Tile implements Serializable{
         }
     }
     
-    private void setBack(Terrain t, char letter, Color color){
+    private void setBack(char letter, Color color){
     	String separator = File.separator;
     	
     	if( color == Color.BLUE ){
