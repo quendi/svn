@@ -70,7 +70,7 @@ public class GameMenu extends JMenuBar{
         		}
             }
         });
-        saveAndLoad = new SaveAndLoad(game);//TODO - Add game to this
+        saveAndLoad = new SaveAndLoad(game);
         
 		/**
 		 * Add items to file menu
