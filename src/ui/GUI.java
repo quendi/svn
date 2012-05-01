@@ -349,7 +349,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                                         63,
                                         GroupLayout.PREFERRED_SIZE)
 
-                                .addGap(52, 52, 52)
+                                //.addGap(52, 52, 52)
                                 .addGroup(
                                         PlayerPanelLayout
                                                 .createParallelGroup(
@@ -515,6 +515,9 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         }
     }
 
+    private GUI getGUI(){
+    	return this;
+    }
 
 
     /**
@@ -530,12 +533,18 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                 if(knightMode){
                 	// JJ: add if else to check if game.getMoveableKnights(castleTile, location) is 0
                 	if( game.getMoveableKnights(castleTile, location) > 0 ){
-                		knightPicker.setKnightPicker(game.getMoveableKnights(castleTile, location));
+                		
+                		KnightPicker knightPicker2 = new KnightPicker(getGUI(), castleTile.getMinimumKnights());
+                		knightPicker2.setKnightPicker(game.getMoveableKnights(castleTile, location));
                 		/**
                 		 * Cardlayout
                 		 */
-                		//knightPicker.setVisible(true);
-                		cl.show(abovePanel, "2");
+                		JPanel panel = new JPanel();
+                		panel.add(knightPicker2);
+                		panel.add(endKnightPlacement);
+                		abovePanel.add(panel, "3");
+                		//abovePanel.add(endKnightPlacement);
+                		cl.show(abovePanel, "3");
                 		
                 		
                 		
@@ -929,9 +938,15 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
      */
     public void placedCastle(Tile castle) {
         endKnightPlacement.setVisible(true);
-        knightPicker = new KnightPicker(this, castle.getMinimumKnights());
-        //knightPicker.setVisible(true);
-        cl.show(abovePanel, "2");
+        KnightPicker knightPicker2 = new KnightPicker(this, castle.getMinimumKnights());
+        knightPicker2.setVisible(true);
+        JPanel panel = new JPanel();
+        panel.add(knightPicker2);
+        panel.add(endKnightPlacement);
+        abovePanel.add(panel, "3");
+        //abovePanel.add(endKnightPlacement); //TODO problems on kngith movement
+		
+        cl.show(abovePanel, "3");
         castleTile = castle;
         moves++;
     }
