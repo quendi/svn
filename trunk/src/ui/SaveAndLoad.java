@@ -126,7 +126,7 @@ public class SaveAndLoad extends JMenu{
     public static void loadGame(String filename){
     	GUI gui = new GUI();
     	game = readFile(filename);
-    	//System.out.println(game);
+    	System.out.println(game);
     	gui.loadGame(game);
     }
     
