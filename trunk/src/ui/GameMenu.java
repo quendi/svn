@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import javax.swing.*;
 
+import domain.RobberKnight;
+
 @SuppressWarnings("serial")
 public class GameMenu extends JMenuBar{
 	/**
@@ -17,8 +19,6 @@ public class GameMenu extends JMenuBar{
 	 * Items under File
 	 */
 	JMenuItem newGame = new JMenuItem("New Game");
-	JMenuItem saveGame = new JMenuItem("Save Game");
-	JMenuItem loadGame = new JMenuItem("Load Game");
 	JMenuItem surrender = new JMenuItem("Surrender");
 	JMenuItem close = new JMenuItem("Close");
 	/**
@@ -32,16 +32,9 @@ public class GameMenu extends JMenuBar{
 	JMenuItem rules = new JMenuItem("Rules");
 	
 	
-	public GameMenu(boolean inGame, final InitialScreen initialScreen){
-		/**
-		 * Disable menu items according to whether you are in the game or not
-		 */
-		if(inGame){
-			loadGame.setEnabled(false);
-		}else{
-			saveGame.setEnabled(false);
-			surrender.setEnabled(false);
-		}
+	public GameMenu(boolean inGame, final InitialScreen initialScreen, RobberKnight game){
+
+
 		/**
 		 * Add actionlisteners
 		 */
@@ -77,14 +70,12 @@ public class GameMenu extends JMenuBar{
         		}
             }
         });
-        saveAndLoad = new SaveAndLoad(null);//TODO - Add game to this
+        saveAndLoad = new SaveAndLoad(game);//TODO - Add game to this
         
 		/**
 		 * Add items to file menu
 		 */
 		file.add(newGame);
-		file.add(saveGame);
-		file.add(loadGame);
 		file.add(surrender);
 		file.add(close);
 		/**

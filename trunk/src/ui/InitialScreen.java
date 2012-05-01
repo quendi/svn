@@ -15,6 +15,6 @@ public class InitialScreen extends JFrame{
 		this.setVisible(true);
 		this.setMinimumSize(new Dimension(460, 670));
 		this.add(picLabel);
-		this.setJMenuBar(new GameMenu(false, this));
+		this.setJMenuBar(new GameMenu(false, this, null));
 	}
 }

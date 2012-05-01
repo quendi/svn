@@ -405,7 +405,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
 
 
 
-        InGame.setJMenuBar(new GameMenu(true, null));
+        InGame.setJMenuBar(new GameMenu(true, null, game));
 
     }
 
