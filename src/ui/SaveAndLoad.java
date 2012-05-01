@@ -78,7 +78,7 @@ public class SaveAndLoad extends JMenu{
 	public void startLoad(){
 		
 		getAvailableLoads("LoadNames.txt");
-		System.out.println("startLoad size is " + loadNames.size());
+		//System.out.println("startLoad size is " + loadNames.size());
 		
 		/**
 		 * Add load items to menu
@@ -108,7 +108,7 @@ public class SaveAndLoad extends JMenu{
 	
     public static void saveGame (String filename){
     	filename = filename + ".ser";
-    	GameState gs = new GameState(game);
+    	GameState gs = new GameState(gui.game);
     	    	
     	try{ 
     		FileOutputStream fileOut = new FileOutputStream(filename);
