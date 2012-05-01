@@ -764,7 +764,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         currentPlayer = GUI.game.getFirstPlayer();
         card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
         card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
-        deckLabel.setIcon(findDeckIcon(currentPlayer.getColor(), currentPlayer.getDeck().getTopLetter()));
         deckLabel.setIcon(currentPlayer.getDeck().getTile3().getBack());
         playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
         numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
@@ -1049,7 +1048,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
             card2.setEnabled(false);
         }
         if(currentPlayer.getDeck().getSize() > 2){
-        	deckLabel.setIcon(findDeckIcon(currentPlayer.getColor(), currentPlayer.getDeck().getTopLetter()));
+        	deckLabel.setIcon(currentPlayer.getDeck().getTile3().getBack());
         	deckLabel.setEnabled(true);
         }
         else{
@@ -1082,7 +1081,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
             card2.setEnabled(false);
         }
         if(p.getDeck().getSize() > 2){
-        	deckLabel.setIcon(findDeckIcon(p.getColor(), p.getDeck().getTopLetter()));
+        	deckLabel.setIcon(p.getDeck().getTile3().getBack());
         	deckLabel.setEnabled(true);
         }
         else{
@@ -1175,62 +1174,5 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
             System.out.println(e);
         }
     }
-
-    public static ImageIcon findDeckIcon(domain.enums.Color c, char l) {
-    	String separator = File.separator;
-    	if(c == domain.enums.Color.RED){
-    		if(l == 'A')
-    			return new ImageIcon("resources" + separator + "red A small.jpg");
-    		else if(l == 'B')
-    			return new ImageIcon("resources" + separator + "red B small.jpg");
-    		else if(l == 'C')
-    			return new ImageIcon("resources" + separator + "red C small.jpg");
-    		else if(l == 'D')
-    			return new ImageIcon("resources" + separator + "red D small.jpg");
-    		else if(l == 'E')
-    			return new ImageIcon("resources" + separator + "red E small.jpg");
-    		else return null;
-    	}
-    	else if(c == domain.enums.Color.GREEN){
-      		if(l == 'A')
-    			return new ImageIcon("resources" + separator + "green A small.jpg");
-    		else if(l == 'B')
-    			return new ImageIcon("resources" + separator + "green B small.jpg");
-    		else if(l == 'C')
-    			return new ImageIcon("resources" + separator + "green C small.jpg");
-    		else if(l == 'D')
-    			return new ImageIcon("resources" + separator + "green D small.jpg");
-    		else if(l == 'E')
-    			return new ImageIcon("resources" + separator + "green E small.jpg");
-    		else return null;
-    	}
-    	else if(c == domain.enums.Color.BLUE){
-      		if(l == 'A')
-    			return new ImageIcon("resources" + separator + "blue A small.jpg");
-    		else if(l == 'B')
-    			return new ImageIcon("resources" + separator + "blue B small.jpg");
-    		else if(l == 'C')
-    			return new ImageIcon("resources" + separator + "blue C small.jpg");
-    		else if(l == 'D')
-    			return new ImageIcon("resources" + separator + "blue D small.jpg");
-    		else if(l == 'E')
-    			return new ImageIcon("resources" + separator + "blue E small.jpg");
-    		else return null;
-    	}
-    	else if(c == domain.enums.Color.YELLOW){
-      		if(l == 'A')
-    			return new ImageIcon("resources" + separator + "yellow A.jpg");
-    		else if(l == 'B')
-    			return new ImageIcon("resources" + separator + "yellow B.jpg");
-    		else if(l == 'C')
-    			return new ImageIcon("resources" + separator + "yellow C.jpg");
-    		else if(l == 'D')
-    			return new ImageIcon("resources" + separator + "yellow D.jpg");
-    		else if(l == 'E')
-    			return new ImageIcon("resources" + separator + "yellow E.jpg");
-    		else return null;
-    	}
-    	else return null;
-    }
-
 }
+
