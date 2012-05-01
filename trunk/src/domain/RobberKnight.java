@@ -79,14 +79,14 @@ public class RobberKnight implements Serializable{
     public Player getNextPlayer() throws NoSuchPlayerException {
         if (playersHaveTiles()) {
 
-            System.out.println("New player " + currentPlayerId + "of total " + numPlayers);
+            System.out.println("New player " + currentPlayerId + " of total " + numPlayers);
             try {
                 Player next;
                 // Get next player that is still in the game.  Repeat loop until a player that is still in the game is found.
                 do {
                     currentPlayerId = (currentPlayerId + 1) % numPlayers;
                     next = lookUpPlayerById(currentPlayerId);
-                    System.out.println("Getting NEXT");
+                    //System.out.println("Getting NEXT");
                 } while (!next.isInGame());
                 notifyTurn(next);
                 next.notifyHand();
