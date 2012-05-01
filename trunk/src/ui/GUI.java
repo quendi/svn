@@ -230,9 +230,9 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                                                                                                 GroupLayout.Alignment.LEADING)
                                                                                         .addComponent(
                                                                                                 deckLabel,
-                                                                                                GroupLayout.PREFERRED_SIZE,
                                                                                                 117,
-                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                                117,
+                                                                                                117)
                                                                                         .addGroup(
                                                                                         PlayerPanelLayout
                                                                                                 .createSequentialGroup()
@@ -286,9 +286,9 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                                         LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(
                                         deckLabel,
-                                        GroupLayout.PREFERRED_SIZE,
                                         117,
-                                        GroupLayout.PREFERRED_SIZE)
+                                        117,
+                                        117)
                                 .addPreferredGap(
                                         LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(
@@ -764,6 +764,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         currentPlayer = GUI.game.getFirstPlayer();
         card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
         card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
+        deckLabel.setIcon(findDeckIcon(currentPlayer.getColor(), currentPlayer.getDeck().getTopLetter()));
         deckLabel.setIcon(currentPlayer.getDeck().getTile3().getBack());
         playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
         numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
@@ -772,10 +773,10 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
     }
 
     public void loadGame(RobberKnight game){
+    	GUI.game = game;
+    	setUpGrid(grid, GUI.game.getNumPlayers(), false, false);
+    	InGame.setVisible(true);
         System.out.println(game);
-        GUI.game = game;
-        setUpGrid(grid, GUI.game.getNumPlayers(), false, false);
-        InGame.setVisible(true);
     }
 
     // LISTENER IMPLEMENTATION
@@ -835,7 +836,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         button.setIcon(new ImageIcon(bi));
 
 
-        System.out.println("game has " + game.getNumPlayers() + " players");
+        //System.out.println("game has " + game.getNumPlayers() + " players");
 
 
     }
@@ -967,8 +968,8 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         //destinationButton.setForeground(playerColor);
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castleTile, destination, castle.getNumKnights());
 
-        System.out.println("numknights-1" + (numKnights-1));
-        System.out.println("destination.getnumknights..." + destination.getNumKnights());
+        //System.out.println("numknights-1" + (numKnights-1));
+        //System.out.println("destination.getnumknights..." + destination.getNumKnights());
 
         drawKnights(destinationButton, destination);
         removeKnights(castle, startButton);
@@ -1001,6 +1002,10 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         for(Component c : grid.getComponents()){
             c.setEnabled(true);
         }
+        if(currentPlayer.getDeck().getSize() > 2)
+        	deckLabel.setEnabled(true);
+        else
+        	deckLabel.setEnabled(false);
     }
 
     /**
@@ -1012,6 +1017,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
     private void disableAllExcept(ArrayList<Integer> gridLocations) {
         card1.setEnabled(false);
         card2.setEnabled(false);
+        deckLabel.setEnabled(false);
         for(int i = 0; i < grid.getComponentCount(); i++){
             if(!gridLocations.contains(i)){
                 grid.getComponent(i).setEnabled(false);
@@ -1042,6 +1048,14 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
             card2.setIcon(null);
             card2.setEnabled(false);
         }
+        if(currentPlayer.getDeck().getSize() > 2){
+        	deckLabel.setIcon(findDeckIcon(currentPlayer.getColor(), currentPlayer.getDeck().getTopLetter()));
+        	deckLabel.setEnabled(true);
+        }
+        else{
+        	deckLabel.setIcon(null);
+        	deckLabel.setEnabled(false);
+        }
     }
 
     /**
@@ -1066,6 +1080,14 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         else{
             card2.setIcon(null);
             card2.setEnabled(false);
+        }
+        if(p.getDeck().getSize() > 2){
+        	deckLabel.setIcon(findDeckIcon(p.getColor(), p.getDeck().getTopLetter()));
+        	deckLabel.setEnabled(true);
+        }
+        else{
+        	deckLabel.setIcon(null);
+        	deckLabel.setEnabled(false);
         }
     }
 
@@ -1154,5 +1176,61 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         }
     }
 
+    public static ImageIcon findDeckIcon(domain.enums.Color c, char l) {
+    	String separator = File.separator;
+    	if(c == domain.enums.Color.RED){
+    		if(l == 'A')
+    			return new ImageIcon("resources" + separator + "red A small.jpg");
+    		else if(l == 'B')
+    			return new ImageIcon("resources" + separator + "red B small.jpg");
+    		else if(l == 'C')
+    			return new ImageIcon("resources" + separator + "red C small.jpg");
+    		else if(l == 'D')
+    			return new ImageIcon("resources" + separator + "red D small.jpg");
+    		else if(l == 'E')
+    			return new ImageIcon("resources" + separator + "red E small.jpg");
+    		else return null;
+    	}
+    	else if(c == domain.enums.Color.GREEN){
+      		if(l == 'A')
+    			return new ImageIcon("resources" + separator + "green A small.jpg");
+    		else if(l == 'B')
+    			return new ImageIcon("resources" + separator + "green B small.jpg");
+    		else if(l == 'C')
+    			return new ImageIcon("resources" + separator + "green C small.jpg");
+    		else if(l == 'D')
+    			return new ImageIcon("resources" + separator + "green D small.jpg");
+    		else if(l == 'E')
+    			return new ImageIcon("resources" + separator + "green E small.jpg");
+    		else return null;
+    	}
+    	else if(c == domain.enums.Color.BLUE){
+      		if(l == 'A')
+    			return new ImageIcon("resources" + separator + "blue A small.jpg");
+    		else if(l == 'B')
+    			return new ImageIcon("resources" + separator + "blue B small.jpg");
+    		else if(l == 'C')
+    			return new ImageIcon("resources" + separator + "blue C small.jpg");
+    		else if(l == 'D')
+    			return new ImageIcon("resources" + separator + "blue D small.jpg");
+    		else if(l == 'E')
+    			return new ImageIcon("resources" + separator + "blue E small.jpg");
+    		else return null;
+    	}
+    	else if(c == domain.enums.Color.YELLOW){
+      		if(l == 'A')
+    			return new ImageIcon("resources" + separator + "yellow A.jpg");
+    		else if(l == 'B')
+    			return new ImageIcon("resources" + separator + "yellow B.jpg");
+    		else if(l == 'C')
+    			return new ImageIcon("resources" + separator + "yellow C.jpg");
+    		else if(l == 'D')
+    			return new ImageIcon("resources" + separator + "yellow D.jpg");
+    		else if(l == 'E')
+    			return new ImageIcon("resources" + separator + "yellow E.jpg");
+    		else return null;
+    	}
+    	else return null;
+    }
 
 }
