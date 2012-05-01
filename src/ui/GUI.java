@@ -842,13 +842,13 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         Graphics g = bi.createGraphics();
         icon.paintIcon(null, g, 0,0);
 
-        int d = button.getHeight()/2;
-        int j = button.getHeight()-5;
-        System.out.println("button height is" + button.getHeight());
+        int d = button.getIcon().getIconHeight()/2;
+        int j = button.getIcon().getIconHeight()-5;
+        // System.out.println("button height is" + button.getIcon().getIconHeight());
         for(int i = 0; i < t.getNumKnights(); i++){
             g.setColor(GameUtils.getColor(t.knights.get(i)));
             g.fillOval(d-10, d-10, 20, 20);
-            g.fillRect(button.getWidth()-20, j, 20, 5);
+            g.fillRect(button.getIcon().getIconWidth()-20, j, 20, 5);
             j = j - 6;
         }
 
