@@ -9,7 +9,6 @@ import domain.enums.Color;
 import exceptions.NoSuchPlayerException;
 
 /**
- * Created by IntelliJ IDEA.
  * User: Joe
  * Date: Apr 10, 2012
  * Time: 5:40:45 PM
@@ -86,7 +85,6 @@ public class RobberKnight implements Serializable{
                 do {
                     currentPlayerId = (currentPlayerId + 1) % numPlayers;
                     next = lookUpPlayerById(currentPlayerId);
-                    //System.out.println("Getting NEXT");
                 } while (!next.isInGame());
                 notifyTurn(next);
                 next.notifyHand();
@@ -115,7 +113,10 @@ public class RobberKnight implements Serializable{
         // if there has an exist tile, new tile can't be put
         try {
             Player p = lookUpPlayerById(currentPlayerId);
-            return (board.placeTile(t, location, init, p));
+            if (board.placeTile(t, location, init, p)){
+                return true;
+            }
+            //return (board.placeTile(t, location, init, p));
         }
         catch (NoSuchPlayerException e) {
             e.printStackTrace();
