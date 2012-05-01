@@ -22,6 +22,7 @@ public class RobberKnight implements Serializable{
     private int currentPlayerId;
     private TurnListener turnListener;
     private int[] playerTotals = new int[4];
+    private static final int MAX_KNIGHT = 4;
 
 
     public RobberKnight(int numPlayers, ArrayList<Color> colors, ArrayList<Date> dates, BoardListener bl){
@@ -227,7 +228,9 @@ public class RobberKnight implements Serializable{
 
     public int getMoveableKnights(Tile castle, Point moveTo){
         Tile goTo = board.getTile(moveTo);
-        return (castle.getNumKnights() - castle.getMinimumKnights()) - goTo.getNumKnights();
+        int castleKnightsMoveable = castle.getNumKnights() - castle.getMinimumKnights();
+        int knightAvailable = MAX_KNIGHT - goTo.getNumKnights();
+        return (knightAvailable <= castleKnightsMoveable) ?  knightAvailable : castleKnightsMoveable;
     }
 
     public void moveKnight(Tile castle, Point moveTo, int numberOfKnights) {
