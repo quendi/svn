@@ -68,6 +68,10 @@ public class Tile implements Serializable{
     public Color getTopKnight() {
         return knights.get(knights.size()-1);
     }
+
+    public Color getBottomKnight(){
+        return knights.get(0);
+    }
     
     public void setLocation(Point p){
         location=p;
