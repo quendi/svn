@@ -882,22 +882,25 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
      * Triggers when a piece is placed on the game board.  Updates UI board accordingly.
      * @param t - tile being placed
      */
-    public void placedTile(Tile t) {
+    // I have add a new boolean value "sys", true if this placetile is provide by system
+    //                                     , false if this placetile is provide by player
+    public void placedTile(Tile t, boolean sys) {
         int gridLocation = GameUtils.getGridLocation(t, game.getBoard().getSize());
         TileButton button = (TileButton) grid.getComponent(gridLocation);
         button.setIcon(t.getImage(), game.getNumPlayers());
         // Increment moves if not castle plcaed.  This is to allow player to initiate knight movement on the last move of their turn.
-        if(!Building.Castle.equals(t.getBuilding())){
-            moves++;
+        if( sys == false){
+        	if(!Building.Castle.equals(t.getBuilding())){
+        		moves++;
+        	}
+        	if (moves > 2) {
+        		endTurnActionPerformed();
+        	}
         }
-        // Detect the Knights on this tile
-        if( t.getNumKnights() != 0){
-            drawKnights(button, t);
-        }
-        if (moves > 2) {
-            endTurnActionPerformed();
-        }
-
+    	// Detect the Knights on this tile
+    	if( t.getNumKnights() != 0){
+    		drawKnights(button, t);
+    	}
     }
 
     public void placedCastle(Tile castle) {

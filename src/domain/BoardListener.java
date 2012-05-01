@@ -4,7 +4,7 @@ import java.awt.*;
 
 
 public interface BoardListener {
-	public void placedTile(Tile t);
+	public void placedTile(Tile t, boolean sys);
     public void placedCastle(Tile castle);
 	// while shift, remove the icon of the tile which has been set to null
 	public void removedTile(boolean x_end, boolean y_end);
