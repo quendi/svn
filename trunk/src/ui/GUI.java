@@ -1023,7 +1023,9 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
 
         drawKnights(destinationButton, destination);
         removeKnights(castle, startButton);
-
+        if(!castle.getTopKnight().equals( destination.getBottomKnight())){
+                playSound("resources/KillStab.wav");
+        }
 
         if(!gridLocations.isEmpty()){
             reenableAll();
@@ -1168,7 +1170,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         Tile goTo = game.getBoard().getTile(moveTo);
         if(goTo.knights.size() > 0)
             if(current.getColor() != goTo.getTopKnight())
-                playSound("KillStab.wav");
+                playSound("resources/KillStab.wav");
     }
 
 

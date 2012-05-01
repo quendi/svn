@@ -10,11 +10,9 @@ import java.util.ArrayList;
 //import org.apache.commons.lang3.ArrayUtils;
 
 /**
- * Created by IntelliJ IDEA.
  * User: Joe
  * Date: Apr 10, 2012
  * Time: 5:42:36 PM
- * To change this template use File | Settings | File Templates.
  */
 
 
@@ -39,11 +37,11 @@ public class Board implements Serializable{
      */
     public Board(int numPlayers) {
         if ( numPlayers == 2 )
-            size=7+1;
+            size=8;
         else if ( numPlayers == 3 )
-            size=9+1;
+            size=10;
         else
-            size=10+1;
+            size=11;
 
         tiles=new Tile[size][size];
     }
@@ -140,6 +138,10 @@ public class Board implements Serializable{
         boardListener.placedCastle(t);
     }
 
+    /**
+     * This method determines if the tile being places is touching the boundary of the board.  If so, the board if shifted and resized.
+     * @param t - tile being placed on board
+     */
     private void OutofBound(Tile t){
         int i, j;
         if( t.getLocation().getX() == 0 ){
@@ -191,7 +193,6 @@ public class Board implements Serializable{
                     return;
                 }
             }
-            // System.out.println("shift y=y+1");
             // shift the board
             for( i = size-2;  i >= 0; i--){
                 for( j = 0;  j < size; j++){
@@ -486,10 +487,4 @@ public class Board implements Serializable{
         return tiles[(int) moveTo.getX()][(int)moveTo.getY()];
     }
 
-//    public ArrayList<Integer> getValidKnights(Tile castleTile, ArrayList<Integer> gridLocations) {
-//        ArrayList<Tile> tilesToMoveTo = new ArrayList<Tile>();
-//        for(Integer i : gridLocations){
-//
-//        }
-//    }
 }
