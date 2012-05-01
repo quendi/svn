@@ -44,6 +44,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
 
     private JButton endTurn;
     private JButton endKnightPlacement;
+    private JPanel knightPickerPanel;
 
 
     protected JPanel grid;
@@ -63,6 +64,10 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
     private static final int SIZE = 117 * 7;
     private Tile castleTile;
     private Font font = new Font("Serif", Font.BOLD, 34);
+    private CardLayout cl = new CardLayout();
+
+    private JPanel normalPanel = new JPanel();
+    JPanel abovePanel;
 
     // End of variables declaration
 
@@ -142,6 +147,23 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         playersTurn.setText("Number");
 
         currentColor.setText("Color");
+        
+        
+        /**
+         * Knight picker
+         */
+        
+        /**
+         * Set cardlayout
+         */
+        knightPicker = new KnightPicker(this, 0);
+        knightPickerPanel = new JPanel();
+        knightPickerPanel.add(knightPicker);
+        knightPickerPanel.add(endKnightPlacement);
+        abovePanel = new JPanel(cl);
+        abovePanel.add(normalPanel, "1");
+        abovePanel.add(knightPickerPanel, "2");
+        
 
         GroupLayout PlayerPanelLayout = new GroupLayout(
                 PlayerPanel);
@@ -198,9 +220,9 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                                                                                         24,
                                                                                         24)
                                                                                 .addComponent(
-                                                                                endKnightPlacement,
+                                                                                abovePanel,
                                                                                 GroupLayout.PREFERRED_SIZE,
-                                                                                233,
+                                                                                300,
                                                                                 GroupLayout.PREFERRED_SIZE))
                                                                         .addGroup(
                                                                                 PlayerPanelLayout
@@ -343,9 +365,9 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                                         LayoutStyle.ComponentPlacement.RELATED,
                                         119, Short.MAX_VALUE)
                                 .addComponent(
-                                        endKnightPlacement,
+                                        abovePanel,
                                         GroupLayout.PREFERRED_SIZE,
-                                        63,
+                                        100,
                                         GroupLayout.PREFERRED_SIZE)
 
                                 .addGap(52, 52, 52)
@@ -509,7 +531,14 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
                 	// JJ: add if else to check if game.getMoveableKnights(castleTile, location) is 0
                 	if( game.getMoveableKnights(castleTile, location) > 0 ){
                 		knightPicker.setKnightPicker(game.getMoveableKnights(castleTile, location));
-                		knightPicker.setVisible(true);
+                		/**
+                		 * Cardlayout
+                		 */
+                		//knightPicker.setVisible(true);
+                		cl.show(abovePanel, "2");
+                		
+                		
+                		
                 		moveTo = location;
                 	}
                 	else
@@ -901,7 +930,8 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
     public void placedCastle(Tile castle) {
         endKnightPlacement.setVisible(true);
         knightPicker = new KnightPicker(this, castle.getMinimumKnights());
-        knightPicker.setVisible(true);
+        //knightPicker.setVisible(true);
+        cl.show(abovePanel, "2");
         castleTile = castle;
         moves++;
     }
@@ -1131,7 +1161,8 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
      */
     public void endKnightMovement() {
         endKnightPlacement.setVisible(false);
-        knightPicker.setVisible(false);
+        //knightPicker.setVisible(false);
+        cl.show(abovePanel, "1");
         castleTile = null;
         reenableAll();
         knightMode = false;
