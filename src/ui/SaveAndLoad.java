@@ -106,20 +106,20 @@ public class SaveAndLoad extends JMenu{
 	
 	
 	
-    public static void saveGame (String filename){
-    	filename = filename + ".ser";
-    	GameState gs = new GameState(gui.game);
-    	    	
-    	try{ 
-    		FileOutputStream fileOut = new FileOutputStream(filename);
-    		ObjectOutputStream out = new ObjectOutputStream(fileOut);
-    		out.writeObject(gs);
-    		out.close();
-    		fileOut.close();
-    	}catch(IOException i){
-    		i.printStackTrace();
-    	}
-    }
+//    public static void saveGame (String filename){
+//    	filename = filename + ".ser";
+//    	GameState gs = new GameState(gui.game);
+//
+//    	try{
+//    		FileOutputStream fileOut = new FileOutputStream(filename);
+//    		ObjectOutputStream out = new ObjectOutputStream(fileOut);
+//    		out.writeObject(gs);
+//    		out.close();
+//    		fileOut.close();
+//    	}catch(IOException i){
+//    		i.printStackTrace();
+//    	}
+//    }
     
     public static void loadGame(String filename){
     	GUI gui = new GUI();
@@ -202,7 +202,7 @@ public class SaveAndLoad extends JMenu{
 		
 		ok.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
-				saveGame(textArea.getText());
+				//saveGame(textArea.getText());
 				writeName("LoadNames.txt", textArea.getText());
 				//loadGame.add(textArea.getText());
 				saveFrame.dispose();

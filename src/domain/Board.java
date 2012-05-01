@@ -108,12 +108,13 @@ public class Board implements Serializable{
      * @return
      */
 
-    public boolean placeTile(Tile t, Point p, boolean init) {
+    public boolean placeTile(Tile t, Point p, boolean init, Player player) {
         // if there has an exist tile, new tile can't be put
         if ( tiles[p.x][p.y] == null ){
             if ( isValidMove(p) || init){
                 t.setLocation(p);
                 tiles[(int) t.getLocation().getX()][(int) t.getLocation().getY()] = t;
+                player.playTile(t);
                 notifyPlaced(t, false);
                 if (Building.Castle.equals(t.getBuilding())) {
                     notifyCastlePlacement(t);

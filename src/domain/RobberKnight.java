@@ -113,19 +113,15 @@ public class RobberKnight implements Serializable{
      */
     public boolean placeTile(Tile t, Point location, boolean init){
         // if there has an exist tile, new tile can't be put
-        if(board.placeTile(t, location, init)){
-            try {
-                Player p = lookUpPlayerById(currentPlayerId);
-                p.playTile(t);
+        try {
+            Player p = lookUpPlayerById(currentPlayerId);
+            return (board.placeTile(t, location, init, p));
+        }
+        catch (NoSuchPlayerException e) {
+            e.printStackTrace();
+        }
+        return false;
 
-            } catch (NoSuchPlayerException e) {
-                e.printStackTrace();
-            }
-            return true;
-        }
-        else{
-            return false;
-        }
     }
 
     /**
