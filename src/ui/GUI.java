@@ -103,32 +103,9 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
 
         grid.setBackground(null);
 
-//        knightPicker.setBounds(500, 500, 200, 100);
-//        knightPicker.setDefaultCloseOperation(HIDE_ON_CLOSE);
-//        JPanel knightPanel = new JPanel();
-//        JLabel message = new JLabel("Number of Knight to Place");
-//        knightPick = new JComboBox(new DefaultComboBoxModel(
-//                new String[] { "0", "1", "2", "3", "4", "5" }));
-//        JButton ok = new JButton("OK");
-//        ok.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                okActionPerformed(evt);
-//            }
-//        });
-//        knightPanel.add(message);
-//        knightPanel.add(knightPick);
-//        knightPanel.add(ok);
-//        knightPicker.add(knightPanel);
 
         InGame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         InGame.setMinimumSize(new java.awt.Dimension(900, 600));
-
-//        deckLabel.setText("");
-//        deckLabel.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                jButton104ActionPerformed(evt);
-//            }
-//        });
 
         playerLabel.setText("Player:");
 
@@ -142,7 +119,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         });
 
         endKnightPlacement.setVisible(false);
-         endKnightPlacement.addActionListener(new java.awt.event.ActionListener() {
+        endKnightPlacement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 endKnightMovement();
             }
@@ -795,10 +772,10 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
     }
 
     public void loadGame(RobberKnight game){
-    	System.out.println(game);
-    	GUI.game = game;
-    	setUpGrid(grid, GUI.game.getNumPlayers(), false, false);
-    	InGame.setVisible(true);
+        System.out.println(game);
+        GUI.game = game;
+        setUpGrid(grid, GUI.game.getNumPlayers(), false, false);
+        InGame.setVisible(true);
     }
 
     // LISTENER IMPLEMENTATION
@@ -890,20 +867,32 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         TileButton button = (TileButton) grid.getComponent(gridLocation);
         button.setIcon(t.getImage(), game.getNumPlayers());
         // Increment moves if not castle plcaed.  This is to allow player to initiate knight movement on the last move of their turn.
-        if( sys == false){
-        	if(!Building.Castle.equals(t.getBuilding())){
-        		moves++;
-        	}
-        	if (moves > 2) {
-        		endTurnActionPerformed();
-        	}
+        if(!sys){
+            if(!Building.Castle.equals(t.getBuilding())){
+                moves++;
+                if(currentPlayer.getDeck().getSize() == 0){
+                    try {
+                        currentPlayer = game.getNextPlayer();
+                        return;
+                    } catch (NoSuchPlayerException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+                }
+            }
+            if (moves > 2) {
+                endTurnActionPerformed();
+            }
         }
-    	// Detect the Knights on this tile
-    	if( t.getNumKnights() != 0){
-    		drawKnights(button, t);
-    	}
+        // Detect the Knights on this tile
+        if( t.getNumKnights() != 0){
+            drawKnights(button, t);
+        }
     }
 
+    /**
+     * Triggers when a castle tile is placed.  Turns knigght movement mode on.
+     * @param castle - castle tile that has been placed.
+     */
     public void placedCastle(Tile castle) {
         endKnightPlacement.setVisible(true);
         knightPicker = new KnightPicker(this, castle.getMinimumKnights());
@@ -912,7 +901,11 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         moves++;
     }
 
-    // while shift, remove the icon of the tile which has been set to null
+    /**
+     *
+     * @param x_end - determines if board has hit x boundary
+     * @param y_end - determines if board has hit y boudary
+     */
     public void removedTile(boolean x_end, boolean y_end) {
         grid.removeAll();
         setUpGrid(grid, GUI.game.getNumPlayers(), x_end, y_end);
@@ -993,6 +986,9 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
     }
 
 
+    /**
+     * Enables all buttons on UI.
+     */
     private void reenableAll(){
         if(currentPlayer.getDeck().getSize() > 0)
             card1.setEnabled(true);
@@ -1030,16 +1026,11 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         if(currentPlayer.getDeck().getSize() > 0){
             card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
             card1.setEnabled(true);
-            deckLabel.setIcon(currentPlayer.getDeck().getTile3().getBack());
+            if(currentPlayer.getDeck().getSize() > 3){
+                deckLabel.setIcon(currentPlayer.getDeck().getTile3().getBack());
+            }
         }
         else{
-            try {
-                // go to next player if current player has no tiles remaining.
-                currentPlayer = game.getNextPlayer();
-                return;
-            } catch (NoSuchPlayerException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
             card1.setIcon(null);
             card2.setEnabled(false);
         }
@@ -1060,16 +1051,11 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         if(p.getDeck().getSize() > 0){
             card1.setIcon(p.getDeck().getTile1().getImage());
             card1.setEnabled(true);
-            deckLabel.setIcon(p.getDeck().getTile3().getBack());
+            if(currentPlayer.getDeck().getSize() > 3){
+                deckLabel.setIcon(currentPlayer.getDeck().getTile3().getBack());
+            }
         }
         else{
-            try {
-                // go to next player if current player has no tiles remaining.
-                currentPlayer = game.getNextPlayer();
-                return;
-            } catch (NoSuchPlayerException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
             card1.setIcon(null);
             card2.setEnabled(false);
         }
@@ -1123,11 +1109,28 @@ public class GUI implements PlayerListener,BoardListener, TurnListener {
         castleTile = null;
         reenableAll();
         knightMode = false;
+        if(currentPlayer.getDeck().getSize() == 0){
+            try {
+                currentPlayer = game.getNextPlayer();
+                return;
+            } catch (NoSuchPlayerException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+        }
         if (moves > 2) {
             endTurnActionPerformed();
         }
     }
 
+    public void endTurn() {
+        endTurnActionPerformed();
+    }
+
+
+    /**
+     * Helper method used to play sound .
+     * @param filename  - file containing sound to play
+     */
     public static void playSound(String filename){
         try {
             AudioInputStream audio = AudioSystem.getAudioInputStream(new java.io.File(filename)); //e.g. "resources/GallopingHorse.wav"
