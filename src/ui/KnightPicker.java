@@ -51,6 +51,32 @@ public class KnightPicker extends JPanel {
         this.setForeground(color);
     }
 
+    public KnightPicker(GUI gui, int minimumKnights, Color color, boolean castleSurrounded){
+
+        this.gui = gui;
+       // this.setBounds(500, 500, 200, 200);
+        JLabel message = new JLabel("Number of Knight to Place");
+        String[] knightPickers = new String[MAX_KNIGHTS];
+        for(int i = minimumKnights; i <= MAX_KNIGHTS; i++){
+            knightPickers[i] = Integer.toString(i);
+        }
+        knightPick =  new JComboBox(new DefaultComboBoxModel(knightPickers));
+        JButton ok = new JButton("OK");
+        ok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okActionPerformed(evt);
+            }
+        });
+        knightPanel.add(message);
+        knightPanel.add(knightPick);
+        knightPanel.add(ok);
+        this.add(knightPanel);
+        knightPanel.setBackground(color);
+        knightPanel.setForeground(color);
+        this.setBackground(color);
+        this.setForeground(color);
+    }
+
 
     /**
      * Sets avaiable options accoarding to the available knights.  Used in knight movement.
