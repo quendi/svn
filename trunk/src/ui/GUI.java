@@ -829,6 +829,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
     	setUpGrid(grid, GUI.game.getNumPlayers(), false, false);
     	InGame.setVisible(true);
+    	game.getBoard().load_board();
         System.out.println(game);
     }
 
