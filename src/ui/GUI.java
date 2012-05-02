@@ -156,7 +156,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         /**
          * Set cardlayout
          */
-        knightPicker = new KnightPicker(this, 0);
+        knightPicker = new KnightPicker(this, 0, Color.LIGHT_GRAY);
         knightPickerPanel = new JPanel();
         knightPickerPanel.add(knightPicker);
         knightPickerPanel.add(endKnightPlacement);
@@ -165,7 +165,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         abovePanel.add(knightPickerPanel, "2");
         
 
-        GroupLayout PlayerPanelLayout = new GroupLayout(
+        GroupLayout PlayerPanelLayout = new GroupLayout (
                 PlayerPanel);
         PlayerPanel.setLayout(PlayerPanelLayout);
         PlayerPanelLayout
@@ -530,7 +530,9 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
                 	// JJ: add if else to check if game.getMoveableKnights(castleTile, location) is 0
                 	if( game.getMoveableKnights(castleTile, location) > 0 ){
                 		
-                		KnightPicker knightPicker2 = new KnightPicker(getGUI(), castleTile.getMinimumKnights());
+                		KnightPicker knightPicker2 = new KnightPicker(getGUI(), castleTile.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()));
+                        knightPicker2.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+                        abovePanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
                 		knightPicker2.setKnightPicker(game.getMoveableKnights(castleTile, location));
                 		/**
                 		 * Cardlayout
@@ -948,7 +950,8 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
      */
     public void placedCastle(Tile castle) {
         endKnightPlacement.setVisible(true);
-        KnightPicker knightPicker2 = new KnightPicker(this, castle.getMinimumKnights());
+        KnightPicker knightPicker2 = new KnightPicker(this, castle.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()));
+        abovePanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         knightPicker2.setVisible(true);
         JPanel panel = new JPanel();
         panel.add(knightPicker2);
@@ -1033,7 +1036,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         drawKnights(destinationButton, destination);
         removeKnights(castle, startButton);
         if(!castle.getTopKnight().equals( destination.getBottomKnight())){
-                playSound("resources/KillStab.wav");
+                playSound("resources/KnightTakesKnight.wav");
         }
 
         if(!gridLocations.isEmpty()){
