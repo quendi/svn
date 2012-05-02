@@ -564,11 +564,8 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
 
         JPanel tilePanel = new JPanel();
         tilePanel.setLayout(new BorderLayout());
-        JLabel display = new JLabel("Player");
 
-
-        final JLabel playerNumber = new JLabel(Integer.toString(currentPlayer
-                .getId() + 1));
+        final JLabel playerNumber = new JLabel(currentPlayer.getName());
         final TileButton tile1 = new TileButton();
         tile1.setIcon(currentPlayer.getDeck().getTile1().getImage());
         tile1.addActionListener(new java.awt.event.ActionListener() {
@@ -693,7 +690,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         /**
          * Display
          */
-        display.setFont(font);
         playerNumber.setFont(font);
         select.setPreferredSize(new Dimension(300, 100));
         tilePanel.setForeground(new java.awt.Color(0,0,255));
@@ -702,7 +698,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
          * Add contents to frame
          */
         JPanel northHolder = new JPanel();
-        northHolder.add(display);
         northHolder.add(playerNumber);
         tilePanel.add(northHolder, BorderLayout.NORTH);
 
@@ -728,8 +723,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                         if (tilesPlaced >= 2) {
                             turn++;
                             currentPlayer = game.getNextPlayer();
-                            playerNumber.setText(Integer.toString(currentPlayer
-                                    .getId() + 1));
+                            playerNumber.setText(currentPlayer.getName());
                             tile1.setIcon(currentPlayer.getDeck().getTile1()
                                     .getImage());
                             tile2.setIcon(currentPlayer.getDeck().getTile2()

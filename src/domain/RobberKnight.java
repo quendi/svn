@@ -27,9 +27,9 @@ public class RobberKnight implements Serializable{
     private static final int MAX_KNIGHT = 4;
 
 
-    public RobberKnight(int numPlayers, ArrayList<Color> colors, ArrayList<Date> dates, BoardListener bl){
+    public RobberKnight(int numPlayers, ArrayList<String> names, ArrayList<Color> colors, ArrayList<Date> dates, BoardListener bl){
         players = new ArrayList<Player>();
-        initialize(numPlayers, colors, dates, bl);
+        initialize(numPlayers, names, colors, dates, bl);
     }
 
     /**
@@ -50,11 +50,11 @@ public class RobberKnight implements Serializable{
      * Initializes current game board and players.
      * @param numPlayers - used in determining size of board.
      */
-    private void initialize(int numPlayers, ArrayList<Color> colors, ArrayList<Date> birthDates, BoardListener bl){
+    private void initialize(int numPlayers, ArrayList<String> names, ArrayList<Color> colors, ArrayList<Date> birthDates, BoardListener bl){
         this.numPlayers = numPlayers;
         PlayerListener pl = (PlayerListener) bl;
         for(int i = 0; i < numPlayers; i++){
-            players.add(new Player(colors.get(i), birthDates.get(i), i, pl));
+            players.add(new Player(names.get(i), colors.get(i), birthDates.get(i), i, pl));
         }
         board = new Board(numPlayers);
         board.addBoardListener(bl);
