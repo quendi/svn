@@ -5,13 +5,14 @@
 
 package domain;
 
+import java.io.Serializable;
 import java.util.*;
 
 import domain.enums.Building;
 import domain.enums.Color;
 import domain.enums.Terrain;
 
-public class Deck {
+public class Deck implements Serializable{
 	private ArrayList<Tile> tiles = new ArrayList<Tile>();
     private Random generator = new Random(System.currentTimeMillis());
 
