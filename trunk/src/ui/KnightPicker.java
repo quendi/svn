@@ -98,19 +98,22 @@ public class KnightPicker extends JPanel {
      * @param evt
      */
     protected void okActionPerformed(ActionEvent evt) {
-        numberOfKnights =  Integer.parseInt( (String) knightPick.getSelectedItem());
-        if(numberOfKnights > 0){
-            this.setVisible(false);
-            if(knightMovement){
-                gui.moveKnight(numberOfKnights);
+
+        if (knightPick.getSelectedItem() != null) {
+            numberOfKnights =  Integer.parseInt( (String) knightPick.getSelectedItem());
+            if(numberOfKnights > 0){
+                this.setVisible(false);
+                if(knightMovement){
+                    gui.moveKnight(numberOfKnights);
+                }
+                else{
+                    gui.placeKnight(numberOfKnights);
+                }
             }
             else{
-                gui.placeKnight(numberOfKnights);
+                gui.endKnightMovement();
+                this.setVisible(false);
             }
-        }
-        else{
-            gui.endKnightMovement();
-            this.setVisible(false);
         }
     }
 
