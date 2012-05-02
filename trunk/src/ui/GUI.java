@@ -448,6 +448,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
             }
 
         }
+        //InGame.setJMenuBar(new GameMenu(true, null, game));
     }
 
     /**
@@ -820,7 +821,12 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
 
     public void loadGame(RobberKnight game){
     	GUI.game = game;
-    	
+        currentPlayer = GUI.game.getCurrentPlayer();
+        card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
+        card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
+        deckLabel.setIcon(currentPlayer.getDeck().getTile3().getBack());
+        playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
+        numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
     	setUpGrid(grid, GUI.game.getNumPlayers(), false, false);
     	InGame.setVisible(true);
         System.out.println(game);
