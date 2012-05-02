@@ -32,7 +32,7 @@ public class GameMenu extends JMenuBar{
 	JMenuItem rules = new JMenuItem("Rules");
 	
 	
-	public GameMenu(boolean inGame, final InitialScreen initialScreen, final RobberKnight game){
+	public GameMenu(boolean inGame, final InitialScreen initialScreen, final RobberKnight game, GUI gui){
 
 
 		/**
@@ -70,7 +70,7 @@ public class GameMenu extends JMenuBar{
         		}
             }
         });
-        saveAndLoad = new SaveAndLoad(game);
+        saveAndLoad = new SaveAndLoad(game, gui);
         
 		/**
 		 * Add items to file menu

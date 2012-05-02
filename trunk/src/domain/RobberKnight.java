@@ -255,4 +255,12 @@ public class RobberKnight implements Serializable{
             e.printStackTrace();
         }
     }
+    
+    public void setListeners(BoardListener bl, PlayerListener pl, TurnListener tl){
+    	board.addBoardListener(bl);
+    	for(Player p : players){
+    		p.addPlayerListener(pl);
+    	}
+    	this.turnListener = tl;
+    }
 }

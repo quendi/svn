@@ -39,9 +39,11 @@ public class SaveAndLoad extends JMenu{
 	JButton ok = new JButton("OK");
 	JMenuItem deleteAll = new JMenuItem("Delete All Saves");
 	private int i = 0;
+	static GUI gui = null;
 		
 	@SuppressWarnings("static-access")
-	public SaveAndLoad(RobberKnight game){
+	public SaveAndLoad(RobberKnight game, GUI gui){
+		this.gui = gui;
 		this.setText("Game");
 		this.add(new JMenuItem("Restart"));//TODO
 		/**
@@ -124,10 +126,12 @@ public class SaveAndLoad extends JMenu{
     }
     
     public static void loadGame(String filename){
-    	GUI gui = new GUI();
     	game = readFile(filename);
     	System.out.println(game);
-    	gui.loadGame(game);
+    	if(gui == null)
+    		new GUI().loadGame(game);
+    	else 
+    		gui.loadGame(game);
     }
     
     public static RobberKnight readFile(String filename){
