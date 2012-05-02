@@ -31,11 +31,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
 
     public static RobberKnight game;
 
-
-
     protected JFrame InGame;
-
-
 
     protected TileButton card1;
     protected TileButton card2;
@@ -71,20 +67,8 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
 
     // End of variables declaration
 
-
-
-
     public GUI() {
         initComponents();
-    }
-
-    // use init to check is this is an initial placement
-    private boolean placeTile(Tile tile, Point location, boolean init ) {
-//        if (game.placeTile(tile, location, init) == false) {
-//            return false;
-//        } else
-//            return true;
-        return game.placeTile(tile, location, init);
     }
 
     private void initComponents() {
@@ -102,12 +86,9 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         playersTurn = new JLabel();
         currentColor = new JLabel();
         grid = new JPanel();
-
-
         PlayerPanel = new JPanel();
 
         grid.setBackground(null);
-
 
         InGame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         InGame.setMinimumSize(new java.awt.Dimension(900, 600));
@@ -143,19 +124,9 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         });
 
         numberOfKnights.setText("BLANK");
-
         playersTurn.setText("Number");
-
         currentColor.setText("Color");
 
-
-        /**
-         * Knight picker
-         */
-
-        /**
-         * Set cardlayout
-         */
         knightPicker = new KnightPicker(this, 0, Color.LIGHT_GRAY);
         knightPickerPanel = new JPanel();
         knightPickerPanel.add(knightPicker);
@@ -163,7 +134,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         abovePanel = new JPanel(cl);
         abovePanel.add(normalPanel, "1");
         abovePanel.add(knightPickerPanel, "2");
-
 
         GroupLayout PlayerPanelLayout = new GroupLayout (
                 PlayerPanel);
@@ -570,6 +540,11 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         });
     }
 
+    // use init to check is this is an initial placement
+    private boolean placeTile(Tile tile, Point location, boolean init ) {
+        return game.placeTile(tile, location, init);
+    }
+
     /**
      * Get starting layout of tiles from players.
      * Castle placement is not allowed in this phase.
@@ -929,7 +904,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
                         currentPlayer = game.getNextPlayer();
                         return;
                     } catch (NoSuchPlayerException e) {
-                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        e.printStackTrace();
                     }
                 }
             }
@@ -944,7 +919,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
     }
 
     /**
-     * Triggers when a castle tile is placed.  Turns knigght movement mode on.
+     * Triggers when a castle tile is placed.  Turns knight movement mode on.
      * @param castle - castle tile that has been placed.
      */
     public void placedCastle(Tile castle) {
@@ -952,7 +927,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         knightMode = true;
 
         // Get valid locations for movement around castle
-        ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castle, castle.getMinimumKnights() + 1);
+        ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castle, Tile.getMaxCastleKnights());
         KnightPicker knightPicker2;
         // If kngihts can be moved, allow player to place up to 5 knights
         if(!gridLocations.isEmpty()){
@@ -1035,7 +1010,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castleTile, destination, castle.getNumKnights());
         drawKnights(destinationButton, destination);
         removeKnights(castle, startButton);
-        if(!castle.getTopKnight().equals( destination.getBottomKnight())){
+        if(destination.getNumKnights() != 0  && !castle.getTopKnight().equals( destination.getBottomKnight())){
             playSound("resources/KnightTakesKnight.wav");
         }
 
@@ -1168,7 +1143,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
      * Ends knight movement
      */
     public void endKnightMovement() {
-        if(castleTile.getNumKnights() < 5){
+        if(castleTile.getNumKnights() < Tile.getMaxCastleKnights()){
             endKnightPlacement.setVisible(false);
             //knightPicker.setVisible(false);
             normalPanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
