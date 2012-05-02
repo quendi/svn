@@ -830,7 +830,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
     	setUpGrid(grid, GUI.game.getNumPlayers(), false, false);
     	InGame.setVisible(true);
     	game.getBoard().load_board();
-        System.out.println(game);
     }
 
     // LISTENER IMPLEMENTATION
