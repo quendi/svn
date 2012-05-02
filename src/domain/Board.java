@@ -257,6 +257,18 @@ public class Board implements Serializable{
         }
     }
 
+    
+    public void load_board(){
+    	int i, j;
+    	
+        for( i = 0;  i < size; i++){
+            for( j = 0;  j < size; j++){
+                if( tiles[i][j] != null ){
+                    notifyPlaced(tiles[i][j], true);
+                }
+            }
+        }
+    }
 
     /**
      * Places knight on tile castle.  Returns true if successful.
