@@ -83,8 +83,6 @@ public class RobberKnight implements Serializable{
      */
     public Player getNextPlayer() throws NoSuchPlayerException {
         if (playersHaveTiles()) {
-
-            System.out.println("New player " + currentPlayerId + " of total " + numPlayers);
             try {
                 Player next;
                 // Get next player that is still in the game.  Repeat loop until a player that is still in the game is found.
@@ -102,8 +100,6 @@ public class RobberKnight implements Serializable{
         else{
             turnListener.endGame();
         }
-
-
         return null;
     }
 
@@ -122,7 +118,6 @@ public class RobberKnight implements Serializable{
             if (board.placeTile(t, location, init, p)){
                 return true;
             }
-            //return (board.placeTile(t, location, init, p));
         }
         catch (NoSuchPlayerException e) {
             e.printStackTrace();
@@ -184,7 +179,8 @@ public class RobberKnight implements Serializable{
     }
 
     /**
-     * Takes given player out of game.
+     * Takes given player out of game. End game if only one player is left after surrendering.  Is able to forcibly end a players turn,
+     * even if they have yet to take a move.
      */
     public void surrender(){
         try{
@@ -242,6 +238,12 @@ public class RobberKnight implements Serializable{
         turnListener.playerTurn(currentPlayer);
     }
 
+    /**
+     * Get the maximum amount of knights that are avaiable to move from castle to destination.
+     * @param castle - castle kngihts are being moved from.
+     * @param moveTo - location of tile player wishes to move to
+     * @return - max # of knights that can be moved.
+     */
     public int getMoveableKnights(Tile castle, Point moveTo){
         Tile goTo = board.getTile(moveTo);
         int castleKnightsMoveable = castle.getNumKnights() - castle.getMinimumKnights();
@@ -249,6 +251,13 @@ public class RobberKnight implements Serializable{
         return (knightAvailable <= castleKnightsMoveable) ?  knightAvailable : castleKnightsMoveable;
     }
 
+    /**
+     * Delegates to board the work of moveing a tile from castle to the tile the player wihses to move to.
+     * End knight movement if kngihts are not able to be moved.
+     * @param castle - tile where knights are moving from
+     * @param moveTo - tile knights are being moved to
+     * @param numberOfKnights - knights being moved
+     */
     public void moveKnight(Tile castle, Point moveTo, int numberOfKnights) {
         try {
             Player current = lookUpPlayerById(currentPlayerId);
@@ -260,7 +269,13 @@ public class RobberKnight implements Serializable{
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * Reset listeners for game.  Used when loading a new game.
+     * @param bl
+     * @param pl
+     * @param tl
+     */
     public void setListeners(BoardListener bl, PlayerListener pl, TurnListener tl){
     	board.addBoardListener(bl);
     	for(Player p : players){
