@@ -103,4 +103,8 @@ public class Player implements Serializable{
     public void notifyHand(){
         playerListener.updateHand(this);
     }
+    
+    public void addPlayerListener(PlayerListener pl){
+        this.playerListener = pl;
+    }
 }

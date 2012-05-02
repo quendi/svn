@@ -261,6 +261,7 @@ public class Board implements Serializable{
     public void load_board(){
     	int i, j;
     	
+    	notifyRemoved(x_end, y_end);
         for( i = 0;  i < size; i++){
             for( j = 0;  j < size; j++){
                 if( tiles[i][j] != null ){

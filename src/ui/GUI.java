@@ -818,7 +818,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
         setUpGrid(grid, GUI.game.getNumPlayers(), false, false);
         initializeTiles();
-        InGame.setJMenuBar(new GameMenu(true, null, game));
+        InGame.setJMenuBar(new GameMenu(true, null, game, this));
     }
 
     public void loadGame(RobberKnight game){
@@ -831,7 +831,14 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
     	setUpGrid(grid, GUI.game.getNumPlayers(), false, false);
     	InGame.setVisible(true);
+    	game.setListeners(this, this, this);
     	game.getBoard().load_board();
+
+        currentColor.setText(currentPlayer.getColor().toString());
+        InGame.getContentPane().setBackground(GameUtils.getColor(currentPlayer.getColor()));
+        PlayerPanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+        
+        InGame.setJMenuBar(new GameMenu(true, null, game, this));
     }
 
     // LISTENER IMPLEMENTATION
