@@ -181,11 +181,11 @@ public class RobberKnight implements Serializable{
     /**
      * Takes given player out of game.
      */
-    private void surrender(){
+    public void surrender(){
         try{
             Player p = lookUpPlayerById(currentPlayerId);
             p.setInGame(false);
-            
+            turnListener.endTurn();
         }
         catch(Exception e){
             e.printStackTrace();
