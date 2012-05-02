@@ -425,18 +425,11 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
 
     }
 
-
-
-
-
     /**
-     * Moves current turn to next player.
-     *
-     * @param evt
+     *  Action taken when player chooses to end their turn.
      */
     private void endTurnActionPerformed() {
-        // TODO
-
+        // Only allow player to end turn when knight movement has ended.
         if (!knightMode) {
             if (moves < 1) {
                 JOptionPane.showMessageDialog(InGame,
@@ -460,8 +453,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
     }
 
     /**
-     * Click event when play clicks on his first card in hand
-     *
+     * Click event when player clicks on his first card in hand.     *
      * @param evt
      */
     private void card1ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -472,7 +464,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
     }
 
     /**
-     * Click event when play clicks on his second card in hand
+     * Click event when player clicks on his second card in hand
      *
      * @param evt
      */
@@ -481,10 +473,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         selectedCard.setText(card2.getText());
         tileInPlay = currentPlayer.getDeck().getTile2();
     }
-
-//    private void jButton104ActionPerformed(java.awt.event.ActionEvent evt) {
-//        // TODO add your handling code here:
-//    }
 
     /**
      *  Draws grid based on approriate player size/state of game.
@@ -497,11 +485,11 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         int size = 0;
 
         if (numPlayers == 2)
-            size=7+1;
+            size=8;
         else if (numPlayers == 3)
-            size=9+1;
+            size=10;
         else if (numPlayers == 4)
-            size=10+1;
+            size=11;
 
         grid.setLayout(new java.awt.GridLayout(size, size));
         for (int i = 0; i < size; i++) {
@@ -534,33 +522,32 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
     private void addGridListener(final TileButton button, final Point location) {
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                if(knightMode){
-                    // JJ: add if else to check if game.getMoveableKnights(castleTile, location) is 0
-                    if( game.getMoveableKnights(castleTile, location) > 0 ){
 
+                // If kngihts are being placed, click event will be used to place knights
+                if(knightMode){
+                    // If there is a moveable amount of kngihts from the castle tile to the location the playe clicked on, allow user to place knights
+                    if( game.getMoveableKnights(castleTile, location) > 0 ){
                         KnightPicker knightPicker2 = new KnightPicker(getGUI(), castleTile.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()));
                         knightPicker2.setBackground(GameUtils.getColor(currentPlayer.getColor()));
                         abovePanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
                         knightPicker2.setKnightPicker(game.getMoveableKnights(castleTile, location));
-                        /**
-                         * Cardlayout
-                         */
                         JPanel panel = new JPanel();
                         panel.add(knightPicker2);
                         panel.add(endKnightPlacement);
                         abovePanel.add(panel, "3");
                         //abovePanel.add(endKnightPlacement);
                         cl.show(abovePanel, "3");
-
-
-
                         moveTo = location;
                     }
+
+                    // If no knights are playable, end knight movement
                     else
                         endKnightMovement();
                 }
+
+                // If knights are not being placed, click event will place tiles.
                 if (tileInPlay != null && selectedCard != null) {
-                    // check if tile have already been placed in location
+                    // Play neat sounds.
                     if (game.placeTile(tileInPlay, location, false)) {
                         if(tileInPlay.getTerrain() == Terrain.Lake)
                             playSound("resources/LakePlacement.wav");
@@ -575,15 +562,11 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
                         if(tileInPlay.getBuilding() == Building.Village)
                             playSound("resources/village.wav");
                         tileInPlay = null;
-                        // End turn once player has made 3 turns
-                        //TODO change this so when a castle is placed on the last turn it will activate knight movement
                     }
                 }
             }
         });
     }
-
-
 
     /**
      * Get starting layout of tiles from players.
@@ -800,7 +783,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
                         }
                     }
                 } catch (NoSuchPlayerException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
 
@@ -829,6 +811,10 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         InGame.setJMenuBar(new GameMenu(true, null, game, this));
     }
 
+    /**
+     * Loads game into ui.  Resets listeners in game to use current gui and update the gui to reflect state of loaded game.
+     * @param game - Instance of RobberKnights that is loaded.
+     */
     public void loadGame(RobberKnight game){
         GUI.game = game;
         currentPlayer = GUI.game.getCurrentPlayer();
@@ -892,27 +878,19 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
 
         int d = button.getIcon().getIconHeight()/2;
         int j = button.getIcon().getIconHeight()-5;
-        // System.out.println("button height is" + button.getIcon().getIconHeight());
         for(int i = 0; i < t.getNumKnights(); i++){
             g.setColor(GameUtils.getColor(t.knights.get(i)));
             g.fillOval(d-10, d-10, 20, 20);
             g.fillRect(button.getIcon().getIconWidth()-20, j, 20, 5);
             j = j - 6;
         }
-
-
         g.dispose();
         button.setIcon(new ImageIcon(bi));
-
-
-        //System.out.println("game has " + game.getNumPlayers() + " players");
-
-
     }
+
     /**
      * Remove knights from button
      */
-
     public void removeKnights(Tile tile, JButton button){
         /**
          * Reset image
@@ -926,18 +904,21 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
          */
         drawKnights(button, tile);
     }
+
+
     /**
-     * Triggers when a piece is placed on the game board.  Updates UI board accordingly.
+     * Triggered when board is successfully placed on tile.
      * @param t - tile being placed
+     * @param sys - boolean represent if player placed tile, or the system did ( when redrawing board after shifting/ loading game)
      */
-    // I have add a new boolean value "sys", true if this placetile is provide by system
-    //                                     , false if this placetile is provide by player
     public void placedTile(Tile t, boolean sys) {
         int gridLocation = GameUtils.getGridLocation(t, game.getBoard().getSize());
         TileButton button = (TileButton) grid.getComponent(gridLocation);
         button.setIcon(t.getImage(), game.getNumPlayers());
-        // Increment moves if not castle plcaed.  This is to allow player to initiate knight movement on the last move of their turn.
+
+        // Do not change move counter if the system is placing tiles.
         if(!sys){
+            // Increment moves if it is not a castle placed.  This is to allow player to initiate knight movement on the last move of their turn.
             if(!Building.Castle.equals(t.getBuilding())){
                 moves++;
                 if(currentPlayer.getDeck().getSize() == 0){
@@ -966,13 +947,16 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
     public void placedCastle(Tile castle) {
         endKnightPlacement.setVisible(true);
         knightMode = true;
-        //TODO do not let a player leave 5 on a castle,  only let them place 5 if there are valid places to move to.
 
+        // Get valid locations for movement around castle
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castle, castle.getMinimumKnights() + 1);
         KnightPicker knightPicker2;
+        // If kngihts can be moved, allow player to place up to 5 knights
         if(!gridLocations.isEmpty()){
             knightPicker2 = new KnightPicker(this, castle.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()));
         }
+
+        // If there are no places to move to, only allow player to move 4 knights.
         else{
             knightPicker2 = new KnightPicker(this, castle.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()), true);
         }
@@ -982,15 +966,13 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         panel.add(knightPicker2);
         panel.add(endKnightPlacement);
         abovePanel.add(panel, "3");
-        //abovePanel.add(endKnightPlacement); //TODO problems on kngith movement
-
         cl.show(abovePanel, "3");
         castleTile = castle;
         moves++;
     }
 
     /**
-     *
+     * Removed tile and redraws grid based on which boundary the board has hit.
      * @param x_end - determines if board has hit x boundary
      * @param y_end - determines if board has hit y boudary
      */
@@ -1008,19 +990,13 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         int gridLocation = GameUtils.getGridLocation(castle, game.getBoard().getSize());
         TileButton button = (TileButton) grid.getComponent(gridLocation);
         button.setHorizontalTextPosition(SwingConstants.CENTER);
-        //button.setText(Integer.toString(t.getNumKnights()));
-        //button.setText(Integer.toString(castle.getNumKnights()));
         button.setOpaque(true);
-        //button.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
 
         drawKnights(button, castle);
-
-        // joe - testing valid knight moves
+        // Get valid locations to move knights to.  If none, end knight movement.
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castle, numKnights);
         if(!gridLocations.isEmpty()){
-            //TODO add something to allow user to end knight movement early if they choose to
             disableAllExcept(gridLocations);
-//            knightPicker.setKnightPicker(castle.getNumKnights() - castle.getMinimumKnights());
             knightMode = true;
             castleTile = castle;
         }
@@ -1040,24 +1016,19 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
      * @param playerColor - color of knight on top of destination tile
      */
     public void movedKnight(Tile castle, int numKnights, Tile destination, int knights, Color playerColor) {
-        //To change body of implemented methods use File | Settings | File Templates.
         TileButton startButton = (TileButton) grid.getComponent(GameUtils.getGridLocation(castle, game.getBoard().getSize()));
         TileButton destinationButton = (TileButton) grid.getComponent(GameUtils.getGridLocation(destination, game.getBoard().getSize()));
         startButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        //startButton.setText(Integer.toString(castle.getNumKnights()));
         startButton.setOpaque(true);
         startButton.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
         startButton.setForeground(playerColor); startButton.setHorizontalTextPosition(SwingConstants.CENTER);
+
         destinationButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        //destinationButton.setText(Integer.toString(destination.getNumKnights()));
         destinationButton.setOpaque(true);
         destinationButton.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
-        //destinationButton.setForeground(playerColor);
+
+        // Get valid locations to move knights to. Continue to knight movement if there are locations, else end knight movement.
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castleTile, destination, castle.getNumKnights());
-
-        //System.out.println("numknights-1" + (numKnights-1));
-        //System.out.println("destination.getnumknights..." + destination.getNumKnights());
-
         drawKnights(destinationButton, destination);
         removeKnights(castle, startButton);
         if(!castle.getTopKnight().equals( destination.getBottomKnight())){
@@ -1099,8 +1070,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
 
     /**
      * Helper method that disables all buttons on grid except for locations given in array.
-     * TODO: maybe disable isn't the right thing to do.  this way the player cannot tell what color knights are on each tile.
-     * TODO: when they are placing them     *
      * @param gridLocations - location of buttons to be left enabled
      */
     private void disableAllExcept(ArrayList<Integer> gridLocations) {
@@ -1191,29 +1160,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         this.numberOfKnights.setText(Integer.toString(numberOfKnights));
     }
 
-    // END LISTENER IMPLEMENTATION
-
-    /**
-     * Informs game that knights have been placed on castle
-     * @param numberOfKnights
-     */
-    public void placeKnight(int numberOfKnights) {
-        game.placeKnight(castleTile, numberOfKnights);
-    }
-
-    /**
-     * Informs game knights have moved.
-     */
-    public void moveKnight(int numberOfKnights) {
-        game.moveKnight(castleTile, moveTo, numberOfKnights);
-        Player current = game.getCurrentPlayer();
-        Tile goTo = game.getBoard().getTile(moveTo);
-        if(goTo.knights.size() > 0)
-            if(current.getColor() != goTo.getTopKnight())
-                playSound("resources/KillStab.wav");
-    }
-
-
     /**
      * Ends knight movement
      */
@@ -1256,6 +1202,27 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         }
     }
 
+    // END LISTENER IMPLEMENTATION
+
+    /**
+     * Informs game that knights have been placed on castle
+     * @param numberOfKnights
+     */
+    public void placeKnight(int numberOfKnights) {
+        game.placeKnight(castleTile, numberOfKnights);
+    }
+
+    /**
+     * Informs game knights have moved.
+     */
+    public void moveKnight(int numberOfKnights) {
+        game.moveKnight(castleTile, moveTo, numberOfKnights);
+        Player current = game.getCurrentPlayer();
+        Tile goTo = game.getBoard().getTile(moveTo);
+        if(goTo.knights.size() > 0)
+            if(current.getColor() != goTo.getTopKnight())
+                playSound("resources/KillStab.wav");
+    }
 
     /**
      * Helper method used to play sound .
