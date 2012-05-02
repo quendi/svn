@@ -20,7 +20,7 @@ import java.io.*;
  *
  * @author Aaron
  */
-public class GUI implements PlayerListener,BoardListener, TurnListener, Serializable{
+public class GUI implements PlayerListener,BoardListener, TurnListener{
 
     private JButton selectedCard = new JButton("Null");
     private int moves = 0;
@@ -555,6 +555,12 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
          * Initialization
          */
         initialTile.setVisible(true);
+        
+        // TEST
+        //currentColor.setText(currentPlayer.getColor().toString());
+        //InGame.getContentPane().setBackground(GameUtils.getColor(currentPlayer.getColor()));
+        initialTile.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+        
         initialTile.setBounds(100, 100, 850, 450);
         initialTile.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
