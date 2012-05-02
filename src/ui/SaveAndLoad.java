@@ -4,7 +4,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -194,7 +193,10 @@ public class SaveAndLoad extends JMenu{
 		saveFrame.setResizable(false);
 		saveFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
-		//textArea.setText((new Date()).toString());//FIX SO YOU CAN SAVE AS A DATE...
+		Date d = new Date();
+		@SuppressWarnings("deprecation")
+		String date = "" + d.getMonth() + "/" + d.getDate() + "/" + (d.getYear()+1900) + "-" + d.getHours() + ":" + d.getMinutes();
+		textArea.setText(date);//FIX SO YOU CAN SAVE AS A DATE...
 		
 		cancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
