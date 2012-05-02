@@ -148,10 +148,6 @@ public class SaveAndLoad extends JMenu{
     		c.printStackTrace();
     		return null;
     	}
-    	System.out.println("gamestate is ");
-    	System.out.println(gs);
-    	System.out.println("readFile is returning ");
-    	System.out.println(gs.game);
     	return gs.game;
     	
 	}
