@@ -36,6 +36,11 @@ public class RobberKnight implements Serializable{
     public int[] getTotals(){
         board.calculatePoints();
         playerTotals = board.getPlayerTotals();
+        for(Player p : players){
+        	if(!p.isInGame()){
+        		playerTotals[p.getId()] = 0;        		
+        	}
+        }
         return playerTotals;
     }
 
