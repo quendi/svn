@@ -26,7 +26,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
     private int moves = 0;
     private Tile tileInPlay;
     protected Player currentPlayer;
-    private boolean knightMode = false;
     private Point moveTo;
 
     public static RobberKnight game;
@@ -400,7 +399,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
      */
     private void endTurnActionPerformed() {
         // Only allow player to end turn when knight movement has ended.
-        if (!knightMode) {
+        if (!game.getBoard().isKnightmode()) {
             if (moves < 1) {
                 JOptionPane.showMessageDialog(InGame,
                         "You must make at least one move.",
@@ -417,7 +416,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         }
         else{
             JOptionPane.showMessageDialog(InGame,
-                    "You must finish placing knights befor ending your turn..",
+                    "You must finish placing knights before ending your turn.",
                     "Place your knights.", JOptionPane.PLAIN_MESSAGE);
         }
         //InGame.setJMenuBar(new GameMenu(true, null, game));
@@ -495,7 +494,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
             public void actionPerformed(java.awt.event.ActionEvent evt) {
 
                 // If kngihts are being placed, click event will be used to place knights
-                if(knightMode){
+                if(game.getBoard().isKnightmode()){
                     // If there is a moveable amount of kngihts from the castle tile to the location the playe clicked on, allow user to place knights
                     if( game.getMoveableKnights(castleTile, location) > 0 ){
                         KnightPicker knightPicker2 = new KnightPicker(getGUI(), castleTile.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()));
@@ -930,7 +929,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
      */
     public void placedCastle(Tile castle) {
         endKnightPlacement.setVisible(true);
-        knightMode = true;
 
         // Get valid locations for movement around castle
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castle, Tile.getMaxCastleKnights());
@@ -976,20 +974,19 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         TileButton button = (TileButton) grid.getComponent(gridLocation);
         button.setHorizontalTextPosition(SwingConstants.CENTER);
         button.setOpaque(true);
-
         drawKnights(button, castle);
-        // Get valid locations to move knights to.  If none, end knight movement.
-        ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castle, numKnights);
-        if(!gridLocations.isEmpty()){
-            disableAllExcept(gridLocations);
-            knightMode = true;
-            castleTile = castle;
-        }
-        else{
-            endKnightMovement();
-        }
-
         playSound("resources/KnightMovement.wav");
+        // Get valid locations to move knights to.  If none, end knight movement.
+        //TODO refactoring to board rather than doing logic in ui
+//        ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castle, numKnights);
+//        if(!gridLocations.isEmpty()){
+//            disableAllExcept(gridLocations);
+//            castleTile = castle;
+//        }
+//        else{
+//            endKnightMovement();
+//        }
+
     }
 
     /**
@@ -1007,27 +1004,28 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         startButton.setOpaque(true);
         startButton.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
         startButton.setForeground(playerColor); startButton.setHorizontalTextPosition(SwingConstants.CENTER);
-
         destinationButton.setHorizontalTextPosition(SwingConstants.CENTER);
         destinationButton.setOpaque(true);
         destinationButton.setFont(new Font(selectedCard.getFont().getName(),selectedCard.getFont().getStyle(),30));
-
-        // Get valid locations to move knights to. Continue to knight movement if there are locations, else end knight movement.
-        ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castleTile, destination, castle.getNumKnights());
         drawKnights(destinationButton, destination);
         removeKnights(castle, startButton);
         if(destination.getNumKnights() != 0  && !castle.getTopKnight().equals( destination.getBottomKnight())){
             playSound("resources/KnightTakesKnight.wav");
         }
 
-        if(!gridLocations.isEmpty()){
-            reenableAll();
-            disableAllExcept(gridLocations);
-            knightMode = true;
-        }
-        else{
-            endKnightMovement();
-        }
+
+//        //TODO attemtping to refactor into board rather than do logic in ui
+//        // Get valid locations to move knights to. Continue to knight movement if there are locations, else end knight movement.
+//        ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castleTile, destination, castle.getNumKnights());
+//
+//
+//        if(!gridLocations.isEmpty()){
+//            reenableAll();
+//            disableAllExcept(gridLocations);
+//        }
+//        else{
+//            endKnightMovement();
+//        }
 
     }
 
@@ -1156,13 +1154,13 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
             cl.show(abovePanel, "1");
             castleTile = null;
             reenableAll();
-            knightMode = false;
+            game.getBoard().setKnightmode(false);
             if(currentPlayer.getDeck().getSize() == 0){
                 try {
                     currentPlayer = game.getNextPlayer();
                     return;
                 } catch (NoSuchPlayerException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    e.printStackTrace();
                 }
             }
             if (moves > 2) {
@@ -1175,6 +1173,25 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                     "5 knights are left on a castle.", JOptionPane.PLAIN_MESSAGE);
 
         }
+    }
+
+    /**
+     * Shows valid locations obtained from board.
+     * @param locations - locations in grid that are avaibleable for movement.
+     */
+    public void showValidLocations(ArrayList<Integer> locations) {
+        reenableAll();
+        disableAllExcept(locations);
+    }
+
+    /**
+     * Shows valid location when from castle placement
+     * @param locations - locations next to castle that are valid
+     * @param castle - castle tile locations are determined from.
+     */
+    public void showValidLocations(ArrayList<Integer> locations, Tile castle) {
+        disableAllExcept(locations);
+        castleTile = castle;
     }
 
     /**
