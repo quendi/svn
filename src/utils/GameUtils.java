@@ -22,16 +22,16 @@ public class GameUtils {
     public static java.awt.Color getColor(domain.enums.Color c){
     	// This is for PASTEL Colors, good for BLACK writing
     	if(c == domain.enums.Color.RED){
-    		return new java.awt.Color(255, 31, 31);
+    		return new java.awt.Color(255, 159, 148);
     	}
     	if(c == domain.enums.Color.GREEN){
-    		return new java.awt.Color(31, 255, 31);
+    		return new java.awt.Color(191, 255, 148);
     	}
     	if(c == domain.enums.Color.BLUE){
-    		return new java.awt.Color(31, 31, 255);
+    		return new java.awt.Color(148, 191, 255);
     	}
     	if(c == domain.enums.Color.YELLOW){
-    		return new java.awt.Color(255, 255, 31);
+    		return new java.awt.Color(244, 255, 148);
     	}
     	return new java.awt.Color(0, 0, 0);
     	
