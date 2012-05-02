@@ -147,12 +147,12 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         playersTurn.setText("Number");
 
         currentColor.setText("Color");
-        
-        
+
+
         /**
          * Knight picker
          */
-        
+
         /**
          * Set cardlayout
          */
@@ -163,7 +163,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         abovePanel = new JPanel(cl);
         abovePanel.add(normalPanel, "1");
         abovePanel.add(knightPickerPanel, "2");
-        
+
 
         GroupLayout PlayerPanelLayout = new GroupLayout (
                 PlayerPanel);
@@ -349,7 +349,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
                                         63,
                                         GroupLayout.PREFERRED_SIZE)
 
-                                //.addGap(52, 52, 52)
+                                        //.addGap(52, 52, 52)
                                 .addGroup(
                                         PlayerPanelLayout
                                                 .createParallelGroup(
@@ -453,8 +453,8 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         }
         else{
             JOptionPane.showMessageDialog(InGame,
-                        "You must finish placing knights befor ending your turn..",
-                        "Place your knights.", JOptionPane.PLAIN_MESSAGE);
+                    "You must finish placing knights befor ending your turn..",
+                    "Place your knights.", JOptionPane.PLAIN_MESSAGE);
         }
         //InGame.setJMenuBar(new GameMenu(true, null, game));
     }
@@ -511,16 +511,16 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
                 addGridListener(button, location);
                 grid.add(button);
                 if(j==size-1 && x_end)
-                	button.setVisible(false);                	
+                    button.setVisible(false);
                 if(i==size-1 && y_end)
-                	button.setVisible(false);
+                    button.setVisible(false);
             }
         }
         InGame.repaint();
     }
 
     private GUI getGUI(){
-    	return this;
+        return this;
     }
 
 
@@ -535,29 +535,29 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if(knightMode){
-                	// JJ: add if else to check if game.getMoveableKnights(castleTile, location) is 0
-                	if( game.getMoveableKnights(castleTile, location) > 0 ){
-                		
-                		KnightPicker knightPicker2 = new KnightPicker(getGUI(), castleTile.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()));
+                    // JJ: add if else to check if game.getMoveableKnights(castleTile, location) is 0
+                    if( game.getMoveableKnights(castleTile, location) > 0 ){
+
+                        KnightPicker knightPicker2 = new KnightPicker(getGUI(), castleTile.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()));
                         knightPicker2.setBackground(GameUtils.getColor(currentPlayer.getColor()));
                         abovePanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
-                		knightPicker2.setKnightPicker(game.getMoveableKnights(castleTile, location));
-                		/**
-                		 * Cardlayout
-                		 */
-                		JPanel panel = new JPanel();
-                		panel.add(knightPicker2);
-                		panel.add(endKnightPlacement);
-                		abovePanel.add(panel, "3");
-                		//abovePanel.add(endKnightPlacement);
-                		cl.show(abovePanel, "3");
-                		
-                		
-                		
-                		moveTo = location;
-                	}
-                	else
-                		endKnightMovement();
+                        knightPicker2.setKnightPicker(game.getMoveableKnights(castleTile, location));
+                        /**
+                         * Cardlayout
+                         */
+                        JPanel panel = new JPanel();
+                        panel.add(knightPicker2);
+                        panel.add(endKnightPlacement);
+                        abovePanel.add(panel, "3");
+                        //abovePanel.add(endKnightPlacement);
+                        cl.show(abovePanel, "3");
+
+
+
+                        moveTo = location;
+                    }
+                    else
+                        endKnightMovement();
                 }
                 if (tileInPlay != null && selectedCard != null) {
                     // check if tile have already been placed in location
@@ -786,14 +786,14 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
                                     JOptionPane.PLAIN_MESSAGE);
                         }
                     } else {
-                    	// fix the bug when the final player can start the game with place 2 init tiles
-                    	if (tilesPlaced >= 2) {
-                    		initialTile.setVisible(false);
-                    		currentPlayer = game.getNextPlayer();
-                    		InGame.setVisible(true);
-                    		selectedCard = new JButton();
-                    	}
-                    	else {
+                        // fix the bug when the final player can start the game with place 2 init tiles
+                        if (tilesPlaced >= 2) {
+                            initialTile.setVisible(false);
+                            currentPlayer = game.getNextPlayer();
+                            InGame.setVisible(true);
+                            selectedCard = new JButton();
+                        }
+                        else {
                             JOptionPane.showMessageDialog(initialTile,
                                     "You must place two tiles.", "Error",
                                     JOptionPane.PLAIN_MESSAGE);
@@ -830,22 +830,22 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
     }
 
     public void loadGame(RobberKnight game){
-    	GUI.game = game;
+        GUI.game = game;
         currentPlayer = GUI.game.getCurrentPlayer();
         card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
         card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
         deckLabel.setIcon(currentPlayer.getDeck().getTile3().getBack());
         playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
         numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
-    	setUpGrid(grid, GUI.game.getNumPlayers(), false, false);
-    	InGame.setVisible(true);
-    	game.setListeners(this, this, this);
-    	game.getBoard().load_board();
+        setUpGrid(grid, GUI.game.getNumPlayers(), false, false);
+        InGame.setVisible(true);
+        game.setListeners(this, this, this);
+        game.getBoard().load_board();
 
         currentColor.setText(currentPlayer.getColor().toString());
         InGame.getContentPane().setBackground(GameUtils.getColor(currentPlayer.getColor()));
         PlayerPanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
-        
+
         InGame.setJMenuBar(new GameMenu(true, null, game, this));
     }
 
@@ -966,7 +966,16 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
     public void placedCastle(Tile castle) {
         endKnightPlacement.setVisible(true);
         knightMode = true;
-        KnightPicker knightPicker2 = new KnightPicker(this, castle.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()));
+        //TODO do not let a player leave 5 on a castle,  only let them place 5 if there are valid places to move to.
+
+        ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castle, castle.getMinimumKnights() + 1);
+        KnightPicker knightPicker2;
+        if(!gridLocations.isEmpty()){
+            knightPicker2 = new KnightPicker(this, castle.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()));
+        }
+        else{
+            knightPicker2 = new KnightPicker(this, castle.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()), true);
+        }
         abovePanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         knightPicker2.setVisible(true);
         JPanel panel = new JPanel();
@@ -974,7 +983,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         panel.add(endKnightPlacement);
         abovePanel.add(panel, "3");
         //abovePanel.add(endKnightPlacement); //TODO problems on kngith movement
-		
+
         cl.show(abovePanel, "3");
         castleTile = castle;
         moves++;
@@ -1052,7 +1061,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         drawKnights(destinationButton, destination);
         removeKnights(castle, startButton);
         if(!castle.getTopKnight().equals( destination.getBottomKnight())){
-                playSound("resources/KnightTakesKnight.wav");
+            playSound("resources/KnightTakesKnight.wav");
         }
 
         if(!gridLocations.isEmpty()){
@@ -1083,9 +1092,9 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
             c.setEnabled(true);
         }
         if(currentPlayer.getDeck().getSize() > 2)
-        	deckLabel.setEnabled(true);
+            deckLabel.setEnabled(true);
         else
-        	deckLabel.setEnabled(false);
+            deckLabel.setEnabled(false);
     }
 
     /**
@@ -1109,9 +1118,9 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
      * Updates hand in ui to current player. Triggered when player places a tile.
      */
     public void updateHand() {
-    	if(currentPlayer.getDeck().getSize() < 3){
+        if(currentPlayer.getDeck().getSize() < 3){
             deckLabel.setIcon(null);
-    	}
+        }
         if(currentPlayer.getDeck().getSize() > 0){
             card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
             card1.setEnabled(true);
@@ -1132,12 +1141,12 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
             card2.setEnabled(false);
         }
         if(currentPlayer.getDeck().getSize() > 2){
-        	deckLabel.setIcon(currentPlayer.getDeck().getTile3().getBack());
-        	deckLabel.setEnabled(true);
+            deckLabel.setIcon(currentPlayer.getDeck().getTile3().getBack());
+            deckLabel.setEnabled(true);
         }
         else{
-        	deckLabel.setIcon(null);
-        	deckLabel.setEnabled(false);
+            deckLabel.setIcon(null);
+            deckLabel.setEnabled(false);
         }
     }
 
@@ -1165,12 +1174,12 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
             card2.setEnabled(false);
         }
         if(p.getDeck().getSize() > 2){
-        	deckLabel.setIcon(p.getDeck().getTile3().getBack());
-        	deckLabel.setEnabled(true);
+            deckLabel.setIcon(p.getDeck().getTile3().getBack());
+            deckLabel.setEnabled(true);
         }
         else{
-        	deckLabel.setIcon(null);
-        	deckLabel.setEnabled(false);
+            deckLabel.setIcon(null);
+            deckLabel.setEnabled(false);
         }
     }
 
@@ -1209,22 +1218,30 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
      * Ends knight movement
      */
     public void endKnightMovement() {
-        endKnightPlacement.setVisible(false);
-        //knightPicker.setVisible(false);
-        cl.show(abovePanel, "1");
-        castleTile = null;
-        reenableAll();
-        knightMode = false;
-        if(currentPlayer.getDeck().getSize() == 0){
-            try {
-                currentPlayer = game.getNextPlayer();
-                return;
-            } catch (NoSuchPlayerException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        if(castleTile.getNumKnights() < 5){
+            endKnightPlacement.setVisible(false);
+            //knightPicker.setVisible(false);
+            cl.show(abovePanel, "1");
+            castleTile = null;
+            reenableAll();
+            knightMode = false;
+            if(currentPlayer.getDeck().getSize() == 0){
+                try {
+                    currentPlayer = game.getNextPlayer();
+                    return;
+                } catch (NoSuchPlayerException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+            }
+            if (moves > 2) {
+                endTurnActionPerformed();
             }
         }
-        if (moves > 2) {
-            endTurnActionPerformed();
+        else{
+              JOptionPane.showMessageDialog(InGame,
+                        "You cannot leave 5 knights on a castle.",
+                        "5 knights are left on a castle.", JOptionPane.PLAIN_MESSAGE);
+
         }
     }
 
