@@ -438,6 +438,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
             } else {
                 try {
                     currentPlayer = game.getNextPlayer();
+                    normalPanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
                 } catch (NoSuchPlayerException e) {
                     e.printStackTrace();
                 }
@@ -532,6 +533,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
                         abovePanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
                         knightPicker2.setKnightPicker(game.getMoveableKnights(castleTile, location));
                         JPanel panel = new JPanel();
+                        panel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
                         panel.add(knightPicker2);
                         panel.add(endKnightPlacement);
                         abovePanel.add(panel, "3");
@@ -789,6 +791,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
             }
         });
 
+        normalPanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         initialTile.add(tilePanel);
 
     }
@@ -963,6 +966,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         abovePanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         knightPicker2.setVisible(true);
         JPanel panel = new JPanel();
+        panel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         panel.add(knightPicker2);
         panel.add(endKnightPlacement);
         abovePanel.add(panel, "3");
@@ -1167,6 +1171,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
         if(castleTile.getNumKnights() < 5){
             endKnightPlacement.setVisible(false);
             //knightPicker.setVisible(false);
+            normalPanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
             cl.show(abovePanel, "1");
             castleTile = null;
             reenableAll();
