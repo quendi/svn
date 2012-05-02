@@ -12,7 +12,7 @@ import javax.swing.*;
 public class Tile implements Serializable{
     // SerialversionUID for serialization
 	private static final long serialVersionUID = 1L;
-	
+	private static final int MAX_CASTLE_KNIGHTS = 5;
     private Terrain  terrain;
     private Building building;
     private char 	 letter;
@@ -102,6 +102,10 @@ public class Tile implements Serializable{
 
     public void setMinimumKnights(int minimumKnights) {
         this.minimumKnights = minimumKnights;
+    }
+
+    public static int getMaxCastleKnights() {
+        return MAX_CASTLE_KNIGHTS;
     }
 
     private void setImage(Terrain t, Building b){
