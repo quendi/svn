@@ -2,8 +2,6 @@ package domain.enums;
 
 import java.io.Serializable;
 
-import javax.swing.*;
-
 public enum Building implements Serializable{
 	Village(2),
 	Castle(1),

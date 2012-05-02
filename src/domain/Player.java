@@ -11,6 +11,9 @@ import java.util.Date;
  * Time: 5:41:38 PM
  */
 public class Player implements Serializable{
+    // SerialversionUID for serialization
+	private static final long serialVersionUID = 1L;
+	
 	private int numKnights;
     private String name;
     private Color color;

@@ -13,6 +13,9 @@ import domain.enums.Color;
 import domain.enums.Terrain;
 
 public class Deck implements Serializable{
+    // SerialversionUID for serialization
+	private static final long serialVersionUID = 1L;
+	
 	private ArrayList<Tile> tiles = new ArrayList<Tile>();
     private Random generator = new Random(System.currentTimeMillis());
 
