@@ -436,17 +436,25 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
      */
     private void endTurnActionPerformed() {
         // TODO
-        if (moves < 1) {
-            JOptionPane.showMessageDialog(InGame,
-                    "You must make at least one move.",
-                    "More moves are neccessary", JOptionPane.PLAIN_MESSAGE);
-        } else {
-            try {
-                currentPlayer = game.getNextPlayer();
-            } catch (NoSuchPlayerException e) {
-                e.printStackTrace();
-            }
 
+        if (!knightMode) {
+            if (moves < 1) {
+                JOptionPane.showMessageDialog(InGame,
+                        "You must make at least one move.",
+                        "More moves are neccessary", JOptionPane.PLAIN_MESSAGE);
+            } else {
+                try {
+                    currentPlayer = game.getNextPlayer();
+                } catch (NoSuchPlayerException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(InGame,
+                        "You must finish placing knights befor ending your turn..",
+                        "Place your knights.", JOptionPane.PLAIN_MESSAGE);
         }
         //InGame.setJMenuBar(new GameMenu(true, null, game));
     }
@@ -957,6 +965,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
      */
     public void placedCastle(Tile castle) {
         endKnightPlacement.setVisible(true);
+        knightMode = true;
         KnightPicker knightPicker2 = new KnightPicker(this, castle.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()));
         abovePanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         knightPicker2.setVisible(true);
