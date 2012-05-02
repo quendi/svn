@@ -23,7 +23,7 @@ public class Deck implements Serializable{
     	int rep;
     	populateDeck( color );
     	rep = generator.nextInt(10)+10;
-    	//shuffleTiles(4, 8, rep);	//b
+    	shuffleTiles(4, 8, rep);	//b
     	rep = generator.nextInt(10)+10;
     	shuffleTiles(9, 13, rep);	//c
     	rep = generator.nextInt(10)+10;
