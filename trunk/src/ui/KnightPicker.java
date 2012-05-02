@@ -3,6 +3,7 @@ package ui;
 import org.apache.commons.lang3.ArrayUtils;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class KnightPicker extends JPanel {
      * @param gui - main game window
      * @param minimumKnights - minimum knights that player should be allowed to play
      */
-    public KnightPicker(GUI gui, int minimumKnights){
+    public KnightPicker(GUI gui, int minimumKnights, Color color){
     	
         this.gui = gui;
        // this.setBounds(500, 500, 200, 200);
@@ -44,6 +45,10 @@ public class KnightPicker extends JPanel {
         knightPanel.add(knightPick);
         knightPanel.add(ok);
         this.add(knightPanel);
+        knightPanel.setBackground(color);
+        knightPanel.setForeground(color);
+        this.setBackground(color);
+        this.setForeground(color);
     }
 
 

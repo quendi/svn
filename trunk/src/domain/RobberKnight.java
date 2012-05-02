@@ -185,8 +185,20 @@ public class RobberKnight implements Serializable{
         try{
             Player p = lookUpPlayerById(currentPlayerId);
             p.setInGame(false);
+            int playersLeft = 0;
+            for(Player player : players){
+                if (player.isInGame()){
+                    playersLeft++;
+                }
+
+            }
+            if(playersLeft == 1){
+                turnListener.endGame();
+            }
             turnListener.endTurn();
+
         }
+
         catch(Exception e){
             e.printStackTrace();
         }
