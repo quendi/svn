@@ -30,10 +30,10 @@ public class PlayerSelection extends JFrame{
 	private JPanel thirdPanel = new JPanel(new GridLayout(4,1));
 	private JPanel fourthPanel = new JPanel(new GridLayout(4,1));
 	
-	private JLabel player1Name = new JLabel("Player 1", JLabel.CENTER);
-	private JLabel player2Name = new JLabel("Player 2", JLabel.CENTER);
-	private JLabel player3Name = new JLabel("Player 3", JLabel.CENTER);
-	private JLabel player4Name = new JLabel("Player 4", JLabel.CENTER);
+	private JTextArea player1Name = new JTextArea("Player 1");
+	private JTextArea player2Name = new JTextArea("Player 2");
+	private JTextArea player3Name = new JTextArea("Player 3");
+	private JTextArea player4Name = new JTextArea("Player 4");
 	
 	private JLabel birthday1 = new JLabel("Enter Birthday:", JLabel.CENTER);
 	private JLabel birthday2 = new JLabel("Enter Birthday:", JLabel.CENTER);
@@ -81,6 +81,8 @@ public class PlayerSelection extends JFrame{
 	private JPanel sub2ButtonPanel = new JPanel(new BorderLayout());
 	private JButton addPlayer3 = new JButton("Add Player");
 	private JButton addPlayer4 = new JButton("Add Player");
+	
+	private ArrayList<String> names = new ArrayList<String>();
 
 	/**
 	 * South panel
@@ -186,6 +188,12 @@ public class PlayerSelection extends JFrame{
 		        dates.add(new Date(Integer.parseInt(year2.getSelectedItem().toString()) - 1900, month2.getSelectedIndex(), day2.getSelectedIndex()+1));
 		        dates.add(new Date(Integer.parseInt(year3.getSelectedItem().toString()) - 1900, month3.getSelectedIndex(), day3.getSelectedIndex()+1));
 		        dates.add(new Date(Integer.parseInt(year4.getSelectedItem().toString()) - 1900, month4.getSelectedIndex(), day4.getSelectedIndex()+1));
+		        names.add(player1Name.getText());
+		        names.add(player2Name.getText());
+		        names.add(player3Name.getText());
+		        names.add(player4Name.getText());
+
+		        
 		        ArrayList<Color> colors = new ArrayList<Color>();
 		        colors.add(Color.BLUE);
 		        colors.add(Color.GREEN);
@@ -196,7 +204,7 @@ public class PlayerSelection extends JFrame{
 		        erase();
 		        // Create game and return to main window(GUI).
 		        GUI gui = new GUI();
-		        gui.startGame(new RobberKnight(numOfPlayers, colors, dates, gui));
+		        gui.startGame(new RobberKnight(numOfPlayers, names, colors, dates, gui));
 		        
 		    }
         });

@@ -27,7 +27,7 @@ import java.util.Scanner;
 @SuppressWarnings("serial")
 public class SaveAndLoad extends JMenu{
 
-	static RobberKnight game = new RobberKnight(0, null, null, null);
+	static RobberKnight game = new RobberKnight(0, null, null, null, null);
 	JMenuItem saveGame = new JMenuItem("Save");
 	JMenu loadGame = new JMenu("Load");
 	ArrayList<String> loadNames = new ArrayList<String>();

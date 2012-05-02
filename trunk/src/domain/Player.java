@@ -25,7 +25,8 @@ public class Player implements Serializable{
 
     public Player(){}
 
-    public Player(Color color, Date birthdate, int id, PlayerListener pl) {
+    public Player(String name, Color color, Date birthdate, int id, PlayerListener pl) {
+    	this.name = name;
         this.inGame = true;
         this.color = color;
         this.birthDate = birthdate;
