@@ -20,7 +20,7 @@ public class RobberKnight implements Serializable{
     private ArrayList<Player> players;
     private Board board;
     private int currentPlayerId;
-    private TurnListener turnListener;
+    transient private TurnListener turnListener;
     private int[] playerTotals = new int[4];
     private static final int MAX_KNIGHT = 4;
 
