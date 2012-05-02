@@ -1238,15 +1238,22 @@ public class GUI implements PlayerListener,BoardListener, TurnListener, Serializ
             }
         }
         else{
-              JOptionPane.showMessageDialog(InGame,
-                        "You cannot leave 5 knights on a castle.",
-                        "5 knights are left on a castle.", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(InGame,
+                    "You cannot leave 5 knights on a castle.",
+                    "5 knights are left on a castle.", JOptionPane.PLAIN_MESSAGE);
 
         }
     }
 
+    /**
+     * Called after player surrender. Will skip player's turn no matter if he played a move or not.
+     */
     public void endTurn() {
-        endTurnActionPerformed();
+        try {
+            currentPlayer = game.getNextPlayer();
+        } catch (NoSuchPlayerException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -57,7 +57,7 @@ public class KnightPicker extends JPanel {
        // this.setBounds(500, 500, 200, 200);
         JLabel message = new JLabel("Number of Knight to Place");
         String[] knightPickers = new String[MAX_KNIGHTS];
-        for(int i = minimumKnights; i <= MAX_KNIGHTS; i++){
+        for(int i = minimumKnights; i < MAX_KNIGHTS; i++){
             knightPickers[i] = Integer.toString(i);
         }
         knightPick =  new JComboBox(new DefaultComboBoxModel(knightPickers));

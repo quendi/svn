@@ -12,4 +12,5 @@ public interface TurnListener {
     public void endGame();
     public void endKnightMovement();
     public void endTurn();
+
 }
