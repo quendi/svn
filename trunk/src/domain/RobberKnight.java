@@ -15,6 +15,8 @@ import exceptions.NoSuchPlayerException;
  * To change this template use File | Settings | File Templates.
  */
 public class RobberKnight implements Serializable{
+    // SerialversionUID for serialization
+	private static final long serialVersionUID = 1L;
 
     private int numPlayers;
     private ArrayList<Player> players;
@@ -149,14 +151,6 @@ public class RobberKnight implements Serializable{
     public Player getCurrentPlayer()
     {
         return players.get(currentPlayerId);
-    }
-
-
-    /**
-     * Totals points and ends game.
-     */
-    private void endGame() {
-
     }
 
 

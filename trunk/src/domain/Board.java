@@ -18,7 +18,10 @@ import java.util.ArrayList;
 
 
 public class Board implements Serializable{
-    private int size;
+    // SerialversionUID for serialization
+	private static final long serialVersionUID = 1L;
+	
+	private int size;
     private Tile[][] tiles;
     transient private BoardListener boardListener;
 

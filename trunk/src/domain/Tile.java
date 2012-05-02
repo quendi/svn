@@ -10,6 +10,9 @@ import domain.enums.*;
 import javax.swing.*;
 
 public class Tile implements Serializable{
+    // SerialversionUID for serialization
+	private static final long serialVersionUID = 1L;
+	
     private Terrain  terrain;
     private Building building;
     private char 	 letter;
