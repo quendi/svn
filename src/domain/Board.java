@@ -25,6 +25,7 @@ public class Board implements Serializable{
     private Tile[][] tiles;
     transient private BoardListener boardListener;
     private boolean knightmode;
+    private Tile castleTile;
 
     private boolean x_end=false;
     private boolean y_end=false;
@@ -56,6 +57,14 @@ public class Board implements Serializable{
 
     public void setKnightmode(boolean knightmode) {
         this.knightmode = knightmode;
+    }
+
+    public Tile getCastleTile() {
+        return castleTile;
+    }
+
+    public void setCastleTile(Tile castleTile) {
+        this.castleTile = castleTile;
     }
 
     /**
@@ -148,6 +157,7 @@ public class Board implements Serializable{
 
     private void notifyCastlePlacement(Tile t) {
         knightmode = true;
+        castleTile = t;
         boardListener.placedCastle(t);
 
 //        ArrayList<Integer> gridLocations = getValidMoves(t, Tile.getMaxCastleKnights());
