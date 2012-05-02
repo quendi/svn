@@ -19,11 +19,12 @@ import java.util.ArrayList;
 
 public class Board implements Serializable{
     // SerialversionUID for serialization
-	private static final long serialVersionUID = 1L;
-	
-	private int size;
+    private static final long serialVersionUID = 1L;
+
+    private int size;
     private Tile[][] tiles;
     transient private BoardListener boardListener;
+    private boolean knightmode;
 
     private boolean x_end=false;
     private boolean y_end=false;
@@ -47,6 +48,14 @@ public class Board implements Serializable{
             size=11;
 
         tiles=new Tile[size][size];
+    }
+
+    public boolean isKnightmode() {
+        return knightmode;
+    }
+
+    public void setKnightmode(boolean knightmode) {
+        this.knightmode = knightmode;
     }
 
     /**
@@ -122,10 +131,10 @@ public class Board implements Serializable{
                 }
                 //System.out.println("X: " + t.getLocation().getX() + " Y: " + t.getLocation().getY());
                 if( t.getLocation().getX() == 0 ||
-                    t.getLocation().getY() == 0 ||
-                    t.getLocation().getY() == size - 1 ||
-                    t.getLocation().getX() == size - 1 ){
-                    	OutofBound(t);
+                        t.getLocation().getY() == 0 ||
+                        t.getLocation().getY() == size - 1 ||
+                        t.getLocation().getX() == size - 1 ){
+                    OutofBound(t);
                 }
 
             }
@@ -138,7 +147,20 @@ public class Board implements Serializable{
     }
 
     private void notifyCastlePlacement(Tile t) {
+        knightmode = true;
         boardListener.placedCastle(t);
+
+//        ArrayList<Integer> gridLocations = getValidMoves(t, Tile.getMaxCastleKnights());
+//        // If kngihts can be moved, allow player to place up to 5 knights
+//         boardListener.
+//        if(!gridLocations.isEmpty()){
+//            knightPicker2 = new KnightPicker(this, castle.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()));
+//        }
+//
+//        // If there are no places to move to, only allow player to move 4 knights.
+//        else{
+//            knightPicker2 = new KnightPicker(this, castle.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()), true);
+//        }
     }
 
     /**
@@ -260,11 +282,11 @@ public class Board implements Serializable{
         }
     }
 
-    
+
     public void load_board(){
-    	int i, j;
-    	
-    	notifyRemoved(x_end, y_end);
+        int i, j;
+
+        notifyRemoved(x_end, y_end);
         for( i = 0;  i < size; i++){
             for( j = 0;  j < size; j++){
                 if( tiles[i][j] != null ){
@@ -284,8 +306,17 @@ public class Board implements Serializable{
     public boolean placeKnight(Tile castle, int numKnights, Color currentPlayerColor){
         // Make sure the number of knights being placed is at least the minimum amount of knights for the tile.
         if(numKnights >= castle.getMinimumKnights()){
-        	castle.AddKnights(numKnights, currentPlayerColor);
+            castle.AddKnights(numKnights, currentPlayerColor);
             boardListener.placedKnight(castle, castle.getNumKnights(), GameUtils.getColor(currentPlayerColor));
+
+            // If knights can be moved, continue knight movement
+            ArrayList<Integer> gridLocations = getValidMoves(castle, castle.getNumKnights());
+            if(!gridLocations.isEmpty()){
+                boardListener.showValidLocations(gridLocations, castle);
+            }
+            else{
+                boardListener.endKnightMovement();
+            }
             return true;
         }
         return false;
@@ -312,9 +343,17 @@ public class Board implements Serializable{
 
         // Remove knights from the start tile and add too the distination's knight.
         else{
-        	start.RemoveKnights(numKnights);
+            start.RemoveKnights(numKnights);
             destination.AddKnights(numKnights, currentPlayerColor);
             boardListener.movedKnight(start, start.getNumKnights(), destination, destination.getNumKnights(), GameUtils.getColor(currentPlayerColor));
+            // Get valid locations to move knights to. Continue to knight movement if there are locations, else end knight movement.
+            ArrayList<Integer> gridLocations = getValidMoves(start, destination, start.getNumKnights());
+            if(!gridLocations.isEmpty()){
+                boardListener.showValidLocations(gridLocations);
+            }
+            else{
+                boardListener.endKnightMovement();
+            }
             return true;
         }
 

@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 @SuppressWarnings({ "serial", "unused" })
 public class KnightPicker extends JPanel {
-	
+
     private static final int MAX_KNIGHTS = 5;
     private JComboBox knightPick;
     private int numberOfKnights;
@@ -26,9 +26,9 @@ public class KnightPicker extends JPanel {
      * @param minimumKnights - minimum knights that player should be allowed to play
      */
     public KnightPicker(GUI gui, int minimumKnights, Color color){
-    	
+
         this.gui = gui;
-       // this.setBounds(500, 500, 200, 200);
+        // this.setBounds(500, 500, 200, 200);
         JLabel message = new JLabel("Number of Knight to Place");
         String[] knightPickers = new String[MAX_KNIGHTS + 1];
         for(int i = minimumKnights; i <= MAX_KNIGHTS; i++){
@@ -54,9 +54,15 @@ public class KnightPicker extends JPanel {
     public KnightPicker(GUI gui, int minimumKnights, Color color, boolean castleSurrounded){
 
         this.gui = gui;
-       // this.setBounds(500, 500, 200, 200);
+        // this.setBounds(500, 500, 200, 200);
         JLabel message = new JLabel("Number of Knight to Place");
-        String[] knightPickers = new String[MAX_KNIGHTS];
+        String[] knightPickers;
+        if(castleSurrounded){
+            knightPickers = new String[MAX_KNIGHTS];
+        }
+        else{
+            knightPickers = new String[MAX_KNIGHTS + 1];
+        }
         for(int i = minimumKnights; i < MAX_KNIGHTS; i++){
             knightPickers[i] = Integer.toString(i);
         }
