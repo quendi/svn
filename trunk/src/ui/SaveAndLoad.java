@@ -19,6 +19,8 @@ import javax.swing.*;
 import domain.GameState;
 import domain.RobberKnight;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -193,11 +195,8 @@ public class SaveAndLoad extends JMenu{
 		saveFrame.setResizable(false);
 		saveFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
-		Date d = new Date();
-		@SuppressWarnings("deprecation")
-		String date = "" + d.getMonth() + "/" + d.getDate() + "/" + (d.getYear()+1900) + "-" + d.getHours() + ":" + d.getMinutes();
-		textArea.setText(date);//FIX SO YOU CAN SAVE AS A DATE...
-		
+		DateFormat df = new SimpleDateFormat("dd-MM-yyyy_HH:mm");
+		textArea.setText(df.format(new Date()));//FIX SO YOU CAN SAVE AS A DATE...
 		cancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
 				saveFrame.dispose();
