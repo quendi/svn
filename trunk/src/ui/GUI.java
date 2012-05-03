@@ -11,8 +11,10 @@ import java.awt.image.BufferedImage;
 
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import javax.swing.*;
+
 import java.io.*;
 
 
@@ -62,6 +64,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
 
     private JPanel normalPanel = new JPanel();
     JPanel abovePanel;
+    private String separator = File.separator;
 
     // End of variables declaration
 
@@ -855,12 +858,18 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         icon.paintIcon(null, g, 0,0);
 
         int d = button.getIcon().getIconHeight()/2;
-        int j = button.getIcon().getIconHeight()-5;
+        int j = button.getIcon().getIconHeight()-7;
         for(int i = 0; i < t.getNumKnights(); i++){
             g.setColor(GameUtils.getColor(t.knights.get(i)));
             g.fillOval(d-10, d-10, 20, 20);
             g.fillRect(button.getIcon().getIconWidth()-20, j, 20, 5);
-            j = j - 6;
+            
+            BufferedImage img = null;
+            img = getKnightImage(t.knights.get(i), 0);
+            g.drawImage(img , d-15, d-15, null);
+			img = getKnightImage(t.knights.get(i), 1);
+            g.drawImage(img , button.getIcon().getIconWidth()-22, j, null);
+            j = j - 5;
         }
         g.dispose();
         button.setIcon(new ImageIcon(bi));
@@ -1219,6 +1228,36 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         catch(Exception e){
             System.out.println(e);
         }
+    }
+    public BufferedImage getKnightImage(domain.enums.Color color, int num){
+    	BufferedImage img = null;
+    	try {
+	    	if(num == 0){
+	    		if(color == domain.enums.Color.RED)
+	    			img = ImageIO.read(new File("resources" + separator + "knight red small.gif"));
+	    		else if(color == domain.enums.Color.BLUE)
+	    			img = ImageIO.read(new File("resources" + separator + "knight blue small.gif"));
+	    		else if(color == domain.enums.Color.GREEN)
+	    			img = ImageIO.read(new File("resources" + separator + "knight green small.gif"));
+	    		else if(color == domain.enums.Color.YELLOW)
+	    			img = ImageIO.read(new File("resources" + separator + "knight yellow small.gif"));
+	    		else return null;
+	    	}
+	    	else if(num == 1){
+	    		if(color == domain.enums.Color.RED)
+	    			img = ImageIO.read(new File("resources" + separator + "knight red side small.jpg"));
+	    		else if(color == domain.enums.Color.BLUE)
+	    			img = ImageIO.read(new File("resources" + separator + "knight blue side small.jpg"));
+	    		else if(color == domain.enums.Color.GREEN)
+	    			img = ImageIO.read(new File("resources" + separator + "knight green side small.jpg"));
+	    		else if(color == domain.enums.Color.YELLOW)
+	    			img = ImageIO.read(new File("resources" + separator + "knight yellow side small.jpg"));
+	    		else return null;
+	    	} else return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	return img;
     }
 }
 
