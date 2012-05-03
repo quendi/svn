@@ -22,44 +22,30 @@ public class PlayerPanel extends JPanel {
     private JButton endTurn = new JButton("End Turn");
     private JLabel numberOfKnights = new JLabel();
     Player currentPlayer;
-    
-    /**
-     * First
-     */
-    private JLabel player = new JLabel("Player: ");
-    private JLabel playernum = new JLabel();
-    
-    /**
-     * Second
-     */
-    private JLabel deckPic = new JLabel("Deck");
-    /**
-     * Third
-     */
-    private JPanel handPanel = new JPanel();
-    private JButton card1 = new JButton();
-    private JButton card2 = new JButton();
 
-    /**
-     * Fourth
-     */
-    private JPanel infoPanel = new JPanel();
-    private JLabel knight = new JLabel("Knight");
-    private JLabel knightNum = new JLabel();
-    
-    
+    private JLabel playernum = new JLabel();
+
+
     public PlayerPanel(Player p){
 
-    	
-    	handPanel.add(card1);
-    	handPanel.add(card2);
-    	
-    	infoPanel.add(knight);
-    	infoPanel.add(knightNum);
+
+        JButton card1 = new JButton();
+        JPanel handPanel = new JPanel();
+        handPanel.add(card1);
+        JButton card2 = new JButton();
+        handPanel.add(card2);
+
+        JPanel infoPanel = new JPanel();
+        JLabel knight = new JLabel("Knight");
+        infoPanel.add(knight);
+        JLabel knightNum = new JLabel();
+        infoPanel.add(knightNum);
     	
     	this.setLayout(new GridLayout(4,1));
-    	this.add(player);
-    	this.add(deckPic);
+        JLabel player = new JLabel("Player: ");
+        this.add(player);
+        JLabel deckPic = new JLabel("Deck");
+        this.add(deckPic);
     	this.add(handPanel);
     	
     	

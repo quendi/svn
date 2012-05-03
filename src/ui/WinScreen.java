@@ -9,30 +9,18 @@ import domain.RobberKnight;
 @SuppressWarnings("unused")
 public class WinScreen{
 
-	private int winner = 0;
-	private int total = 0;
-	private int[] playerTotals;
-	private JFrame frame = new JFrame("Win Screen");
-	private JPanel panel = new JPanel();
-	private JPanel winningPanel = new JPanel();
-	private JPanel playerPoints = new JPanel();
-	private JPanel buttonPanel = new JPanel();
-	private JLabel player = new JLabel();
-	private JLabel winningPlayer = new JLabel();
-	private JLabel win = new JLabel();
-	private JLabel pic = new JLabel();
-	private JButton newGame = new JButton("New Game");
-	private JButton quit = new JButton("Quit");
-	private Font font = new Font("Serif", Font.BOLD, 34);
-	
-	public WinScreen(RobberKnight game){
+    private JFrame frame = new JFrame("Win Screen");
+
+    public WinScreen(RobberKnight game){
 		
 		/**
 		 *Calculations
 		 */
-		playerTotals = game.getTotals();
-		for(int i = 0; i < 4; i++){
-			if (playerTotals[i] > total){
+        int[] playerTotals = game.getTotals();
+        int winner = 0;
+        for(int i = 0; i < 4; i++){
+            int total = 0;
+            if (playerTotals[i] > total){
 				total = playerTotals[i];
 				winner = i;
 			}
@@ -45,20 +33,26 @@ public class WinScreen{
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setBounds(750, 300, 250, 250);
         //frame.setResizable(false);
+        JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
         /**
          *Display who won game
          */
+        JLabel player = new JLabel();
         player.setText("Player ");
+        Font font = new Font("Serif", Font.BOLD, 34);
         player.setFont(font);
-        
+
+        JLabel winningPlayer = new JLabel();
         winningPlayer.setText(Integer.toString(winner + 1));
         winningPlayer.setFont(font);
-        
+
+        JLabel win = new JLabel();
         win.setText(" Wins!");
         win.setFont(font);
-        
+
+        JPanel winningPanel = new JPanel();
         winningPanel.add(player);
         winningPanel.add(winningPlayer);
         winningPanel.add(win);
@@ -67,6 +61,7 @@ public class WinScreen{
         /**
          *Display Picture
          */
+        JLabel pic = new JLabel();
         pic.setIcon(new ImageIcon("resources/fireworks.gif"));
         panel.add(pic, BorderLayout.WEST);
         
@@ -78,6 +73,7 @@ public class WinScreen{
         /**
          *Display player scores
          */
+        JPanel playerPoints = new JPanel();
         playerPoints.add(new JLabel("Player 1: "));
         playerPoints.add(new JLabel(Integer.toString(playerTotals[0])));
    
@@ -99,6 +95,7 @@ public class WinScreen{
         /**
          *Add button ActionListeners
          */
+        JButton newGame = new JButton("New Game");
         newGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -106,6 +103,7 @@ public class WinScreen{
 				new PlayerSelection();
 			}
         });
+        JButton quit = new JButton("Quit");
         quit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -118,6 +116,7 @@ public class WinScreen{
          */
         newGame.setPreferredSize(new Dimension(110,50));
         quit.setPreferredSize(new Dimension(110,50));
+        JPanel buttonPanel = new JPanel();
         buttonPanel.add(newGame);
         buttonPanel.add(quit);
         panel.add(buttonPanel, BorderLayout.SOUTH);
