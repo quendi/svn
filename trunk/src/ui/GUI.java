@@ -861,10 +861,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         int d = button.getIcon().getIconHeight()/2;
         int j = button.getIcon().getIconHeight()-7;
         for(int i = 0; i < t.getNumKnights(); i++){
-            g.setColor(GameUtils.getColor(t.knights.get(i)));
-            g.fillOval(d-10, d-10, 20, 20);
-            g.fillRect(button.getIcon().getIconWidth()-20, j, 20, 5);
-            
+            g.setColor(GameUtils.getColor(t.knights.get(i)));            
             BufferedImage img = null;
             img = getKnightImage(t.knights.get(i), 0);
             g.drawImage(img , d-15, d-15, null);
