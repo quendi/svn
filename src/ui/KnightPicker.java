@@ -126,5 +126,12 @@ public class KnightPicker extends JPanel {
     private void endKnightMovement() {
         gui.endKnightMovement();
     }
+    
+    public void changeColor(Color color){
+        knightPanel.setBackground(color);
+        knightPanel.setForeground(color);
+        this.setBackground(color);
+        this.setForeground(color);
+    }
 
 }

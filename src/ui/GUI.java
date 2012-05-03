@@ -807,6 +807,8 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         currentColor.setText(currentPlayer.getColor().toString());
         InGame.getContentPane().setBackground(GameUtils.getColor(currentPlayer.getColor()));
         PlayerPanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+        normalPanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+        knightPicker.changeColor(GameUtils.getColor(currentPlayer.getColor()));
 
         InGame.setJMenuBar(new GameMenu(true, null, game, this));
     }
