@@ -88,16 +88,16 @@ public class SaveAndLoad extends JMenu{
 		/**
 		 * Add load items to menu
 		 */
-		for(int i = 0; i < loadNames.size(); i++){
-			final JMenuItem addMenus = new JMenuItem();
-			addMenus.setText(loadNames.get(i));
-			addMenus.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					loadGame(addMenus.getText());
-				}
-	        });
-			loadGame.add(addMenus);
-		}
+        for (String loadName : loadNames) {
+            final JMenuItem addMenus = new JMenuItem();
+            addMenus.setText(loadName);
+            addMenus.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent arg0) {
+                    loadGame(addMenus.getText());
+                }
+            });
+            loadGame.add(addMenus);
+        }
 	}
 	
 	public void startSave(){	
@@ -179,9 +179,9 @@ public class SaveAndLoad extends JMenu{
     	Writer output = null;
     	try {
         	output = new BufferedWriter(new FileWriter(new File(filename), true));
-	        for(int i = 0; i < loadNames.size(); i++){
-	        		output.append(loadNames.get(i) + " ");
-	        }
+            for (String loadName1 : loadNames) {
+                output.append(loadName1 + " ");
+            }
 	    	output.close();
 		}catch (IOException e){
 			e.printStackTrace();

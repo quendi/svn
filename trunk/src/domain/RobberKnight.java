@@ -16,15 +16,15 @@ import exceptions.NoSuchPlayerException;
  */
 public class RobberKnight implements Serializable{
     // SerialversionUID for serialization
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     private int numPlayers;
     private ArrayList<Player> players;
     private Board board;
     private int currentPlayerId;
     transient private TurnListener turnListener;
-    private int[] playerTotals = new int[4];
     private static final int MAX_KNIGHT = 4;
+    private int moveCounter = 0;
 
 
     public RobberKnight(int numPlayers, ArrayList<String> names, ArrayList<Color> colors, ArrayList<Date> dates, BoardListener bl){
@@ -37,11 +37,11 @@ public class RobberKnight implements Serializable{
      */
     public int[] getTotals(){
         board.calculatePoints();
-        playerTotals = board.getPlayerTotals();
+        int[] playerTotals = board.getPlayerTotals();
         for(Player p : players){
-        	if(!p.isInGame()){
-        		playerTotals[p.getId()] = 0;        		
-        	}
+            if(!p.isInGame()){
+                playerTotals[p.getId()] = 0;
+            }
         }
         return playerTotals;
     }
@@ -92,6 +92,7 @@ public class RobberKnight implements Serializable{
                     currentPlayerId = (currentPlayerId + 1) % numPlayers;
                     next = lookUpPlayerById(currentPlayerId);
                 } while (!next.isInGame());
+                resetMoveCounter();
                 notifyTurn(next);
                 next.notifyHand();
                 return next;
@@ -190,7 +191,7 @@ public class RobberKnight implements Serializable{
             if(playersLeft == 1){
                 turnListener.endGame();
             }
-            turnListener.endTurn();
+            turnListener.skipTurn();
 
         }
 
@@ -229,6 +230,7 @@ public class RobberKnight implements Serializable{
     }
 
     public void notifyTurn(Player currentPlayer){
+        moveCounter = 0;
         turnListener.playerTurn(currentPlayer);
     }
 
@@ -271,10 +273,28 @@ public class RobberKnight implements Serializable{
      * @param tl
      */
     public void setListeners(BoardListener bl, PlayerListener pl, TurnListener tl){
-    	board.addBoardListener(bl);
-    	for(Player p : players){
-    		p.addPlayerListener(pl);
-    	}
-    	this.turnListener = tl;
+        board.addBoardListener(bl);
+        for(Player p : players){
+            p.addPlayerListener(pl);
+        }
+        this.turnListener = tl;
+    }
+
+    public int getMoveCounter() {
+        return moveCounter;
+    }
+
+    public void incrementMoveCounter(){
+        moveCounter++;
+    }
+
+    public void resetMoveCounter() {
+        this.moveCounter = 0;
+    }
+
+    public void confirmPlayerTurn() {
+        if(moveCounter > 2){
+            turnListener.endTurn();
+        }
     }
 }

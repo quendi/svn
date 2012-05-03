@@ -107,9 +107,6 @@ public class Board implements Serializable{
                             playerTotals[3]+=3;
                     }
                 }
-                else{
-                    //Do nothing
-                }
             }
         }
     }
@@ -143,9 +140,8 @@ public class Board implements Serializable{
                         t.getLocation().getY() == 0 ||
                         t.getLocation().getY() == size - 1 ||
                         t.getLocation().getX() == size - 1 ){
-                    OutofBound(t);
+                    outofBounds(t);
                 }
-
             }
             else
                 return false;
@@ -155,35 +151,27 @@ public class Board implements Serializable{
         return true;
     }
 
-    private void notifyCastlePlacement(Tile t) {
-        knightmode = true;
-        castleTile = t;
-        boardListener.placedCastle(t);
+    /**
+     * Notify listener that a castle has been placed.  Turn on knightmode.
+     * @param castle - castle being placed
+     */
 
-//        ArrayList<Integer> gridLocations = getValidMoves(t, Tile.getMaxCastleKnights());
-//        // If kngihts can be moved, allow player to place up to 5 knights
-//         boardListener.
-//        if(!gridLocations.isEmpty()){
-//            knightPicker2 = new KnightPicker(this, castle.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()));
-//        }
-//
-//        // If there are no places to move to, only allow player to move 4 knights.
-//        else{
-//            knightPicker2 = new KnightPicker(this, castle.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()), true);
-//        }
+    private void notifyCastlePlacement(Tile castle) {
+        knightmode = true;
+        castleTile = castle;
+        boardListener.placedCastle(castle);
     }
 
     /**
      * This method determines if the tile being places is touching the boundary of the board.  If so, the board if shifted and resized.
      * @param t - tile being placed on board
      */
-    private void OutofBound(Tile t){
+    private void outofBounds(Tile t){
         int i, j;
         if( t.getLocation().getX() == 0 ){
             // check if it already reach the maximum board size
             for( i = 0; i < size-1; i++ ){
                 if( tiles[size-2][i] != null ){
-                    // System.out.println("x can't shift");
                     x_end = true;
                     // Remove current grid layout
                     notifyRemoved(x_end, y_end);
@@ -213,7 +201,6 @@ public class Board implements Serializable{
         if( t.getLocation().getY() == 0 ){
             for( i = 0; i < size-1; i++ ){
                 if( tiles[i][size-2] != null ){
-                    // System.out.println("can't shift");
                     y_end = true;
                     // Remove current grid layout
                     notifyRemoved(x_end, y_end);
@@ -242,13 +229,11 @@ public class Board implements Serializable{
         if( t.getLocation().getY() == size - 1 ){
             for( i = 0; i < size; i++ ){
                 if( tiles[i][1] != null ){
-                    // System.out.println("can't shift");
                     y_end = true;
                     break;
                     // return;
                 }
             }
-            // System.out.println("shift y=y-1");
             // shift the board
             for( i = 1;  i < size; i++){
                 for( j = 0;  j < size; j++){
@@ -263,12 +248,10 @@ public class Board implements Serializable{
         if( t.getLocation().getX() == size - 1 ){
             for( i = 0; i < size; i++ ){
                 if( tiles[1][i] != null ){
-                    // System.out.println("can't shift");
                     x_end = true;
                     // return;
                 }
             }
-            // System.out.println("shift x=x-1");
             // shift the board
             for( i = 1;  i < size; i++){
                 for( j = 0;  j < size; j++){
@@ -293,7 +276,7 @@ public class Board implements Serializable{
     }
 
 
-    public void load_board(){
+    public void loadBoard(){
         int i, j;
 
         notifyRemoved(x_end, y_end);
@@ -433,7 +416,7 @@ public class Board implements Serializable{
             if (moveableKnights > 0) {
                 ArrayList<Integer> knightsAvailble = new ArrayList<Integer>();
                 for(int i = 1; i <= moveableKnights; i++){
-                    knightsAvailble.add(moveableKnights);
+                    knightsAvailble.add(i);
                 }
                 // Check which adjacent tiles can be moves with the amount of knights the player can move.
                 for (Integer knights : knightsAvailble) {

@@ -1,7 +1,7 @@
 package ui;
 import javax.swing.*;
 
-public class About {
+public class  About {
 	
 	JFrame frame = new JFrame("About");
 	JPanel panel = new JPanel();

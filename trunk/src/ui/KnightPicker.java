@@ -1,11 +1,9 @@
 package ui;
 
-import org.apache.commons.lang3.ArrayUtils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 
 /**
  * User: Joe
@@ -15,7 +13,6 @@ public class KnightPicker extends JPanel {
 
     private static final int MAX_KNIGHTS = 5;
     private JComboBox knightPick;
-    private int numberOfKnights;
     private final GUI gui;
     private JPanel knightPanel = new JPanel();
     private boolean knightMovement = false;
@@ -85,7 +82,7 @@ public class KnightPicker extends JPanel {
 
 
     /**
-     * Sets avaiable options accoarding to the available knights.  Used in knight movement.
+     * Sets avaiable options according to the available knights.  Used in knight movement.
      * @param availableKnights - knight player can still move
      */
     public void setKnightPicker(int availableKnights){
@@ -94,11 +91,32 @@ public class KnightPicker extends JPanel {
         for(int i = 0; i <= availableKnights; i++){
             knightPickers[i] = Integer.toString(i);
         }
+
         knightPanel.remove(knightPick);
         knightPick = new JComboBox(new DefaultComboBoxModel(knightPickers));
         knightPanel.add(knightPick);
     }
 
+    /**
+     * Set available options when move to an empty tile.
+     * @param moveableKnights  - knights that can be moved from castle
+     * @param minimumKnights  - minimum amount of knights the tile being moved to allows
+     */
+
+    public void setKnightPicker(int moveableKnights, int minimumKnights) {
+        knightMovement = true;
+        int knightOptions =(moveableKnights - minimumKnights) + 1;
+        String[] knightPickers = new String[knightOptions];
+        for(int i = 0; i < knightOptions; i++){
+            knightPickers[i] = Integer.toString(minimumKnights);
+            minimumKnights++;
+        }
+
+        knightPanel.remove(knightPick);
+        knightPick = new JComboBox(new DefaultComboBoxModel(knightPickers));
+        knightPanel.add(knightPick);
+
+    }
     /**
      * User indicates the number of knights he wishes to place on a tile.
      * @param evt
@@ -106,7 +124,7 @@ public class KnightPicker extends JPanel {
     protected void okActionPerformed(ActionEvent evt) {
 
         if (knightPick.getSelectedItem() != null) {
-            numberOfKnights =  Integer.parseInt( (String) knightPick.getSelectedItem());
+            int numberOfKnights = Integer.parseInt((String) knightPick.getSelectedItem());
             if(numberOfKnights > 0){
                 this.setVisible(false);
                 if(knightMovement){
@@ -126,12 +144,13 @@ public class KnightPicker extends JPanel {
     private void endKnightMovement() {
         gui.endKnightMovement();
     }
-    
+
     public void changeColor(Color color){
         knightPanel.setBackground(color);
         knightPanel.setForeground(color);
         this.setBackground(color);
         this.setForeground(color);
     }
+
 
 }

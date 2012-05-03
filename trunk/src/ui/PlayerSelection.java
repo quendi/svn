@@ -15,32 +15,12 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class PlayerSelection extends JFrame{
 
-	private JPanel mainPanel = new JPanel(new BorderLayout());
-	/**
-	 * North panel
-	 */
-	private JLabel header = new JLabel("Player Selection", JLabel.CENTER);
-	/**
-	 * Center panel
-	 */
-	private JPanel centerPanel = new JPanel(new GridLayout(1,4));
-	
-	private JPanel firstPanel = new JPanel(new GridLayout(4,1));
-	private JPanel secondPanel = new JPanel(new GridLayout(4,1));
-	private JPanel thirdPanel = new JPanel(new GridLayout(4,1));
-	private JPanel fourthPanel = new JPanel(new GridLayout(4,1));
-	
-	private JTextArea player1Name = new JTextArea("Player 1");
+    private JTextArea player1Name = new JTextArea("Player 1");
 	private JTextArea player2Name = new JTextArea("Player 2");
 	private JTextArea player3Name = new JTextArea("Player 3");
 	private JTextArea player4Name = new JTextArea("Player 4");
-	
-	private JLabel birthday1 = new JLabel("Enter Birthday:", JLabel.CENTER);
-	private JLabel birthday2 = new JLabel("Enter Birthday:", JLabel.CENTER);
-	private JLabel birthday3 = new JLabel("Enter Birthday:", JLabel.CENTER);
-	private JLabel birthday4 = new JLabel("Enter Birthday:", JLabel.CENTER);
-	
-	private String month[] = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+
+    private String month[] = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
 	private String day[] = new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", 
 								  		  "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", 
 								  		  "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" };
@@ -51,53 +31,38 @@ public class PlayerSelection extends JFrame{
 										   "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", 
 										   "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", 
 										   "2010", "2011", "2012" };
-	
-	
-	private JPanel birthdayPanel1 = new JPanel();
-	private JComboBox month1 = new JComboBox(month);
+
+
+    private JComboBox month1 = new JComboBox(month);
 	private JComboBox day1 = new JComboBox(day);
 	private JComboBox year1 = new JComboBox(year);
-	
-	private JPanel birthdayPanel2 = new JPanel();
-	private JComboBox month2 = new JComboBox(month);
+
+    private JComboBox month2 = new JComboBox(month);
 	private JComboBox day2 = new JComboBox(day);
 	private JComboBox year2 = new JComboBox(year);
-	
-	private JPanel birthdayPanel3 = new JPanel();
-	private JComboBox month3 = new JComboBox(month);
+
+    private JComboBox month3 = new JComboBox(month);
 	private JComboBox day3 = new JComboBox(day);
 	private JComboBox year3 = new JComboBox(year);
-	
-	private JPanel birthdayPanel4 = new JPanel();
-	private JComboBox month4 = new JComboBox(month);
+
+    private JComboBox month4 = new JComboBox(month);
 	private JComboBox day4 = new JComboBox(day);
 	private JComboBox year4 = new JComboBox(year);
 	
 	private CardLayout cl1 = new CardLayout();
 	private CardLayout cl2 = new CardLayout();
 	private JPanel sub1 = new JPanel(cl1);
-	private JPanel sub1ButtonPanel = new JPanel(new BorderLayout());
-	private JPanel sub2 = new JPanel(cl2);
-	private JPanel sub2ButtonPanel = new JPanel(new BorderLayout());
-	private JButton addPlayer3 = new JButton("Add Player");
-	private JButton addPlayer4 = new JButton("Add Player");
-	
-	private ArrayList<String> names = new ArrayList<String>();
+    private JPanel sub2 = new JPanel(cl2);
 
-	/**
-	 * South panel
-	 */
-	private JPanel southPanel = new JPanel();
-	private JButton startGame = new JButton("Start Game");
-	/**
+    private ArrayList<String> names = new ArrayList<String>();
+
+    /**
 	 * Other
 	 */
 	private int numOfPlayers = 2;
-    private Font font = new Font("Serif", Font.BOLD, 34);
-    private Font font2 = new Font("Serif", Font.BOLD, 20);
-	
-	
-	public PlayerSelection(){
+
+
+    public PlayerSelection(){
 		/**
 		 * Default
 		 */
@@ -105,17 +70,23 @@ public class PlayerSelection extends JFrame{
 		this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setMinimumSize(new java.awt.Dimension(1100, 500));
+        Font font = new Font("Serif", Font.BOLD, 34);
+        JLabel header = new JLabel("Player Selection", JLabel.CENTER);
         header.setFont(font);
         
         /**
          * Add content to player panels
          */
         //First Panel
+        Font font2 = new Font("Serif", Font.BOLD, 20);
         player1Name.setFont(font2);
+        JPanel firstPanel = new JPanel(new GridLayout(4, 1));
         firstPanel.add(player1Name);
         firstPanel.add(new JLabel("Blue", JLabel.CENTER));//TODO - add jcombobox and give an option to the player
+        JLabel birthday1 = new JLabel("Enter Birthday:", JLabel.CENTER);
         birthday1.setFont(font2);
         firstPanel.add(birthday1);
+        JPanel birthdayPanel1 = new JPanel();
         birthdayPanel1.add(month1);
         birthdayPanel1.add(day1);
         birthdayPanel1.add(year1);
@@ -123,10 +94,13 @@ public class PlayerSelection extends JFrame{
         
         //Second Panel
         player2Name.setFont(font2);
+        JPanel secondPanel = new JPanel(new GridLayout(4, 1));
         secondPanel.add(player2Name);
         secondPanel.add(new JLabel("Green", JLabel.CENTER));//TODO - add jcombobox and give an option to the player
+        JLabel birthday2 = new JLabel("Enter Birthday:", JLabel.CENTER);
         birthday2.setFont(font2);
         secondPanel.add(birthday2);
+        JPanel birthdayPanel2 = new JPanel();
         birthdayPanel2.add(month2);
         birthdayPanel2.add(day2);
         birthdayPanel2.add(year2);
@@ -134,10 +108,13 @@ public class PlayerSelection extends JFrame{
         
         //Third Panel
         player3Name.setFont(font2);
+        JPanel thirdPanel = new JPanel(new GridLayout(4, 1));
         thirdPanel.add(player3Name);
         thirdPanel.add(new JLabel("Yellow", JLabel.CENTER));//TODO - add jcombobox and give an option to the player
+        JLabel birthday3 = new JLabel("Enter Birthday:", JLabel.CENTER);
         birthday3.setFont(font2);
         thirdPanel.add(birthday3);
+        JPanel birthdayPanel3 = new JPanel();
         birthdayPanel3.add(month3);
         birthdayPanel3.add(day3);
         birthdayPanel3.add(year3);
@@ -145,10 +122,13 @@ public class PlayerSelection extends JFrame{
         
         //Fourth Panel
         player4Name.setFont(font2);
+        JPanel fourthPanel = new JPanel(new GridLayout(4, 1));
         fourthPanel.add(player4Name);
         fourthPanel.add(new JLabel("Red", JLabel.CENTER));//TODO - add jcombobox and give an option to the player
+        JLabel birthday4 = new JLabel("Enter Birthday:", JLabel.CENTER);
         birthday4.setFont(font2);
         fourthPanel.add(birthday4);
+        JPanel birthdayPanel4 = new JPanel();
         birthdayPanel4.add(month4);
         birthdayPanel4.add(day4);
         birthdayPanel4.add(year4);
@@ -157,7 +137,11 @@ public class PlayerSelection extends JFrame{
         /**
          * Set up cardlayout
          */
+        JButton addPlayer3 = new JButton("Add Player");
+        JPanel sub1ButtonPanel = new JPanel(new BorderLayout());
         sub1ButtonPanel.add(addPlayer3);
+        JPanel sub2ButtonPanel = new JPanel(new BorderLayout());
+        JButton addPlayer4 = new JButton("Add Player");
         sub2ButtonPanel.add(addPlayer4);
         sub1.add(sub1ButtonPanel, "1");
         sub1.add(thirdPanel, "2");
@@ -180,6 +164,7 @@ public class PlayerSelection extends JFrame{
 				numOfPlayers++;
 			}
         });
+        JButton startGame = new JButton("Start Game");
         startGame.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
@@ -212,6 +197,7 @@ public class PlayerSelection extends JFrame{
         /**
          * Center panel
          */
+        JPanel centerPanel = new JPanel(new GridLayout(1, 4));
         centerPanel.add(firstPanel);
         centerPanel.add(secondPanel);
         centerPanel.add(sub1);
@@ -221,12 +207,14 @@ public class PlayerSelection extends JFrame{
          * South panel
          */
         startGame.setPreferredSize(new Dimension(200, 100));
+        JPanel southPanel = new JPanel();
         southPanel.add(startGame);
         
         
         /**
          * Add to main panel
          */
+        JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(header, BorderLayout.NORTH);
         mainPanel.add(centerPanel, BorderLayout.CENTER);
         mainPanel.add(southPanel, BorderLayout.SOUTH);
