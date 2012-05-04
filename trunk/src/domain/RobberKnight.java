@@ -255,11 +255,10 @@ public class RobberKnight implements Serializable{
      * @param moveTo - tile knights are being moved to
      * @param numberOfKnights - knights being moved
      */
-    public void moveKnight(Tile castle, Point moveTo, int numberOfKnights) {
+    public void moveKnight(Tile castle, Tile moveTo, int numberOfKnights) {
         try {
             Player current = lookUpPlayerById(currentPlayerId);
-            Tile goTo = board.getTile(moveTo);
-            if (!board.moveKnight(castle, goTo, numberOfKnights, current.getColor())){
+            if (!board.moveKnight(castle, moveTo, numberOfKnights, current.getColor())){
                 turnListener.endKnightMovement();
             }
         } catch (NoSuchPlayerException e) {

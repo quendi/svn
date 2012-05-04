@@ -505,9 +505,9 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                         panel.add(knightPicker2);
                         panel.add(endKnightPlacement);
                         abovePanel.add(panel, "3");
-                        //abovePanel.add(endKnightPlacement);
                         cl.show(abovePanel, "3");
-                        moveTo = location;
+                        game.getBoard().setTileMovingTo(game.getBoard().getTile(location));
+                        // moveTo = location;
                     }
 
                     // If no knights are playable, end knight movement
@@ -808,7 +808,27 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         normalPanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         knightPicker.changeColor(GameUtils.getColor(currentPlayer.getColor()));
 
+        loadKnightPlacement(game);
         InGame.setJMenuBar(new GameMenu(true, null, game, this));
+    }
+
+
+
+    private void loadKnightPlacement(RobberKnight game) {
+        if(game.getBoard().isKnightmode()){
+            if(game.getBoard().getTileMovingTo() != null){
+                game.getBoard().validateKnightMovement(game.getBoard().getCastleTile(), game.getBoard().getTileMovingTo());
+            }
+            else{
+                if(game.getBoard().getCastleTile().getNumKnights() == 0){
+                    placedCastle(game.getBoard().getCastleTile());
+                }
+                else{
+                    game.getBoard().validateKnightMovement(game.getBoard().getCastleTile());
+                }
+            }
+            endKnightPlacement.setVisible(true);
+        }
     }
 
     // LISTENER IMPLEMENTATION
@@ -855,11 +875,11 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         int d = button.getIcon().getIconHeight()/2;
         int j = button.getIcon().getIconHeight()-7;
         for(int i = 0; i < t.getNumKnights(); i++){
-            g.setColor(GameUtils.getColor(t.knights.get(i)));            
+            g.setColor(GameUtils.getColor(t.knights.get(i)));
             BufferedImage img = null;
             img = getKnightImage(t.knights.get(i), 0);
             g.drawImage(img , d-15, d-15, null);
-			img = getKnightImage(t.knights.get(i), 1);
+            img = getKnightImage(t.knights.get(i), 1);
             g.drawImage(img , button.getIcon().getIconWidth()-22, j, null);
             j = j - 5;
         }
@@ -1121,6 +1141,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
             cl.show(abovePanel, "1");
             reenableAll();
             game.getBoard().setCastleTile(null);
+            game.getBoard().setTileMovingTo(null);
             game.getBoard().setKnightmode(false);
             if(currentPlayer.getDeck().getSize() == 0){
                 try {
@@ -1187,12 +1208,12 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
      * Informs game knights have moved.
      */
     public void moveKnight(int numberOfKnights) {
-        game.moveKnight(game.getBoard().getCastleTile(), moveTo, numberOfKnights);
-        Player current = game.getCurrentPlayer();
-        Tile goTo = game.getBoard().getTile(moveTo);
-        if(goTo.knights.size() > 0)
-            if(current.getColor() != goTo.getTopKnight())
-                playSound("resources/KillStab.wav");
+        game.moveKnight(game.getBoard().getCastleTile(), game.getBoard().getTileMovingTo(), numberOfKnights);
+//        Player current = game.getCurrentPlayer();
+//        Tile goTo = game.getBoard().getTileMovingTo();
+//        if(goTo.knights.size() > 0)
+//            if(current.getColor() != goTo.getTopKnight())
+//                playSound("resources/KillStab.wav");
     }
 
 
@@ -1223,34 +1244,34 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         }
     }
     public BufferedImage getKnightImage(domain.enums.Color color, int num){
-    	BufferedImage img = null;
-    	try {
-	    	if(num == 0){
-	    		if(color == domain.enums.Color.RED)
-	    			img = ImageIO.read(new File("resources" + separator + "knight red small.gif"));
-	    		else if(color == domain.enums.Color.BLUE)
-	    			img = ImageIO.read(new File("resources" + separator + "knight blue small.gif"));
-	    		else if(color == domain.enums.Color.GREEN)
-	    			img = ImageIO.read(new File("resources" + separator + "knight green small.gif"));
-	    		else if(color == domain.enums.Color.YELLOW)
-	    			img = ImageIO.read(new File("resources" + separator + "knight yellow small.gif"));
-	    		else return null;
-	    	}
-	    	else if(num == 1){
-	    		if(color == domain.enums.Color.RED)
-	    			img = ImageIO.read(new File("resources" + separator + "knight red side small.jpg"));
-	    		else if(color == domain.enums.Color.BLUE)
-	    			img = ImageIO.read(new File("resources" + separator + "knight blue side small.jpg"));
-	    		else if(color == domain.enums.Color.GREEN)
-	    			img = ImageIO.read(new File("resources" + separator + "knight green side small.jpg"));
-	    		else if(color == domain.enums.Color.YELLOW)
-	    			img = ImageIO.read(new File("resources" + separator + "knight yellow side small.jpg"));
-	    		else return null;
-	    	} else return null;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    	return img;
+        BufferedImage img = null;
+        try {
+            if(num == 0){
+                if(color == domain.enums.Color.RED)
+                    img = ImageIO.read(new File("resources" + separator + "knight red small.gif"));
+                else if(color == domain.enums.Color.BLUE)
+                    img = ImageIO.read(new File("resources" + separator + "knight blue small.gif"));
+                else if(color == domain.enums.Color.GREEN)
+                    img = ImageIO.read(new File("resources" + separator + "knight green small.gif"));
+                else if(color == domain.enums.Color.YELLOW)
+                    img = ImageIO.read(new File("resources" + separator + "knight yellow small.gif"));
+                else return null;
+            }
+            else if(num == 1){
+                if(color == domain.enums.Color.RED)
+                    img = ImageIO.read(new File("resources" + separator + "knight red side small.jpg"));
+                else if(color == domain.enums.Color.BLUE)
+                    img = ImageIO.read(new File("resources" + separator + "knight blue side small.jpg"));
+                else if(color == domain.enums.Color.GREEN)
+                    img = ImageIO.read(new File("resources" + separator + "knight green side small.jpg"));
+                else if(color == domain.enums.Color.YELLOW)
+                    img = ImageIO.read(new File("resources" + separator + "knight yellow side small.jpg"));
+                else return null;
+            } else return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return img;
     }
 }
 
