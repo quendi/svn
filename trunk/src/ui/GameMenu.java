@@ -3,6 +3,9 @@ package ui;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.*;
 
@@ -54,6 +57,8 @@ public class GameMenu extends JMenuBar{
         });
         close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	DateFormat df = new SimpleDateFormat("MM-dd-yyyy_HH:mm");
+        		SaveAndLoad.saveGame(df.format(new Date()));
                 System.exit(0);
             }
         });
