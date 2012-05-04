@@ -72,7 +72,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         initialTile = new JFrame("Choose initial tiles");
         InGame = new JFrame();
         deckLabel = new JButton();
-        JLabel playerLabel = new JLabel();
+
         JLabel knightLabel = new JLabel();
         JButton endTurn = new JButton();
         endKnightPlacement = new JButton("End Knight Placement");
@@ -89,7 +89,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         InGame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         InGame.setMinimumSize(new java.awt.Dimension(900, 600));
 
-        playerLabel.setText("Player:");
+
 
         knightLabel.setText("Knights");
 
@@ -121,7 +121,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
 
         numberOfKnights.setText("BLANK");
         //playersTurn.setText(currentPlayer.getName());
-        //playersTurn.setFont(font);
+        playersTurn.setFont(new Font("Serif", Font.BOLD, 22));
         currentColor.setText("Color");
 
         knightPicker = new KnightPicker(this, 0, Color.LIGHT_GRAY);
@@ -228,8 +228,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                                                                                                 .addGap(29,
                                                                                                         29,
                                                                                                         29)
-                                                                                                .addComponent(
-                                                                                                        playerLabel)
+                                                                                                
                                                                                                 .addPreferredGap(
                                                                                                         LayoutStyle.ComponentPlacement.RELATED)
                                                                                                 .addGroup(
@@ -240,9 +239,9 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                                                                                                                 currentColor)
                                                                                                         .addComponent(
                                                                                                         playersTurn,
-                                                                                                        GroupLayout.PREFERRED_SIZE,
-                                                                                                        45,
-                                                                                                        GroupLayout.PREFERRED_SIZE))))))
+                                                                                                        400,
+                                                                                                        400,
+                                                                                                        400))))))
                                                         .addGap(0,
                                                         0,
                                                         Short.MAX_VALUE)))
@@ -259,16 +258,12 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                                         PlayerPanelLayout
                                                 .createParallelGroup(
                                                         GroupLayout.Alignment.BASELINE)
-                                                .addComponent(
-                                                        playerLabel,
-                                                        GroupLayout.PREFERRED_SIZE,
-                                                        24,
-                                                        GroupLayout.PREFERRED_SIZE)
+                                                
                                                 .addComponent(
                                                 playersTurn,
-                                                GroupLayout.PREFERRED_SIZE,
-                                                24,
-                                                GroupLayout.PREFERRED_SIZE))
+                                                45,
+                                                45,
+                                                45))
                                 .addGap(3, 3, 3)
                                 .addComponent(currentColor)
                                 .addPreferredGap(
