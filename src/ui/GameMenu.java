@@ -32,7 +32,7 @@ public class GameMenu extends JMenuBar{
 	JMenuItem rules = new JMenuItem("Rules");
 	
 	
-	public GameMenu(boolean inGame, final InitialScreen initialScreen, final RobberKnight game, GUI gui){
+	public GameMenu(boolean inGame, final InitialScreen initialScreen, final RobberKnight game, final GUI gui){
 
 
 		/**
@@ -40,8 +40,11 @@ public class GameMenu extends JMenuBar{
 		 */
         newGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+				if(initialScreen != null)
+					initialScreen.dispose();
+				if(gui!= null && gui.InGame != null)
+					gui.InGame.dispose();
 				new PlayerSelection();
-				initialScreen.dispose();
             }
         });
         surrender.addActionListener(new java.awt.event.ActionListener() {
