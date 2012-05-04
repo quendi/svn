@@ -26,6 +26,7 @@ public class Board implements Serializable{
     transient private BoardListener boardListener;
     private boolean knightmode;
     private Tile castleTile;
+    private Tile tileMovingTo;
 
     private boolean x_end=false;
     private boolean y_end=false;
@@ -301,18 +302,21 @@ public class Board implements Serializable{
         if(numKnights >= castle.getMinimumKnights()){
             castle.AddKnights(numKnights, currentPlayerColor);
             boardListener.placedKnight(castle, castle.getNumKnights(), GameUtils.getColor(currentPlayerColor));
-
-            // If knights can be moved, continue knight movement
-            ArrayList<Integer> gridLocations = getValidMoves(castle, castle.getNumKnights());
-            if(!gridLocations.isEmpty()){
-                boardListener.showValidLocations(gridLocations, castle);
-            }
-            else{
-                boardListener.endKnightMovement();
-            }
-            return true;
+            return validateKnightMovement(castle);
         }
         return false;
+    }
+
+    public boolean validateKnightMovement(Tile castle) {
+        // If knights can be moved, continue knight movement
+        ArrayList<Integer> gridLocations = getValidMoves(castle, castle.getNumKnights());
+        if(!gridLocations.isEmpty()){
+            boardListener.showValidLocations(gridLocations, castle);
+        }
+        else{
+            boardListener.endKnightMovement();
+        }
+        return true;
     }
 
     /**
@@ -340,16 +344,20 @@ public class Board implements Serializable{
             destination.AddKnights(numKnights, currentPlayerColor);
             boardListener.movedKnight(start, start.getNumKnights(), destination, destination.getNumKnights(), GameUtils.getColor(currentPlayerColor));
             // Get valid locations to move knights to. Continue to knight movement if there are locations, else end knight movement.
-            ArrayList<Integer> gridLocations = getValidMoves(start, destination, start.getNumKnights());
-            if(!gridLocations.isEmpty()){
-                boardListener.showValidLocations(gridLocations);
-            }
-            else{
-                boardListener.endKnightMovement();
-            }
+            validateKnightMovement(start, destination);
             return true;
         }
 
+    }
+
+    public void validateKnightMovement(Tile start, Tile destination) {
+        ArrayList<Integer> gridLocations = getValidMoves(start, destination, start.getNumKnights());
+        if(!gridLocations.isEmpty()){
+            boardListener.showValidLocations(gridLocations);
+        }
+        else{
+            boardListener.endKnightMovement();
+        }
     }
 
     /**
@@ -536,4 +544,12 @@ public class Board implements Serializable{
         return tiles[(int) moveTo.getX()][(int)moveTo.getY()];
     }
 
+
+    public Tile getTileMovingTo() {
+        return tileMovingTo;
+    }
+
+    public void setTileMovingTo(Tile tileMovingTo) {
+        this.tileMovingTo = tileMovingTo;
+    }
 }
