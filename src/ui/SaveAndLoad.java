@@ -32,7 +32,7 @@ public class SaveAndLoad extends JMenu{
 	static RobberKnight game = new RobberKnight(0, null, null, null, null);
 	JMenuItem saveGame = new JMenuItem("Save");
 	JMenu loadGame = new JMenu("Load");
-	ArrayList<String> loadNames = new ArrayList<String>();
+	static ArrayList<String> loadNames = new ArrayList<String>();
 	JFrame saveFrame = new JFrame("Save Game");
 	JPanel savePanel = new JPanel(new GridLayout(1,3));
 	JTextArea textArea = new JTextArea("Date");
@@ -177,7 +177,7 @@ public class SaveAndLoad extends JMenu{
     }
     
     
-    public void writeName(String filename, String loadName){
+    public static void writeName(String filename, String loadName){
 
     	loadNames.add(loadName);
     	Writer output = null;
