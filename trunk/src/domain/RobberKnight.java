@@ -39,7 +39,7 @@ public class RobberKnight implements Serializable{
         board.calculatePoints();
         int[] playerTotals = board.getPlayerTotals();
         for(Player p : players){
-            if(!p.isInGame()){
+            if(p.isSurrendered()){
                 playerTotals[p.getId()] = 0;
             }
         }
@@ -181,6 +181,7 @@ public class RobberKnight implements Serializable{
         try{
             Player p = lookUpPlayerById(currentPlayerId);
             p.setInGame(false);
+            p.setSurrendered(true);
             int playersLeft = 0;
             for(Player player : players){
                 if (player.isInGame()){
