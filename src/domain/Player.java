@@ -21,6 +21,7 @@ public class Player implements Serializable{
     private Date birthDate;
     private Deck deck;
     private boolean inGame;
+    private boolean surrendered;
     transient private PlayerListener playerListener;
 
     public Player(){}
@@ -28,6 +29,7 @@ public class Player implements Serializable{
     public Player(String name, Color color, Date birthdate, int id, PlayerListener pl) {
     	this.name = name;
         this.inGame = true;
+        this.surrendered = false;
         this.color = color;
         this.birthDate = birthdate;
         this.deck = new Deck( color );
@@ -110,5 +112,13 @@ public class Player implements Serializable{
     
     public void addPlayerListener(PlayerListener pl){
         this.playerListener = pl;
+    }
+
+    public boolean isSurrendered() {
+        return surrendered;
+    }
+
+    public void setSurrendered(boolean surrendered) {
+        this.surrendered = surrendered;
     }
 }
