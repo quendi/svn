@@ -120,7 +120,8 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         });
 
         numberOfKnights.setText("BLANK");
-        playersTurn.setText("Number");
+        //playersTurn.setText(currentPlayer.getName());
+        //playersTurn.setFont(font);
         currentColor.setText("Color");
 
         knightPicker = new KnightPicker(this, 0, Color.LIGHT_GRAY);
@@ -784,7 +785,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         card1.setIcon(currentPlayer.getDeck().getTile1().getImage());
         card2.setIcon(currentPlayer.getDeck().getTile2().getImage());
         deckLabel.setIcon(currentPlayer.getDeck().getTile3().getBack());
-        playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
+        playersTurn.setText(currentPlayer.getName());
         numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
         setUpGrid(grid, GUI.game.getNumPlayers(), false, false);
         initializeTiles();
@@ -799,7 +800,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         GUI.game = game;
         currentPlayer = GUI.game.getCurrentPlayer();
         updateHand();
-        playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
+        playersTurn.setText(currentPlayer.getName());
         numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
         setUpGrid(grid, GUI.game.getNumPlayers(), false, false);
         InGame.setVisible(true);
@@ -824,7 +825,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
     public void playerTurn(Player currentPlayer) {
         // Reset move count, update ui to reflect current player.
         //  moves = 0;
-        playersTurn.setText(Integer.toString(currentPlayer.getId() + 1));
+        playersTurn.setText(currentPlayer.getName());
         numberOfKnights.setText(Integer.toString(currentPlayer
                 .getNumKnights()));
         // Change color
