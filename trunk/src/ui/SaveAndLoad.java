@@ -39,11 +39,13 @@ public class SaveAndLoad extends JMenu{
 	JButton cancel = new JButton("Cancel");
 	JButton ok = new JButton("OK");
 	JMenuItem deleteAll = new JMenuItem("Delete All Saves");
+	static InitialScreen init;
 	private int i = 0;
 	static GUI gui = null;
 		
 	@SuppressWarnings("static-access")
-	public SaveAndLoad(RobberKnight game, GUI gui){
+	public SaveAndLoad(RobberKnight game, GUI gui, InitialScreen initialScreen){
+		this.init = initialScreen;
 		this.gui = gui;
 		this.setText("Game");
 		this.add(new JMenuItem("Restart"));//TODO
@@ -127,6 +129,8 @@ public class SaveAndLoad extends JMenu{
     }
     
     public static void loadGame(String filename){
+		if(init != null)
+			init.dispose();
     	game = readFile(filename);
     	System.out.println(game);
     	if(gui == null)

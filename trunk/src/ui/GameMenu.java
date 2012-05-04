@@ -73,7 +73,7 @@ public class GameMenu extends JMenuBar{
         		}
             }
         });
-        saveAndLoad = new SaveAndLoad(game, gui);
+        saveAndLoad = new SaveAndLoad(game, gui, initialScreen);
         
 		/**
 		 * Add items to file menu
