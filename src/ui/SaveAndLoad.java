@@ -199,7 +199,7 @@ public class SaveAndLoad extends JMenu{
 		saveFrame.setResizable(false);
 		saveFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
-		DateFormat df = new SimpleDateFormat("dd-MM-yyyy_HH:mm");
+		DateFormat df = new SimpleDateFormat("MM-dd-yyyy_HH:mm");
 		textArea.setText(df.format(new Date()));//FIX SO YOU CAN SAVE AS A DATE...
 		cancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
