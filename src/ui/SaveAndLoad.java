@@ -46,11 +46,6 @@ public class SaveAndLoad extends JMenu{
 
 	ActionListener okActionListener = new ActionListener(){
 		public void actionPerformed(ActionEvent arg0){
-			for (String loadName : loadNames) {
-				loadName = loadName + ".ser";
-				toDelete = new File(loadName);
-				toDelete.delete();
-			}
 			saveGame(textArea.getText());
 			writeName("LoadNames.txt", textArea.getText());
 			//loadGame.add(textArea.getText());
@@ -80,6 +75,11 @@ public class SaveAndLoad extends JMenu{
 		
 		deleteAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				for (String loadName : loadNames) {
+					loadName = loadName + ".ser";
+					toDelete = new File(loadName);
+					toDelete.delete();
+				}
 				try {
 					new FileOutputStream("LoadNames.txt").close();
 				}catch (Exception e) {
