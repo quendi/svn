@@ -93,7 +93,9 @@ public class PlayerSelection extends JFrame{
         birthdayPanel1.add(day1);
         birthdayPanel1.add(year1);
         firstPanel.add(birthdayPanel1);
-        firstPanel.add(color1);
+        JPanel color1Panel = new JPanel();
+        color1Panel.add(color1);
+        firstPanel.add(color1Panel);
         
         //Second Panel
         player2Name.setFont(font2);
@@ -108,7 +110,9 @@ public class PlayerSelection extends JFrame{
         birthdayPanel2.add(year2);
         secondPanel.add(birthdayPanel2);
         final JComboBox color2 = new JComboBox(color);
-        secondPanel.add(color2);
+        JPanel color2Panel = new JPanel();
+        color2Panel.add(color2);
+        secondPanel.add(color2Panel);
         
         //Third Panel
         player3Name.setFont(font2);
@@ -123,7 +127,9 @@ public class PlayerSelection extends JFrame{
         birthdayPanel3.add(year3);
         thirdPanel.add(birthdayPanel3);
         final JComboBox color3 = new JComboBox(color);
-        thirdPanel.add(color3);
+        JPanel color3Panel = new JPanel();
+        color3Panel.add(color3);
+        thirdPanel.add(color3Panel);
         
         //Fourth Panel
         player4Name.setFont(font2);
@@ -138,7 +144,9 @@ public class PlayerSelection extends JFrame{
         birthdayPanel4.add(year4);
         fourthPanel.add(birthdayPanel4);
         final JComboBox color4 = new JComboBox(color);
-        fourthPanel.add(color4);
+        JPanel color4Panel = new JPanel();
+        color4Panel.add(color4);
+        fourthPanel.add(color4Panel);
         
         /**
          * Set up cardlayout
