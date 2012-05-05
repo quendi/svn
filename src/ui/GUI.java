@@ -228,7 +228,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                                                                                                 .addGap(29,
                                                                                                         29,
                                                                                                         29)
-                                                                                                
+
                                                                                                 .addPreferredGap(
                                                                                                         LayoutStyle.ComponentPlacement.RELATED)
                                                                                                 .addGroup(
@@ -258,7 +258,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                                         PlayerPanelLayout
                                                 .createParallelGroup(
                                                         GroupLayout.Alignment.BASELINE)
-                                                
+
                                                 .addComponent(
                                                 playersTurn,
                                                 45,
@@ -808,26 +808,25 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         normalPanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         knightPicker.changeColor(GameUtils.getColor(currentPlayer.getColor()));
 
-        loadKnightPlacement(game);
+        loadKnightPlacement();
         InGame.setJMenuBar(new GameMenu(true, null, game, this));
     }
 
 
 
-    private void loadKnightPlacement(RobberKnight game) {
+    private void loadKnightPlacement() {
         if(game.getBoard().isKnightmode()){
             if(game.getBoard().getTileMovingTo() != null){
                 game.getBoard().validateKnightMovement(game.getBoard().getCastleTile(), game.getBoard().getTileMovingTo());
             }
             else{
                 if(game.getBoard().getCastleTile().getNumKnights() == 0){
-                    placedCastle(game.getBoard().getCastleTile());
+                    showValidCastleMovement(game.getBoard().getCastleTile());
                 }
                 else{
                     game.getBoard().validateKnightMovement(game.getBoard().getCastleTile());
                 }
             }
-            endKnightPlacement.setVisible(true);
         }
     }
 
@@ -942,6 +941,11 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
      * @param castle - castle tile that has been placed.
      */
     public void placedCastle(Tile castle) {
+        showValidCastleMovement(castle);
+        game.incrementMoveCounter();
+    }
+
+    private void showValidCastleMovement(Tile castle) {
         endKnightPlacement.setVisible(true);
 
         // Get valid locations for movement around castle
@@ -964,7 +968,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         panel.add(endKnightPlacement);
         abovePanel.add(panel, "3");
         cl.show(abovePanel, "3");
-        game.incrementMoveCounter();
     }
 
     /**
