@@ -31,6 +31,7 @@ public class PlayerSelection extends JFrame{
 										   "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", 
 										   "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", 
 										   "2010", "2011", "2012" };
+	private String color[] = new String[] {"blue", "green", "yellow", "red"};
 
 
     private JComboBox month1 = new JComboBox(month);
@@ -53,6 +54,8 @@ public class PlayerSelection extends JFrame{
 	private CardLayout cl2 = new CardLayout();
 	private JPanel sub1 = new JPanel(cl1);
     private JPanel sub2 = new JPanel(cl2);
+    
+    JComboBox color1 = new JComboBox(color);
 
     private ArrayList<String> names = new ArrayList<String>();
 
@@ -82,7 +85,6 @@ public class PlayerSelection extends JFrame{
         player1Name.setFont(font2);
         JPanel firstPanel = new JPanel(new GridLayout(4, 1));
         firstPanel.add(player1Name);
-        firstPanel.add(new JLabel("Blue", JLabel.CENTER));//TODO - add jcombobox and give an option to the player
         JLabel birthday1 = new JLabel("Enter Birthday:", JLabel.CENTER);
         birthday1.setFont(font2);
         firstPanel.add(birthday1);
@@ -91,12 +93,12 @@ public class PlayerSelection extends JFrame{
         birthdayPanel1.add(day1);
         birthdayPanel1.add(year1);
         firstPanel.add(birthdayPanel1);
+        firstPanel.add(color1);
         
         //Second Panel
         player2Name.setFont(font2);
         JPanel secondPanel = new JPanel(new GridLayout(4, 1));
         secondPanel.add(player2Name);
-        secondPanel.add(new JLabel("Green", JLabel.CENTER));//TODO - add jcombobox and give an option to the player
         JLabel birthday2 = new JLabel("Enter Birthday:", JLabel.CENTER);
         birthday2.setFont(font2);
         secondPanel.add(birthday2);
@@ -105,12 +107,13 @@ public class PlayerSelection extends JFrame{
         birthdayPanel2.add(day2);
         birthdayPanel2.add(year2);
         secondPanel.add(birthdayPanel2);
+        final JComboBox color2 = new JComboBox(color);
+        secondPanel.add(color2);
         
         //Third Panel
         player3Name.setFont(font2);
         JPanel thirdPanel = new JPanel(new GridLayout(4, 1));
         thirdPanel.add(player3Name);
-        thirdPanel.add(new JLabel("Yellow", JLabel.CENTER));//TODO - add jcombobox and give an option to the player
         JLabel birthday3 = new JLabel("Enter Birthday:", JLabel.CENTER);
         birthday3.setFont(font2);
         thirdPanel.add(birthday3);
@@ -119,12 +122,13 @@ public class PlayerSelection extends JFrame{
         birthdayPanel3.add(day3);
         birthdayPanel3.add(year3);
         thirdPanel.add(birthdayPanel3);
+        final JComboBox color3 = new JComboBox(color);
+        thirdPanel.add(color3);
         
         //Fourth Panel
         player4Name.setFont(font2);
         JPanel fourthPanel = new JPanel(new GridLayout(4, 1));
         fourthPanel.add(player4Name);
-        fourthPanel.add(new JLabel("Red", JLabel.CENTER));//TODO - add jcombobox and give an option to the player
         JLabel birthday4 = new JLabel("Enter Birthday:", JLabel.CENTER);
         birthday4.setFont(font2);
         fourthPanel.add(birthday4);
@@ -133,6 +137,8 @@ public class PlayerSelection extends JFrame{
         birthdayPanel4.add(day4);
         birthdayPanel4.add(year4);
         fourthPanel.add(birthdayPanel4);
+        final JComboBox color4 = new JComboBox(color);
+        fourthPanel.add(color4);
         
         /**
          * Set up cardlayout
@@ -148,6 +154,25 @@ public class PlayerSelection extends JFrame{
         sub2.add(sub2ButtonPanel, "1");
         sub2.add(fourthPanel, "2");
         
+       
+        color2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cl1.show(sub1, "2");
+				numOfPlayers++;
+			}
+        });        
+        color3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cl1.show(sub1, "2");
+				numOfPlayers++;
+			}
+        });        
+        color4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cl1.show(sub1, "2");
+				numOfPlayers++;
+			}
+        });
         
         /**
          * Add actionlisteners to buttons
@@ -177,13 +202,64 @@ public class PlayerSelection extends JFrame{
 		        names.add(player2Name.getText());
 		        names.add(player3Name.getText());
 		        names.add(player4Name.getText());
-
 		        
 		        ArrayList<Color> colors = new ArrayList<Color>();
-		        colors.add(Color.BLUE);
-		        colors.add(Color.GREEN);
-		        colors.add(Color.YELLOW);
-		        colors.add(Color.RED);
+		        //Player 1
+		        if(color1.getSelectedItem().equals("blue")){
+		        	colors.add(Color.BLUE);
+		        }
+		        else if(color1.getSelectedItem().equals("green")){
+		        	colors.add(Color.GREEN);
+		        }
+		        else if(color1.getSelectedItem().equals("yellow")){
+		        	colors.add(Color.YELLOW);
+		        }
+		        else{
+		        	colors.add(Color.RED);
+		        }
+		        //Player 2
+		        if(color2.getSelectedItem().equals("blue")){
+		        	colors.add(Color.BLUE);
+		        }
+		        else if(color2.getSelectedItem().equals("green")){
+		        	colors.add(Color.GREEN);
+		        }
+		        else if(color2.getSelectedItem().equals("yellow")){
+		        	colors.add(Color.YELLOW);
+		        }
+		        else{
+		        	colors.add(Color.RED);
+		        }
+		        //Player 3
+		        if(color3.getSelectedItem().equals("blue")){
+		        	colors.add(Color.BLUE);
+		        }
+		        else if(color3.getSelectedItem().equals("green")){
+		        	colors.add(Color.GREEN);
+		        }
+		        else if(color3.getSelectedItem().equals("yellow")){
+		        	colors.add(Color.YELLOW);
+		        }
+		        else{
+		        	colors.add(Color.RED);
+		        }
+		      //Player 4
+		        if(color4.getSelectedItem().equals("blue")){
+		        	colors.add(Color.BLUE);
+		        }
+		        else if(color4.getSelectedItem() .equals("green")){
+		        	colors.add(Color.GREEN);
+		        }
+		        else if(color4.getSelectedItem().equals("yellow")){
+		        	colors.add(Color.YELLOW);
+		        }
+		        else{
+		        	colors.add(Color.RED);
+		        }
+		        
+		        
+
+
 
 		        //Set Player Selection to invisible
 		        erase();
