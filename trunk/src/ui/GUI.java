@@ -772,7 +772,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                             initialTile.setVisible(false);
                             currentPlayer = game.getNextPlayer();
                             InGame.setVisible(true);
-                            loopSound("resources/BackgroundMusic.wav");
+                            loopSound("resources/BackgroundMusic1.wav");
                             selectedCard = new JButton();
                         }
                         else {
