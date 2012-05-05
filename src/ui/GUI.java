@@ -4,6 +4,10 @@ import domain.*;
 import domain.enums.Building;
 import domain.enums.Terrain;
 import exceptions.NoSuchPlayerException;
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
 import utils.GameUtils;
 
 import java.awt.*;
@@ -755,6 +759,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                             initialTile.setVisible(false);
                             currentPlayer = game.getNextPlayer();
                             InGame.setVisible(true);
+                            loopSound("resources/BackgroundMusic.wav");
                             selectedCard = new JButton();
                         }
                         else {
@@ -1237,6 +1242,29 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
             Clip clip = (Clip) AudioSystem.getLine(info);
             clip.open(audio);
             clip.start();
+        }
+
+        catch(UnsupportedAudioFileException uae) {
+            System.out.println(uae);
+        }
+        catch(IOException ioe) {
+            System.out.println(ioe);
+        }
+        catch(LineUnavailableException lua) {
+            System.out.println(lua);
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    public static void loopSound(String filename){
+        try {
+            AudioInputStream audio = AudioSystem.getAudioInputStream(new java.io.File(filename)); //e.g. "resources/GallopingHorse.wav"
+            DataLine.Info info = new DataLine.Info(Clip.class, audio.getFormat());
+            Clip clip = (Clip) AudioSystem.getLine(info);
+            clip.open(audio);
+            clip.start();
+            clip.loop(40);
         }
 
         catch(UnsupportedAudioFileException uae) {
