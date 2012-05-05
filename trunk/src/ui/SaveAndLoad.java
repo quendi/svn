@@ -42,6 +42,17 @@ public class SaveAndLoad extends JMenu{
 	static InitialScreen init;
 	private int i = 0;
 	static GUI gui = null;
+	ActionListener okActionListener = new ActionListener(){
+		public void actionPerformed(ActionEvent arg0){
+			saveGame(textArea.getText());
+			writeName("LoadNames.txt", textArea.getText());
+			//loadGame.add(textArea.getText());
+			saveFrame.dispose();
+			refresh();
+			startLoad();
+			ok.removeActionListener(okActionListener);
+		}
+	};
 		
 	@SuppressWarnings("static-access")
 	public SaveAndLoad(RobberKnight game, GUI gui, InitialScreen initialScreen){
@@ -69,8 +80,7 @@ public class SaveAndLoad extends JMenu{
 				}
 				refresh();
 				loadNames = new ArrayList<String>();
-				//startLoad();//TODO - displays wrong amount of loads
-				//System.out.print(loadNames.size());
+				startLoad();
 			}
         });
 		this.add(saveGame);
@@ -183,9 +193,9 @@ public class SaveAndLoad extends JMenu{
     	Writer output = null;
     	try {
         	output = new BufferedWriter(new FileWriter(new File(filename), true));
-            for (String loadName1 : loadNames) {
-                output.append(loadName1 + " ");
-            }
+            //for (String loadName1 : loadNames) {
+                output.append(loadName + " ");
+            //}
 	    	output.close();
 		}catch (IOException e){
 			e.printStackTrace();
@@ -206,24 +216,15 @@ public class SaveAndLoad extends JMenu{
 				saveFrame.dispose();
 			}
 		});
-		if(i ==0){
-			ok.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent arg0){
-					saveGame(textArea.getText());
-					writeName("LoadNames.txt", textArea.getText());
-					//loadGame.add(textArea.getText());
-					saveFrame.dispose();
-					refresh();
-					startLoad();
-					i = 1;
-				}
-			});
-		}
+
+			ok.addActionListener(okActionListener);
 
 		savePanel.add(textArea);
 		savePanel.add(cancel);
 		savePanel.add(ok);
 		saveFrame.add(savePanel);
     }
+    
+ 
 	
 }
