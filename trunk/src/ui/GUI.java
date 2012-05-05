@@ -567,7 +567,10 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         initialTile.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
         JPanel tilePanel = new JPanel();
+        tilePanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+        tilePanel.setForeground(GameUtils.getColor(currentPlayer.getColor()));
         tilePanel.setLayout(new BorderLayout());
+        
 
         final JLabel playerNumber = new JLabel(currentPlayer.getName());
         final TileButton tile1 = new TileButton();
@@ -610,6 +613,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         });
         final JButton select = new JButton("Next Player");
         final JPanel gridHolder = new JPanel();
+       // gridHolder.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         gridHolder.setLayout(new GridLayout(2, game.getNumPlayers()));
         for (int i = 0; i < game.getNumPlayers() * 2; i++) {
             final TileButton gridButton = new TileButton();
@@ -702,26 +706,31 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
          */
         playerNumber.setFont(font);
         select.setPreferredSize(new Dimension(300, 100));
-        tilePanel.setForeground(new java.awt.Color(0,0,255));
+       // tilePanel.setForeground(new java.awt.Color(0,0,255));
+
 
         /**
          * Add contents to frame
          */
-        JPanel northHolder = new JPanel();
+        final JPanel northHolder = new JPanel();
+        northHolder.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         northHolder.add(playerNumber);
         tilePanel.add(northHolder, BorderLayout.NORTH);
 
-        JPanel westHolder = new JPanel();
+        final JPanel westHolder = new JPanel();
+        westHolder.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         westHolder.add(tile1);
         westHolder.add(tile2);
         westHolder.add(tile4);
         tilePanel.add(westHolder, BorderLayout.WEST);
 
-        JPanel centerHolder = new JPanel();
+        final JPanel centerHolder = new JPanel();
+        centerHolder.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         centerHolder.add(gridHolder);
         tilePanel.add(centerHolder, BorderLayout.CENTER);
 
-        JPanel southHolder = new JPanel();
+        final JPanel southHolder = new JPanel();
+        southHolder.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         southHolder.add(select);
         tilePanel.add(southHolder, BorderLayout.SOUTH);
 
@@ -748,6 +757,10 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                             tile4.setEnabled(true);
                             tilesPlaced = 0;
                             first = 0;
+                            northHolder.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+                            westHolder.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+                            centerHolder.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+                            southHolder.setBackground(GameUtils.getColor(currentPlayer.getColor()));
                         } else {
                             JOptionPane.showMessageDialog(initialTile,
                                     "You must place two tiles.", "Error",
