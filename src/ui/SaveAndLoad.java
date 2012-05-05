@@ -42,8 +42,15 @@ public class SaveAndLoad extends JMenu{
 	static InitialScreen init;
 	private int i = 0;
 	static GUI gui = null;
+	File toDelete;
+
 	ActionListener okActionListener = new ActionListener(){
 		public void actionPerformed(ActionEvent arg0){
+			for (String loadName : loadNames) {
+				loadName = loadName + ".ser";
+				toDelete = new File(loadName);
+				toDelete.delete();
+			}
 			saveGame(textArea.getText());
 			writeName("LoadNames.txt", textArea.getText());
 			//loadGame.add(textArea.getText());
