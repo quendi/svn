@@ -57,9 +57,11 @@ public class GameMenu extends JMenuBar{
         });
         close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	DateFormat df = new SimpleDateFormat("MM-dd-yyyy_HH:mm");
-        		SaveAndLoad.saveGame(df.format(new Date()));
-        		SaveAndLoad.writeName("LoadNames.txt", df.format(new Date()));
+            	if(gui != null){
+	            	DateFormat df = new SimpleDateFormat("MM-dd-yyyy_HH:mm");
+	        		SaveAndLoad.saveGame(df.format(new Date()));
+	        		SaveAndLoad.writeName("LoadNames.txt", df.format(new Date()));
+            	}
                 System.exit(0);
             }
         });
