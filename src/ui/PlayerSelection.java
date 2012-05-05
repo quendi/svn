@@ -161,27 +161,7 @@ public class PlayerSelection extends JFrame{
         sub1.add(thirdPanel, "2");
         sub2.add(sub2ButtonPanel, "1");
         sub2.add(fourthPanel, "2");
-        
-       
-        color2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				cl1.show(sub1, "2");
-				numOfPlayers++;
-			}
-        });        
-        color3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				cl1.show(sub1, "2");
-				numOfPlayers++;
-			}
-        });        
-        color4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				cl1.show(sub1, "2");
-				numOfPlayers++;
-			}
-        });
-        
+               
         /**
          * Add actionlisteners to buttons
          */
@@ -265,16 +245,19 @@ public class PlayerSelection extends JFrame{
 		        	colors.add(Color.RED);
 		        }
 		        
-		        
 
-
-
-		        //Set Player Selection to invisible
-		        erase();
-		        // Create game and return to main window(GUI).
-		        GUI gui = new GUI();
-		        gui.startGame(new RobberKnight(numOfPlayers, names, colors, dates, gui));
-		        
+				if(allUniqueColors(numOfPlayers, colors)){
+			        //delete player selection
+			        erase();
+			        // Create game and return to main window(GUI).
+			        GUI gui = new GUI();
+			        gui.startGame(new RobberKnight(numOfPlayers, names, colors, dates, gui));
+				}
+				else{
+					JOptionPane.showMessageDialog(null,
+                            "Players must have different colors.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+				}
 		    }
         });
         
@@ -312,7 +295,19 @@ public class PlayerSelection extends JFrame{
 	}
 	
 	private void erase(){
-		this.setVisible(false);
+		this.dispose();
+	}
+	
+	private boolean allUniqueColors(int numOfPlayers, ArrayList<Color> colors) {
+		for(int i = 0; i < numOfPlayers; i++){
+			for(int j = i + 1; j < numOfPlayers; j++){
+				if(j != i){
+					if(colors.get(i) == colors.get(j))
+						return false;
+				}
+			}
+		}
+		return true;
 	}
 	
 	/***Testing***/
