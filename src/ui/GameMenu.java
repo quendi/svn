@@ -81,7 +81,7 @@ public class GameMenu extends JMenuBar{
         		}
             }
         });
-        saveAndLoad = new SaveAndLoad(game, gui, initialScreen);
+        saveAndLoad = new SaveAndLoad(game, gui, initialScreen, inGame);
         
 		/**
 		 * Add items to file menu
@@ -100,6 +100,10 @@ public class GameMenu extends JMenuBar{
 		this.add(file);
 		this.add(saveAndLoad);
 		this.add(help);
+		
+		if(!inGame){
+			surrender.setEnabled(false);
+		}
 		
 	}
 

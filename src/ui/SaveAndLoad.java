@@ -57,11 +57,11 @@ public class SaveAndLoad extends JMenu{
 	};
 		
 	@SuppressWarnings("static-access")
-	public SaveAndLoad(RobberKnight game, GUI gui, InitialScreen initialScreen){
+	public SaveAndLoad(RobberKnight game, GUI gui, InitialScreen initialScreen, boolean inGame){
 		this.init = initialScreen;
 		this.gui = gui;
 		this.setText("Game");
-		this.add(new JMenuItem("Restart"));//TODO
+		//this.add(new JMenuItem("Restart"));//TODO
 		/**
 		 * Save game
 		 */
@@ -93,6 +93,8 @@ public class SaveAndLoad extends JMenu{
 		this.add(saveGame);
 		this.add(loadGame);
 		this.add(deleteAll);
+		if(!inGame)
+			saveGame.setEnabled(false);
 
 	}
 	private void refresh(){
