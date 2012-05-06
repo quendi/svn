@@ -20,7 +20,6 @@ public class WinScreen{
         int[] playerTotals = game.getTotals();
         int winner = 0;
         for(int i = 0; i < 4; i++){
-//            int total = 0;
             if (playerTotals[i] > total){
 				total = playerTotals[i];
 				winner = i;
