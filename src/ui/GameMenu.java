@@ -23,7 +23,7 @@ public class GameMenu extends JMenuBar{
 	 */
 	JMenuItem newGame = new JMenuItem("New Game");
 	JMenuItem surrender = new JMenuItem("Surrender");
-	JMenuItem close = new JMenuItem("Close");
+	JMenuItem close = new JMenuItem("Quit");
 	/**
 	 * Load and Save
 	 */
