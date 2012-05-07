@@ -1322,13 +1322,13 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
             }
             else if(num == 1){
                 if(color == domain.enums.Color.RED)
-                    img = ImageIO.read(new File("resources" + separator + "knight red side small.jpg"));
+                    img = ImageIO.read(new File("resources" + separator + "red side.jpg"));
                 else if(color == domain.enums.Color.BLUE)
-                    img = ImageIO.read(new File("resources" + separator + "knight blue side small.jpg"));
+                    img = ImageIO.read(new File("resources" + separator + "blue side.jpg"));
                 else if(color == domain.enums.Color.GREEN)
-                    img = ImageIO.read(new File("resources" + separator + "knight green side small.jpg"));
+                    img = ImageIO.read(new File("resources" + separator + "green side.jpg"));
                 else if(color == domain.enums.Color.YELLOW)
-                    img = ImageIO.read(new File("resources" + separator + "knight yellow side small.jpg"));
+                    img = ImageIO.read(new File("resources" + separator + "yellow side.jpg"));
                 else return null;
             } else return null;
         } catch (IOException e) {
