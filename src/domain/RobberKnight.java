@@ -19,7 +19,7 @@ public class RobberKnight implements Serializable{
     private static final long serialVersionUID = 1L;
 
     private int numPlayers;
-    private ArrayList<Player> players;
+    public ArrayList<Player> players;
     private Board board;
     private int currentPlayerId;
     transient private TurnListener turnListener;
@@ -36,7 +36,7 @@ public class RobberKnight implements Serializable{
      * Return an array containing totals
      */
     public int[] getTotals(){
-        board.calculatePoints();
+        board.calculatePoints(players);
         int[] playerTotals = board.getPlayerTotals();
         for(Player p : players){
             if(p.isSurrendered()){
