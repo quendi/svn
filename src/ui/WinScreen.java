@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.sound.sampled.*;
 import javax.swing.*;
+
+import domain.Player;
 import domain.RobberKnight;
 
 @SuppressWarnings("unused")
@@ -19,6 +21,7 @@ public class WinScreen{
     	int total = 0;
         int[] playerTotals = game.getTotals();
         int winner = 0;
+
         for(int i = 0; i < 4; i++){
             if (playerTotals[i] > total){
 				total = playerTotals[i];
@@ -74,22 +77,9 @@ public class WinScreen{
          *Display player scores
          */
         JPanel playerPoints = new JPanel();
-        playerPoints.add(new JLabel(game.getPlayerByNumber(0).getName()));
-        playerPoints.add(new JLabel(Integer.toString(playerTotals[0])+"\n"));
-   
-        playerPoints.add(new JLabel(game.getPlayerByNumber(1).getName()));
-        playerPoints.add(new JLabel(Integer.toString(playerTotals[1])+"\n"));
-        
-        if(game.getNumPlayers() > 2){
-	        playerPoints.add(new JLabel(game.getPlayerByNumber(2).getName()));
-	        playerPoints.add(new JLabel(Integer.toString(playerTotals[2])+"\n"));
+        for(int i=0;i<game.getNumPlayers();i++){
+        	playerPoints.add(new JLabel(game.getPlayerByNumber(i).getName()+"\t:"+playerTotals[i]));
         }
-        
-        if(game.getNumPlayers() > 3){
-	        playerPoints.add(new JLabel(game.getPlayerByNumber(4).getName()));
-	        playerPoints.add(new JLabel(Integer.toString(playerTotals[3])+"\n"));
-        }
-        
         panel.add(playerPoints, BorderLayout.CENTER);
         
         /**
