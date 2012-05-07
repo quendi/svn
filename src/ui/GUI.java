@@ -851,6 +851,15 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                 }
             }
         }
+        else{
+            knightPicker.changeColor(GameUtils.getColor(currentPlayer.getColor()));
+            abovePanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+            JPanel panel = new JPanel();
+            panel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+            abovePanel.add(panel, "3");
+            cl.show(abovePanel, "3");
+
+        }
     }
 
     // LISTENER IMPLEMENTATION
