@@ -91,8 +91,10 @@ public class WinScreen{
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 frame.setVisible(false);
-                if(gui!= null && gui.InGame != null)
+                if(gui!= null && gui.InGame != null){
                     gui.InGame.dispose();
+                    gui.stopSound();
+                }
                 new PlayerSelection();
             }
         });

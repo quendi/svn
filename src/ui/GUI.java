@@ -10,6 +10,7 @@ import sun.audio.AudioStream;
 import sun.audio.ContinuousAudioDataStream;
 import utils.GameUtils;
 
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -32,7 +33,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
     private Tile tileInPlay;
     protected Player currentPlayer;
     private Point moveTo;
-
+    private Clip clip;
     public static RobberKnight game;
 
     protected JFrame InGame;
@@ -773,7 +774,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                             initialTile.setVisible(false);
                             currentPlayer = game.getNextPlayer();
                             InGame.setVisible(true);
-                            loopSound("resources/BackgroundMusic1.wav");
+                            loopSound();
                             selectedCard = new JButton();
                         }
                         else {
@@ -1278,11 +1279,11 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
             System.out.println(e);
         }
     }
-    public static void loopSound(String filename){
+    public void loopSound(){
         try {
-            AudioInputStream audio = AudioSystem.getAudioInputStream(new java.io.File(filename)); //e.g. "resources/GallopingHorse.wav"
+            AudioInputStream audio = AudioSystem.getAudioInputStream(new java.io.File("resources/BackgroundMusic1.wav")); //e.g. "resources/GallopingHorse.wav"
             DataLine.Info info = new DataLine.Info(Clip.class, audio.getFormat());
-            Clip clip = (Clip) AudioSystem.getLine(info);
+             clip = (Clip) AudioSystem.getLine(info);
             clip.open(audio);
             clip.start();
             clip.loop(40);
@@ -1300,6 +1301,10 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         catch(Exception e){
             System.out.println(e);
         }
+    }
+
+    public void stopSound(){
+        clip.stop();
     }
     public BufferedImage getKnightImage(domain.enums.Color color, int num){
         BufferedImage img = null;
@@ -1331,5 +1336,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         }
         return img;
     }
+
+    
 }
 

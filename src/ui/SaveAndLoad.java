@@ -151,9 +151,11 @@ public class SaveAndLoad extends JMenu{
 		if(init != null)
 			init.dispose();
     	game = readFile(filename);
-    	System.out.println(game);
-    	if(gui == null)
-    		new GUI().loadGame(game);
+    	if(gui == null){
+    		gui = new GUI();
+            gui.loadGame(game);
+            gui.loopSound();
+        }
     	else 
     		gui.loadGame(game);
     }
