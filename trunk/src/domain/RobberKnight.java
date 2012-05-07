@@ -46,6 +46,10 @@ public class RobberKnight implements Serializable{
         return playerTotals;
     }
 
+    public Player getPlayerByNumber(int playerNumber){
+        return players.get(playerNumber);
+    }
+
     /**
      * Initializes current game board and players.
      * @param numPlayers - used in determining size of board.
