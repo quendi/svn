@@ -14,22 +14,23 @@ public class  About extends JFrame{
 		this.setTitle("About");
 		this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        this.setBounds(750, 300, 425, 500);
+        this.setBounds(750, 300, 350, 400);
         //this.setResizable(false);
 
-        label.setFont(new Font("Serif", Font.PLAIN, 34));
+        label.setFont(new Font("Serif", Font.PLAIN, 20));
 
-        label.setText("<html> <center>Robber Knights <br> " +
-        		 "Class Project<br>" +
-        		 "CS 536 Software Engineering<br>" +
-        		 "Spring 2012<br>" +
-        		 "Group Members:<br>"+
-        		 "Joel Francisco<br>"+
-        		 "Chun-Chieh Lee (Jim)<br>"+
-        		 "Aaron Proffitt<br>"+
-        		 "Samareh Shahmohammadi<br>"+
-        		 "Yasodhara Siddineni</center></html>");
-
+        label.setText("<html>" +
+        		"<H1 align=\"center\">Robber Knights</H1><br>" +
+        		"Class Project<br>" +
+				"CS 536 Software Engineering<br>" +
+				"Spring 2012<br><br>" +
+				"Group Members:<br>" +
+				"Joel Francisco<br>" +
+				"Chun-Chieh Lee (Jim)<br>" +
+				"Aaron Dean Proffitt<br>" +
+				"Samareh Shahmohammadi<br>" +
+				"Yasodhara Siddineni<br><br>" +
+				"<small><right>© Copyright 2005 Queen</right></small></html>");
         this.add(label);
 
 	}
