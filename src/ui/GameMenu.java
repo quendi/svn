@@ -75,7 +75,7 @@ public class GameMenu extends JMenuBar{
         });
         rules.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                File file = new File("resources/RobberKnights.pdf");
+                File file = new File("resources/RobberKnightsRules.pdf");
 
                 try {
                     Desktop.getDesktop().open(file);
