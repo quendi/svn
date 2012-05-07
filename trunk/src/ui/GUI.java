@@ -91,7 +91,9 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         grid.setBackground(null);
 
         InGame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        InGame.setMinimumSize(new java.awt.Dimension(900, 600));
+        InGame.setResizable(true);
+        InGame.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+       // InGame.setMinimumSize(new java.awt.Dimension(900, 600));
 
 
 
@@ -329,11 +331,11 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                                                 numberOfKnights))
                                 .addPreferredGap(
                                         LayoutStyle.ComponentPlacement.RELATED,
-                                        119, Short.MAX_VALUE)
+                                        10, Short.MAX_VALUE)
                                 .addComponent(
                                         abovePanel,
                                         GroupLayout.PREFERRED_SIZE,
-                                        100,
+                                        300,
                                         GroupLayout.PREFERRED_SIZE)
 
                                 .addGap(52, 52, 52)
@@ -833,6 +835,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         knightPicker.changeColor(GameUtils.getColor(currentPlayer.getColor()));
 
         loadKnightPlacement();
+        loopSound("resources/BackgroundMusic1.wav");
         InGame.setJMenuBar(new GameMenu(true, null, game, this));
     }
 
