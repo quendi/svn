@@ -93,7 +93,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         InGame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         InGame.setResizable(true);
         InGame.setSize(Toolkit.getDefaultToolkit().getScreenSize());
-       // InGame.setMinimumSize(new java.awt.Dimension(900, 600));
+        // InGame.setMinimumSize(new java.awt.Dimension(900, 600));
 
 
 
@@ -572,7 +572,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         tilePanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         tilePanel.setForeground(GameUtils.getColor(currentPlayer.getColor()));
         tilePanel.setLayout(new BorderLayout());
-        
+
 
         final JLabel playerNumber = new JLabel(currentPlayer.getName());
         final TileButton tile1 = new TileButton();
@@ -615,90 +615,90 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         });
         final JButton select = new JButton("Next Player");
         final JPanel gridHolder = new JPanel();
-       // gridHolder.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+        // gridHolder.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         gridHolder.setLayout(new GridLayout(2, game.getNumPlayers()));
         for (int i = 0; i < game.getNumPlayers() * 2; i++) {
             final TileButton gridButton = new TileButton();
             gridButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                	if(selectedTile != -1){
-	                    if (tilesPlaced < 2) {
-	                        if (gridButton.getIcon() == null
-	                                && selectedCard != null) {
-	                            gridButton.setIcon(selectedCard.getIcon());
-	                            selectedCard.setEnabled(false);
-	                            if (selectedTile == 0) {
-	                                placeTile(
-	                                        game.getCurrentPlayer().getDeck()
-	                                                .getTile1(),
-	                                        new Point(gridButton.getLocation().x
-	                                                / gridButton.getWidth() + 3,
-	                                                gridButton.getLocation().y
-	                                                        / gridButton
-	                                                        .getHeight()
-	                                                        + 3), true);
-	                                selectedTile = -1;
-	                                if(tilesPlaced < 1)
-	                                    selectedCard = null;
-	                            }
-	                            if (selectedTile == 1) {
-	                                placeTile(
-	                                        game.getCurrentPlayer().getDeck()
-	                                                .getTile2(),
-	                                        new Point(gridButton.getLocation().x
-	                                                / gridButton.getWidth() + 3,
-	                                                gridButton.getLocation().y
-	                                                        / gridButton
-	                                                        .getHeight()
-	                                                        + 3), true);
-	                                selectedTile = -1;
-	                                if(tilesPlaced < 1)
-	                                    selectedCard = null;
-	                            }
-	                            if (selectedTile == 2) {
-	                                placeTile(
-	                                        game.getCurrentPlayer().getDeck()
-	                                                .getTile3(),
-	                                        new Point(gridButton.getLocation().x
-	                                                / gridButton.getWidth() + 3,
-	                                                gridButton.getLocation().y
-	                                                        / gridButton
-	                                                        .getHeight()
-	                                                        + 3), true);
-	                                selectedTile = -1;
-	                                if(tilesPlaced < 1)
-	                                    selectedCard = null;
-	                            }
-	                            if (selectedTile == 3) {
-	                                placeTile(
-	                                        game.getCurrentPlayer().getDeck()
-	                                                .getTile4(),
-	                                        new Point(gridButton.getLocation().x
-	                                                / gridButton.getWidth() + 3,
-	                                                gridButton.getLocation().y
-	                                                        / gridButton
-	                                                        .getHeight()
-	                                                        + 3), true);
-	                                selectedTile = -1;
-	                                if(tilesPlaced < 1)
-	                                    selectedCard = null;
-	                            }
-	                            tilesPlaced++;
-	                        } else if (selectedCard == null) {
-	                            JOptionPane.showMessageDialog(initialTile,
-	                                    "You cannot place the same tile twice.",
-	                                    "Error", JOptionPane.ERROR_MESSAGE);
-	                        } else {
-	                            JOptionPane.showMessageDialog(initialTile,
-	                                    "You cannot place over other tiles.",
-	                                    "Error", JOptionPane.ERROR_MESSAGE);
-	                        }
-	                    } else {
-	                        JOptionPane.showMessageDialog(initialTile,
-	                                "You cannot place more than two tiles.",
-	                                "Error", JOptionPane.ERROR_MESSAGE);
-	                    }
-                	}
+                    if(selectedTile != -1){
+                        if (tilesPlaced < 2) {
+                            if (gridButton.getIcon() == null
+                                    && selectedCard != null) {
+                                gridButton.setIcon(selectedCard.getIcon());
+                                selectedCard.setEnabled(false);
+                                if (selectedTile == 0) {
+                                    placeTile(
+                                            game.getCurrentPlayer().getDeck()
+                                                    .getTile1(),
+                                            new Point(gridButton.getLocation().x
+                                                    / gridButton.getWidth() + 3,
+                                                    gridButton.getLocation().y
+                                                            / gridButton
+                                                            .getHeight()
+                                                            + 3), true);
+                                    selectedTile = -1;
+                                    if(tilesPlaced < 1)
+                                        selectedCard = null;
+                                }
+                                if (selectedTile == 1) {
+                                    placeTile(
+                                            game.getCurrentPlayer().getDeck()
+                                                    .getTile2(),
+                                            new Point(gridButton.getLocation().x
+                                                    / gridButton.getWidth() + 3,
+                                                    gridButton.getLocation().y
+                                                            / gridButton
+                                                            .getHeight()
+                                                            + 3), true);
+                                    selectedTile = -1;
+                                    if(tilesPlaced < 1)
+                                        selectedCard = null;
+                                }
+                                if (selectedTile == 2) {
+                                    placeTile(
+                                            game.getCurrentPlayer().getDeck()
+                                                    .getTile3(),
+                                            new Point(gridButton.getLocation().x
+                                                    / gridButton.getWidth() + 3,
+                                                    gridButton.getLocation().y
+                                                            / gridButton
+                                                            .getHeight()
+                                                            + 3), true);
+                                    selectedTile = -1;
+                                    if(tilesPlaced < 1)
+                                        selectedCard = null;
+                                }
+                                if (selectedTile == 3) {
+                                    placeTile(
+                                            game.getCurrentPlayer().getDeck()
+                                                    .getTile4(),
+                                            new Point(gridButton.getLocation().x
+                                                    / gridButton.getWidth() + 3,
+                                                    gridButton.getLocation().y
+                                                            / gridButton
+                                                            .getHeight()
+                                                            + 3), true);
+                                    selectedTile = -1;
+                                    if(tilesPlaced < 1)
+                                        selectedCard = null;
+                                }
+                                tilesPlaced++;
+                            } else if (selectedCard == null) {
+                                JOptionPane.showMessageDialog(initialTile,
+                                        "You cannot place the same tile twice.",
+                                        "Error", JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(initialTile,
+                                        "You cannot place over other tiles.",
+                                        "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(initialTile,
+                                    "You cannot place more than two tiles.",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
                 }
             });
             gridHolder.add(gridButton);
@@ -708,7 +708,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
          */
         playerNumber.setFont(font);
         select.setPreferredSize(new Dimension(300, 100));
-       // tilePanel.setForeground(new java.awt.Color(0,0,255));
+        // tilePanel.setForeground(new java.awt.Color(0,0,255));
 
 
         /**
@@ -827,15 +827,12 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         InGame.setVisible(true);
         game.setListeners(this, this, this);
         game.getBoard().loadBoard();
-
         currentColor.setText(currentPlayer.getColor().toString());
         InGame.getContentPane().setBackground(GameUtils.getColor(currentPlayer.getColor()));
         PlayerPanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         normalPanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         knightPicker.changeColor(GameUtils.getColor(currentPlayer.getColor()));
-
         loadKnightPlacement();
-        loopSound("resources/BackgroundMusic1.wav");
         InGame.setJMenuBar(new GameMenu(true, null, game, this));
     }
 
@@ -873,14 +870,19 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         currentColor.setText(currentPlayer.getColor().toString());
         InGame.getContentPane().setBackground(GameUtils.getColor(currentPlayer.getColor()));
         PlayerPanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
-
+        knightPicker.changeColor(GameUtils.getColor(currentPlayer.getColor()));
+        abovePanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+        JPanel panel = new JPanel();
+        panel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+        abovePanel.add(panel, "3");
+        cl.show(abovePanel, "3");
     }
 
     /**
      * Signal to ui to end the game.  Show end screen with point totals.
      */
     public void endGame() {
-        new WinScreen(game);
+        new WinScreen(game, this);
 
     }
 
@@ -1239,11 +1241,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
      */
     public void moveKnight(int numberOfKnights) {
         game.moveKnight(game.getBoard().getCastleTile(), game.getBoard().getTileMovingTo(), numberOfKnights);
-//        Player current = game.getCurrentPlayer();
-//        Tile goTo = game.getBoard().getTileMovingTo();
-//        if(goTo.knights.size() > 0)
-//            if(current.getColor() != goTo.getTopKnight())
-//                playSound("resources/KillStab.wav");
     }
 
 
