@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 //import org.apache.commons.lang3.ArrayUtils;
 
+import javax.swing.JLabel;
+
 /**
  * User: Joe
  * Date: Apr 10, 2012
@@ -71,6 +73,30 @@ public class Board implements Serializable{
     /**
      * Iterate through the array of tiles, check top knight, add points to player according to building
      */
+    public void calculatePoints(ArrayList<Player> players){
+    	int x=0;
+        for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
+                if(tiles[i][j] != null && tiles[i][j].getNumKnights() > 0){
+                	x=0;
+                    for(Player p : players){
+                    	if(tiles[i][j].getTopKnight().equals(p.getColor())){
+                            if(tiles[i][j].getBuilding().equals(Building.Castle))
+                                playerTotals[x]++;
+                            else if(tiles[i][j].getBuilding().equals(Building.Village))
+                                playerTotals[x]+=2;
+                            else if(tiles[i][j].getBuilding().equals(Building.Town))
+                                playerTotals[x]+=3;
+                        }
+                    	x++;
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    /*
     public void calculatePoints(){
         for(int i = 0; i < size; i++){
             for(int j = 0; j < size; j++){
@@ -111,6 +137,8 @@ public class Board implements Serializable{
             }
         }
     }
+     */
+    
     /**
      * Return final scores to RobberKnight class
      */
