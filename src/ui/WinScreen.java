@@ -45,7 +45,7 @@ public class WinScreen{
         player.setFont(font);
 
         JLabel winningPlayer = new JLabel();
-        winningPlayer.setText(Integer.toString(winner + 1));
+        winningPlayer.setText(game.getPlayerByNumber(winner).getName());
         winningPlayer.setFont(font);
 
         JLabel win = new JLabel();
@@ -74,20 +74,20 @@ public class WinScreen{
          *Display player scores
          */
         JPanel playerPoints = new JPanel();
-        playerPoints.add(new JLabel("Player 1: "));
-        playerPoints.add(new JLabel(Integer.toString(playerTotals[0])));
+        playerPoints.add(new JLabel(game.getPlayerByNumber(0).getName()));
+        playerPoints.add(new JLabel(Integer.toString(playerTotals[0])+"\n"));
    
-        playerPoints.add(new JLabel("Player 2: "));
-        playerPoints.add(new JLabel(Integer.toString(playerTotals[1])));
+        playerPoints.add(new JLabel(game.getPlayerByNumber(1).getName()));
+        playerPoints.add(new JLabel(Integer.toString(playerTotals[1])+"\n"));
         
         if(game.getNumPlayers() > 2){
-	        playerPoints.add(new JLabel("Player 3: "));
-	        playerPoints.add(new JLabel(Integer.toString(playerTotals[2])));
+	        playerPoints.add(new JLabel(game.getPlayerByNumber(2).getName()));
+	        playerPoints.add(new JLabel(Integer.toString(playerTotals[2])+"\n"));
         }
         
         if(game.getNumPlayers() > 3){
-	        playerPoints.add(new JLabel("Player 4: "));
-	        playerPoints.add(new JLabel(Integer.toString(playerTotals[3])));
+	        playerPoints.add(new JLabel(game.getPlayerByNumber(4).getName()));
+	        playerPoints.add(new JLabel(Integer.toString(playerTotals[3])+"\n"));
         }
         
         panel.add(playerPoints, BorderLayout.CENTER);
