@@ -35,7 +35,7 @@ public class WinScreen{
          */
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setBounds(750, 300, 600, 300);
+        frame.setBounds(750, 300, 300, 300);
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.setSize(Toolkit.getDefaultToolkit().getScreenSize());
@@ -43,10 +43,7 @@ public class WinScreen{
         /**
          *Display who won game
          */
-        JLabel player = new JLabel();
-        player.setText("Player ");
         Font font = new Font("Serif", Font.BOLD, 34);
-        player.setFont(font);
 
         JLabel winningPlayer = new JLabel();
         winningPlayer.setText(game.getPlayerByNumber(winner).getName());
@@ -57,7 +54,6 @@ public class WinScreen{
         win.setFont(font);
 
         JPanel winningPanel = new JPanel();
-        winningPanel.add(player);
         winningPanel.add(winningPlayer);
         winningPanel.add(win);
         panel.add(winningPanel, BorderLayout.NORTH);
@@ -77,10 +73,12 @@ public class WinScreen{
         /**
          *Display player scores
          */
-        JPanel playerPoints = new JPanel();
+        JPanel playerPoints = new JPanel(new GridLayout(game.getNumPlayers(),2));
         for(int i=0;i<game.getNumPlayers();i++){
-            playerPoints.add(new JLabel(game.getPlayerByNumber(i).getName()+"\t:"+playerTotals[i]));
+        	playerPoints.add(new JLabel("    "+game.getPlayerByNumber(i).getName()+":   "));
+        	playerPoints.add(new JLabel(""+playerTotals[i]));
         }
+
         panel.add(playerPoints, BorderLayout.CENTER);
 
         /**
