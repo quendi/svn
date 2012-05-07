@@ -73,7 +73,7 @@ public class Board implements Serializable{
     /**
      * Iterate through the array of tiles, check top knight, add points to player according to building
      */
-    public void calculatePoints(ArrayList<Player> players){
+     public void calculatePoints(ArrayList<Player> players){
     	int x=0;
         for(int i = 0; i < size; i++){
             for(int j = 0; j < size; j++){
