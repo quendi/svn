@@ -57,7 +57,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
     private int tilesPlaced = 0;
     private int selectedTile = -1;
     private int first = 0;
-    private static final int SIZE = 117 * 7;
+    private static final int SIZE = 117 * 7 * Toolkit.getDefaultToolkit().getScreenSize().height / 960;
     private Font font = new Font("Serif", Font.BOLD, 34);
     private CardLayout cl = new CardLayout();
 
@@ -72,7 +72,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
     }
 
     private void initComponents() {
-
         initialTile = new JFrame("Choose initial tiles");
         InGame = new JFrame();
         deckLabel = new JButton();

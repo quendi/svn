@@ -48,11 +48,11 @@ public class TileButton extends JButton {
     private ImageIcon scale(Image img, int NumPlayers) {
         double scale = 1;
         if( NumPlayers == 2 )
-            scale = 0.875;
+            scale = 0.875 * Toolkit.getDefaultToolkit().getScreenSize().height / 960;
         else if( NumPlayers == 3 )
-            scale = 0.7;
+            scale = 0.7 * Toolkit.getDefaultToolkit().getScreenSize().height / 960;
         else if( NumPlayers == 4 )
-            scale = 0.636;
+            scale = 0.636 * Toolkit.getDefaultToolkit().getScreenSize().height / 960;
 
         int width = (int)(scale*img.getWidth(this));
         int height = (int)(scale*img.getHeight(this));
