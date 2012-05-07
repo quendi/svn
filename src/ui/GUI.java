@@ -1286,8 +1286,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
             DataLine.Info info = new DataLine.Info(Clip.class, audio.getFormat());
              clip = (Clip) AudioSystem.getLine(info);
             clip.open(audio);
-            clip.start();
-            clip.loop(40);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
         }
 
         catch(UnsupportedAudioFileException uae) {

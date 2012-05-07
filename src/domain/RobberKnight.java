@@ -248,7 +248,9 @@ public class RobberKnight implements Serializable{
     public int getMoveableKnights(Tile castle, Point moveTo){
         Tile goTo = board.getTile(moveTo);
         int castleKnightsMoveable = castle.getNumKnights() - castle.getMinimumKnights();
-        int knightAvailable = MAX_KNIGHT - goTo.getNumKnights();
+        int knightAvailable = 0;
+        if(goTo != null)
+        	knightAvailable = MAX_KNIGHT - goTo.getNumKnights();
         return (knightAvailable <= castleKnightsMoveable) ?  knightAvailable : castleKnightsMoveable;
     }
 
