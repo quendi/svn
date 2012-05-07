@@ -46,11 +46,17 @@ public class WinScreen{
         Font font = new Font("Serif", Font.BOLD, 34);
 
         JLabel winningPlayer = new JLabel();
-        winningPlayer.setText(game.getPlayerByNumber(winner).getName());
-        winningPlayer.setFont(font);
-
         JLabel win = new JLabel();
-        win.setText(" Wins!");
+        if( (winner == 0)  && (playerTotals[0] == 0) ){
+            winningPlayer.setText("No ");
+            win.setText(" Winner!");
+        }
+        else {
+        	winningPlayer.setText(game.getPlayerByNumber(winner).getName());
+        	win.setText(" Wins!");
+        }
+        
+        winningPlayer.setFont(font);
         win.setFont(font);
 
         JPanel winningPanel = new JPanel();
