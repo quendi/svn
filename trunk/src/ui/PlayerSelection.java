@@ -31,9 +31,12 @@ public class PlayerSelection extends JFrame{
 										   "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", 
 										   "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", 
 										   "2010", "2011", "2012" };
-	private String color[] = new String[] {"blue", "green", "yellow", "red"};
-
-
+	
+	private String scolor1[] = new String[] {"blue", "green", "yellow", "red"};
+	private String scolor2[] = new String[] {"green", "yellow", "red", "blue"};
+	private String scolor3[] = new String[] {"yellow", "red", "blue", "green"};
+	private String scolor4[] = new String[] {"red", "blue", "green", "yellow"};
+	
     private JComboBox month1 = new JComboBox(month);
 	private JComboBox day1 = new JComboBox(day);
 	private JComboBox year1 = new JComboBox(year);
@@ -55,8 +58,11 @@ public class PlayerSelection extends JFrame{
 	private JPanel sub1 = new JPanel(cl1);
     private JPanel sub2 = new JPanel(cl2);
     
-    JComboBox color1 = new JComboBox(color);
-
+    private JComboBox color1 = new JComboBox(scolor1);
+    private JComboBox color2 = new JComboBox(scolor2);
+    private JComboBox color3 = new JComboBox(scolor3);
+    private JComboBox color4 = new JComboBox(scolor4);
+    
     private ArrayList<String> names = new ArrayList<String>();
 
     /**
@@ -115,7 +121,6 @@ public class PlayerSelection extends JFrame{
         birthdayPanel2.add(day2);
         birthdayPanel2.add(year2);
         secondPanel.add(birthdayPanel2);
-        final JComboBox color2 = new JComboBox(color);
         JPanel color2Panel = new JPanel();
         color2Panel.add(color2);
         secondPanel.add(color2Panel);
@@ -135,7 +140,6 @@ public class PlayerSelection extends JFrame{
         birthdayPanel3.add(day3);
         birthdayPanel3.add(year3);
         thirdPanel.add(birthdayPanel3);
-        final JComboBox color3 = new JComboBox(color);
         JPanel color3Panel = new JPanel();
         color3Panel.add(color3);
         thirdPanel.add(color3Panel);
@@ -155,7 +159,6 @@ public class PlayerSelection extends JFrame{
         birthdayPanel4.add(day4);
         birthdayPanel4.add(year4);
         fourthPanel.add(birthdayPanel4);
-        final JComboBox color4 = new JComboBox(color);
         JPanel color4Panel = new JPanel();
         color4Panel.add(color4);
         fourthPanel.add(color4Panel);
