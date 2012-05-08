@@ -165,12 +165,18 @@ public class RobberKnight implements Serializable{
      * @return - status of game
      */
     private boolean playersHaveTiles(){
-        boolean continueGame = false;
         for(Player p : players){
-            if(p.getDeck().getSize() <= 0){
+            if(p.getDeck().getSize() <= 0 || p.isSurrendered()){
                 p.setInGame(false);
             }
-            else{
+        }
+        return playersLeft();
+    }
+
+    private boolean playersLeft(){
+        boolean continueGame = false;
+        for(Player p : players){
+            if(p.isInGame()){
                 continueGame = true;
             }
         }
