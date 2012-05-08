@@ -499,25 +499,24 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                 // If kngihts are being placed, click event will be used to place knights
                 if (!game.getBoard().isCastlePlacement()) {
                     if(game.getBoard().isKnightmode()){
+                        game.getBoard().setTileMovingTo(game.getBoard().getTile(location));
                         int moveableKnights = game.getMoveableKnights(game.getBoard().getCastleTile(), location);
                         // If there is a moveable amount of kngihts from the castle tile to the location the playe clicked on, allow user to place knights
                         if( moveableKnights > 0 ){
-                            KnightPicker knightPicker2 = new KnightPicker(getGUI(), game.getBoard().getCastleTile().getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()));
+                            KnightPicker knightPicker2 = new KnightPicker(getGUI(), game.getBoard().getTileMovingTo().getMinimumKnights(),GameUtils.getColor(currentPlayer.getColor()));
                             knightPicker2.setBackground(GameUtils.getColor(currentPlayer.getColor()));
                             abovePanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
                             // If tile moveing to is empty, limit minimum option in knight picker to the minimum knights on tile
                             if(game.getBoard().getTile(location).getNumKnights() == 0)
                                 knightPicker2.setKnightPicker(moveableKnights,game.getBoard().getTile(location).getMinimumKnights());
                             else
-                                knightPicker2.setKnightPicker(moveableKnights);
+                                knightPicker2.setKnightPicker(moveableKnights, game.getBoard().getTileMovingTo().getMinimumKnights());
                             JPanel panel = new JPanel();
                             panel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
                             panel.add(knightPicker2);
                             panel.add(endKnightPlacement);
                             abovePanel.add(panel, "3");
                             cl.show(abovePanel, "3");
-                            game.getBoard().setTileMovingTo(game.getBoard().getTile(location));
-                            // moveTo = location;
                         }
                         // If no knights are playable, end knight movement
                         else
