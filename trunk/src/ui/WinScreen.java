@@ -35,7 +35,7 @@ public class WinScreen{
          */
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setBounds(750, 300, 300, 300);
+        frame.setBounds(750, 300, 400, 300);
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.setSize(Toolkit.getDefaultToolkit().getScreenSize());
@@ -47,9 +47,26 @@ public class WinScreen{
 
         JLabel winningPlayer = new JLabel();
         JLabel win = new JLabel();
-        if( (winner == 0)  && (playerTotals[0] == 0) ){
-            winningPlayer.setText("No ");
-            win.setText(" Winner!");
+        int num_surrander = 0;
+        
+        for( int i = 0; i < game.getNumPlayers(); i++ ){
+        	if( playerTotals[i] == -1 )
+        		num_surrander++;
+        }
+        
+        if( num_surrander == game.getNumPlayers()-1 ){
+            for( int i = 0; i < game.getNumPlayers(); i++ ){
+            	if( playerTotals[i] != -1 ){
+                	winningPlayer.setText(game.getPlayerByNumber(winner).getName());
+                	win.setText(" Wins!");
+            	}
+            }
+        }        
+        else if( (winner == 0) ){
+        	if( playerTotals[0] == 0 ){
+        		winningPlayer.setText("No ");
+        		win.setText(" Winner!");
+        	}
         }
         else {
         	winningPlayer.setText(game.getPlayerByNumber(winner).getName());
@@ -82,7 +99,10 @@ public class WinScreen{
         JPanel playerPoints = new JPanel(new GridLayout(game.getNumPlayers(),2));
         for(int i=0;i<game.getNumPlayers();i++){
         	playerPoints.add(new JLabel("    "+game.getPlayerByNumber(i).getName()+":   "));
-        	playerPoints.add(new JLabel(""+playerTotals[i]));
+        	if( playerTotals[i] == -1 )
+        		playerPoints.add(new JLabel("Surrender"));
+        	else
+        		playerPoints.add(new JLabel(""+playerTotals[i]));
         }
 
         panel.add(playerPoints, BorderLayout.CENTER);
