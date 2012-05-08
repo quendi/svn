@@ -15,10 +15,10 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class PlayerSelection extends JFrame{
 
-    private JTextArea player1Name = new JTextArea("Player 1");
-	private JTextArea player2Name = new JTextArea("Player 2");
-	private JTextArea player3Name = new JTextArea("Player 3");
-	private JTextArea player4Name = new JTextArea("Player 4");
+    private JTextField player1Name = new JTextField("Player 1");
+	private JTextField player2Name = new JTextField("Player 2");
+	private JTextField player3Name = new JTextField("Player 3");
+	private JTextField player4Name = new JTextField("Player 4");
 
     private String month[] = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
 	private String day[] = new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", 
@@ -84,7 +84,10 @@ public class PlayerSelection extends JFrame{
         Font font2 = new Font("Serif", Font.BOLD, 20);
         player1Name.setFont(font2);
         JPanel firstPanel = new JPanel(new GridLayout(4, 1));
-        firstPanel.add(player1Name);
+        JPanel player1Panel = new JPanel();
+        player1Name.setPreferredSize(new Dimension(100,40));
+        player1Panel.add(player1Name);
+        firstPanel.add(player1Panel);
         JLabel birthday1 = new JLabel("Enter Birthday:", JLabel.CENTER);
         birthday1.setFont(font2);
         firstPanel.add(birthday1);
@@ -100,7 +103,10 @@ public class PlayerSelection extends JFrame{
         //Second Panel
         player2Name.setFont(font2);
         JPanel secondPanel = new JPanel(new GridLayout(4, 1));
-        secondPanel.add(player2Name);
+        JPanel player2Panel = new JPanel();
+        player2Name.setPreferredSize(new Dimension(100,40));
+        player2Panel.add(player2Name);
+        secondPanel.add(player2Panel);
         JLabel birthday2 = new JLabel("Enter Birthday:", JLabel.CENTER);
         birthday2.setFont(font2);
         secondPanel.add(birthday2);
@@ -117,7 +123,10 @@ public class PlayerSelection extends JFrame{
         //Third Panel
         player3Name.setFont(font2);
         JPanel thirdPanel = new JPanel(new GridLayout(4, 1));
-        thirdPanel.add(player3Name);
+        JPanel player3Panel = new JPanel();
+        player3Name.setPreferredSize(new Dimension(100,40));
+        player3Panel.add(player3Name);
+        thirdPanel.add(player3Panel);
         JLabel birthday3 = new JLabel("Enter Birthday:", JLabel.CENTER);
         birthday3.setFont(font2);
         thirdPanel.add(birthday3);
@@ -134,7 +143,10 @@ public class PlayerSelection extends JFrame{
         //Fourth Panel
         player4Name.setFont(font2);
         JPanel fourthPanel = new JPanel(new GridLayout(4, 1));
-        fourthPanel.add(player4Name);
+        JPanel player4Panel = new JPanel();
+        player4Name.setPreferredSize(new Dimension(100,40));
+        player4Panel.add(player4Name);
+        fourthPanel.add(player4Panel);
         JLabel birthday4 = new JLabel("Enter Birthday:", JLabel.CENTER);
         birthday4.setFont(font2);
         fourthPanel.add(birthday4);
