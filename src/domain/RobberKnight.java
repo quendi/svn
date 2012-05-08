@@ -40,7 +40,7 @@ public class RobberKnight implements Serializable{
         int[] playerTotals = board.getPlayerTotals();
         for(Player p : players){
             if(p.isSurrendered()){
-                playerTotals[p.getId()] = 0;
+                playerTotals[p.getId()] = -1;
             }
         }
         return playerTotals;
