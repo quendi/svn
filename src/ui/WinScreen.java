@@ -23,12 +23,6 @@ public class WinScreen{
         int[] playerTotals = game.getTotals();
         int winner = 0;
 
-        for(int i = 0; i < 4; i++){
-            if (playerTotals[i] > total){
-                total = playerTotals[i];
-                winner = i;
-            }
-        }
 
         /**
          *Default
@@ -52,6 +46,13 @@ public class WinScreen{
         for( int i = 0; i < game.getNumPlayers(); i++ ){
         	if( playerTotals[i] == -1 )
         		num_surrander++;
+        }
+        
+        for(int i = 0; i < 4; i++){
+            if (playerTotals[i] > total){
+                total = playerTotals[i];
+                winner = i;
+            }
         }
         
         if( num_surrander == game.getNumPlayers()-1 ){
