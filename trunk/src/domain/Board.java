@@ -37,6 +37,7 @@ public class Board implements Serializable{
 
 
     private int[] playerTotals = new int[4];
+    private boolean castlePlacement;
 
 
     /**
@@ -186,6 +187,7 @@ public class Board implements Serializable{
      */
 
     private void notifyCastlePlacement(Tile castle) {
+        castlePlacement = true;
         knightmode = true;
         castleTile = castle;
         boardListener.placedCastle(castle);
@@ -329,6 +331,7 @@ public class Board implements Serializable{
         // Make sure the number of knights being placed is at least the minimum amount of knights for the tile.
         if(numKnights >= castle.getMinimumKnights()){
             castle.AddKnights(numKnights, currentPlayerColor);
+            castlePlacement = false;
             boardListener.placedKnight(castle, castle.getNumKnights(), GameUtils.getColor(currentPlayerColor));
             return validateKnightMovement(castle);
         }
@@ -579,5 +582,13 @@ public class Board implements Serializable{
 
     public void setTileMovingTo(Tile tileMovingTo) {
         this.tileMovingTo = tileMovingTo;
+    }
+
+    public boolean isCastlePlacement() {
+        return castlePlacement;
+    }
+
+    public void setCastlePlacement(boolean castlePlacement) {
+        this.castlePlacement = castlePlacement;
     }
 }

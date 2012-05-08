@@ -427,9 +427,11 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
      * @param evt
      */
     private void card1ActionPerformed(java.awt.event.ActionEvent evt) {
-        selectedCard.setIcon(card1.getIcon());
-        selectedCard.setText(card1.getText());
-        tileInPlay = currentPlayer.getDeck().getTile1();
+        if (!game.getBoard().isKnightmode()) {
+            selectedCard.setIcon(card1.getIcon());
+            selectedCard.setText(card1.getText());
+            tileInPlay = currentPlayer.getDeck().getTile1();
+        }
 
     }
 
@@ -439,9 +441,11 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
      * @param evt
      */
     private void card2ActionPerformed(java.awt.event.ActionEvent evt) {
-        selectedCard.setIcon(card2.getIcon());
-        selectedCard.setText(card2.getText());
-        tileInPlay = currentPlayer.getDeck().getTile2();
+        if (!game.getBoard().isKnightmode()) {
+            selectedCard.setIcon(card2.getIcon());
+            selectedCard.setText(card2.getText());
+            tileInPlay = currentPlayer.getDeck().getTile2();
+        }
     }
 
     /**
@@ -492,52 +496,53 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
     private void addGridListener(final TileButton button, final Point location) {
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-
                 // If kngihts are being placed, click event will be used to place knights
-                if(game.getBoard().isKnightmode()){
-                    int moveableKnights = game.getMoveableKnights(game.getBoard().getCastleTile(), location);
-                    // If there is a moveable amount of kngihts from the castle tile to the location the playe clicked on, allow user to place knights
-                    if( moveableKnights > 0 ){
-                        KnightPicker knightPicker2 = new KnightPicker(getGUI(), game.getBoard().getCastleTile().getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()));
-                        knightPicker2.setBackground(GameUtils.getColor(currentPlayer.getColor()));
-                        abovePanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
-                        // If tile moveing to is empty, limit minimum option in knight picker to the minimum knights on tile
-                        if(game.getBoard().getTile(location).getNumKnights() == 0)
-                            knightPicker2.setKnightPicker(moveableKnights,game.getBoard().getTile(location).getMinimumKnights());
+                if (!game.getBoard().isCastlePlacement()) {
+                    if(game.getBoard().isKnightmode()){
+                        int moveableKnights = game.getMoveableKnights(game.getBoard().getCastleTile(), location);
+                        // If there is a moveable amount of kngihts from the castle tile to the location the playe clicked on, allow user to place knights
+                        if( moveableKnights > 0 ){
+                            KnightPicker knightPicker2 = new KnightPicker(getGUI(), game.getBoard().getCastleTile().getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()));
+                            knightPicker2.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+                            abovePanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+                            // If tile moveing to is empty, limit minimum option in knight picker to the minimum knights on tile
+                            if(game.getBoard().getTile(location).getNumKnights() == 0)
+                                knightPicker2.setKnightPicker(moveableKnights,game.getBoard().getTile(location).getMinimumKnights());
+                            else
+                                knightPicker2.setKnightPicker(moveableKnights);
+                            JPanel panel = new JPanel();
+                            panel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
+                            panel.add(knightPicker2);
+                            panel.add(endKnightPlacement);
+                            abovePanel.add(panel, "3");
+                            cl.show(abovePanel, "3");
+                            game.getBoard().setTileMovingTo(game.getBoard().getTile(location));
+                            // moveTo = location;
+                        }
+                        // If no knights are playable, end knight movement
                         else
-                            knightPicker2.setKnightPicker(moveableKnights);
-                        JPanel panel = new JPanel();
-                        panel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
-                        panel.add(knightPicker2);
-                        panel.add(endKnightPlacement);
-                        abovePanel.add(panel, "3");
-                        cl.show(abovePanel, "3");
-                        game.getBoard().setTileMovingTo(game.getBoard().getTile(location));
-                        // moveTo = location;
+                            endKnightMovement();
                     }
-
-                    // If no knights are playable, end knight movement
-                    else
-                        endKnightMovement();
-                }
-
-                // If knights are not being placed, click event will place tiles.
-                if (tileInPlay != null && selectedCard != null) {
-                    // Play neat sounds.
-                    if (game.placeTile(tileInPlay, location, false)) {
-                        if(tileInPlay.getTerrain() == Terrain.Lake)
-                            playSound("resources/LakePlacement.wav");
-                        if(tileInPlay.getTerrain() == Terrain.Mountain)
-                            playSound("resources/Mountains(rubble).wav");
-                        if(tileInPlay.getTerrain() == Terrain.Forest)
-                            playSound("resources/Forest.wav");
-                        if(tileInPlay.getTerrain() == Terrain.Plain)
-                            playSound("resources/plains.wav");
-                        if(tileInPlay.getBuilding() == Building.Town)
-                            playSound("resources/TownPlacement.wav");
-                        if(tileInPlay.getBuilding() == Building.Village)
-                            playSound("resources/village.wav");
-                        tileInPlay = null;
+                    else{
+                        // If knights are not being placed, click event will place tiles.
+                        if (tileInPlay != null && selectedCard != null) {
+                            // Play neat sounds.
+                            if (game.placeTile(tileInPlay, location, false)) {
+                                if(tileInPlay.getTerrain() == Terrain.Lake)
+                                    playSound("resources/LakePlacement.wav");
+                                if(tileInPlay.getTerrain() == Terrain.Mountain)
+                                    playSound("resources/Mountains(rubble).wav");
+                                if(tileInPlay.getTerrain() == Terrain.Forest)
+                                    playSound("resources/Forest.wav");
+                                if(tileInPlay.getTerrain() == Terrain.Plain)
+                                    playSound("resources/plains.wav");
+                                if(tileInPlay.getBuilding() == Building.Town)
+                                    playSound("resources/TownPlacement.wav");
+                                if(tileInPlay.getBuilding() == Building.Village)
+                                    playSound("resources/village.wav");
+                                tileInPlay = null;
+                            }
+                        }
                     }
                 }
             }
@@ -1176,13 +1181,13 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
     public void endKnightMovement() {
         if(game.getBoard().getCastleTile().getNumKnights() < Tile.getMaxCastleKnights()){
             endKnightPlacement.setVisible(false);
-            //knightPicker.setVisible(false);
             normalPanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
             cl.show(abovePanel, "1");
             reenableAll();
             game.getBoard().setCastleTile(null);
             game.getBoard().setTileMovingTo(null);
             game.getBoard().setKnightmode(false);
+            game.getBoard().setCastlePlacement(false);
             if(currentPlayer.getDeck().getSize() == 0){
                 try {
                     currentPlayer = game.getNextPlayer();
@@ -1282,7 +1287,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         try {
             AudioInputStream audio = AudioSystem.getAudioInputStream(new java.io.File("resources/BackgroundMusic1.wav")); //e.g. "resources/GallopingHorse.wav"
             DataLine.Info info = new DataLine.Info(Clip.class, audio.getFormat());
-             clip = (Clip) AudioSystem.getLine(info);
+            clip = (Clip) AudioSystem.getLine(info);
             clip.open(audio);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         }
@@ -1335,6 +1340,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         return img;
     }
 
-    
+
 }
 
