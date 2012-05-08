@@ -74,6 +74,8 @@ public class WinScreen{
         	win.setText(" Wins!");
         }
         
+        
+        
         winningPlayer.setFont(font);
         win.setFont(font);
 
