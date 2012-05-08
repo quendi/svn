@@ -459,7 +459,7 @@ public class Board implements Serializable{
                 }
                 // Check which adjacent tiles can be moves with the amount of knights the player can move.
                 for (Integer knights : knightsAvailble) {
-                    if(knights + nextMovement.getNumKnights() >= nextMovement.getMinimumKnights() && knights + nextMovement.getNumKnights() <= MAX_KNIGHTS) {
+                    if(knights + nextMovement.getNumKnights() >= nextMovement.getMinimumKnights() && knights + nextMovement.getNumKnights() <= MAX_KNIGHTS && knights >= nextMovement.getMinimumKnights()) {
                         int gridLocation = GameUtils.getGridLocation(nextMovement, size);
                         if(!boardLocations.contains(gridLocation)){
                             boardLocations.add(gridLocation);
@@ -508,7 +508,7 @@ public class Board implements Serializable{
             // Check which adjacent tiles can be moves with the amount of knights the player can move.
             for(Tile tile : adjacentTiles){
                 for (Integer knights : knightsAvailble) {
-                    if(knights + tile.getNumKnights() >= tile.getMinimumKnights() && knights + tile.getNumKnights() <= MAX_KNIGHTS) {
+                    if(knights + tile.getNumKnights() >= tile.getMinimumKnights() && knights + tile.getNumKnights() <= MAX_KNIGHTS && knights >= tile.getMinimumKnights()) {
                         int gridLocation = GameUtils.getGridLocation(tile, size);
                         if(!boardLocations.contains(gridLocation)){
                             boardLocations.add(gridLocation);
