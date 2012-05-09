@@ -19,17 +19,28 @@ public class WinScreen{
          *Calculations
          */
 
-        int total = 0;
+        int total = -2;
+        int total_knight = 0;
         int[] playerTotals = game.getTotals();
         int winner = 0;
+        int same_score = 0;
+        int same_knight = 0;
 
+        for(int i = 0; i < 4; i++){
+            if (playerTotals[i] > total){
+                total = playerTotals[i];
+                winner = i;
+            }
+            else if(playerTotals[i] == total)
+            	same_score = 1;
+        }
 
         /**
          *Default
          */
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setBounds(750, 300, 400, 300);
+        frame.setBounds(750, 300, 600, 300);
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.setSize(Toolkit.getDefaultToolkit().getScreenSize());
@@ -48,26 +59,32 @@ public class WinScreen{
         		num_surrander++;
         }
         
-        for(int i = 0; i < 4; i++){
-            if (playerTotals[i] > total){
-                total = playerTotals[i];
-                winner = i;
+        if( same_score == 1 ){
+            for( int i = 0; i < game.getNumPlayers(); i++ ){
+            	if( playerTotals[i] == total && game.getPlayerByNumber(i).getNumKnights() > total_knight){
+            		total_knight = game.getPlayerByNumber(i).getNumKnights();
+            		winner = i;
+            	}
+            	else if( playerTotals[i] == total && game.getPlayerByNumber(i).getNumKnights() == total_knight){
+            		same_knight = 1;
+            	}
             }
+            if( same_knight == 1  ){
+            	winningPlayer.setText("Draw ");
+        		win.setText(" Game!");
+            }
+        	else {
+            	winningPlayer.setText(game.getPlayerByNumber(winner).getName());
+            	win.setText(" Wins!");
+        	}
         }
-        
-        if( num_surrander == game.getNumPlayers()-1 ){
+        else if( num_surrander == (game.getNumPlayers()-1) ){
             for( int i = 0; i < game.getNumPlayers(); i++ ){
             	if( playerTotals[i] != -1 ){
-                	winningPlayer.setText(game.getPlayerByNumber(winner).getName());
+                	winningPlayer.setText(game.getPlayerByNumber(i).getName());
                 	win.setText(" Wins!");
             	}
             }
-        }        
-        else if( (winner == 0) ){
-        	if( playerTotals[0] == 0 ){
-        		winningPlayer.setText("No ");
-        		win.setText(" Winner!");
-        	}
         }
         else {
         	winningPlayer.setText(game.getPlayerByNumber(winner).getName());
@@ -104,8 +121,12 @@ public class WinScreen{
         	playerPoints.add(new JLabel("    "+game.getPlayerByNumber(i).getName()+":   "));
         	if( playerTotals[i] == -1 )
         		playerPoints.add(new JLabel("Surrender"));
-        	else
-        		playerPoints.add(new JLabel(""+playerTotals[i]));
+        	else {
+        		if( same_score == 1 )
+        			playerPoints.add(new JLabel(""+playerTotals[i]+" ( with Knight Left:"+game.getPlayerByNumber(i).getNumKnights()+")"));
+        		else
+        			playerPoints.add(new JLabel(""+playerTotals[i]));
+        	}
         }
 
         panel.add(playerPoints, BorderLayout.CENTER);
