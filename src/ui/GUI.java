@@ -4,10 +4,6 @@ import domain.*;
 import domain.enums.Building;
 import domain.enums.Terrain;
 import exceptions.NoSuchPlayerException;
-import sun.audio.AudioData;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
-import sun.audio.ContinuousAudioDataStream;
 import utils.GameUtils;
 
 
@@ -32,22 +28,14 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
     private JButton selectedCard = new JButton("Null");
     private Tile tileInPlay;
     protected Player currentPlayer;
-    private Point moveTo;
-    private Clip clip;
+    private Clip backgroundMusic;
     public static RobberKnight game;
-
     protected JFrame InGame;
-
     protected TileButton card1;
     protected TileButton card2;
-
     protected JLabel currentColor;
-
     private JButton endKnightPlacement;
-
-
     protected JPanel grid;
-
     private JButton deckLabel;
     protected JLabel numberOfKnights;
     protected JLabel playersTurn;
@@ -206,7 +194,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                                                                                         .addComponent(
                                                                                                 knightLabel,
                                                                                                 GroupLayout.PREFERRED_SIZE,
-                                                                                                55,// TODO
+                                                                                                55,
                                                                                                 GroupLayout.PREFERRED_SIZE)
                                                                                         .addGap(51,
                                                                                                 51,
@@ -564,9 +552,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
          */
         initialTile.setVisible(true);
 
-        // TEST
-        //currentColor.setText(currentPlayer.getColor().toString());
-        //InGame.getContentPane().setBackground(GameUtils.getColor(currentPlayer.getColor()));
         initialTile.setBackground(GameUtils.getColor(currentPlayer.getColor()));
 
         initialTile.setBounds(100, 100, 850, 450);
@@ -712,7 +697,6 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
          */
         playerNumber.setFont(font);
         select.setPreferredSize(new Dimension(300, 100));
-        // tilePanel.setForeground(new java.awt.Color(0,0,255));
 
 
         /**
@@ -778,7 +762,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                             initialTile.setVisible(false);
                             currentPlayer = game.getNextPlayer();
                             InGame.setVisible(true);
-                            loopSound();
+                            playBackgroundMusic();
                             selectedCard = new JButton();
                         }
                         else {
@@ -855,6 +839,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
                     game.getBoard().validateKnightMovement(game.getBoard().getCastleTile());
                 }
             }
+            endKnightPlacement.setVisible(true);
         }
         else{
             knightPicker.changeColor(GameUtils.getColor(currentPlayer.getColor()));
@@ -874,11 +859,16 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
      */
     public void playerTurn(Player currentPlayer) {
         // Reset move count, update ui to reflect current player.
-        //  moves = 0;
+        redraw(currentPlayer);
+    }
+
+    /**
+     * Updates ui to reflect current player
+     * @param currentPlayer - current play to cater ui to.
+     */
+    private void redraw(Player currentPlayer) {
         playersTurn.setText(currentPlayer.getName());
-        numberOfKnights.setText(Integer.toString(currentPlayer
-                .getNumKnights()));
-        // Change color
+        numberOfKnights.setText(Integer.toString(currentPlayer.getNumKnights()));
         currentColor.setText(currentPlayer.getColor().toString());
         InGame.getContentPane().setBackground(GameUtils.getColor(currentPlayer.getColor()));
         PlayerPanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
@@ -916,7 +906,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         int j = button.getIcon().getIconHeight()-7;
         for(int i = 0; i < t.getNumKnights(); i++){
             g.setColor(GameUtils.getColor(t.knights.get(i)));
-            BufferedImage img = null;
+            BufferedImage img;
             img = getKnightImage(t.knights.get(i), 0);
             g.drawImage(img , d-15, d-15, null);
             img = getKnightImage(t.knights.get(i), 1);
@@ -982,24 +972,35 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
      * @param castle - castle tile that has been placed.
      */
     public void placedCastle(Tile castle) {
-        showValidCastleMovement(castle);
-        game.incrementMoveCounter();
+        if (game.knightCheck(castle)) {
+            showValidCastleMovement(castle);
+            game.incrementMoveCounter();
+        }
+        else{
+            game.incrementMoveCounter();
+            endKnightMovement();
+        }
+
     }
 
+    /**
+     * Sets knightpicker to allow for 4 or 5 knights depending if it is possibel to move knight from where castle is placed
+     * @param castle - castle tile that was placed.
+     */
     private void showValidCastleMovement(Tile castle) {
         endKnightPlacement.setVisible(true);
 
         // Get valid locations for movement around castle
         ArrayList<Integer> gridLocations = game.getBoard().getValidMoves(castle, Tile.getMaxCastleKnights());
         KnightPicker knightPicker2;
-        // If kngihts can be moved, allow player to place up to 5 knights
+        // If knights can be moved, allow player to place up to 5 knights
         if(!gridLocations.isEmpty()){
-            knightPicker2 = new KnightPicker(this, castle.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()));
+            knightPicker2 = new KnightPicker(this, castle.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()),currentPlayer.getNumKnights(), false);
         }
 
         // If there are no places to move to, only allow player to move 4 knights.
         else{
-            knightPicker2 = new KnightPicker(this, castle.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()), true);
+            knightPicker2 = new KnightPicker(this, castle.getMinimumKnights(), GameUtils.getColor(currentPlayer.getColor()),currentPlayer.getNumKnights(), true);
         }
         abovePanel.setBackground(GameUtils.getColor(currentPlayer.getColor()));
         knightPicker2.setVisible(true);
@@ -1213,7 +1214,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         reenableAll();
         disableAllExcept(locations);
     }
-    //TODO consolidate methods
+
     /**
      * Shows valid location when from castle placement
      * @param locations - locations next to castle that are valid
@@ -1245,7 +1246,7 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
      * @param numberOfKnights
      */
     public void placeKnight(int numberOfKnights) {
-        game.placeKnight(game.getBoard().getCastleTile(), numberOfKnights);
+            game.placeKnight(game.getBoard().getCastleTile(), numberOfKnights);
     }
 
     /**
@@ -1282,13 +1283,15 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
             System.out.println(e);
         }
     }
-    public void loopSound(){
+
+
+    public void playBackgroundMusic(){
         try {
             AudioInputStream audio = AudioSystem.getAudioInputStream(new java.io.File("resources/BackgroundMusic1.wav")); //e.g. "resources/GallopingHorse.wav"
             DataLine.Info info = new DataLine.Info(Clip.class, audio.getFormat());
-            clip = (Clip) AudioSystem.getLine(info);
-            clip.open(audio);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            backgroundMusic = (Clip) AudioSystem.getLine(info);
+            backgroundMusic.open(audio);
+            backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
         }
 
         catch(UnsupportedAudioFileException uae) {
@@ -1305,9 +1308,11 @@ public class GUI implements PlayerListener,BoardListener, TurnListener{
         }
     }
 
-    public void stopSound(){
-        clip.stop();
+    public void stopBackGroundMusic(){
+        backgroundMusic.stop();
     }
+
+
     public BufferedImage getKnightImage(domain.enums.Color color, int num){
         BufferedImage img = null;
         try {

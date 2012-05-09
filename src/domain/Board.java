@@ -34,8 +34,6 @@ public class Board implements Serializable{
     private boolean y_end=false;
 
     private static int MAX_KNIGHTS = 4;
-
-
     private int[] playerTotals = new int[4];
     private boolean castlePlacement;
 
@@ -75,7 +73,7 @@ public class Board implements Serializable{
      * Iterate through the array of tiles, check top knight, add points to player according to building
      */
      public void calculatePoints(ArrayList<Player> players){
-    	int x=0;
+    	int x;
         for(int i = 0; i < size; i++){
             for(int j = 0; j < size; j++){
                 if(tiles[i][j] != null && tiles[i][j].getNumKnights() > 0){
@@ -96,49 +94,6 @@ public class Board implements Serializable{
         }
     }
     
-    
-    /*
-    public void calculatePoints(){
-        for(int i = 0; i < size; i++){
-            for(int j = 0; j < size; j++){
-                if(tiles[i][j] != null && tiles[i][j].getNumKnights() > 0){
-                    if(tiles[i][j].getTopKnight().equals(Color.BLUE)){
-                        if(tiles[i][j].getBuilding().equals(Building.Castle))
-                            playerTotals[0]++;
-                        else if(tiles[i][j].getBuilding().equals(Building.Village))
-                            playerTotals[0]+=2;
-                        else if(tiles[i][j].getBuilding().equals(Building.Town))
-                            playerTotals[0]+=3;
-                    }
-                    else if(tiles[i][j].getTopKnight().equals(Color.GREEN)){
-                        if(tiles[i][j].getBuilding().equals(Building.Castle))
-                            playerTotals[1]++;
-                        else if(tiles[i][j].getBuilding().equals(Building.Village))
-                            playerTotals[1]+=2;
-                        else if(tiles[i][j].getBuilding().equals(Building.Town))
-                            playerTotals[1]+=3;
-                    }
-                    else if(tiles[i][j].getTopKnight().equals(Color.YELLOW)){
-                        if(tiles[i][j].getBuilding().equals(Building.Castle))
-                            playerTotals[2]++;
-                        else if(tiles[i][j].getBuilding().equals(Building.Village))
-                            playerTotals[2]+=2;
-                        else if(tiles[i][j].getBuilding().equals(Building.Town))
-                            playerTotals[2]+=3;
-                    }
-                    else{
-                        if(tiles[i][j].getBuilding().equals(Building.Castle))
-                            playerTotals[3]++;
-                        else if(tiles[i][j].getBuilding().equals(Building.Village))
-                            playerTotals[3]+=2;
-                        else if(tiles[i][j].getBuilding().equals(Building.Town))
-                            playerTotals[3]+=3;
-                    }
-                }
-            }
-        }
-    }
-     */
     
     /**
      * Return final scores to RobberKnight class
@@ -333,7 +288,7 @@ public class Board implements Serializable{
             castle.AddKnights(numKnights, currentPlayerColor);
             castlePlacement = false;
             boardListener.placedKnight(castle, castle.getNumKnights(), GameUtils.getColor(currentPlayerColor));
-            return validateKnightMovement(castle);
+            return true;
         }
         return false;
     }
@@ -558,16 +513,8 @@ public class Board implements Serializable{
         boardListener.removedTile(x_end, y_end);
     }
 
-    public void notifyKnightPlaced(Tile t, int numKnights, java.awt.Color playerColor){
-        boardListener.placedKnight(t, numKnights, playerColor);
-    }
-
     public int getSize() {
         return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 
 

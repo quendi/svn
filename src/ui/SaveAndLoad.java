@@ -42,8 +42,7 @@ public class SaveAndLoad extends JMenu{
 	JButton ok = new JButton("OK");
 	JMenuItem deleteAll = new JMenuItem("Delete All Saves");
 	static InitialScreen init;
-	private int i = 0;
-	static GUI gui = null;
+    static GUI gui = null;
 	File toDelete;
 	Font font = new Font("Serif", Font.BOLD, 18);
 
@@ -64,7 +63,6 @@ public class SaveAndLoad extends JMenu{
 		this.init = initialScreen;
 		this.gui = gui;
 		this.setText("Game");
-		//this.add(new JMenuItem("Restart"));//TODO
 		/**
 		 * Save game
 		 */
@@ -103,15 +101,14 @@ public class SaveAndLoad extends JMenu{
 	private void refresh(){
 		loadGame.removeAll();
 	}
-	
-	public void startLoad(){
-		
-		getAvailableLoads("LoadNames.txt");
-		//System.out.println("startLoad size is " + loadNames.size());
-		
-		/**
+
+
+    	/**
 		 * Add load items to menu
 		 */
+	public void startLoad(){
+		getAvailableLoads("LoadNames.txt");
+
         for (String loadName : loadNames) {
             final JMenuItem addMenus = new JMenuItem();
             addMenus.setText(loadName);
@@ -123,7 +120,8 @@ public class SaveAndLoad extends JMenu{
             loadGame.add(addMenus);
         }
 	}
-	
+
+
 	public void startSave(){	
 		saveGame.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
@@ -131,9 +129,7 @@ public class SaveAndLoad extends JMenu{
 			}
 		});
 	}
-	
-	
-	
+
 	
     public static void saveGame (String filename){
     	filename = filename + ".ser";
@@ -157,7 +153,7 @@ public class SaveAndLoad extends JMenu{
     	if(gui == null){
     		gui = new GUI();
             gui.loadGame(game);
-            gui.loopSound();
+            gui.playBackgroundMusic();
         }
     	else 
     		gui.loadGame(game);
@@ -165,7 +161,7 @@ public class SaveAndLoad extends JMenu{
     
     public static RobberKnight readFile(String filename){
     	filename = filename + ".ser";
-    	GameState gs = null;
+    	GameState gs;
     	try{
     		FileInputStream fileIn = new FileInputStream(filename);
     		ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -204,7 +200,7 @@ public class SaveAndLoad extends JMenu{
     public static void writeName(String filename, String loadName){
 
     	loadNames.add(loadName);
-    	Writer output = null;
+    	Writer output;
     	try {
         	output = new BufferedWriter(new FileWriter(new File(filename), true));
             //for (String loadName1 : loadNames) {

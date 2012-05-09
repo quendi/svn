@@ -47,7 +47,7 @@ public class GameMenu extends JMenuBar{
                     initialScreen.dispose();
                 if(gui!= null && gui.InGame != null){
                     gui.InGame.dispose();
-                    gui.stopSound();
+                    gui.stopBackGroundMusic();
                 }
 
                 new PlayerSelection();

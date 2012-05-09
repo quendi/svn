@@ -12,7 +12,6 @@ import exceptions.NoSuchPlayerException;
  * User: Joe
  * Date: Apr 10, 2012
  * Time: 5:40:45 PM
- * To change this template use File | Settings | File Templates.
  */
 public class RobberKnight implements Serializable{
     // SerialversionUID for serialization
@@ -46,9 +45,7 @@ public class RobberKnight implements Serializable{
         return playerTotals;
     }
 
-    public Player getPlayerByNumber(int playerNumber){
-        return players.get(playerNumber);
-    }
+
 
     /**
      * Initializes current game board and players.
@@ -63,6 +60,16 @@ public class RobberKnight implements Serializable{
         board = new Board(numPlayers);
         board.addBoardListener(bl);
         this.turnListener = (TurnListener) bl;
+    }
+
+
+    /**
+     * Gets player by number.  I.E Player 1, Player 2
+     * @param playerNumber - # of player that is being returned
+     * @return - player with # playerNumber
+     */
+    public Player getPlayerByNumber(int playerNumber){
+        return players.get(playerNumber);
     }
 
     /**
@@ -143,9 +150,11 @@ public class RobberKnight implements Serializable{
         try {
             Player p = lookUpPlayerById(currentPlayerId);
             // If knights are successfully replaced decrement player's knight count.
-            if(board.placeKnight(t, numberOfKnights, p.getColor())){
-                p.reduceKnights(numberOfKnights);
-                return true;
+            if (p.getNumKnights() >= numberOfKnights) {
+                if(board.placeKnight(t, numberOfKnights, p.getColor())){
+                    p.reduceKnights(numberOfKnights);
+                    return board.validateKnightMovement(t);
+                }
             }
         } catch (NoSuchPlayerException e) {
             e.printStackTrace();         }
@@ -232,10 +241,6 @@ public class RobberKnight implements Serializable{
         return numPlayers;
     }
 
-    public void setNumPlayers(int numPlayers) {
-        this.numPlayers = numPlayers;
-    }
-
     public Board getBoard() {
         return board;
     }
@@ -256,7 +261,7 @@ public class RobberKnight implements Serializable{
         int castleKnightsMoveable = castle.getNumKnights() - castle.getMinimumKnights();
         int knightAvailable = 0;
         if(goTo != null)
-        	knightAvailable = MAX_KNIGHT - goTo.getNumKnights();
+            knightAvailable = MAX_KNIGHT - goTo.getNumKnights();
         return (knightAvailable <= castleKnightsMoveable) ?  knightAvailable : castleKnightsMoveable;
     }
 
@@ -276,6 +281,21 @@ public class RobberKnight implements Serializable{
         } catch (NoSuchPlayerException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Checks if current player has enough knight left to place.
+     * @param castle - tile player is trying to place knights on
+     * @return
+     */
+    public boolean knightCheck(Tile castle) {
+        try {
+            Player p = lookUpPlayerById(currentPlayerId);
+            return p.getNumKnights() >= castle.getMinimumKnights();
+        } catch (NoSuchPlayerException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
@@ -309,4 +329,6 @@ public class RobberKnight implements Serializable{
             turnListener.endTurn();
         }
     }
+
+
 }

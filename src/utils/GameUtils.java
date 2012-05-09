@@ -34,35 +34,7 @@ public class GameUtils {
     		return new java.awt.Color(244, 255, 148);
     	}
     	return new java.awt.Color(0, 0, 0);
-    	
-    	// This is for DARKER Colors, good for WHITE writing (watch out for yellow)
-    	/*if(c == domain.enums.Color.RED){
-    		return new java.awt.Color(102, 0, 0);
-    	}
-    	if(c == domain.enums.Color.GREEN){
-    		return new java.awt.Color(0, 102, 0);
-    	}
-    	if(c == domain.enums.Color.BLUE){
-    		return new java.awt.Color(0, 0, 102);
-    	}
-    	if(c == domain.enums.Color.YELLOW){
-    		return new java.awt.Color(224, 224, 0);
-    	}
-    	return new java.awt.Color(0, 0, 0);*/
 
-    }
-    /**
-     * Parse string into date.
-     * @param month
-     * @param day
-     * @param year
-     * @return
-     */
-    public static Date parseDate(String month, String day, String year) throws ParseException {
-
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-        Date date = sdf.parse(month + "/" + day + "/" + year);
-        return date;
     }
 
     /**
@@ -78,12 +50,4 @@ public class GameUtils {
 
     }
 
-//    public static Tile getTileLocation(Point p, Board b){
-//
-//        for(int i = 0; i < b.getSize(); i++){
-//            for (int j = 0; j < b.getSize(); j++){
-//
-//            }
-//        }
-//    }
 }

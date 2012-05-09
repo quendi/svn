@@ -48,33 +48,16 @@ public class Player implements Serializable{
     }
 
 
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
     public Deck getDeck() {
         return deck;
-    }
-
-    public void setDeck(Deck deck) {
-        this.deck = deck;
     }
 
     public boolean isInGame() {
@@ -89,16 +72,8 @@ public class Player implements Serializable{
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getNumKnights() {
         return numKnights;
-    }
-
-    public void setNumKnights(int numKnights) {
-        this.numKnights = numKnights;
     }
 
     public void playTile(Tile t){
@@ -121,4 +96,6 @@ public class Player implements Serializable{
     public void setSurrendered(boolean surrendered) {
         this.surrendered = surrendered;
     }
+
+
 }

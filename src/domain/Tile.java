@@ -13,9 +13,9 @@ public class Tile implements Serializable{
     // SerialversionUID for serialization
 	private static final long serialVersionUID = 1L;
 	private static final int MAX_CASTLE_KNIGHTS = 5;
-    private Terrain  terrain;
-    private Building building;
-    private char 	 letter;
+    private final Terrain  terrain;
+    private final Building building;
+    private final char 	 letter;
     private Point	 location;
     private ImageIcon image;
     private ImageIcon back;
@@ -32,18 +32,10 @@ public class Tile implements Serializable{
         setBack(l, color);
     }
 
-    void AddKnight(Color c){
-    	knights.add(c);
-    }
-
     void AddKnights(int n, Color c){
        	for(int i = 0; i < n; i++){
         	knights.add(c);
     	}
-    }
-
-    void RemoveKnight(){
-    	knights.remove(knights.size()-1);
     }
 
     void RemoveKnights(int n){
@@ -88,20 +80,12 @@ public class Tile implements Serializable{
         return image;
     }
 
-    public void setImage(ImageIcon image) {
-        this.image = image;
-    }
-    
     public ImageIcon getBack() {
         return back;
     }
     
     public int getMinimumKnights() {
         return minimumKnights;
-    }
-
-    public void setMinimumKnights(int minimumKnights) {
-        this.minimumKnights = minimumKnights;
     }
 
     public static int getMaxCastleKnights() {

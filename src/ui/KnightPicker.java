@@ -18,7 +18,7 @@ public class KnightPicker extends JPanel {
     private boolean knightMovement = false;
 
     /**
-     * Constructor for knightpicker.  Called when castle is placed.
+     * Constructor for knightpicker.  Called when clicking on a tile to move knights to.
      * @param gui - main game window
      * @param minimumKnights - minimum knights that player should be allowed to play
      */
@@ -48,19 +48,29 @@ public class KnightPicker extends JPanel {
         this.setForeground(color);
     }
 
-    public KnightPicker(GUI gui, int minimumKnights, Color color, boolean castleSurrounded){
+    /**
+     * Creates a knightpicker for a surrounded castle.  This only allows up to 4 knight to be placed on a tile rather than that usual 5
+     * @param gui
+     * @param minimumKnights  - min knights for castle tile
+     * @param color - color to set panel to
+     * @param playerKnights - # of knights player has remaining.  Will be maximum allowed to place if less than the max amount of knights playable.
+     * @param castleSurrounded - boolean if castle is surrounded.  allows 4 if surrounded, 5 if not.
+     */
+    public KnightPicker(GUI gui, int minimumKnights, Color color,int playerKnights, boolean castleSurrounded){
 
         this.gui = gui;
         // this.setBounds(500, 500, 200, 200);
         JLabel message = new JLabel("Number of Knight to Place");
         String[] knightPickers;
+        int maxKnights = MAX_KNIGHTS;
         if(castleSurrounded){
-            knightPickers = new String[MAX_KNIGHTS];
+            knightPickers = new String[Math.min(playerKnights + 1, maxKnights)];
         }
         else{
-            knightPickers = new String[MAX_KNIGHTS + 1];
+            maxKnights++;
+            knightPickers = new String[Math.min(playerKnights + 1, maxKnights)];
         }
-        for(int i = minimumKnights; i < MAX_KNIGHTS; i++){
+        for(int i = minimumKnights; i < Math.min(playerKnights + 1, maxKnights); i++){
             knightPickers[i] = Integer.toString(i);
         }
         knightPick =  new JComboBox(new DefaultComboBoxModel(knightPickers));
@@ -98,7 +108,7 @@ public class KnightPicker extends JPanel {
     }
 
     /**
-     * Set available options when move to an empty tile.
+     * Set available options when moving to an empty tile.
      * @param moveableKnights  - knights that can be moved from castle
      * @param minimumKnights  - minimum amount of knights the tile being moved to allows
      */
