@@ -1,5 +1,7 @@
 package ui;
 
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,7 +37,7 @@ public class SaveAndLoad extends JMenu{
 	static ArrayList<String> loadNames = new ArrayList<String>();
 	JFrame saveFrame = new JFrame("Save Game");
 	JPanel savePanel = new JPanel(new GridLayout(1,3));
-	JTextArea textArea = new JTextArea("Date");
+	JTextField textArea = new JTextField();
 	JButton cancel = new JButton("Cancel");
 	JButton ok = new JButton("OK");
 	JMenuItem deleteAll = new JMenuItem("Delete All Saves");
@@ -43,6 +45,7 @@ public class SaveAndLoad extends JMenu{
 	private int i = 0;
 	static GUI gui = null;
 	File toDelete;
+	Font font = new Font("Serif", Font.BOLD, 18);
 
 	ActionListener okActionListener = new ActionListener(){
 		public void actionPerformed(ActionEvent arg0){
@@ -221,7 +224,9 @@ public class SaveAndLoad extends JMenu{
 		saveFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
 		DateFormat df = new SimpleDateFormat("MM-dd-yyyy_HH:mm");
-		textArea.setText(df.format(new Date()));//FIX SO YOU CAN SAVE AS A DATE...
+		textArea.setText(df.format(new Date()));
+		textArea.setPreferredSize(new Dimension(150, 25));
+		textArea.setFont(font);
 		cancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
 				saveFrame.dispose();
@@ -229,8 +234,9 @@ public class SaveAndLoad extends JMenu{
 		});
 
 			ok.addActionListener(okActionListener);
-
-		savePanel.add(textArea);
+		JPanel panel = new JPanel();
+		panel.add(textArea);
+		savePanel.add(panel);
 		savePanel.add(cancel);
 		savePanel.add(ok);
 		saveFrame.add(savePanel);
