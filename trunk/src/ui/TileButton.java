@@ -6,11 +6,8 @@ import java.awt.image.BufferedImage;
 
 
 /**
- * Created by IntelliJ IDEA.
  * User: Joe
  * Date: Apr 17, 2012
- * Time: 3:23:44 PM
- * To change this template use File | Settings | File Templates.
  */
 @SuppressWarnings("serial")
 public class TileButton extends JButton {

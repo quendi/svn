@@ -2,10 +2,8 @@ package ui;
 
 import java.awt.*;
 import java.awt.event.*;
-import javax.sound.sampled.*;
 import javax.swing.*;
 
-import domain.Player;
 import domain.RobberKnight;
 
 @SuppressWarnings("unused")
@@ -141,7 +139,7 @@ public class WinScreen{
                 frame.setVisible(false);
                 if(gui!= null && gui.InGame != null){
                     gui.InGame.dispose();
-                    gui.stopSound();
+                    gui.stopBackGroundMusic();
                 }
                 new PlayerSelection();
             }

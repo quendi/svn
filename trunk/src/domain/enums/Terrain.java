@@ -18,7 +18,4 @@ public enum Terrain implements Serializable{
         return knightRestriction;
     }
 
-    public void setKnightRestriction(int knightRestriction) {
-        this.knightRestriction = knightRestriction;
-    }
 }

@@ -73,18 +73,6 @@ public class Deck implements Serializable{
     		Collections.swap(tiles, one, two);
     	}  	
     }
-    
-    // PlayTile takes the tile number that is played (1 or 2) and removes it from the deck
-    // upon success, it returns true, else it return false
-    public boolean PlayTile(int n){
-    	if(n == 1 || n == 2)
-    	{
-    		tiles.remove(n - 1);
-    		return true;
-    	}
-    	else return false;
-    	
-    }
 
     public boolean playTile(Tile t){
         return tiles.remove(t);
@@ -104,10 +92,6 @@ public class Deck implements Serializable{
     
     public Tile getTile4(){
     	return tiles.get(3);
-    }
-    
-    public char getTopLetter(){
-    	return tiles.get(2).getLetter();
     }
 
     public int getSize(){
