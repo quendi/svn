@@ -324,14 +324,5 @@ public class PlayerSelection extends JFrame{
 		}
 		return true;
 	}
-	
-	/***Testing***/
-	public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-              //  new PlayerSelection(new GUI());
-            }
-        });
-	}
-	/******/
+
 }

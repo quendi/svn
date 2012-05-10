@@ -6,7 +6,6 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class  About extends JFrame{
 
-	JPanel panel = new JPanel();
 	JLabel label = new JLabel();
 
 	public About(){
@@ -15,7 +14,6 @@ public class  About extends JFrame{
 		this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setBounds(750, 300, 350, 400);
-        //this.setResizable(false);
 
         label.setFont(new Font("Serif", Font.PLAIN, 20));
 
@@ -35,13 +33,4 @@ public class  About extends JFrame{
 
 	}
 
-	/***Testing***/
-	public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new About();
-            }
-        });
-	}
-	/******/
 }

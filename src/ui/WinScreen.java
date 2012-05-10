@@ -168,13 +168,4 @@ public class WinScreen{
         frame.add(panel);
     }
 
-    /***Testing**
-     public static void main(String args[]) {
-     java.awt.EventQueue.invokeLater(new Runnable() {
-     public void run() {
-     new WinScreen(new RobberKnight(0, null, null, null), new GameMenu(true));
-     }
-     });
-     }
-     /******/
 }
